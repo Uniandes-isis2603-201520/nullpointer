@@ -1,25 +1,36 @@
-(function (ng) {
 
-    var mod = ng.module("mainApp", ["ui.router"]);
-    
-    mod.config(['$logProvider', function ($logProvider) {
-            $logProvider.debugEnabled(true);
-        }]);
+var app = angular.module("mainApp", ["ui.router"]);
 
-    mod.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
-            $urlRouterProvider.otherwise("/home");
-            $stateProvider
-                    .state('home',{
-                        url: '/home',
-                        templateUrl: "src/modules/home/home.tpl.html"
-                    })
-                    .state('calendar',{
-                        url: '/calendar',
-                        templateUrl: "src/modules/calendar/calendar.tpl.html"
-                    })
-                    .state('evento', {
-                        url: '/evento',
-                        templateUrl: "src/modules/evento/evento.tpl.html"
-                    });
-        }]);
-})(window.angular);
+app.config(['$logProvider', function ($logProvider) {
+        $logProvider.debugEnabled(true);
+    }]);
+
+app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
+        $urlRouterProvider.otherwise("/landingpage");
+        $stateProvider
+                .state('home', {
+                    url: '/home',
+                    templateUrl: "src/modules/home/home.tpl.html"
+                })
+                .state('calendar', {
+                    url: '/calendar',
+                    controller: 'CalendarController',
+                    templateUrl: "src/modules/calendar/calendar.tpl.html"
+                })
+                .state('day', {
+                    url: '/day',
+                    templateurl: "src/modules/day/day.tpl.html"
+                })
+                .state('photogallery', {
+                    url: '/photogallery',
+                    templateUrl: "src/modules/photogallery/photogallery.tpl.html"
+                })
+                .state('landingpage', {
+                    url: 'landingpage',
+                    templateUrl: "src/modules/landingpage/landingpage.tpl.html"
+                })
+                .state('event', {
+                    url: '/event',
+                    templateUrl: "src/modules/event/event.tpl.html"
+                });
+    }]);

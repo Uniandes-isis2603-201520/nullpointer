@@ -1,4 +1,4 @@
-angular.module('app.controllers').controller('CalendarController', ['$scope', function ($scope) {
+app.controller('CalendarController', ['$scope', function ($scope) {
         $scope.elements =
                 [
                     {
@@ -15,6 +15,9 @@ angular.module('app.controllers').controller('CalendarController', ['$scope', fu
                     },
                     {
                         day: 5
+                    },
+                    {
+                        day: 6
                     }
                 ];
     }]);
