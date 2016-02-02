@@ -1,0 +1,22 @@
+.square {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 15px;
+    font-style: oblique;
+    height: 100%;
+    padding-bottom: 75%;
+    border-style: solid;
+    border-color: #269abc;
+    border-radius: 5px;
+    display: block;  
+    margin-right: auto;  
+    margin-left: auto;  
+    margin-bottom: 20px;
+}
+
+.event-detail{
+    height: 180px;
+}
+
+#date{
+    padding-top: 10px;
+}
