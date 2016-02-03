@@ -4,6 +4,6 @@ mod.directive('calendarElement',function(){
        scope: {
            info: '='
        },
-       templateUrl: 'src/modules/calendar/directives/calendarElement.html'
+       templateUrl: 'resources/js/directives/calendarElement.html'
    };
 });

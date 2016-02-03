@@ -10,6 +10,7 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
         $stateProvider
                 .state('home', {
                     url: '/home',
+                    controller: 'HomeController',
                     templateUrl: "src/modules/home/home.tpl.html"
                 })
                 .state('calendar', {
