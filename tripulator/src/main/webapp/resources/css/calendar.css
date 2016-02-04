@@ -1,23 +1,49 @@
 .square {
-    font-family: 'Open Sans', sans-serif;
     font-size: 15px;
     font-style: oblique;
     height: 100%;
     padding-bottom: 75%;
     border-style: solid;
-    border-color: #269abc;
+    border-color: white;
+    border-width: 1px;
     border-radius: 5px;
-    display: block;  
-    margin-right: auto;  
-    margin-left: auto;  
-    margin-bottom: 20px;
-    background-color: #f9f9f9;
+    margin-right: 0px;  
+    margin-left: 0px; 
+    margin-bottom: 0px;
+}
+
+@media (min-width: 1200px) {
+  .seven-cols .col-md-1,
+  .seven-cols .col-sm-1,
+  .seven-cols .col-lg-1 {
+    width: 14.285714285714285714285714285714%;
+    *width: 14.285714285714285714285714285714%;
+  }
 }
 
 .event-detail{
     height: 180px;
+    background-color: rgba(255, 68, 71, 1);
+}
+
+.nopadding {
+   padding: 0 !important;
+   margin: 0px !important;
 }
 
 #date{
     padding-top: 10px;
+}
+
+.col-centered{
+    float: none;
+    margin: 0 auto;
+}
+
+.hlinvalid{
+    background-color : rgba(94, 168, 167, 1);
+}
+
+.hlvalid{
+    background-color: rgba(180, 209, 255, 1);
 }

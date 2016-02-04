@@ -1,3 +1,11 @@
 <input ng-init="message1 = 'date1'" ng-model="message1" >
 <input ng-init="message2 = 'date2'" ng-model="message2" >
 <button ng-click="setInit(message1);setEnd(message2)"><a ui-sref="calendar">Calendar</a></button>
+
+    <div ng-controller="DatePickerController as vm">
+        <input type="text" class="form-control"
+               datepicker-popup="mediumDate"
+               is-open="vm.valuationDatePickerIsOpen"
+               ng-click="vm.valuationDatePickerOpen()"
+               ng-model="vm.valuationDate" />
+    </div>
