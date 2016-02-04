@@ -1,11 +1,77 @@
-<input ng-init="message1 = 'date1'" ng-model="message1" >
-<input ng-init="message2 = 'date2'" ng-model="message2" >
-<button ng-click="setInit(message1);setEnd(message2)"><a ui-sref="calendar">Calendar</a></button>
+<link rel="stylesheet" type="text/css" href="resources/css/home.css">
+<div>
+    <h1 class="title">Mis Viajes</h1>
+</div>
 
-    <div ng-controller="DatePickerController as vm">
+<div class = "tripContainer"><!--Pagina Principal Con Viajes-->
+
+    <div class="tripBox"><!--division para un nuevo viaje/itinerario-->
+        <button data-toggle="modal" data-target="#modalRate" style="background-color:transparent; border: none !important;">
+
+            <img class ="imageTrip" src="http://findicons.com/files/icons/986/aeon/256/add.png"/>
+
+        </button>
+        <div class="sampleText">
+            <p>
+                <strong>Crear un Viaje Nuevo</strong><br>
+            </p>
+        </div>
+    </div>
+
+    <div class="tripBox"><!--division para cada viaje/itinerario-->
+        <div>
+            <a href = "">
+
+                <img class ="imageTrip" src="http://digital.fespa.com/images/Amsterdam.jpg"/>
+
+            </a>
+        </div>
+        <div class="sampleText">
+            <p>
+                <strong>Inolvidable Amsterdam</strong><br>
+                <strong>12/01/13</strong><br>
+            </p>
+        </div>
+    </div>
+
+    <div class="tripBox"><!--division para cada viaje/itinerario-->
+        <div>
+            <a href = "">
+
+                <img class ="imageTrip" src="http://media-cdn.tripadvisor.com/media/photo-s/07/bd/a1/8a/downtown-dubai-cityscape.jpg"/>
+
+            </a>
+        </div>
+        <div class="sampleText">
+            <p>
+                <strong>Dunas de Dubai</strong><br>
+                <strong>17/03/14</strong><br>
+            </p>
+        </div>
+    </div>
+    <div id="modalRate" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">Crear</button>
+                </div>
+                <form action="">
+                    <input ng-init="message1 = 'Initial Date'" ng-model="message1" >
+                    <input ng-init="message2 = 'Final Date'" ng-model="message2" >
+                    <button ng-click="setInit(message1);setEnd(message2)"><a ui-sref="calendar">Create</a></button>
+                    <div ng-controller="DatePickerController as vm">
         <input type="text" class="form-control"
                datepicker-popup="mediumDate"
                is-open="vm.valuationDatePickerIsOpen"
                ng-click="vm.valuationDatePickerOpen()"
                ng-model="vm.valuationDate" />
     </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+
+</div><!--Fin de pagina con viajes-->

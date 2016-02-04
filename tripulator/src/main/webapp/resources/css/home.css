@@ -1,0 +1,33 @@
+.imageTrip{
+ width: 200px;
+ height: 200px;
+ background-size: cover;
+ display: block;
+ border-radius: 100px;
+ -webkit-border-radius: 100px;
+ -moz-border-radius: 100px;
+}
+
+.imageTrip:hover{
+ transform: scale(1.5, 1.5);
+ -moz-transform: scale(1.5, 1.5);
+-ms-transform: scale(1.5, 1.5);
+-webkit-transform: scale(1.5, 1.5);
+-o-transform: scale(1.5, 1.5);
+}
+
+.tripContainer{
+  width : 960px;
+  height : 350px;
+}
+
+
+.tripBox{
+    padding : 200px;
+    max-height: 150px;
+    max-width: 300px;
+}
+
+.title{
+    margin-left: 50%;
+}
