@@ -6,8 +6,12 @@ app.config(['$logProvider', function ($logProvider) {
     }]);
 
 app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
-        $urlRouterProvider.otherwise("/landingpage");
+        $urlRouterProvider.otherwise("/");
         $stateProvider
+                .state('/', {
+                    url: '/',
+                    templateUrl: "src/modules/landingpage/landingpage.tpl.html"
+                })
                 .state('home', {
                     url: '/home',
                     controller: 'HomeController',
@@ -18,17 +22,13 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
                     controller: 'CalendarController',
                     templateUrl: "src/modules/calendar/calendar.tpl.html"
                 })
-                .state('day', {
-                    url: '/day',
-                    templateurl: "src/modules/day/day.tpl.html"
+                .state('dayinformation', {
+                    url: '/dayinformation',
+                    templateUrl: "src/modules/dayinformation/dayinformation.tpl.html"
                 })
                 .state('photogallery', {
                     url: '/photogallery',
                     templateUrl: "src/modules/photogallery/photogallery.tpl.html"
-                })
-                .state('landingpage', {
-                    url: 'landingpage',
-                    templateUrl: "src/modules/landingpage/landingpage.tpl.html"
                 })
                 .state('event', {
                     url: '/event',
