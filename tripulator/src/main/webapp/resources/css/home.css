@@ -1,26 +1,34 @@
 .imageTrip{
- width: 200px;
- height: 200px;
- background-size: cover;
- display: block;
- border-radius: 100px;
- -webkit-border-radius: 100px;
- -moz-border-radius: 100px;
+    width: 200px;
+    height: 200px;
+    background-size: cover;
+    display: block;
+    border-radius: 100px;
+    -webkit-border-radius: 100px;
+    -moz-border-radius: 100px;
+    float: none;
+    margin: 0 auto;
+}
+
+#addbutton{
+    width: 50px;
+    height: 50px;
+    background-size: cover;
+    display: block;
+    border-radius: 100px;
+    -webkit-border-radius: 100px;
+    -moz-border-radius: 100px;
+    float: none;
+    margin: 0 auto;
 }
 
 .imageTrip:hover{
- transform: scale(1.5, 1.5);
- -moz-transform: scale(1.5, 1.5);
--ms-transform: scale(1.5, 1.5);
--webkit-transform: scale(1.5, 1.5);
--o-transform: scale(1.5, 1.5);
+    transform: scale(1.5, 1.5);
+    -moz-transform: scale(1.5, 1.5);
+    -ms-transform: scale(1.5, 1.5);
+    -webkit-transform: scale(1.5, 1.5);
+    -o-transform: scale(1.5, 1.5);
 }
-
-.tripContainer{
-  width : 100%;
-  height : 350px;
-}
-
 
 .tripBox{
     padding : 200px;
@@ -28,6 +36,3 @@
     max-width: 300px;
 }
 
-.title{
-    margin-left: 50%;
-}

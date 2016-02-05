@@ -1,113 +1,78 @@
 <link rel="stylesheet" type="text/css" href="resources/css/home.css">
 <div>
-    <h1 class="title">Mis Viajes</h1>
+    <h1 class="title text-center">Mis Viajes</h1>
 </div>
+<br />
+<div class = "container-fluid"><!--Pagina Principal Con Viajes-->
+    <div class="row-fluid">
+        <div class="col-xs-4"><!--division para cada viaje/itinerario-->
+            <div>
+                <a href = "">
+                    <img class ="imageTrip" src="http://digital.fespa.com/images/Amsterdam.jpg"/>
+                </a>
+            </div>
+            <div class="sampleText col-xs-offset-2">
+                <p>
+                    <strong>London</strong><br>
+                    <strong>12/01/13</strong><br>
+                </p>
+            </div>
+        </div>
 
-<div class = "tripContainer"><!--Pagina Principal Con Viajes-->
-<table>
-    <tr>
-    <th>
-    <div class="tripBox"><!--division para un nuevo viaje/itinerario-->
-        <button data-toggle="modal" data-target="#modalRate" style="background-color:transparent; border: none !important;">
+        <div class="col-xs-4"><!--division para cada viaje/itinerario-->
+            <div>
+                <a href = "">
+                    <img class ="imageTrip" src="http://digital.fespa.com/images/Amsterdam.jpg"/>
+                </a>
+            </div>
+            <div class="sampleText col-xs-offset-2">
+                <p>
+                    <strong>London</strong><br>
+                    <strong>12/01/17</strong><br>
+                </p>
+            </div>
+        </div>
 
-            <img class ="imageTrip" src="http://findicons.com/files/icons/986/aeon/256/add.png"/>
-
-        </button>
-        <div class="sampleText">
-            <p>
-                <strong>New</strong><br>
-            </p>
+        <div class="col-xs-4"><!--division para cada viaje/itinerario-->
+            <div>
+                <a href = "">
+                    <img class ="imageTrip" src="http://media-cdn.tripadvisor.com/media/photo-s/07/bd/a1/8a/downtown-dubai-cityscape.jpg"/>
+                </a>
+            </div>
+            <div class="sampleText col-xs-offset-2">
+                <p>
+                    <strong>Dubai</strong><br>
+                    <strong>17/03/14</strong><br>
+                </p>
+            </div>
         </div>
     </div>
-    </th>
-    
-    <th>
-    <div class="tripBox"><!--division para cada viaje/itinerario-->
-        <div>
-            <a href = "">
-
-                <img class ="imageTrip" src="http://digital.fespa.com/images/Amsterdam.jpg"/>
-
-            </a>
+    <div class="row-fluid">
+        <div class="col-xs-1 col-xs-offset-11 text-center"><!--division para un nuevo viaje/itinerario-->
+            <button data-toggle="modal" data-target="#modalRate" style="background-color:transparent; border: none !important;">
+                <img class ="imageTrip" id="addbutton" src="http://findicons.com/files/icons/986/aeon/256/add.png"/>
+            </button>
+            <div class="sampleText">
+                <p>
+                    <strong>New</strong><br>
+                </p>
+            </div>
         </div>
-        <div class="sampleText">
-            <p>
-                <strong>1</strong><br>
-                <strong>12/01/13</strong><br>
-            </p>
-        </div>
-    </div>
-    </th>
 
-    <th>
-    <div class="tripBox"><!--division para cada viaje/itinerario-->
-        <div>
-            <a href = "">
-
-                <img class ="imageTrip" src="http://media-cdn.tripadvisor.com/media/photo-s/07/bd/a1/8a/downtown-dubai-cityscape.jpg"/>
-
-            </a>
-        </div>
-        <div class="sampleText">
-            <p>
-                <strong>2</strong><br>
-                <strong>17/03/14</strong><br>
-            </p>
-        </div>
-    </div>
-    </th>
-    
-    <div id="modalRate" class="modal fade" role="dialog">
-        <div class="modal-dialog">
-
-            <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">Crear</button>
+        <div id="modalRate" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">Crear</button>
+                    </div>
+                    <form action="">
+                        <input ng-init="message1 = 'Initial Date'" ng-model="message1" >
+                        <input ng-init="message2 = 'Final Date'" ng-model="message2" >
+                        <button ng-click="setInit(message1);setEnd(message2)"><a ui-sref="calendar">Crear</a></button>
+                    </form>
                 </div>
-                <form action="">
-                    <input ng-init="message1 = 'Initial Date'" ng-model="message1" >
-                    <input ng-init="message2 = 'Final Date'" ng-model="message2" >
-                    <button ng-click="setInit(message1);setEnd(message2)"><a ui-sref="calendar">Create</a></button>
-                    <div ng-controller="DatePickerController as vm">
-        <input type="text" class="form-control"
-               datepicker-popup="mediumDate"
-               is-open="vm.valuationDatePickerIsOpen"
-               ng-click="vm.valuationDatePickerOpen()"
-               ng-model="vm.valuationDate" />
-    </div>
-                </form>
             </div>
-
         </div>
     </div>
-  </tr>
-</table>
-</div><!--Fin de pagina con viajes-->
-
-<!-- protoype
-<div class="col-md-12">
-                  
-            <div class="col-md-12 well well-sm">
-               <form id="depositoform" class="form-inline bv-form" method="POST" novalidate="novalidate"><button type="submit" class="bv-hidden-submit" style="display: none; width: 0px; height: 0px;"></button>
-                <div class="form-group has-feedback">
-                  <label for="dateFrom" class="sr-only">Desde</label>
-                  <div class="input-group input-append date" data-autoclose="true">
-                    <input type="text" class="form-control" id="date" name="date" placeholder="Desde" required="required" data-bv-field="date">
-                    <span class="input-group-addon add-on"><span class="glyphicon glyphicon-calendar"></span></span>
-                  </div><i class="form-control-feedback bv-icon-input-group" data-bv-icon-for="date" style="display: none;"></i>
-                <small class="help-block" data-bv-validator="notEmpty" data-bv-for="date" data-bv-result="NOT_VALIDATED" style="display: none;">DEBE DIGITAR UNA FECHA</small><small class="help-block" data-bv-validator="date" data-bv-for="date" data-bv-result="NOT_VALIDATED" style="display: none;">FECHA INVALIDA</small></div>
-                
-                <div class="form-group has-feedback">
-                  <label for="dateTo" class="sr-only">Hasta</label>
-                  <div class="input-group input-append date" data-autoclose="true">
-                    <input type="text" class="form-control" id="dateB" name="dateB" placeholder="Hasta" required="required" data-bv-field="dateB">
-                    <span class="input-group-addon add-on"><span class="glyphicon glyphicon-calendar"></span></span>
-                  </div><i class="form-control-feedback bv-icon-input-group" data-bv-icon-for="dateB" style="display: none;"></i>
-                <small class="help-block" data-bv-validator="notEmpty" data-bv-for="dateB" data-bv-result="NOT_VALIDATED" style="display: none;">DEBE DIGITAR UNA FECHA</small><small class="help-block" data-bv-validator="date" data-bv-for="dateB" data-bv-result="NOT_VALIDATED" style="display: none;">FECHA INVALIDA</small></div>
-                <button type="submit" class="btn btn-primary" name="button" id="button" value="****">Crear</button>
-              </form>
-            </div>
-          </div>
-
--->
+</div>
