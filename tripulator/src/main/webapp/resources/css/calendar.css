@@ -40,10 +40,21 @@
     margin: 0 auto;
 }
 
-.hlinvalid{
-    background-color : rgba(94, 168, 167, 1);
+#planner{
+    position: relative;
 }
 
-.hlvalid{
-    background-color: rgba(180, 209, 255, 1);
+.day-information{
+    position: absolute;
+    background: rgba(255,255,255,.8);
+    top: 0%;
+    padding: 0px;
+}
+
+#day-information-title{
+    background: rgba(255, 68, 71, .8);
+    color: white;
+    border-radius: 5px;
+    font-size: 15px;
+    margin: 0px !important;
 }

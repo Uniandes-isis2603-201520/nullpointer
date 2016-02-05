@@ -12,7 +12,7 @@ app.controller('CalendarController', ['$scope', 'dayInformationService', functio
         var currentMonth = monthStart.getMonth();
         
         monthStart.setDate(1);
-        
+
         for(var i = monthStart; i <= endDate; i.setDate(i.getDate() + 1), nitems++){
 
             if(currentMonth !== i.getMonth())  {
@@ -29,6 +29,8 @@ app.controller('CalendarController', ['$scope', 'dayInformationService', functio
         $scope.days = totdays;
         $scope.pages = npages;
         $scope.pagenum = 0;
+        $scope.showDayInfo = false;
+        $scope.selectedDay = {};
         
         $scope.increasePageNum = function(){
             $scope.pagenum++;
@@ -58,5 +60,13 @@ app.controller('CalendarController', ['$scope', 'dayInformationService', functio
                     "background-color": "rgba(180, 209, 255, 1)"
                 };
             }
+        };
+        
+        $scope.toggleDayInfo = function(){
+            $scope.showDayInfo = !$scope.showDayInfo;
+        };
+        
+        $scope.setSelectedDay = function(day){
+            $scope.selectedDay = day;
         };
 }]);
