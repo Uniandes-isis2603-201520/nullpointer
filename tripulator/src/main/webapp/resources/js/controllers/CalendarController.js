@@ -33,31 +33,32 @@ app.controller('CalendarController', ['$scope', 'dayInformationService', functio
         $scope.selectedDay = {};
         
         $scope.increasePageNum = function(){
-            $scope.pagenum++;
+            if ($scope.pagenum < totdays.length - 1) $scope.pagenum++;
         };
+        
         $scope.decreasePageNum = function(){
-            $scope.pagenum--;
+            if ($scope.pagenum > 0) $scope.pagenum--;
         };
         
         $scope.squareBackground = function(day, highlight){
             if(!day.valid && !highlight){
                 return{
-                    "background-color" : "rgba(94, 168, 167, 0.5)"
+                    "background-color": "rgba(180, 209, 255, 0.5)"
                 };
             }
             else if(!day.valid && highlight){
                 return{
-                    "background-color" : "rgba(94, 168, 167, 1)"
+                    "background-color": "rgba(180, 209, 255, 1)"
                 };
             }
             else if(day.valid && !highlight){
                 return{
-                    "background-color": "rgba(180, 209, 255, 0.5)"
+                    "background-color" : "rgba(94, 168, 167, 0.5)"
                 };
             }
             if(day.valid && highlight){
                 return{
-                    "background-color": "rgba(180, 209, 255, 1)"
+                    "background-color" : "rgba(94, 168, 167, 1)"
                 };
             }
         };

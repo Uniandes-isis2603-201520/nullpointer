@@ -1,6 +1,21 @@
+.page-switcher{
+    position: absolute;
+    height:100%;
+}
+
+#left-switcher{
+    left: 3%;
+    top: 60%;
+}
+
+#right-switcher{
+    right: 3%;
+    top: 60%;
+}
+
+
 .square {
     font-size: 15px;
-    font-style: oblique;
     height: 100%;
     padding-bottom: 75%;
     border-style: solid;
@@ -13,12 +28,12 @@
 }
 
 @media (min-width: 1200px) {
-  .seven-cols .col-md-1,
-  .seven-cols .col-sm-1,
-  .seven-cols .col-lg-1 {
-    width: 14.285714285714285714285714285714%;
-    *width: 14.285714285714285714285714285714%;
-  }
+    .seven-cols .col-md-1,
+    .seven-cols .col-sm-1,
+    .seven-cols .col-lg-1 {
+        width: 14.285714285714285714285714285714%;
+        *width: 14.285714285714285714285714285714%;
+    }
 }
 
 .event-detail{
@@ -27,8 +42,8 @@
 }
 
 .nopadding {
-   padding: 0 !important;
-   margin: 0px !important;
+    padding: 0 !important;
+    margin: 0px !important;
 }
 
 #date{
@@ -42,19 +57,28 @@
 
 #planner{
     position: relative;
+    height: 100%;
 }
 
 .day-information{
+    transition: linear 0.2s;
     position: absolute;
-    background: rgba(255,255,255,.8);
+    background-color: rgba(255, 255, 255, 0.8);
     top: 0%;
     padding: 0px;
+    height:100%;
 }
 
 #day-information-title{
     background: rgba(255, 68, 71, .8);
     color: white;
     border-radius: 5px;
-    font-size: 15px;
+    font-size: 18px;
+    height: 30px;
     margin: 0px !important;
+}
+
+
+.ng-hide {
+  top:-200px;
 }

@@ -1,5 +1,13 @@
 <link href="resources/css/calendar.css" rel="stylesheet" type="text/css"/>
 
+<div class="page-switcher" id="left-switcher" ng-click="decreasePageNum();">
+    <span class="glyphicon glyphicon-menu-left" ></span>
+</div>
+
+<div class="page-switcher" id="right-switcher" ng-click="increasePageNum();">
+    <span class="glyphicon glyphicon-menu-right"></span>
+</div>
+
 <div class = "container" id="planner">
 
     <div class="row seven-cols">
@@ -14,21 +22,9 @@
             </div>
         </div>
     </div>
-    
+
     <div ng-show="showDayInfo" class="row col-xs-12 day-information">
-        <div class="col-xs-12 text-right" id="day-information-title"><span class="glyphicon glyphicon-menu-down" ng-click="toggleDayInfo();"></span></div>
-        <h1>{{selectedDay.date | date}}</h1>
-        <h1>Fill</h1>
-        <h1>Fill</h1>
-        <h1>Fill</h1>
-        <h1>Fill</h1>
-        <h1>Fill</h1>
-        <h1>Fill</h1>
-        <h1>Fill</h1>
-        <h1>Fill</h1>
-        <h1>Fill</h1>
-        <h1>Fill</h1>
+        <div class="col-xs-12 text-right" id="day-information-title" ng-click="toggleDayInfo();"><span class="glyphicon glyphicon-menu-down"></span></div>
+        <h1>{{selectedDay.date| date}}</h1>
     </div>
 </div>
-
-
