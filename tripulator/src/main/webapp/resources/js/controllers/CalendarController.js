@@ -46,7 +46,9 @@ app.controller('CalendarController', ['$scope', '$window', 'dayInformationServic
                 totdays[npages][nitems] = {
                     date: i.getTime(),
                     valid: ((i - startDate) > 0 && (i - endDate) < 0),
-                    invisible: false
+                    invisible: false,
+                    pageNum: npages,
+                    itemNum: nitems
                 };
             }
         }
@@ -54,7 +56,7 @@ app.controller('CalendarController', ['$scope', '$window', 'dayInformationServic
         initializeMatrixBounds();
 
         setCalendarOffset(monthStart);
-        
+
         initializeDaysMatrix();
 
 
@@ -67,16 +69,43 @@ app.controller('CalendarController', ['$scope', '$window', 'dayInformationServic
         $scope.selectedDay = {};
 
         $scope.increasePageNum = function () {
-            if ($scope.pagenum < totdays.length - 1){
+            if (!$scope.showDayInfo && $scope.pagenum < totdays.length - 1) {
                 $scope.pagenum++;
                 $window.scrollTo($window.scrollX, 0);
+            } 
+            else if ($scope.showDayInfo) {
+                var index = $scope.selectedDay.itemNum;
+                var pnum = $scope.selectedDay.pageNum;
+                if (index + 1 < $scope.days[pnum].length && $scope.days[pnum][index+1].valid) {
+                    $scope.selectedDay = $scope.days[pnum][index + 1];
+                } 
+                else if (pnum + 1 < $scope.days.length) {
+                    $scope.pagenum++;
+                    for(index = 0;$scope.days[$scope.pagenum][index].invisible; index++)
+                        ;
+                    $scope.selectedDay = $scope.days[$scope.pagenum][index];
+                    scrollY  = 0;
+                }
             }
         };
 
         $scope.decreasePageNum = function () {
-            if ($scope.pagenum > 0){
+            if (!$scope.showDayInfo && $scope.pagenum > 0) {
                 $scope.pagenum--;
                 $window.scrollTo($window.scrollX, 0);
+            }
+            else if ($scope.showDayInfo) {
+                var index = $scope.selectedDay.itemNum;
+                var pnum = $scope.selectedDay.pageNum;
+                if (index - 1 >= 0 && $scope.days[pnum][index-1].valid) {
+                    $scope.selectedDay = $scope.days[pnum][index - 1];
+                } 
+                else if (pnum - 1 >= 0) {
+                    $scope.pagenum--;
+                    var index = $scope.days[$scope.pagenum].length - 1;
+                    $scope.selectedDay = $scope.days[$scope.pagenum][index];
+                    scrollY  = 0;
+                }
             }
         };
 
