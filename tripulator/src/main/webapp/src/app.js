@@ -22,6 +22,10 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
                     controller: 'CalendarController',
                     templateUrl: "src/modules/calendar/calendar.tpl.html"
                 })
+                .state('calendar.day', {
+                    url: '/day',
+                    templateUrl: 'src/modules/calendar/calendar.day.tpl.html'
+                })
                 .state('dayinformation', {
                     url: '/dayinformation',
                     templateUrl: "src/modules/dayinformation/dayinformation.tpl.html"

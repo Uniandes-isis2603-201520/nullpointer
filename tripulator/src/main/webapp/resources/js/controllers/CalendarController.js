@@ -113,7 +113,7 @@ app.controller('CalendarController', ['$scope', '$window', 'dayInformationServic
 
             if (day.invisible) {
                 return{
-                    "background-color": "rgba(180, 209, 255, .5)",
+                    "background-color": "rgba(180, 209, 255, 0.1)",
                     "color": "rgba(180, 209, 255, 0)"
                 };
             }

@@ -52,9 +52,13 @@
     margin: 0 auto;
 }
 
-#planner{
+.planner{
     position: relative;
     height: 100%;
+}
+
+.planner-background{
+    background-color: rgba(0,0,0,1);
 }
 
 .day-information{
@@ -66,13 +70,29 @@
     height:100%;
 }
 
+#day-info-header-left{
+    float: left;
+}
+
+#day-info-header-right{
+    float: right;
+}
+
 #day-information-title{
-    background: rgba(255, 68, 71, .8);
-    color: white;
+    background: rgba(94, 168, 167, 1);
+    color: rgba(255,255,255,1);
     border-radius: 5px;
     font-size: 18px;
     height: 30px;
     margin: 0px !important;
+}
+
+#collapse-icon{
+    padding: 0px;
+    margin: 0px;
+    top: 50%;
+    align-content: center;
+    color: white !important;
 }
 
 .ng-hide {
