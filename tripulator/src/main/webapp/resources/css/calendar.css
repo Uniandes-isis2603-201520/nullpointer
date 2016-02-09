@@ -95,6 +95,11 @@
     color: white !important;
 }
 
+.timeline{
+    position: relative;
+}
+
 .ng-hide {
   top:-200px;
 }
+
