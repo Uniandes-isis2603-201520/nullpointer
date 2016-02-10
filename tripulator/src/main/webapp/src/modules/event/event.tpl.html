@@ -62,18 +62,18 @@
             </div>
             <form action="">
                 <div class="modal-body form-group">
-                    <div id="stars" unselectable="on" class="noselect"> <strong>Califica tu experiencia:  &nbsp;</strong>
+                    <div id="stars" class="noselect"> <strong>Califica tu experiencia:  &nbsp;</strong>
                         <span id="1" ng-click="comentarioActualStars(1)" ng-mouseover="paintStar(1)" ng-mouseleave="resetPaint()" class="star">&#9734</span>
                         <span id="2" ng-click="comentarioActualStars(2)" ng-mouseover="paintStar(2)" ng-mouseleave="resetPaint()" class="star">&#9734</span>
                         <span id="3" ng-click="comentarioActualStars(3)" ng-mouseover="paintStar(3)" ng-mouseleave="resetPaint()" class="star">&#9734</span>
                         <span id="4" ng-click="comentarioActualStars(4)" ng-mouseover="paintStar(4)" ng-mouseleave="resetPaint()" class="star">&#9734</span>
                         <span id="5" ng-click="comentarioActualStars(5)" ng-mouseover="paintStar(5)" ng-mouseleave="resetPaint()" class="star">&#9734</span>
                     </div><br>
-                    <textarea placeholder="Mi experiencia fue..." cols="55" rows="6" ng-model="comentarioActual.comment" class="form-control" id="comment"/>
+                    <textarea placeholder="Mi experiencia fue..." cols="55" rows="6" ng-model="newComment.comment" class="form-control" id="comment"></textarea>
 
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="finComentarioActual(document.getElementById(comment))">Submit</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="finComentarioActual()">Submit</button>
                     <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="reset()">Close</button>
 
                 </div>

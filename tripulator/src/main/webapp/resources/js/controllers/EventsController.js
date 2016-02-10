@@ -9,7 +9,7 @@ app.controller('EventsController', ['$scope', 'eventsInfoService', '$http', func
             "comment": ""
         };
         $scope.starSelected = false;
-        $scope.newComment = new Object();
+        $scope.newComment = angular.copy($scope.commentTemplate);
         if ($scope.events != null) {
             $scope.eventoActual = $scope.events[0];
         }
@@ -46,13 +46,10 @@ app.controller('EventsController', ['$scope', 'eventsInfoService', '$http', func
             }
             $scope.starSelected = !$scope.starSelected;
             if ($scope.starSelected) {
-                $scope.comentarioActual.stars = numb;
+                $scope.newComment.stars = numb;
             }
         }
-        $scope.comentarioActualComment = function (d) {
-            $scope.newComment.comment = d;
-        }
-        $scope.finComentarioActual = function (d) {
+        $scope.finComentarioActual = function () {
             $scope.eventoActual.comments.push($scope.newComment);
             $scope.reset();
         }
