@@ -32,6 +32,7 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
                 })
                 .state('photogallery', {
                     url: '/photogallery',
+                    controller: 'PhotoGalleryController',
                     templateUrl: "src/modules/photogallery/photogallery.tpl.html"
                 })
                 .state('event', {
