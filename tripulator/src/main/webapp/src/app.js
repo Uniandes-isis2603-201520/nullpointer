@@ -36,6 +36,12 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
                 })
                 .state('event', {
                     url: '/event',
-                    templateUrl: "src/modules/event/event.tpl.html"
+                    controller: 'EventsController',
+                    templateUrl: "src/modules/event/event.tpl.html",
+                    resolve:{
+                    load:function(eventsInfoService){
+                        return eventsInfoService.LoadData();
+                    }
+                }
                 });
     }]);
