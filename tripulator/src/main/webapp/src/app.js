@@ -33,10 +33,17 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
                 })
                 .state('photogallery', {
                     url: '/photogallery',
+                    controller: 'PhotoGalleryController',
                     templateUrl: "src/modules/photogallery/photogallery.tpl.html"
                 })
                 .state('event', {
                     url: '/event',
-                    templateUrl: "src/modules/event/event.tpl.html"
+                    controller: 'EventsController',
+                    templateUrl: "src/modules/event/event.tpl.html",
+                    resolve:{
+                    load:function(eventsInfoService){
+                        return eventsInfoService.LoadData();
+                    }
+                }
                 });
     }]);
