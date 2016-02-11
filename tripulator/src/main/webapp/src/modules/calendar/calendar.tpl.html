@@ -10,9 +10,10 @@
 
 <div class = "container planner">
     <div class="col-xs-12 text-center">
-        <h2>
-            {{days[pagenum][0].date| date : 'MMMM yyyy'}}
-        </h2>
+        <div ng-click="toggleFullMonth();">
+            <h2 class="month-name">{{days[pagenum][0].date| date : 'MMMM yyyy'}}</h2>
+            <span class="arrow" ng-class="toggleFullMonthArrow()"></span>
+        </div>
     </div>
     <div class="row seven-cols">
 
@@ -28,6 +29,12 @@
                  ng-click="toggleDayInfo(day);"
                  >
                 <p class='text-left col-xs-offset-1' id='date'>{{day.date| date : 'dd'}}</p>
+                <div class='general-day-info' ng-show='{{day.valid}}'>
+                    <p class='text-left col-xs-offset-1'>city: unknown</p>
+                    <p class='text-left col-xs-offset-1'>events: none</p>
+                    <p class='text-left col-xs-offset-1'>photos: none</p>
+                    <p class='text-left col-xs-offset-1'>info: none</p>
+                </div>
             </div>
         </div>
     </div>
@@ -44,7 +51,7 @@
             <h1 class="col-xs-3 text-right" id="day-info-header-right">{{selectedDay.date| date}}</h1>
         </div>
         <div class="container-fluid">
-            <ul class="list-group" ng-repeat="time in ['0:00','0:30','1:00','1:30']">
+            <ul class="list-group" ng-repeat="time in ['0:00', '0:30', '1:00', '1:30']">
                 <li class="list-group-item list-group-item-success">time</li>
             </ul>
         </div>
