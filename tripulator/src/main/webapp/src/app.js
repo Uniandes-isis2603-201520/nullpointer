@@ -28,6 +28,7 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
                 })
                 .state('dayinformation', {
                     url: '/dayinformation',
+                    controller: 'DayController',
                     templateUrl: "src/modules/dayinformation/dayinformation.tpl.html"
                 })
                 .state('photogallery', {
@@ -37,6 +38,12 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
                 })
                 .state('event', {
                     url: '/event',
-                    templateUrl: "src/modules/event/event.tpl.html"
+                    controller: 'EventsController',
+                    templateUrl: "src/modules/event/event.tpl.html",
+                    resolve:{
+                    load:function(eventsInfoService){
+                        return eventsInfoService.LoadData();
+                    }
+                }
                 });
     }]);

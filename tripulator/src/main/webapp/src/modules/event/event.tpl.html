@@ -3,244 +3,50 @@
     <div class="page-header">
         <h1 class="titulo">Eventos</h1>
     </div>
-    <div class="scrollBox"><!--Caja con eventos-->
-        <div class="panel panel-default itemBox"><!--Div para cada evento-->
+    <div class="scrollBox col-xs-6"><!--Caja con eventos-->
+        <div class="panel panel-default itemBox" ng-repeat="e in events"><!--Div para cada evento-->
 
-            <div class="panel-heading">Centro de Bogotá</div>
+            <div class="panel-heading">{{e.title}}</div>
             <div class="panel-body">
                 <div class="imgContainer">
-                    <img src="http://static.thousandwonders.net/Bogota.original.360.jpg"/>
+                    <img ng-src="{{e.image}}" ng-click="actualizarInfo(e)"/>
                 </div>
                 <div class="descMiniatura">
                     <p>
-                        <strong>Tipo: </strong>Sitio<br>
-                        <strong>Fecha: </strong>--<br>
-                        <strong>Hora inicio: </strong>--<br>
-                        <strong>Hora fin: </strong>--<br>
+                        <strong>Tipo: </strong>{{e.type}}<br>
+                        <strong>Fecha: </strong>{{e.start|date:'mediumDate'}}<br>
+                        <strong>Hora inicio: </strong>{{e.start|date:'shortTime'}}<br>
+                        <strong>Hora fin: </strong>{{e.end|date:'shortTime'}}<br>
 
                     </p>
                 </div>
                 <button class="btn-primary botonItem">Añadir</button>
             </div>
         </div>
-
-        <div class="panel panel-default itemBox"><!--Div para cada evento-->
-
-            <div class="panel-heading">Monserrate</div>
-            <div class="panel-body">
-                <div class="imgContainer">
-                    <img src="http://zonacbogota.com/wp-content/uploads/2014/04/monserrate.jpg"/>
-                </div>
-
-                <div class="descMiniatura">
-                    <p>
-                        <strong>Tipo: </strong>Sitio<br>
-                        <strong>Fecha: </strong>--<br>
-                        <strong>Hora inicio: </strong>--<br>
-                        <strong>Hora fin: </strong>--<br>
-
-                    </p>
-                </div>
-                <button class="btn-primary botonItem">Añadir</button>
-            </div>
-        </div>
-
-        <div class="panel panel-default itemBox"><!--Div para cada evento-->
-
-            <div class="panel-heading">Concierto</div>
-            <div class="panel-body">
-                <div class="imgContainer">
-                    <img src="http://imagenes.interlatin.com/sdi/2015/11/20/6abbfe2cfaf64c5ca1cf6dacf6b5510a.jpg"/>
-                </div>
-
-                <div class="descMiniatura">
-                    <p>
-                        <strong>Tipo: </strong>Evento<br>
-                        <strong>Fecha: </strong>13 de Abril<br>
-                        <strong>Hora inicio: </strong>20:30<br>
-                        <strong>Hora fin: </strong>--<br>
-
-                    </p>
-                </div>
-                <button class="btn-primary botonItem">Añadir</button>
-            </div>
-
-        </div>
-
-        <div class="panel panel-default itemBox"><!--Div para cada evento-->
-            <div class="panel-heading">Evento Sorpresa</div>
-            <div class="panel-body">
-                <div class="imgContainer">
-                    <img src="http://www.muwom.com/wp-content/uploads/2014/10/SORPRESA1.png"/>
-                </div>
-
-                <div class="descMiniatura">
-                    <p>
-                        <strong>Tipo: </strong>Evento<br>
-                        <strong>Fecha: </strong>Sorpresa<br>
-                        <strong>Hora inicio: </strong>20:30<br>
-                        <strong>Hora fin: </strong>--<br>
-
-                    </p>
-                </div>
-                <button class="btn-primary botonItem">Añadir</button>
-            </div>
-        </div>
-
-        <div class="panel panel-default itemBox"><!--Div para cada evento-->
-
-            <div class="panel-heading">Evento Sorpresa</div>
-            <div class="panel-body">
-                <div class="imgContainer">
-                    <img src="http://www.muwom.com/wp-content/uploads/2014/10/SORPRESA1.png"/>
-                </div>
-
-                <div class="descMiniatura">
-                    <p>
-                        <strong>Tipo: </strong>Evento<br>
-                        <strong>Fecha: </strong>Sorpresa<br>
-                        <strong>Hora inicio: </strong>20:30<br>
-                        <strong>Hora fin: </strong>--<br>
-
-                    </p>
-                </div>
-                <button class="btn-primary botonItem">Añadir</button>
-            </div>
-        </div>
-
-        <div class="panel panel-default itemBox"><!--Div para cada evento-->
-
-            <div class="panel-heading">Evento Sorpresa</div>
-            <div class="panel-body">
-                <div class="imgContainer">
-                    <img src="http://www.muwom.com/wp-content/uploads/2014/10/SORPRESA1.png"/>
-                </div>
-
-                <div class="descMiniatura">
-                    <p>
-                        <strong>Tipo: </strong>Evento<br>
-                        <strong>Fecha: </strong>Sorpresa<br>
-                        <strong>Hora inicio: </strong>20:30<br>
-                        <strong>Hora fin: </strong>--<br>
-
-                    </p>
-                </div>
-                <button class="btn-primary botonItem">Añadir</button>
-            </div>
-        </div>
-
-        <div class="panel panel-default itemBox"><!--Div para cada evento-->
-
-            <div class="panel-heading">Evento Sorpresa</div>
-            <div class="panel-body">
-                <div class="imgContainer">
-                    <img src="http://www.muwom.com/wp-content/uploads/2014/10/SORPRESA1.png"/>
-                </div>
-
-                <div class="descMiniatura">
-                    <p>
-                        <strong>Tipo: </strong>Evento<br>
-                        <strong>Fecha: </strong>Sorpresa<br>
-                        <strong>Hora inicio: </strong>20:30<br>
-                        <strong>Hora fin: </strong>--<br>
-
-                    </p>
-                </div>
-                <button class="btn-primary botonItem">Añadir</button>
-            </div>
-        </div>
-
-        <div class="panel panel-default itemBox"><!--Div para cada evento-->
-
-            <div class="panel-heading">Evento Sorpresa</div>
-            <div class="panel-body">
-                <div class="imgContainer">
-                    <img src="http://www.muwom.com/wp-content/uploads/2014/10/SORPRESA1.png"/>
-                </div>
-
-                <div class="descMiniatura">
-                    <p>
-                        <strong>Tipo: </strong>Evento<br>
-                        <strong>Fecha: </strong>Sorpresa<br>
-                        <strong>Hora inicio: </strong>20:30<br>
-                        <strong>Hora fin: </strong>--<br>
-
-                    </p>
-                </div>
-                <button class="btn-primary botonItem">Añadir</button>
-            </div>
-        </div>
-
-        <div class="panel panel-default itemBox"><!--Div para cada evento-->
-
-            <div class="panel-heading">Evento Sorpresa</div>
-            <div class="panel-body">
-                <div class="imgContainer">
-                    <img src="http://www.muwom.com/wp-content/uploads/2014/10/SORPRESA1.png"/>
-                </div>
-
-                <div class="descMiniatura">
-                    <p>
-                        <strong>Tipo: </strong>Evento<br>
-                        <strong>Fecha: </strong>Sorpresa<br>
-                        <strong>Hora inicio: </strong>20:30<br>
-                        <strong>Hora fin: </strong>--<br>
-
-                    </p>
-                </div>
-                <button class="btn-primary botonItem">Añadir</button>
-            </div>
-        </div>
-
     </div><!--cerrar caja con eventos-->
 
-    <div class="sitiosDescription"><!--div para descripcion del evento-->
+    <div class="sitiosDescription col-xs-6"><!--div para descripcion del evento-->
         <div class="tituloEvento">
             <h3>Descripcion</h3>
-            <h5>Centro de Bogotá</h5>
+            <h5>{{eventoActual.title}}</h5>
         </div>
-        <div class="descriptionText">
-            <img class="sitiosImage" align="right" src="http://static.thousandwonders.net/Bogota.original.360.jpg"/>
-            <p align="justify">Bogotá ha sido llamada "La Atenas Sudamericana", apodo que se fortaleció a finales del siglo XIX y principios del siglo XX, por iniciativa del escritor español Marcelino Menéndez Pelayo, debido a la gran admiración que tenía por los filósofos colombianos, entre ellos Rufino José Cuervo y Miguel Antonio Caro. 120 121 La ciudad dispone de una amplia oferta cultural que se ha incrementado considerablemente en las últimas décadas, además de ser la sede de importantes festivales de amplia trayectoria y reconocimiento nacional e internacional.</p>
+        <div class="descriptionText col-xs-12">
+            <img class="sitiosImage" align="right" ng-src="{{eventoActual.image}}"/>
+            <p align="justify">{{eventoActual.description}}</p>
         </div>
+        <div class = "col-xs-12">
+            <hr>
+            <h4>Calificaciones</h4>
+            <div class="calificaciones col-xs-12"><!--Abre div comentarios-->
 
-        <hr>
-        <h4>Calificaciones</h4>
-        <div class="calificaciones"><!--Abre div comentarios-->
-
-            <div class="calificacion"><!--abre div de un comentario-->
-                <img class="img-circle fotoPerfil" src="http://www.periodicoabc.mx/sites/default/files/anonimoface.png"/>
-                <p>&#9733&#9733&#9733&#9733&#9734</p>
-                <p><strong>Usuario1: </strong> muy chevere todo</p>
-            </div><!--cierra div de un comentario-->
-
-            <div class="calificacion">
-                <img class="img-circle fotoPerfil" src="http://www.periodicoabc.mx/sites/default/files/anonimoface.png"/>
-                <p>&#9733&#9733&#9734&#9734&#9734</p>
-                <p><strong>Usuario2: </strong> normal</p>
-            </div>
-
-            <div class="calificacion">
-                <img class="img-circle fotoPerfil" src="http://www.periodicoabc.mx/sites/default/files/anonimoface.png"/>
-                <p>&#9733&#9733&#9733&#9734&#9734</p>
-                <p><strong>Usuario3: </strong> bien</p>
-            </div>
-
-            <div class="calificacion">
-                <img class="img-circle fotoPerfil" src="http://www.periodicoabc.mx/sites/default/files/anonimoface.png"/>
-                <p>&#9733&#9733&#9733&#9734&#9734</p>
-                <p><strong>Usuario4: </strong> todo bien</p>
-            </div>
-
-            <div class="calificacion">
-                <img class="img-circle fotoPerfil"src="http://www.periodicoabc.mx/sites/default/files/anonimoface.png"/>
-                <p>&#9734&#9734&#9734&#9734&#9734</p>
-                <p><strong>Usuario5: </strong> me atracaron :(</p>
-            </div>
-
-
-        </div><!--Cierra div comentarios-->
-        <button class="btn-primary botonItem" data-toggle="modal" data-target="#modalRate">Calificar</button>
+                <div class="calificacion" ng-repeat="comentario in eventoActual.comments"><!--abre div de un comentario-->
+                    <img class="img-circle fotoPerfil" ng-src="{{comentario.userPhoto}}"/>
+                    <p>{{crearEstrellas(comentario.stars)}}</p>
+                    <p><strong>{{comentario.user}}: </strong>{{comentario.comment}}</p>
+                </div><!--cierra div de un comentario-->
+            </div><!--Cierra div comentarios-->
+                <button class="btn-primary botonItem" data-toggle="modal" data-target="#modalRate">Calificar</button>
+        </div>
     </div><!--cerrar div para descripcion del evento-->
 </div><!--cerrar div de sitios de interes-->
 
@@ -251,18 +57,24 @@
         <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <button type="button" class="close" data-dismiss="modal" ng-click="reset()">&times;</button>
                 <h4 class="modal-title">Calificar</h4>
             </div>
             <form action="">
                 <div class="modal-body form-group">
-                    Califica tu experiencia: &#9734&#9734&#9734&#9734&#9734
-                    <textarea class="form-control" rows="5" id="comment"></textarea>
+                    <div id="stars" class="noselect"> <strong>Califica tu experiencia:  &nbsp;</strong>
+                        <span id="1" ng-click="comentarioActualStars(1)" ng-mouseover="paintStar(1)" ng-mouseleave="resetPaint()" class="star">&#9734</span>
+                        <span id="2" ng-click="comentarioActualStars(2)" ng-mouseover="paintStar(2)" ng-mouseleave="resetPaint()" class="star">&#9734</span>
+                        <span id="3" ng-click="comentarioActualStars(3)" ng-mouseover="paintStar(3)" ng-mouseleave="resetPaint()" class="star">&#9734</span>
+                        <span id="4" ng-click="comentarioActualStars(4)" ng-mouseover="paintStar(4)" ng-mouseleave="resetPaint()" class="star">&#9734</span>
+                        <span id="5" ng-click="comentarioActualStars(5)" ng-mouseover="paintStar(5)" ng-mouseleave="resetPaint()" class="star">&#9734</span>
+                    </div><br>
+                    <textarea placeholder="Mi experiencia fue..." cols="55" rows="6" ng-model="newComment.comment" class="form-control" id="comment"></textarea>
 
                 </div>
                 <div class="modal-footer">
-                    <input class="btn btn-default" type="submit" value="Submit">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="finComentarioActual()">Submit</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="reset()">Close</button>
 
                 </div>
             </form>

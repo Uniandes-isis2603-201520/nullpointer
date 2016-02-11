@@ -1,10 +1,8 @@
 .scrollBox{
-    width: 50%;
     height: 50em;
     overflow: auto;
     float: left;
     border-right: 1px #d9d9d9 solid;
-    padding-left: 3em;
 }
 .sitiosImage{
     width: 45%;
@@ -15,7 +13,7 @@
 .itemBox{
     width: 12em;
     height: 22em;
-    margin: 0.25em 0.5em 0em 0.5em;
+    margin: 0.25em 0.5em 0.25em 0.5em;
     float: left;
 }
 .imgContainer{
@@ -23,6 +21,9 @@
   width:10em;
   height:8em;
   position: relative;
+}
+.imgContainer:hover {
+    cursor: pointer;
 }
 .imgContainer img{
    height: 8em;
@@ -43,7 +44,7 @@
 }
 .eventosMiniatura{
     width: 37%;
-    height: 37%;    
+    height: 37%;
     margin-left: 5em;
     float: center;
 }
@@ -79,10 +80,26 @@
     border-top: 1px #d9d9d9 solid;
     border-bottom: 1px #d9d9d9 solid;
     padding-top: 1em;
-    padding-bottom: 1em;    
+    padding-bottom: 1em;
 }
 .calificaciones{
     height: 20em;
     overflow: auto;
     margin-bottom: 0.5em;
+}
+.noselect {
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none;   /* Chrome/Safari/Opera */
+  -khtml-user-select: none;    /* Konqueror */
+  -moz-user-select: none;      /* Firefox */
+  -ms-user-select: none;       /* IE/Edge */
+  user-select: none;           /* non-prefixed version, currently
+                                  not supported by any browser */
+    cursor: default;
+    font-size: 1.25em;
+}
+.star{
+    cursor: pointer;
+    font-size: 2em;
+    color:#FFFB24;
 }
