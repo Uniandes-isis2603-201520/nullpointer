@@ -1,36 +1,64 @@
 <link href="resources/css/day.css" rel="stylesheet" type="text/css"/>
-<div class="container-fluid">
-    <div class="row content">
-        <div class="col-sm-3 sidenav">
-            <h4>Menu</h4>
-            <ul class="nav nav-pills nav-stacked">
-                <li class="active"><a href="#section1">Events</a></li>
-                <li><a href="#section2">--</a></li>
-                <li><a href="#section3">---</a></li>
-                <li><a href="#section3">---</a></li>
-            </ul><br>
-        </div>
-
-        <div class="col-sm-9">
+<div class="container-fluid" ng-controller="DayController">
+    <div class="row">
+        <div class="col-sm-12">
             <h2 class="text-center"><b>Date</b></h2>
             <h3 class="text-center">City</h3>
-            <hr>
-            <h2>Event1</h2>
-            <h5><span class="glyphicon glyphicon-time"></span>Time: 00:00</h5>
-            <h5><span class="glyphicon glyphicon-globe"></span>Location: 123 St. ABC Av.</h5>
-            <h5><span class="label label-danger">Adventure</span> <span class="label label-primary">Culture</span> <span class="label label-default">Nightlife</span> <span class="label label-success">Nature</span> <span class="label label-info">Rest</span> <span class="label label-warning">Food</span></h5><br>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-            <br><br>
-            <hr>
-            <h2>Event2</h2>
-            <h5><span class="glyphicon glyphicon-time"></span>Time: 00:00</h5>
-            <h5><span class="glyphicon glyphicon-globe"></span>Location: 123 St. ABC Av.</h5>
-            <h5><span class="label label-success">Food</span></h5><br>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-            <br>
-            <hr>
-            <br>
-            <button type="submit" class="btn btn-primary btn-lg btn-block">Add events</button>
+        </div>
+    </div><hr/>
+    <div class="row content">
+        <div class="list-group col-xs-10 col-xs-offset-1" >
+            <a class="list-group-item" data-toggle="modal" data-target="#myModal"
+               ng-repeat="time in hours" ng-click="">
+                {{ time | date }}
+            </a>
+        </div>
+    </div>
+    <div id="myModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <!-- Event creation modal-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">New event</h4>
+                </div>
+                <div class="modal-body">
+                    <form action="action_page.php">
+                        <div class="col-xs-10 center-block">
+                            Name:  <input type="text" name=" name"><br>
+                            Start: <input type="text" name="startHour" value="{{time}}">
+                            End:   <input type="text" name="endHour" value="">
+                        </div>
+                        <button type="button" class="center-block btn btn-success" data-dismiss="modal">Create</button>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <a ui-sref="events"><button type="button" class="btn btn-info" data-dismiss="modal">Search available events</button></a>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                </div>
+            </div>
         </div>
     </div>
 </div>
+
+<!--           
+ng-repeat="time in ['00:00', '01:00']"
+{{time | date}}
+           <hr>
+           <h2>Event1</h2>
+           <h5><span class="glyphicon glyphicon-time"></span>Time: 00:00</h5>
+           <h5><span class="glyphicon glyphicon-globe"></span>Location: 123 St. ABC Av.</h5>
+           <h5><span class="label label-danger">Adventure</span> <span class="label label-primary">Culture</span> <span class="label label-default">Nightlife</span> <span class="label label-success">Nature</span> <span class="label label-info">Rest</span> <span class="label label-warning">Food</span></h5><br>
+           <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+           <br><br>
+           <hr>
+           <h2>Event2</h2>
+           <h5><span class="glyphicon glyphicon-time"></span>Time: 00:00</h5>
+           <h5><span class="glyphicon glyphicon-globe"></span>Location: 123 St. ABC Av.</h5>
+           <h5><span class="label label-success">Food</span></h5><br>
+           <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+           <br>
+           <hr>
+           <br>
+           <button type="submit" class="col-xs-4 btn btn-primary btn-lg btn-block">Add events</button>
+-->
