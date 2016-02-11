@@ -8,7 +8,7 @@ app.factory('eventsInfoService', function ($q, $http) {
 
     function LoadData() {
         var defer = $q.defer();
-        $http.get('resources/js/services/EventsArray.json').success(function (data) {
+        $http.get('src/modules/event/services/EventsArray.json').success(function (data) {
             eventos = data;
             defer.resolve();
         });
