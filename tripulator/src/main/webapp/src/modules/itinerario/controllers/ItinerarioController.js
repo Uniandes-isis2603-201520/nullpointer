@@ -1,4 +1,4 @@
-app.controller('CalendarController', ['$scope', '$window', 'dayInformationService', function ($scope, $window, dayInformationService) {
+app.controller('ItinerarioController', ['$scope', '$window', 'dayInformationService', function ($scope, $window, dayInformationService) {
         $scope.days;
         $scope.pages;
         $scope.showFullMonth = false;

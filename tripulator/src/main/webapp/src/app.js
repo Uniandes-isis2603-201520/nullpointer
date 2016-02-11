@@ -10,36 +10,31 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
         $stateProvider
                 .state('/', {
                     url: '/',
-                    templateUrl: "src/modules/landingpage/landingpage.tpl.html"
+                    templateUrl: "src/modules/iniciosesion/iniciosesion.tpl.html"
                 })
-                .state('home', {
-                    url: '/home',
-                    controller: 'HomeController',
-                    templateUrl: "src/modules/home/home.tpl.html"
+                .state('viajero', {
+                    url: '/viajero',
+                    controller: 'ViajeroController',
+                    templateUrl: "src/modules/viajero/viajero.tpl.html"
                 })
-                .state('calendar', {
-                    url: '/calendar',
-                    controller: 'CalendarController',
-                    templateUrl: "src/modules/calendar/calendar.tpl.html"
+                .state('itinerario', {
+                    url: '/itinerario',
+                    controller: 'ItinerarioController',
+                    templateUrl: "src/modules/itinerario/itinerario.tpl.html"
                 })
-                .state('calendar.day', {
-                    url: '/day',
-                    templateUrl: 'src/modules/calendar/calendar.day.tpl.html'
+                .state('plandia', {
+                    url: '/plandia',
+                    templateUrl: "src/modules/plandia/plandia.tpl.html"
                 })
-                .state('dayinformation', {
-                    url: '/dayinformation',
-                    controller: 'DayController',
-                    templateUrl: "src/modules/dayinformation/dayinformation.tpl.html"
+                .state('multimedia', {
+                    url: '/multimedia',
+                    controller: 'multimediaController',
+                    templateUrl: "src/modules/multimedia/multimedia.tpl.html"
                 })
-                .state('photogallery', {
-                    url: '/photogallery',
-                    controller: 'PhotoGalleryController',
-                    templateUrl: "src/modules/photogallery/photogallery.tpl.html"
-                })
-                .state('event', {
-                    url: '/event',
-                    controller: 'EventsController',
-                    templateUrl: "src/modules/event/event.tpl.html",
+                .state('evento', {
+                    url: '/evento',
+                    controller: 'EventosController',
+                    templateUrl: "src/modules/evento/evento.tpl.html",
                     resolve:{
                     load:function(eventsInfoService){
                         return eventsInfoService.LoadData();

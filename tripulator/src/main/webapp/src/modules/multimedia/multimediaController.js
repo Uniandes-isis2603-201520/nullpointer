@@ -1,4 +1,4 @@
-app.controller('PhotoGalleryController', ['$scope', function ($scope) {
+app.controller('MultimediaController', ['$scope', function ($scope) {
         $scope.photos = [
             {src: 'http://blogs-images.forbes.com/adamhartung/files/2014/08/Tropical-Vacation.jpg', date: new Date(2015, 12, 1),
                 desc: 'Disfrute un dia muy lindo en la playa.', place: 'Hawai', index: 0},
