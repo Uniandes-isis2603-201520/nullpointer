@@ -3,9 +3,6 @@
     overflow: auto;
     float: left;
     border-right: 1px #d9d9d9 solid;
-    border-left: 10px #d9d9d9 solid;
-    padding-left: -10em;
-    margin-left: -1em;
 }
 .sitiosImage{
     width: 45%;
