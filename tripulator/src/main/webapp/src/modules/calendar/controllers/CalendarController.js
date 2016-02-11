@@ -1,10 +1,9 @@
 app.controller('CalendarController', ['$scope', '$window', 'dayInformationService', function ($scope, $window, dayInformationService) {
         var totdays = [];
         totdays[0] = [];
-        //new Date(dayInformationService.init) | 
-        //new Date(dayInformationService.end) |
-        var startDate = new Date("2015-03-24");
-        var endDate = new Date("2015-04-10");
+        
+        var startDate = new Date("2015-03-24");//new Date(dayInformationService.init) | 
+        var endDate = new Date("2015-04-10"); //new Date(dayInformationService.end) |
         var npages = 0;
         var nitems = 0;
         var scrollY = 0;
@@ -27,11 +26,17 @@ app.controller('CalendarController', ['$scope', '$window', 'dayInformationServic
             }
         }
 
-        function initializeMatrixBounds() {
-            monthStart.setDate(1);
-            monthEnd.setDate(1);
-            monthEnd.setMonth(monthEnd.getMonth() + 1);
-            monthEnd.setDate(monthEnd.getDate() - 1);
+        function initializeMatrixBounds(displayFullMonth) {
+            if(displayFullMonth){
+                monthStart.setDate(1);
+                monthEnd.setDate(1);
+                monthEnd.setMonth(monthEnd.getMonth() + 1);
+                monthEnd.setDate(monthEnd.getDate() - 1);
+            }
+            else{
+                monthStart.setDate(monthStart.getDate() - monthStart.getDay());
+                monthEnd.setDate(monthEnd.getDate() + (6-monthEnd.getDay()));
+            }
         }
 
         function initializeDaysMatrix() {
@@ -53,7 +58,7 @@ app.controller('CalendarController', ['$scope', '$window', 'dayInformationServic
             }
         }
 
-        initializeMatrixBounds();
+        initializeMatrixBounds(false);
 
         setCalendarOffset(monthStart);
 
@@ -61,6 +66,7 @@ app.controller('CalendarController', ['$scope', '$window', 'dayInformationServic
 
 
         $scope.days = totdays;
+        $scope.showFullMonth = false;
         $scope.pages = npages;
         $scope.pagenum = 0;
         $scope.showDayInfo = false;
