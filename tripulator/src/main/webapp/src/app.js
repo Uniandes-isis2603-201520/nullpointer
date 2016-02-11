@@ -28,6 +28,7 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
                 })
                 .state('dayinformation', {
                     url: '/dayinformation',
+                    controller: 'DayController',
                     templateUrl: "src/modules/dayinformation/dayinformation.tpl.html"
                 })
                 .state('photogallery', {
