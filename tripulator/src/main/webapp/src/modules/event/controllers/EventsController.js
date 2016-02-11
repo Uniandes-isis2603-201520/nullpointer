@@ -47,6 +47,8 @@ app.controller('EventsController', ['$scope', 'eventsInfoService', '$http', func
             $scope.starSelected = !$scope.starSelected;
             if ($scope.starSelected) {
                 $scope.newComment.stars = numb;
+            }else{
+                $scope.newComment.stars=0;
             }
         }
         $scope.finComentarioActual = function () {
