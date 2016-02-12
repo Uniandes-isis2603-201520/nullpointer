@@ -1,4 +1,4 @@
-app.controller('EventosController', ['$scope', 'eventsInfoService', '$http', function ($scope, eventsInfoService, $http) {
+app.controller('EventosController', ['$scope', 'eventosInfoService', '$http', function ($scope, eventsInfoService, $http) {
 
         $scope.events = eventsInfoService.GetData();
         $scope.eventoActual = {"title": "Seleccione un evento"};

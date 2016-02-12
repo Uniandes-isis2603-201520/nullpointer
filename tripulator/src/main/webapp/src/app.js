@@ -28,7 +28,7 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
                 })
                 .state('multimedia', {
                     url: '/multimedia',
-                    controller: 'multimediaController',
+                    controller: 'MultimediaController',
                     templateUrl: "src/modules/multimedia/multimedia.tpl.html"
                 })
                 .state('evento', {
@@ -36,8 +36,8 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
                     controller: 'EventosController',
                     templateUrl: "src/modules/evento/evento.tpl.html",
                     resolve:{
-                    load:function(eventsInfoService){
-                        return eventsInfoService.LoadData();
+                    load:function(eventosInfoService){
+                        return eventosInfoService.LoadData();
                     }
                 }
                 });

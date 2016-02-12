@@ -1,27 +1,20 @@
-<!DOCTYPE html>
-<head>
-    <title>Photo Gallery</title>
-    <link rel="stylesheet" type="text/css" href="resources/css/photogallery.css">
-</head>
+<link rel="stylesheet" type="text/css" href="resources/css/photogallery.css">
 
-<body>
-    <div id="header">
-        <h1 id="name">Galería de Fotos</h1>
-    </div>
-    <div class="col-xs-9 left">
-        <img src="{{photos[index].src}}" id="image"/>
-    </div>
-    <div class="col-xs-3 right">
-        <p><b>En: </b>{{photos[index].place}} </p>
-        <p>({{photos[index].date| date}})</p>
-        <p>{{photos[index].desc}}</p>
-    </div>
-    <div id="footer">
-        <div class="row-fluid text-center" ng-repeat="photo in photos">
-            <div class="col-xs-1" style="display: inline-block" ng-click="changePhoto(photo);">
-                <img src="{{photo.src}}" class="photopreview">
-            </div>
+<div id="header">
+    <h1 id="name">Galería de Fotos</h1>
+</div>
+<div class="col-xs-9 left">
+    <img src="{{photos[index].src}}" id="image"/>
+</div>
+<div class="col-xs-3 right">
+    <p><b>En: </b>{{photos[index].place}} </p>
+    <p>({{photos[index].date| date}})</p>
+    <p>{{photos[index].desc}}</p>
+</div>
+<div id="footer">
+    <div class="row-fluid text-center" ng-repeat="photo in photos">
+        <div class="col-xs-1" style="display: inline-block" ng-click="changePhoto(photo);">
+            <img src="{{photo.src}}" class="photopreview">
         </div>
     </div>
-</body>
-</html>
+</div>
