@@ -7,13 +7,12 @@ app.controller('ItinerarioController', ['$scope', '$window', 'dayInformationServ
         $scope.daynames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
         $scope.selectedDay = {};
 
-        var startDate = new Date("2016-02-10");//new Date(dayInformationService.init) | 
-        var endDate = new Date("2016-03-10"); //new Date(dayInformationService.end) |
+        var startDate = new Date("2015-03-24");//new Date(dayInformationService.init) | 
+        var endDate = new Date("2015-04-10"); //new Date(dayInformationService.end) |
         var nitems;
         var scrollY = 0;
         var monthStart;
         var monthEnd;
-        
         
         createMatrix();
 
