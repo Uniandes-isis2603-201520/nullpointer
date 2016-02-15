@@ -24,6 +24,7 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
                 })
                 .state('plandia', {
                     url: '/plandia',
+                    controller: 'PlanDiaController',
                     templateUrl: "src/modules/plandia/plandia.tpl.html"
                 })
                 .state('multimedia', {

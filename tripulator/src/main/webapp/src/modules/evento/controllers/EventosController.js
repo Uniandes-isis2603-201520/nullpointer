@@ -47,8 +47,8 @@ app.controller('EventosController', ['$scope', 'eventosInfoService', '$http', fu
             $scope.starSelected = !$scope.starSelected;
             if ($scope.starSelected) {
                 $scope.newComment.stars = numb;
-            }else{
-                $scope.newComment.stars=0;
+            } else {
+                $scope.newComment.stars = 0;
             }
         }
         $scope.finComentarioActual = function () {
@@ -57,8 +57,8 @@ app.controller('EventosController', ['$scope', 'eventosInfoService', '$http', fu
         }
         $scope.reset = function () {
             $scope.newComment = angular.copy($scope.commentTemplate);
-            $scope.starSelected=false;
-            document.getElementById("comment").value="";
+            $scope.starSelected = false;
+            document.getElementById("comment").value = "";
             $scope.resetPaint();
         }
         $scope.paintStar = function (numb) {

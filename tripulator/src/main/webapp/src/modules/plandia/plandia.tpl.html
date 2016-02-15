@@ -1,22 +1,29 @@
 <link href="resources/css/day.css" rel="stylesheet" type="text/css"/>
-<div class="container-fluid" ng-controller="DayController">
+<div class="container-fluid" ng-controller="PlanDiaController">
     <div class="row">
+        <!-- Encabezado con la fecha y la ciudad correspondiente -->
         <div class="col-sm-12">
             <h2 class="text-center"><b>Date</b></h2>
             <h3 class="text-center">City</h3>
         </div>
     </div><hr/>
+    <!-- Detalles de los eventos del día -->
     <div class="row content">
         <div class="list-group col-xs-10 col-xs-offset-1" >
-            <a class="list-group-item" data-toggle="modal" data-target="#myModal"
-               ng-repeat="time in hours" ng-click="">
-                {{ time | date }}
+            <a class="list-group-item" data-toggle="modal" data-target="#newEventModal"
+               ng-repeat="section in daySections" 
+               ng-click="hourClicked($index)" 
+               ng-style="style($index)"
+               id="{{ $index }}">
+                {{ section.hour | date:'shortTime' }} - {{ section.event.title }}
             </a>
         </div>
     </div>
-    <div id="myModal" class="modal fade" role="dialog">
+    <p> {{events.length}}, {{indexClicked}} </p>
+    <p ng-repeat="event in events">{{ event.title}}<p>
+    <!-- Event creation modal-->
+    <div id="newEventModal" class="modal fade" role="dialog">
         <div class="modal-dialog">
-            <!-- Event creation modal-->
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -25,11 +32,11 @@
                 <div class="modal-body">
                     <form action="action_page.php">
                         <div class="col-xs-10 center-block">
-                            Name:  <input type="text" name=" name"><br>
-                            Start: <input type="text" name="startHour" value="{{time}}">
-                            End:   <input type="text" name="endHour" value="">
+                            Name:  <input type="text" name=" name" id="newEventName"><br>
+                            Start: <input type="text" name="startHour" value="{{ hours[indexClicked] }}" id="newEventStartHour">
+                            End:   <input type="text" name="endHour" value="{{ hours[indexClicked + 2] }}" id="newEventEndHour">
                         </div>
-                        <button type="button" class="center-block btn btn-success" data-dismiss="modal">Create</button>
+                        <button type="button" class="center-block btn btn-success" data-dismiss="modal" ng-click="addNewEvent()">Create</button>
                     </form>
                 </div>
                 <div class="modal-footer">
