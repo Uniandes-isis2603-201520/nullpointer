@@ -20,9 +20,9 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
                 .state('itinerario', {
                     url: '/itinerario',
                     controller: 'ItinerarioController',
-                    templateUrl: "src/modules/itinerario/itinerario.tpl.html"
+                    templateUrl: "src/modules/itinerario/itinerario.tpl.html",
                 })
-                .state('plandia', {
+                .state('itinerario.plandia', {
                     url: '/plandia',
                     controller: 'PlanDiaController',
                     templateUrl: "src/modules/plandia/plandia.tpl.html"
