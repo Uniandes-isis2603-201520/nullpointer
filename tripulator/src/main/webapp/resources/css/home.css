@@ -33,6 +33,19 @@
 .tripBox{
     padding : 200px;
     max-height: 150px;
-    max-width: 300px;
+    max-width: 300px;   
 }
+
+.btn-circle.btn-xl {
+  width: 1.1em;
+  height: 1.1em;
+  padding: 7px 2px;
+  font-size: 24px;
+  line-height: 1.33;
+  border-radius: 110px;
+  font-size: 14em;
+}
+
+.agregarCalendario md-content {
+    padding-bottom: 200px; }
 
