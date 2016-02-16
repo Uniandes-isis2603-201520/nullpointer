@@ -12,15 +12,16 @@
         <div class="list-group col-xs-10 col-xs-offset-1" >
             <a class="list-group-item" data-toggle="modal" data-target="#newEventModal"
                ng-repeat="section in daySections" 
+               id="{{ $index }}"
                ng-click="hourClicked($index)" 
-               ng-style="style($index)"
-               id="{{ $index }}">
+               ng-style="style($index)">               
                 {{ section.hour | date:'shortTime' }} - {{ section.event.title }}
             </a>
         </div>
     </div>
-    <p> {{events.length}}, {{indexClicked}} </p>
-    <p ng-repeat="event in events">{{ event.title}}<p>
+    <!--<p id="createdEvent"> {{ newEvent.title }} - {{ newEvent.start }} - {{ newEvent.end }}</p>
+    <p ng-click="addTest()"> {{events.length}}, {{indexClicked}} </p>
+    <p ng-repeat="event in events">{{ event.title }} - {{ event.type }}<p>-->
     <!-- Event creation modal-->
     <div id="newEventModal" class="modal fade" role="dialog">
         <div class="modal-dialog">
