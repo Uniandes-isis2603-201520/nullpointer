@@ -89,5 +89,8 @@
                     }
                 }
             }
+            $scope.anadirEvento = function(e){
+                console.log("llega");
+            }
         }]);
 })(window.angular);
