@@ -1,5 +1,5 @@
 
-var app = angular.module("mainApp", ["ui.router","ngAnimate"]);
+var app = angular.module("mainApp", ["ui.router", "ngAnimate"]);
 
 app.config(['$logProvider', function ($logProvider) {
         $logProvider.debugEnabled(true);
@@ -22,10 +22,10 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
                     controller: 'ItinerarioController',
                     templateUrl: "src/modules/itinerario/itinerario.tpl.html",
                 })
-                .state('itinerario.plandia', {
+                .state('plandia', {
                     url: '/plandia',
-                    controller: 'PlanDiaController',
-                    templateUrl: "src/modules/plandia/plandia.tpl.html"
+                    templateUrl: "src/modules/plandia/plandia.tpl.html",
+                    controller: 'PlanDiaController'
                 })
                 .state('multimedia', {
                     url: '/multimedia',
@@ -36,10 +36,10 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
                     url: '/evento',
                     controller: 'EventosController',
                     templateUrl: "src/modules/evento/evento.tpl.html",
-                    resolve:{
-                    load:function(eventosInfoService){
-                        return eventosInfoService.LoadData();
+                    resolve: {
+                        load: function (eventosInfoService) {
+                            return eventosInfoService.LoadData();
+                        }
                     }
-                }
                 });
     }]);
