@@ -1,6 +1,6 @@
 (function (ng) {
     var mod = ng.module("viajeroModule");
-    mod.controller('HomeController', ['$scope', 'dayInformationService', function ($scope, dayInformationService) {
+    mod.controller('ViajeroController', ['$scope', 'dayInformationService', function ($scope, dayInformationService) {
             $scope.setValue = function (value) {
                 dayInformationService.init += value;
                 alert(dayInformationService.init);

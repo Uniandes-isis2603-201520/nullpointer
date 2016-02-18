@@ -1,40 +1,35 @@
 <link rel="stylesheet" type="text/css" href="resources/css/home.css">
 <div>
-    <h1 class="title text-center">Mis Viajes</h1>
+    <h1 class="title text-center">Viajes</h1>
 </div>
 <br />
 <div class = "container-fluid"><!--Pagina Principal Con Viajes-->
     <div class="row-fluid">
         <div>
-            <div class="col-xs-1 col-xs-offset-5"><!--division para cada viaje/itinerario-->
+            <div class="text-center"><!--division para cada viaje/itinerario-->
                 <div>
-                        <button type="button" class="btn btn-default btn-circle btn-xl" data-toggle="modal" data-target="#modalRate" style="background-color:transparent; border: none !important;"><i class="glyphicon glyphicon-plus-sign"></i></button>
-                </div>
-                <div class="sampleText col-xs-offset-5">
-                    <p>
-                        <strong class="text-center">Agregar</strong><br>
-                    </p>
+                    <button type="button" class="btn btn-default btn-circle btn-xl add-trip-button" data-toggle="modal" data-target="#modalRate"><h4>click to add a new trip!</h4></button>
                 </div>
             </div>
 
             <div id="modalRate" class="modal fade" role="dialog">
                 <div class="modal-dialog">
                     <!-- Modal content-->
-                    <div class="modal-content" ng-controller="HomeController">
+                    <div class="modal-content">
                         <form action="">
-                           
+
                             <md-datepicker ng-model="myDate" md-placeholder="Enter date">
-                            <input type="date" ng-init="message1 = 'Initial Date'" ng-model="message1" >
+                                <input type="date" ng-init="message1 = 'Initial Date'" ng-model="message1" >
                             </md-datepicker>
-                            
+
                             <md-datepicker ng-model="myDate" md-placeholder="Enter date">
-                            <input type="date"ng-init="message2 = 'Final Date'" ng-model="message2" >
+                                <input type="date"ng-init="message2 = 'Final Date'" ng-model="message2" >
                             </md-datepicker>
-                            
+
                             <button ng-click="setInit(message1);setEnd(message2)">
-                            <a ui-sref="calendar">Crear</a>
+                                <a ui-sref="itinerario">Crear</a>
                             </button>
-                            
+
                             <button><a href="">Cancelar</a></button>
                         </form>
                     </div>
