@@ -6,7 +6,8 @@
         "itinerarioModule",
         "planDiaModule",
         "multimediaModule",
-        "eventoModule"
+        "eventoModule",
+        "viajeroModule"
     ]);
 
     mod.config(['$logProvider', function ($logProvider) {
