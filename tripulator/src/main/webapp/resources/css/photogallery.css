@@ -1,84 +1,55 @@
-
-
-div {
-	border-radius: 5px;
-}
-
-#header {
-	z-index: 1;
-	position: fixed;
-	width: 97.5%;
-	margin-top: -20px;
-	height: 60px;
-	margin-bottom: 10px;
-}
-
-#name {
-	float:left;
-	margin-left: 5px;
-	padding-top: 5px;
-	
-}
-
-
-
-.right p {
-	margin-left: 5px;
-	margin-right: 5px;
-	margin-top: 10px;
-
-}
-
-li {
-	list-style-type: square;
-}
-
-
-.left {
-	position: relative;
-	float: left;
-	margin-top: 50px;
-	width: 73%;
-	height: 400px;
-	margin-bottom: 10px;
-}
-
-.right {
-	position: relative;
-	float: right;
-	margin-top: 50px;
-	width: 25%;
-	height: 400px;
-	background-color: rgba(180, 209, 255, 0.5);
-	margin-bottom: 10px;
-}
-
-#footer {
-	position: relative;
-	height: 70px;
-	background-color: rgba(180, 209, 255, 0.5);
-	clear: both;
-
-}
-
-.photopreview{
+body
+{
     height: 100%;
     width: 100%;
+    
 }
 
-#image
+.page-switcher{
+    position: fixed;
+    top: 55%;
+    cursor: pointer;
+}
+
+#left-switcher{
+    left: 3%;
+}
+
+#right-switcher{
+    right: 3%;
+}
+
+.container {
+   height: 75%;
+   position: absolute;
+   padding: 10px;
+   border: 2px solid black;
+   background-color: lightyellow;
+}
+
+.container img
 {
-    zoom: 4;
-
-    display: block;
-    margin: auto;
-
-    height: auto;
-    max-height: 100%;
-
-    width: auto;
-    max-width: 100%;
+    width: 100%;
+    height: 100%;
 }
 
+.header
+{
+    height: 100%;
+    position: absolute;
+}
 
+.addPhoto
+{
+   position: absolute;
+   height: 10%;
+   background-color: red;
+   
+}
 
+.options
+{
+    cursor: pointer;
+    margin: 10px;   
+    
+}
