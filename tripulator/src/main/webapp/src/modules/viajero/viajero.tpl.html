@@ -6,15 +6,13 @@
 <div class = "container-fluid"><!--Pagina Principal Con Viajes-->
     <div class="row-fluid">
         <div>
-            <div class="col-xs-2"><!--division para cada viaje/itinerario-->
+            <div class="col-xs-1 col-xs-offset-5"><!--division para cada viaje/itinerario-->
                 <div>
-                    <a href = "">
                         <button type="button" class="btn btn-default btn-circle btn-xl" data-toggle="modal" data-target="#modalRate" style="background-color:transparent; border: none !important;"><i class="glyphicon glyphicon-plus-sign"></i></button>
-                    </a>
                 </div>
-                <div class="sampleText col-xs-offset-0">
+                <div class="sampleText col-xs-offset-5">
                     <p>
-                        <strong>Add New</strong><br>
+                        <strong class="text-center">Agregar</strong><br>
                     </p>
                 </div>
             </div>
@@ -22,95 +20,35 @@
             <div id="modalRate" class="modal fade" role="dialog">
                 <div class="modal-dialog">
                     <!-- Modal content-->
-                    <div class="modal-content">
+                    <div class="modal-content" ng-controller="HomeController">
                         <form action="">
                            
+                            <md-datepicker ng-model="myDate" md-placeholder="Enter date">
                             <input type="date" ng-init="message1 = 'Initial Date'" ng-model="message1" >
-                            <md-datepicker ng-model="myDate" md-placeholder="Enter date"></md-datepicker>
+                            </md-datepicker>
+                            
+                            <md-datepicker ng-model="myDate" md-placeholder="Enter date">
                             <input type="date"ng-init="message2 = 'Final Date'" ng-model="message2" >
-                            <md-datepicker ng-model="myDate" md-placeholder="Enter date"></md-datepicker>
-                            <button ng-click="setInit(message1);
-                            setEnd(message2)"><a ui-sref="calendar">Crear</a></button>
+                            </md-datepicker>
+                            
+                            <button ng-click="setInit(message1);setEnd(message2)">
+                            <a ui-sref="calendar">Crear</a>
+                            </button>
+                            
+                            <button><a href="">Cancelar</a></button>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
-
-    <!--<div>
-        <div class="---" ng-controller="MainController">
-          <div class="row-fluid">
-         <div class="---" ng-repeat="viajes in viajes">
-          <app-info info="viajes"></app-info>
+        <!--<div>
+            <div class="---" ng-controller="MainController">
+              <div class="row-fluid">
+             <div class="---" ng-repeat="viajes in viajes">
+              <app-info info="viajes"></app-info>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
         </div>-->
-        <div class="col-xs-2"><!--division para cada viaje/itinerario-->
-            <div>
-                <a href = "">
-                    <img class ="imageTrip" src="http://digital.fespa.com/images/Amsterdam.jpg"/>
-                </a>
-            </div>
-            <div class="sampleText col-xs-offset-2">
-                <p>
-                    <strong>London</strong><br>
-                    <strong>12/01/17</strong><br>
-                </p>
-            </div>
-        </div>
-
-        <div class="col-xs-2"><!--division para cada viaje/itinerario-->
-            <div>
-                <a href = "">
-                    <img class ="imageTrip" src="http://digital.fespa.com/images/Amsterdam.jpg"/>
-                </a>
-            </div>
-            <div class="sampleText col-xs-offset-2">
-                <p>
-                    <strong>London</strong><br>
-                    <strong>12/01/17</strong><br>
-                </p>
-            </div>
-        </div>
-        <div class="col-xs-2"><!--division para cada viaje/itinerario-->
-            <div>
-                <a href = "">
-                    <img class ="imageTrip" src="http://digital.fespa.com/images/Amsterdam.jpg"/>
-                </a>
-            </div>
-            <div class="sampleText col-xs-offset-2">
-                <p>
-                    <strong>London</strong><br>
-                    <strong>12/01/17</strong><br>
-                </p>
-            </div>
-        </div>
-        <div class="col-xs-2"><!--division para cada viaje/itinerario-->
-            <div>
-                <a href = "">
-                    <img class ="imageTrip" src="http://digital.fespa.com/images/Amsterdam.jpg"/>
-                </a>
-            </div>
-            <div class="sampleText col-xs-offset-2">
-                <p>
-                    <strong>London</strong><br>
-                    <strong>12/01/17</strong><br>
-                </p>
-            </div>
-        </div>
-        <div class="col-xs-2"><!--division para cada viaje/itinerario-->
-            <div>
-                <a href = "">
-                    <img class ="imageTrip" src="http://media-cdn.tripadvisor.com/media/photo-s/07/bd/a1/8a/downtown-dubai-cityscape.jpg"/>
-                </a>
-            </div>
-            <div class="sampleText col-xs-offset-2">
-                <p>
-                    <strong>Dubai</strong><br>
-                    <strong>17/03/14</strong><br>
-                </p>
-            </div>
-        </div>
     </div>
 </div>

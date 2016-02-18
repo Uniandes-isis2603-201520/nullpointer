@@ -23,11 +23,11 @@
 }
 
 .imageTrip:hover{
-    transform: scale(1.5, 1.5);
-    -moz-transform: scale(1.5, 1.5);
-    -ms-transform: scale(1.5, 1.5);
-    -webkit-transform: scale(1.5, 1.5);
-    -o-transform: scale(1.5, 1.5);
+    transform: scale(1.15, 1.15);
+    -moz-transform: scale(1.15, 1.15);
+    -ms-transform: scale(1.15, 1.15);
+    -webkit-transform: scale(1.15, 1.15);
+    -o-transform: scale(1.15, 1.15);
 }
 
 .tripBox{
@@ -47,5 +47,9 @@
 }
 
 .agregarCalendario md-content {
-    padding-bottom: 200px; }
+    padding-bottom: 200px; 
+}
 
+.test{
+    border-radius: 50px;
+}
