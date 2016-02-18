@@ -23,6 +23,20 @@
         <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
         <link href='https://fonts.googleapis.com/css?family=Didact+Gothic' rel='stylesheet' type='text/css'>
         <link href="resources/css/index.css" rel="stylesheet" type="text/css" >
+        
+        <!-- Modules -->
+        <script src="src/modules/app.js"></script>
+        <script src="src/modules/plandia/planDia.mod.js"></script>
+        <script src="src/modules/itinerario/itinerario.mod.js"></script>
+        <!-- Controllers -->
+        <script src="src/modules/plandia/planDia.ctrl.js"></script>
+        <script src="src/modules/itinerario/controllers/ItinerarioController.js"></script>
+        <script src="src/modules/viajero/controllers/ViajeroController.js"></script>
+        <script src="src/modules/evento/controllers/EventosController.js"></script>
+        <script src="src/modules/multimedia/MultimediaController.js"></script>
+        <!-- Services -->
+        <script src="src/modules/evento/services/eventosInfoService.js"></script>
+        <script src="src/modules/itinerario/services/dayInformationService.js"></script>
     </head>
     <body style="padding-top: 60px;">
         <div class="container-fluid">
@@ -56,18 +70,5 @@
             <!-- MAIN CONTENT -->
             <div ui-view=""></div>
         </div>
-
-        <!-- Modules -->
-        <script src="src/modules/app.js"></script>
-
-        <!-- Controllers -->
-        <script src="src/modules/plandia/planDia.ctrl.js"></script>
-        <script src="src/modules/itinerario/controllers/ItinerarioController.js"></script>
-        <script src="src/modules/viajero/controllers/ViajeroController.js"></script>
-        <script src="src/modules/evento/controllers/EventosController.js"></script>
-        <script src="src/modules/multimedia/MultimediaController.js"></script>
-        <!-- Services -->
-        <script src="src/modules/evento/services/eventosInfoService.js"></script>
-        <script src="src/modules/itinerario/services/dayInformationService.js"></script>
     </body>
 </html>
