@@ -5,7 +5,8 @@
         "ngAnimate",
         "itinerarioModule",
         "planDiaModule",
-        "multimediaModule"
+        "multimediaModule",
+        "eventoModule"
     ]);
 
     mod.config(['$logProvider', function ($logProvider) {
