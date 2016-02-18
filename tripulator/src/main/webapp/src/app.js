@@ -4,7 +4,8 @@
         "ui.router",
         "ngAnimate",
         "itinerarioModule",
-        "planDiaModule"
+        "planDiaModule",
+        "multimediaModule"
     ]);
 
     mod.config(['$logProvider', function ($logProvider) {
@@ -36,7 +37,7 @@
                     })
                     .state('multimedia', {
                         url: '/multimedia',
-                        controller: 'MultimediaController',
+                        controller: 'multimediaCtrl',
                         templateUrl: "src/modules/multimedia/multimedia.tpl.html"
                     })
                     .state('evento', {

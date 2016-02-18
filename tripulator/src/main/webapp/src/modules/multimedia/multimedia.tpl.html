@@ -1,20 +1,31 @@
 <link rel="stylesheet" type="text/css" href="resources/css/photogallery.css">
 
-<div id="header">
-    <h1 id="name">Galería de Fotos</h1>
+
+
+<div class="container-fluid">
+    <div class="col-xs-offset-5 col-xs-3"><h2>Galería de fotos</h2></div>
+    <div class="col-xs-2 options">Agregar Foto</div>
+    <div class="col-xs-2 options">Ver todo</div>
+
 </div>
-<div class="col-xs-9 left">
-    <img src="{{photos[index].src}}" id="image"/>
+
+<div class="col-xs-8 col-xs-offset-2 container">    
+    <img src="{{photos[actIndex].src}}"/>
 </div>
-<div class="col-xs-3 right">
-    <p><b>En: </b>{{photos[index].place}} </p>
-    <p>({{photos[index].date| date}})</p>
-    <p>{{photos[index].desc}}</p>
+
+
+<div class="page-switcher" id="left-switcher" ng-click="previousImage();">
+    <span class="glyphicon glyphicon-menu-left" ></span>
 </div>
+
+<div class="page-switcher" id="right-switcher" ng-click="nextImage();">
+    <span class="glyphicon glyphicon-menu-right"></span>
+</div>
+
 <div id="footer">
-    <div class="row-fluid text-center" ng-repeat="photo in photos">
-        <div class="col-xs-1" style="display: inline-block" ng-click="changePhoto(photo);">
-            <img src="{{photo.src}}" class="photopreview">
-        </div>
-    </div>
+    <!-- <div class="row-fluid text-center" ng-repeat="photo in photos">
+         <div class="col-xs-1" style="display: inline-block" ng-click="changePhoto(photo);">
+             <img src="{{photo.src}}" class="photopreview">
+         </div>
+     </div>-->
 </div>
