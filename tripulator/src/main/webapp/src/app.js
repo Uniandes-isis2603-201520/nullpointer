@@ -36,7 +36,7 @@
                         views: {
                             "multimedia": {
                                 url: '\multimedia',
-                                controller: 'MultimediaController',
+                                controller: 'multimediaCtrl',
                                 templateUrl: "src/modules/multimedia/multimedia.tpl.html"
                             }
                         },
