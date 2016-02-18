@@ -24,7 +24,6 @@
 
         $scope.changePhoto = function(photo){
           $scope.actIndex = photo.index;  
-          alert($scope.actIndex);
         };
 
     }]);
