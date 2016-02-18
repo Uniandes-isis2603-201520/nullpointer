@@ -29,7 +29,7 @@
                  ng-click="toggleDayInfo(day);"
                  >
                 <p class='text-left col-xs-offset-1' id='date'>{{day.date| date : 'dd'}}</p>
-                <div class='general-day-info' ng-show='{{day.valid}}'>
+                <div class='general-day-info' ng-show='{{day.valid}} && highlight'>
                     <p class='text-left col-xs-offset-1'>city: unknown</p>
                     <p class='text-left col-xs-offset-1'>events: none</p>
                     <p class='text-left col-xs-offset-1'>photos: none</p>
@@ -51,9 +51,7 @@
             <h1 class="col-xs-3 text-right" id="day-info-header-right">{{selectedDay.date| date}}</h1>
         </div>
         <div class="container-fluid">
-            <ul class="list-group" ng-repeat="time in ['0:00', '0:30', '1:00', '1:30']">
-                <li class="list-group-item list-group-item-success">time</li>
-            </ul>
+            <!--AQUI SE INJECTA LOS MODULOS DE TODOS -->
         </div>
     </div>
 </div>

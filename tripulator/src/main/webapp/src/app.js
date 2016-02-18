@@ -19,12 +19,12 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
                 .state('itinerario', {
                     url: '/itinerario',
                     controller: 'ItinerarioController',
-                    templateUrl: "src/modules/itinerario/itinerario.tpl.html"
+                    templateUrl: "src/modules/itinerario/itinerario.tpl.html",
                 })
                 .state('plandia', {
                     url: '/plandia',
-                    controller: 'PlanDiaController',
-                    templateUrl: "src/modules/plandia/plandia.tpl.html"
+                    templateUrl: "src/modules/plandia/plandia.tpl.html",
+                    controller: 'PlanDiaController'
                 })
                 .state('multimedia', {
                     url: '/multimedia',
@@ -35,10 +35,10 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
                     url: '/evento',
                     controller: 'EventosController',
                     templateUrl: "src/modules/evento/evento.tpl.html",
-                    resolve:{
-                    load:function(eventosInfoService){
-                        return eventosInfoService.LoadData();
+                    resolve: {
+                        load: function (eventosInfoService) {
+                            return eventosInfoService.LoadData();
+                        }
                     }
-                }
                 });
     }]);
