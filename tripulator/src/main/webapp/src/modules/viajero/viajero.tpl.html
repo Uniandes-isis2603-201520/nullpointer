@@ -18,32 +18,36 @@
 
     <div id="modalRate" class="modal fade" role="dialog">
         <div class="modal-dialog">
-            <!-- Modal content-->
             <div class="modal-content">
-                <form action="">
+                <div class="modal-header">
+                    <h3 class="text-center">Agrega un nuevo itinerario</h3>
+                </div>
+                <!-- Modal content-->
+                <div class="modal-body">
+                    <form action="">
+                        <md-datepicker ng-model="myDate" md-placeholder="Enter date">
+                            <input type="date" ng-init="message1 = 'Initial Date'" ng-model="message1" >
+                        </md-datepicker>
 
-                    <md-datepicker ng-model="myDate" md-placeholder="Enter date">
-                        <input type="date" ng-init="message1 = 'Initial Date'" ng-model="message1" >
-                    </md-datepicker>
+                        <md-datepicker ng-model="myDate" md-placeholder="Enter date">
+                            <input type="date"ng-init="message2 = 'Final Date'" ng-model="message2" >
+                        </md-datepicker>
 
-                    <md-datepicker ng-model="myDate" md-placeholder="Enter date">
-                        <input type="date"ng-init="message2 = 'Final Date'" ng-model="message2" >
-                    </md-datepicker>
+                        <button ng-click="setInit(message1);setEnd(message2);" onclick="removeModal();">
+                            <a ui-sref="itinerario">Crear</a>
+                        </button>
 
-                    <button ng-click="setInit(message1);setEnd(message2);" onclick="removeModal();">
-                        <a ui-sref="itinerario">Crear</a>
-                    </button>
-
-                    <button data-dismiss="modal">Cancelar</button>
-                </form>
+                        <button data-dismiss="modal">Cancelar</button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
 </div>
 <script>
-    function removeModal(){
-            $('#modalRate').modal('hide');
-            $('body').removeClass('modal-open');
-            $('.modal-backdrop').remove();
-    };
+            function removeModal() {
+                $('#modalRate').modal('hide');
+                $('body').removeClass('modal-open');
+                $('.modal-backdrop').remove();
+            };
 </script>
