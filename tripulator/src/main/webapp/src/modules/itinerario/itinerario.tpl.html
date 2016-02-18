@@ -41,7 +41,7 @@
 
     <div ng-show="showDayInfo" class="row col-xs-12 day-information">
         <div class="col-xs-12 text-right" id="day-information-title" ng-click="toggleDayInfo(selectedDay);">
-            <h3 id="collapse-icon"><span class="glyphicon glyphicon-menu-down ui-sref="itinerario""></span></h3>
+            <h3 id="collapse-icon"><span class="glyphicon glyphicon-menu-down " ui-sref="itinerario"></span></h3>
         </div>
         <div class="container-fluid">
             <h1 class="col-xs-2 text-left" id="day-info-header-left">
@@ -57,11 +57,10 @@
         </div>
         <div class="container-fluid">
             <!--AQUI SE INJECTA LOS MODULOS DE TODOS -->
-
-        </div>
-        <!-- nested views -->
+            <!-- nested views -->
             <div ui-view="multimedia"></div>
             <div ui-view="plandia"></div>
             <!-- fin nested views -->
+        </div>
     </div>
 </div>
