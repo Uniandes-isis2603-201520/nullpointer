@@ -32,6 +32,26 @@
                         controllerAs: "ctrl",
                         templateUrl: "src/modules/itinerario/itinerario.tpl.html",
                     })
+                    .state('itinerario.multimedia', {
+                        views: {
+                            "multimedia": {
+                                url: '\multimedia',
+                                controller: 'MultimediaController',
+                                templateUrl: "src/modules/multimedia/multimedia.tpl.html"
+                            }
+                        },
+                        parent: "itinerario"
+                    })
+                    .state('itinerario.plandia', {
+                        views: {
+                            "plandia": {
+                                url: '\plandia',
+                                controller: 'PlanDiaController',
+                                templateUrl: "src/modules/plandia/plandia.tpl.html"
+                            }
+                        },
+                        parent: "itinerario"
+                    })
                     .state('plandia', {
                         url: '/plandia',
                         templateUrl: "src/modules/plandia/plandia.tpl.html",
