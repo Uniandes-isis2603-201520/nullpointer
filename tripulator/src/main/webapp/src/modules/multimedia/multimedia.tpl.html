@@ -1,15 +1,7 @@
 <link rel="stylesheet" type="text/css" href="resources/css/photogallery.css">
 
 
-
-<div class="container-fluid">
-    <!--
-    <div class="col-xs-2 options">Agregar Foto</div>
-    <div class="col-xs-2 options">Ver todo</div>-->
-
-</div>
-
-<div class="col-xs-8 col-xs-offset-2 main-image">    
+<div class="col-xs-12 main-image">    
     <img src="{{photos[actIndex].src}}"/>
     
     <div class="dotstyle dotstyle-fillup col-xs-offset-4">
@@ -22,11 +14,11 @@
 
 
 
-<div class="page-switcher" id="left-switcher" ng-click="previousImage();">
+<div class="page-switcher1 col-xs-offset-0" id="left-switcher1" ng-click="previousImage();">
     <span class="glyphicon glyphicon-menu-left" ></span>
 </div>
 
-<div class="page-switcher" id="right-switcher" ng-click="nextImage();">
+<div class="page-switcher1 col-xs-offset-10" id="right-switcher1" ng-click="nextImage();">
     <span class="glyphicon glyphicon-menu-right"></span>
 </div>
 
