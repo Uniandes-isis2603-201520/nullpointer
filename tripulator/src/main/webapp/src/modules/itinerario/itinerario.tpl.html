@@ -1,4 +1,5 @@
 <link href="resources/css/calendar.css" rel="stylesheet" type="text/css"/>
+<link href="resources/css/mapa.css" rel="stylesheet" type="text/css"/>
 
 <div class="page-switcher" id="left-switcher" ng-click="decreasePageNum();">
     <span class="glyphicon glyphicon-menu-left" ></span>
@@ -49,7 +50,7 @@
                 <small><span class="glyphicon glyphicon-pencil"></span></small>
             </h1>
             <h1 class="col-xs-3 text-right" id="day-info-header-right">{{selectedDay.date| date}}</h1>
-                        <!--links-->
+            <!--links-->
             <a ui-sref="itinerario.multimedia()">PhotoGallery</a>
             <a ui-sref="itinerario.plandia()">Dia</a>
             <a ui-sref="itinerario">cerrar</a>
@@ -62,5 +63,38 @@
             <!-- fin nested views -->
         </div>
 
+
+    </div> 
+
+    <a ui-sref="itinerario.mapa()"><button type="button" class="btn btn-default col-xs-offset-10 col-xs-2" data-toggle="modal" data-target="#myMap">Ver Mapa</button></a>
+
+    <!-- Modal -->
+    <div class="modal fade" id="myMap">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title">Modal title</h4>
+
+                </div>
+                <div class="modal-body">
+                    <div class="container">
+                        <div class="row">
+                            <div ng-controller="MapController">
+                                <div id="map"></div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
     </div>
+    <!-- /.modal -->
+
 </div>

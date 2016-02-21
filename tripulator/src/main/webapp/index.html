@@ -18,12 +18,21 @@
         <script src="resources/js/ui-bootstrap-tpls-1.1.2.min.js" type="text/javascript"></script>
         <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.js"></script>
 
+        <!-- Google Maps Javascript API -->
+        <script src="http://maps.google.com/maps/api/js?sensor=false"></script>
+        <script src="http://maps.googleapis.com/maps/api/js"></script>
+
+        <!-- angular-google-maps -->
+        <script src="resources/js/lodash.underscore.min.js?v=2.4.1"></script>
+        <script src="resources/js/angular-google-maps.min.js?v=1.2.2"></script>
+
+
 
         <script src="src/app.js" type="text/javascript"></script>
         <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
         <link href='https://fonts.googleapis.com/css?family=Didact+Gothic' rel='stylesheet' type='text/css'>
         <link href="resources/css/index.css" rel="stylesheet" type="text/css" >
-        
+
         <!-- Modules -->
         <script src="src/modules/app.js"></script>
         <script src="src/modules/plandia/planDia.mod.js"></script>
@@ -36,13 +45,14 @@
         <script src="src/modules/itinerario/controllers/ItinerarioController.js"></script>
         <script src="src/modules/viajero/controllers/ViajeroController.js"></script>
         <script src="src/modules/evento/controllers/EventosController.js"></script>
+        <script src="src/modules/itinerario/controllers/MapController.js"></script>
         <script src="src/modules/multimedia/multimedia.ctrl.js"></script>
         <!-- Services -->
         <script src="src/modules/evento/services/eventosInfoService.js"></script>
         <script src="src/modules/itinerario/services/dayInformationService.js"></script>
         <script src="src/modules/viajero/services/dayInfoService.js"></script>
     </head>
-    <body style="padding-top: 60px;">
+    <body style="padding-top: 60px;" >
         <div class="container-fluid">
             <div class="col-md-12">
                 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -66,6 +76,7 @@
                                 <li><a ui-sref="viajero">Home</a></li>
                                 <li><a ui-sref="multimedia">PhotoGallery</a></li>
                                 <li><a ui-sref="plandia">Dia</a></li>
+                                <li><a ui-sref="mapa">Mapa</a></li>
                             </ul>
                         </div> <!-- /.navbar-collapse -->
                     </div> <!-- /.container-fluid -->

@@ -4,6 +4,7 @@ body {
     padding-bottom: 20px;
 }
 .loginform{
+    overflow: visible;
     top: 160px;
     color: #e5e5e5;
     background: rgb(0, 0, 0); /* fallback color */
@@ -13,13 +14,18 @@ body {
 }
 
 .popupform{
-    color: #e5e5e5;
-    background: rgb(0, 0, 0); /* fallback color */
-    background: rgba(0, 0, 0, 0.7);
+    background-color: #e5e5e5;
+
 }
 
 .bg{
     height: 600px;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.bg1{
+
+
     background-repeat: no-repeat;
     background-size: cover;
 }
@@ -39,3 +45,17 @@ body {
 minimalistic-btn{
     padding: 5px;
 }
+.map {
+    height: 200px;
+    width: 500px;
+
+}
+.map_angular
+{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;     
+}
+

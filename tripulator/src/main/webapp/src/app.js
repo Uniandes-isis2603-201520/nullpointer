@@ -7,7 +7,8 @@
         "planDiaModule",
         "multimediaModule",
         "eventoModule",
-        "viajeroModule"
+        "viajeroModule",
+        "mapsApp"
     ]);
 
     mod.config(['$logProvider', function ($logProvider) {
@@ -52,6 +53,8 @@
                         },
                         parent: "itinerario"
                     })
+                   
+                   
                     .state('plandia', {
                         url: '/plandia',
                         templateUrl: "src/modules/plandia/plandia.tpl.html",
