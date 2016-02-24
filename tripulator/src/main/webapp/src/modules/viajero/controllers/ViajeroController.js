@@ -34,6 +34,35 @@
                  fecha: 'DatePlaceHolder'
                  },*/
             ];
+            
+            $scope.new =
+                {/*
+                 image: 'glyphicon glyphicon-plus-sign',
+                 nombre: 'Agregar',
+                 Fecha: ''*/
+                 };
 
+         /*   function createNew() {
+                if (!inProgress)
+                {
+
+                }
+                else
+                {
+
+                }
+            }*/
+            function validar()
+            {
+                if (false)
+                {
+                    alert("Ingrese fechas validas");
+                    returnToPreviousPage();
+                    return false;
+                }
+                return true;
+            }
         }]);
-})(window.angular);
+})
+
+        (window.angular);
