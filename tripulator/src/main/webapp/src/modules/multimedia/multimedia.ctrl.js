@@ -3,28 +3,63 @@
     
     mod.controller('multimediaCtrl', ['$scope', function ($scope) {
         
-        $scope.photos = [
-            {src: 'http://blogs-images.forbes.com/adamhartung/files/2014/08/Tropical-Vacation.jpg', index: 0},
-            {src: 'http://thenextweb.com/wp-content/blogs.dir/1/files/2011/11/san-francisco.jpg', index: 1},
-            {src: 'https://media-cdn.tripadvisor.com/media/photo-s/03/9b/2d/f2/new-york-city.jpg', index: 2},
-            {src: 'http://cache-graphicslib.viator.com/graphicslib/thumbs674x446/2484/SITours/corcovado-mountain-and-christ-redeemer-statue-half-day-tour-in-rio-de-janeiro-128058.jpg', index: 3},
-            {src: 'https://images.trvl-media.com/media/content/shared/images/travelguides/destination/178281/Madrid-26512.jpg', index: 4}
-        ];
+        $scope.currentRecord = {};
+        
+        $scope.actIndex;
+        
+        $scope.records = [];
 
-        $scope.actIndex = 0;
+
+         this.createRecord = function () {
+                $scope.$broadcast("pre-create", $scope.currentRecord);
+                this.editMode = true;
+                $scope.currentRecord = {};
+                $scope.$broadcast("post-create", $scope.currentRecord);
+            };
+
+            this.editRecord = function (record) {
+                $scope.$broadcast("pre-edit", $scope.currentRecord);
+                return svc.fetchRecord(record.id).then(function (response) {
+                    $scope.currentRecord = response.data;
+                    self.editMode = true;
+                    $scope.$broadcast("post-edit", $scope.currentRecord);
+                    return response;
+                }, responseError);
+            };
+
+            this.fetchRecords = function () {
+                return svc.fetchRecords().then(function (response) {
+                    $scope.records = response.data;
+                    $scope.currentRecord = {};
+                    self.editMode = false;
+                    return response;
+                }, responseError);
+            };
+            this.saveRecord = function () {
+                return svc.saveRecord($scope.currentRecord).then(function () {
+                    self.fetchRecords();
+                }, responseError);
+            };
+            this.deleteRecord = function (record) {
+                return svc.deleteRecord(record.id).then(function () {
+                    self.fetchRecords();
+                }, responseError);
+            };
 
         $scope.nextImage = function () {
-            $scope.actIndex = ($scope.actIndex < $scope.photos.length - 1) ? ++$scope.actIndex : 0;
+            $scope.actIndex = ($scope.actIndex < $scope.records.length - 1) ? ++$scope.actIndex : 0;
         };
 
         $scope.previousImage = function ()
         {
-            $scope.actIndex = ($scope.actIndex > 0) ? --$scope.actIndex : $scope.photos.length - 1;
+            $scope.actIndex = ($scope.actIndex > 0) ? --$scope.actIndex : $scope.records.length - 1;
         };
 
-        $scope.changePhoto = function(photo){
-          $scope.actIndex = photo.index;  
+        $scope.changePhoto = function(record){
+          $scope.actIndex = record.index;  
         };
+        
+        this.fetchRecords();
 
     }]);
 })(window.angular);
