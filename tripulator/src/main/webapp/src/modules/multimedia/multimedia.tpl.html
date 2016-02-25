@@ -2,11 +2,12 @@
 
 
 <div class="col-xs-12 main-image">    
-    <img src="{{currentRecord.src}}"/>
+    
+    <img src="{{photos[0].src}}"/>
     
     <div class="dotstyle dotstyle-fillup col-xs-offset-4">
-        <ul ng-repeat="record in records">
-            <li class="current" ng-click="changePhoto(record)"><a></a></li>
+        <ul ng-repeat="photo in photos">
+            <li class="current" ng-click="changePhoto(photo)"><a></a></li>
 	</ul>
     </div>
    

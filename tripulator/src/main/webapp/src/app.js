@@ -7,8 +7,7 @@
         "planDiaModule",
         "multimediaModule",
         "eventoModule",
-        "viajeroModule",
-        "multimediaMock"
+        "viajeroModule"
     ]);
 
     mod.config(['$logProvider', function ($logProvider) {
