@@ -1,10 +1,10 @@
 <link href="resources/css/day.css" rel="stylesheet" type="text/css"/>
-<hr/>
+
 <!-- Detalles de los eventos del día -->
-<div class="row content">
-    <div class="list-group col-xs-10 col-xs-offset-1" >
+<div class="row content container">
+    <div class="list-group col-xs-10 col-xs-offset-1">
         <a class="list-group-item" data-toggle="modal" data-target="#newEventModal"
-           ng-repeat="section in daySections" 
+           ng-repeat="section in daySections"
            id="{{ $index}}"
            ng-click="hourClicked($index)" 
            ng-style="style($index)">               
@@ -38,9 +38,16 @@
                 </form>
             </div>
             <div style="clear: both;" class="modal-footer">
-                <a ui-sref="events"><button type="button" class="btn btn-info" data-dismiss="modal">Search available events</button></a>
+                <a ui-sref="evento"><button type="button" class="btn btn-info" data-dismiss="modal" onclick="removeModal();">Search available events</button></a>
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
 </div>
+<script>
+    function removeModal(){
+            $('#modalRate').modal('hide');
+            $('body').removeClass('modal-open');
+            $('.modal-backdrop').remove();
+    };
+</script>

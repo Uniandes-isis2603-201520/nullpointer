@@ -115,3 +115,20 @@
     top:-200px;
 }
 
+#limited-container{
+    height: 150px;
+    background-color: red;
+}
+
+#tab-spacing{
+    margin-bottom: 30px;
+}
+
+.view-container{
+    height: 100px !important;
+}
+
+.tab-text{
+    font-size: 20px;
+}
+

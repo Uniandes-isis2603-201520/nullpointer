@@ -14,8 +14,8 @@ body {
 
 .popupform{
     color: #e5e5e5;
-    background: rgb(0, 0, 0); /* fallback color */
-    background: rgba(0, 0, 0, 0.7);
+    background-color: rgb(0, 0, 0); /* fallback color */
+    background-color: rgba(0, 0, 0, 0.7);
 }
 
 .bg{

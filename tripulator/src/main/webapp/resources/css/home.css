@@ -46,6 +46,14 @@
   font-size: 14em;
 }
 
+.add-trip-button{
+    background-color:rgba(180, 209, 255, 0.3);
+    border: none !important;
+    margin-right:15px;
+    margin-left: 20px;
+    margin-bottom: 15px;
+}
+
 .agregarCalendario md-content {
     padding-bottom: 200px; 
 }

@@ -1,7 +1,7 @@
 (function (ng) {
     var mod = ng.module("itinerarioModule");
     mod.service('dayInformationService', [function () {
-            return {
+            return{
                 init: 0,
                 end: 0
             };

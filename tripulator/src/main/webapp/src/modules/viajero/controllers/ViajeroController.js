@@ -1,17 +1,18 @@
 (function (ng) {
     var mod = ng.module("viajeroModule");
-    mod.controller('HomeController', ['$scope', 'dayInformationService', function ($scope, dayInformationService) {
+    mod.controller('ViajeroController', ['$scope', '$uibModal', 'dayInfoService', function ($scope, dayInfoService) {
+
             $scope.setValue = function (value) {
-                dayInformationService.init += value;
-                alert(dayInformationService.init);
+                dayInfoService.init += value;
+                alert(dayInfoService.init);
             };
             $scope.setInit = function (value) {
-                dayInformationService.init = value;
-                alert(dayInformationService.init);
+                dayInfoService.setValue1(value);
+                alert(dayInfoService.getValue());
             };
             $scope.setEnd = function (value) {
-                dayInformationService.end = value;
-                alert(dayInformationService.end);
+                dayInfoService.setValue2(value);
+                alert(dayInfoService.getValue2());
             };
 
             $scope.myDate = new Date();
@@ -33,6 +34,35 @@
                  fecha: 'DatePlaceHolder'
                  },*/
             ];
+            
+            $scope.new =
+                {/*
+                 image: 'glyphicon glyphicon-plus-sign',
+                 nombre: 'Agregar',
+                 Fecha: ''*/
+                 };
 
+         /*   function createNew() {
+                if (!inProgress)
+                {
+
+                }
+                else
+                {
+
+                }
+            }*/
+            function validar()
+            {
+                if (false)
+                {
+                    alert("Ingrese fechas validas");
+                    returnToPreviousPage();
+                    return false;
+                }
+                return true;
+            }
         }]);
-})(window.angular);
+})
+
+        (window.angular);

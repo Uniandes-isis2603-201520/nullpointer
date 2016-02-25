@@ -76,7 +76,8 @@
                         valid: ((i - startDate) > 0 && (i - endDate) < 0),
                         invisible: false,
                         pageNum: $scope.pages,
-                        itemNum: nitems
+                        itemNum: nitems,
+                        city: "city"
                     };
                 }
             }
