@@ -4,7 +4,7 @@
   var mod = ng.module("inicioSesionModule");
 
   // crea el controlador con dependencias a $scope y a personService
-  mod.controller("inicioSesionController", ["$scope", "inicioSesionService", function ($scope, svc) {
+  mod.controller("inicioSesionController", ["$scope", "InicioSesionService", function ($scope, svc) {
 
 
             $scope.buscar = -1;

@@ -1,0 +1,11 @@
+.modal-parameters {
+    float: left; margin: 20px; font-size: 16px;
+}
+
+.modal-inputs {
+    float: left; margin: 20px;
+}
+
+.botonCrear {
+    clear: none; float: right; margin: 10px; height: 5em; width: 10em
+}

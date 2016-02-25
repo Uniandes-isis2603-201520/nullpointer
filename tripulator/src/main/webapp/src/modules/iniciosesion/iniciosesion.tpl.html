@@ -1,40 +1,11 @@
 
 <link href="resources/css/landingpage.css" rel="stylesheet" type="text/css"/>
 
-<div ng-hide="ctrl.editMode">
-    <div >
-
-        <table style="border-collapse:collapse;">
-            <thead>
-                <tr>
-                    <th colspan="2" style="color:red">USERS</th>
-                </tr>
-                <tr style="border-bottom:1px solid black;">
-                    <th style="padding:5px;"><em>ID</em></th>
-                    <th style="padding:5px;border-left:1px solid black;"><em>Username</em></th>
-                    <th style="padding:5px;border-left:1px solid black;"><em>Email</em></th>
-                    <th style="padding:5px;border-left:1px solid black;"><em>Password</em></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr ng-repeat="record in records">
-                    <td style="padding:5px;">{{record.id}}</td>
-                    <td style="padding:5px;border-left:1px solid black;">{{record.username}}</td>
-                    <td style="padding:5px;border-left:1px solid black;">{{record.email}}</td>
-                    <td style="padding:5px;border-left:1px solid black;">{{record.password}}</td>
-                    <td style="padding:5px;border-left:1px solid black;"><button  class="btn-default" ng-click="ctrl.deleteRecord(record.id)">Borrar</button></td>
-                </tr>
-
-
-            </tbody>
-        </table>
-    </div>
-</div>
 
 
 
 <!-- Main jumbotron for a primary marketing message or call to action -->
-<div class="bg container-fluid col-xs-12" style="background-image: url('resources/css/backpack.jpg')">
+<div class="bg container-fluid col-xs-12" style="background-image: url('resources/img/backpack.jpg')">
     <div class="row">
         <div class="loginform col-xs-offset-8 col-xs-3">
             <h3 class="text-center">welcome to tripulator!</h3>
@@ -130,3 +101,34 @@
         <p>&copy; 2016 Company, Inc.</p>
     </footer>
 </div> <!-- /container -->
+
+<div ng-hide="ctrl.editMode">
+    <div >
+
+        <table style="border-collapse:collapse;">
+            <thead>
+                <tr>
+                    <th colspan="2" style="color:red">USERS</th>
+                </tr>
+                <tr style="border-bottom:1px solid black;">
+                    <th style="padding:5px;"><em>ID</em></th>
+                    <th style="padding:5px;border-left:1px solid black;"><em>Username</em></th>
+                    <th style="padding:5px;border-left:1px solid black;"><em>Email</em></th>
+                    <th style="padding:5px;border-left:1px solid black;"><em>Password</em></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="record in records">
+                    <td style="padding:5px;">{{record.id}}</td>
+                    <td style="padding:5px;border-left:1px solid black;">{{record.username}}</td>
+                    <td style="padding:5px;border-left:1px solid black;">{{record.email}}</td>
+                    <td style="padding:5px;border-left:1px solid black;">{{record.password}}</td>
+                    <td style="padding:5px;border-left:1px solid black;"><button  class="btn-default" ng-click="ctrl.deleteRecord(record.id)">Borrar</button></td>
+                </tr>
+
+
+            </tbody>
+        </table>
+    </div>
+</div>
+
