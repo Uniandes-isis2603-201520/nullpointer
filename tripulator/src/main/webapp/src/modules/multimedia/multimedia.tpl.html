@@ -3,7 +3,7 @@
 
 <div class="col-xs-12 main-image">    
     
-    <img src="{{photos[0].src}}"/>
+    <img src="{{photos[actIndex].src}}"/>
     
     <div class="dotstyle dotstyle-fillup col-xs-offset-4">
         <ul ng-repeat="photo in photos">
@@ -15,11 +15,11 @@
 
 
 
-<div class="page-switcher1 col-xs-offset-0" id="left-switcher1" ng-click="previousImage();">
+<div class="page-switcher col-xs-offset-0" id="left-switcher" ng-click="previousImage();">
     <span class="glyphicon glyphicon-menu-left" ></span>
 </div>
 
-<div class="page-switcher1 col-xs-offset-10" id="right-switcher1" ng-click="nextImage();">
+<div class="page-switcher col-xs-offset-10" id="right-switcher" ng-click="nextImage();">
     <span class="glyphicon glyphicon-menu-right"></span>
 </div>
 

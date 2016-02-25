@@ -4,17 +4,17 @@ body
     width: 100%;
 }
 
-.page-switcher1{
+.page-switcher{
     position: absolute;
-    top: 80%;
+    top: 100%;
     cursor: pointer;
 }
 
-#left-switcher1{
+#left-switcher{
     left: 5%;
 }
 
-#right-switcher1{
+#right-switcher{
     right: 5%;
 }
 
