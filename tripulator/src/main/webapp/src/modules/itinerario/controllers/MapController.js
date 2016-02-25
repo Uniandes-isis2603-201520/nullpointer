@@ -69,10 +69,7 @@ sampleApp.controller('MapController', function ($scope) {
     $scope.openInfoWindow = function (e, selectedMarker) {
         e.preventDefault();
         google.maps.event.trigger(selectedMarker, 'click');
-        google.maps.event.addListener(selectedMarker, 'click', function () {
-            map.setZoom(9);
-            map.setCenter(marker.getPosition());
-        });
+ 
     }
 
 });
