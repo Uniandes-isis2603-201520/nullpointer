@@ -6,11 +6,16 @@
         <br/>
     </div>
 
-    <div class="row-fluid" ng-repeat="i in [1, 2]">
+    <div class="row-fluid">
         <div>
-            <div class="text-center col-xs-12"><!--division para cada viaje/itinerario-->
-                <div class="btn-group inline" ng-repeat="x in [1, 2, 3, 4, 5]">
+            <div class="text-center col-xs-0"><!--division para cada viaje/itinerario-->
+                <div class="btn-group inline">
                     <button type="button" class="btn btn-default btn-circle btn-xl add-trip-button" data-toggle="modal" data-target="#modalRate"><h4>click to add a new trip!</h4></button>
+                    <button type="button" class="btn btn-default btn-circle btn-xl add-trip-button" data-toggle="modal" data-target="#modalRate"><h4>click to add a new trip!</h4></button>
+                    <button type="button" class="btn btn-default btn-circle btn-xl add-trip-button" data-toggle="modal" data-target="#modalRate"><h4>click to add a new trip!</h4></button>
+                    <button type="button" class="btn btn-default btn-circle btn-xl add-trip-button" data-toggle="modal" data-target="#modalRate"><h4>click to add a new trip!</h4></button>
+                    <button type="button" class="btn btn-default btn-circle btn-xl add-trip-button" data-toggle="modal" data-target="#modalRate"><h4>click to add a new trip!</h4></button>
+                    
                 </div>
             </div>
         </div>
@@ -33,25 +38,20 @@
                             <input type="date"ng-init="message2 = 'Final Date'" ng-model="message2" >
                         </md-datepicker>
 
-                        <button ng-click="setInit(message1);setEnd(message2);" onclick="removeModal();">
+                        <button ng-click="setInit(message1);
+                            setEnd(message2);" onclick="removeModal();">
                             <a ui-sref="itinerario">Crear</a>
                         </button>
 
                         <button data-dismiss="modal">Cancelar</button>
                     </form>
                 </div>
-        <div class="row-fluid">
-            <div>
-             <div class="row-fluid" ng-controller="HomeController" ng-repeat="viajes in viajes">
-              <app-info info="viajes"></app-info>
+                <div class="row-fluid">
+                    <div>
+                        <div class="row-fluid" ng-controller="ViajeroC" ng-repeat="viajes in viajes">
+                            <app-info info="viajes"></app-info>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
-</div>
-<script>
-            function removeModal() {
-                $('#modalRate').modal('hide');
-                $('body').removeClass('modal-open');
-                $('.modal-backdrop').remove();
-            };
-</script>
+            </div>
