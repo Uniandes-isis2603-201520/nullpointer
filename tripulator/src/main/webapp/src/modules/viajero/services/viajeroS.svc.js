@@ -1,6 +1,6 @@
 (function (ng) {
     var mod = ng.module("viajeroModule");
-    mod.service('dayInfoService', [function () {
+    mod.service('viajeroS', [function () {
             this.getValue1 = function () {
                 return this.myValue1;
             };

@@ -1,18 +1,18 @@
 (function (ng) {
     var mod = ng.module("viajeroModule");
-    mod.controller('ViajeroController', ['$scope', '$uibModal', 'dayInfoService', function ($scope, dayInfoService) {
+    mod.controller('ViajeroC', ['$scope', '$uibModal', 'viajeroS', function ($scope, viajeroS) {
 
             $scope.setValue = function (value) {
-                dayInfoService.init += value;
-                alert(dayInfoService.init);
+                viajeroS.init += value;
+                alert(viajeroS.init);
             };
             $scope.setInit = function (value) {
-                dayInfoService.setValue1(value);
-                alert(dayInfoService.getValue());
+                viajeroS.setValue1(value);
+                alert(viajeroS.getValue());
             };
             $scope.setEnd = function (value) {
-                dayInfoService.setValue2(value);
-                alert(dayInfoService.getValue2());
+                viajeroS.setValue2(value);
+                alert(viajeroS.getValue2());
             };
 
             $scope.myDate = new Date();
