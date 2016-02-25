@@ -66,11 +66,6 @@
                         url: '/evento',
                         controller: 'EventosController',
                         templateUrl: "src/modules/evento/evento.tpl.html",
-                        resolve: {
-                            load: function (eventosInfoService) {
-                                return eventosInfoService.LoadData();
-                            }
-                        }
                     });
         }]);
 })(window.angular);
