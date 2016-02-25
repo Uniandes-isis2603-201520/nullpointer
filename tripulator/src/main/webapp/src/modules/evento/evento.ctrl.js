@@ -1,23 +1,23 @@
 (function (ng) {
     var mod = ng.module("eventoModule");
-    mod.controller('EventosController', ['$scope', 'eventosInfoService', '$http', function ($scope, eventsInfoService, $http) {
+    mod.controller('EventosController', ['$scope', 'EventosInfoService', '$http', function ($scope, svc, $http) {
 
-            $scope.events = eventsInfoService.GetData();
-            $scope.eventoActual = {"title": "Seleccione un evento"};
+            $scope.events = [];
+            $scope.eventoActual = {};
             $scope.commentTemplate = {
-                "user": "Default",
-                "userPhoto": "http://www.periodicoabc.mx/sites/default/files/anonimoface.png",
-                "stars": 0,
-                "comment": ""
+                user: "Default",
+                userPhoto: "http://www.periodicoabc.mx/sites/default/files/anonimoface.png",
+                stars: 0,
+                comment: ""
             };
             $scope.starSelected = false;
             $scope.newComment = angular.copy($scope.commentTemplate);
             if ($scope.events != null) {
                 $scope.eventoActual = $scope.events[0];
-            }
+            };
             $scope.actualizarInfo = function (e) {
                 $scope.eventoActual = e;
-            }
+            };
             $scope.crearEstrellas = function (s) {
                 var resp = "";
                 var estrellasFaltantes = 5;
@@ -32,7 +32,7 @@
                 var txt = document.createElement("textarea");
                 txt.innerHTML = resp;
                 return txt.value;
-            }
+            };
             $scope.comentarioActualStars = function (numb) {
                 var i;
                 numb = Number(numb);
@@ -52,17 +52,18 @@
                 } else {
                     $scope.newComment.stars = 0;
                 }
-            }
+            };
+            var self = this;
             $scope.finComentarioActual = function () {
-                $scope.eventoActual.comments.push($scope.newComment);
+                self.update($scope.newComment,$scope.eventoActual.id);
                 $scope.reset();
-            }
+            };
             $scope.reset = function () {
                 $scope.newComment = angular.copy($scope.commentTemplate);
                 $scope.starSelected = false;
-                document.getElementById("comment").value = "";
+                $scope.newComment.comment = "";
                 $scope.resetPaint();
-            }
+            };
             $scope.paintStar = function (numb) {
                 if (!$scope.starSelected) {
                     var i;
@@ -78,7 +79,7 @@
                         document.getElementById(i).innerHTML = txt2.value;
                     }
                 }
-            }
+            };
             $scope.resetPaint = function () {
                 if (!$scope.starSelected) {
                     var i = 1;
@@ -88,9 +89,20 @@
                         document.getElementById(i).innerHTML = txt2.value;
                     }
                 }
-            }
-            $scope.anadirEvento = function(e){
-                console.log("llega");
-            }
+            };
+            var self=this;
+            this.fetchEventos = function () {
+                return svc.fetchEventos().then(function (response) {
+                    $scope.events = response;
+                    return response;
+                }, function (response){ console.log(response);});
+            };
+            this.update = function(coment,index){
+                console.log(index);
+                return svc.saveRecord(coment,index).then(function () {
+                        self.fetchEventos();
+                    }, function (response){ console.log(response);});
+            };
+            this.fetchEventos();
         }]);
 })(window.angular);
