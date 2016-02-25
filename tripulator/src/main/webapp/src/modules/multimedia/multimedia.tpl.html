@@ -2,11 +2,11 @@
 
 
 <div class="col-xs-12 main-image">    
-    <img src="{{photos[actIndex].src}}"/>
+    <img src="{{currentRecord.src}}"/>
     
     <div class="dotstyle dotstyle-fillup col-xs-offset-4">
-        <ul ng-repeat="photo in photos">
-            <li class="current" ng-click="changePhoto(photo)"><a></a></li>
+        <ul ng-repeat="record in records">
+            <li class="current" ng-click="changePhoto(record)"><a></a></li>
 	</ul>
     </div>
    
@@ -22,10 +22,3 @@
     <span class="glyphicon glyphicon-menu-right"></span>
 </div>
 
-<div id="footer">
-    <!-- <div class="row-fluid text-center" ng-repeat="photo in photos">
-         <div class="col-xs-1" style="display: inline-block" ng-click="changePhoto(photo);">
-             <img src="{{photo.src}}" class="photopreview">
-         </div>
-     </div>-->
-</div>
