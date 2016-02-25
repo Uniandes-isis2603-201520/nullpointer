@@ -30,9 +30,9 @@
                         End:   <br>
                     </div>
                     <div class="modal-inputs col-xs-3" >
-                        <input type="text" name=" name" id="newEventName"><br>
-                        <input type="text" name="startHour" value="{{ halfHours[indexClicked]}}" id="newEventStartHour"><br>
-                        <input type="text" name="endHour" value="{{ halfHours[indexClicked + 2]}}" id="newEventEndHour">
+                        <input type="text" name=" name" id="newEventName" ng-model="emptyEvent.title"><br>
+                        <input type="time" name="startHour" id="newEventStartHour" ng-model="emptyEvent.start"><br>
+                        <input type="time" name="endHour" id="newEventEndHour" ng-model="emptyEvent.end">
                     </div>
                     <button  type="button" class="botonCrear btn btn-success" data-dismiss="modal" ng-click="addNewEvent()">Create</button>
                 </form>

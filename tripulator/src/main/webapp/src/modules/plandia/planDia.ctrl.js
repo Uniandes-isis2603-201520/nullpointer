@@ -2,56 +2,9 @@
 
     var mod = ng.module("planDiaModule");
 
-    mod.controller('PlanDiaController', ['$scope', '$window', function ($scope, $window) {
-            
-            $scope.events = [
-                {
-                    "title": "Caminata por la quebrada 'La Vieja'",
-                    "image": "",
-                    "type": "nature",
-                    "start": "7:00",
-                    "end": "9:00",
-                    "description": "",
-                    "comments": []
-                },
-                {
-                    "title": "Visita a Moserrate",
-                    "image": "",
-                    "type": "chill",
-                    "start": "10:00",
-                    "end": "13:00",
-                    "description": "",
-                    "comments": []
-                },
-                {
-                    "title": "Almuerzo en Juan Chepe",
-                    "image": "",
-                    "type": "food",
-                    "start": "14:00",
-                    "end": "15:00",
-                    "description": "",
-                    "comments": []
-                },
-                {
-                    "title": "Museo del oro",
-                    "image": "",
-                    "type": "culture",
-                    "start": "16:00",
-                    "end": "20:00",
-                    "description": "",
-                    "comments": []
-                }
-            ];
+    mod.controller('PlanDiaController', ['$scope', function ($scope) {
 
-            $scope.emptyEvent = {
-                "title": "",
-                "image": "",
-                "type": "",
-                "start": "",
-                "end": "",
-                "description": "",
-                "comments": []
-            };
+            var self = this;
 
             $scope.halfHours = ['00:00', '00:30', '01:00', '01:30', '02:00', '02:30', '03:00', '03:30', '04:00',
                 '04:30', '05:00', '05:30', '06:00', '06:30', '07:00', '07:30', '08:00', '08:30', '09:00',
@@ -63,15 +16,44 @@
                 '08:00', '09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00',
                 '18:00', '19:00', '20:00', '21:00', '22:00', '23:00'];
 
+            $scope.events = [];
+
+            $scope.emptyEvent = {
+                "title": "Nuevo evento",
+                "image": "",
+                "type": "",
+                "start": "",
+                "end": "",
+                "description": "",
+                "comments": []
+            };
+
             $scope.daySections = [];
+
+            /*
+            function responseError(response) {
+                self.showError(response.data);
+            }
+             
+             this.getEvents = function () {
+             svc.getEvents().then(function (response) {
+             
+             $scope.photos = response;
+             
+             }, responseError);
+             };
+             
+            svc.createSections();
+            svc.markOccupiedSections();
+            
+             */
 
             createSections();
             markOccupiedSections();
-            
-            $scope.indexClicked;
 
             $scope.hourClicked = function (index) {
-                $scope.indexClicked = index;
+                $scope.emptyEvent.start = $scope.halfHours[index];
+                $scope.emptyEvent.end = $scope.halfHours[index + 2];
             };
 
             $scope.addNewEvent = function () {
@@ -107,9 +89,9 @@
             $scope.style = function (index) {
                 if (!$scope.daySections[index].available) {
                     return {
-                            "background-color": "#5CB85C",
-                            "color": "#FFFFFF",
-                        };
+                        "background-color": "#5CB85C",
+                        "color": "#FFFFFF",
+                    };
                 }
             };
 
@@ -150,36 +132,36 @@
 })(window.angular);
 
 /*
-var sectionType = $scope.daySections[index].event.type;
-                    if (sectionType === "culture") {
-                        return {
-                            "background-color": "#337AB7",
-                            "color": "#FFFFFF"
-                        };
-                    } else if (sectionType === "nature") {
-                        return {
-                            "background-color": "#5CB85C",
-                            "color": "#FFFFFF"
-                        };
-                    } else if (sectionType === "chill") {
-                        return {
-                            "background-color": "#5BC0DE",
-                            "color": "#FFFFFF"
-                        };
-                    } else if (sectionType === "food") {
-                        return {
-                            "background-color": "#F0AD4E",
-                            "color": "#FFFFFF"
-                        };
-                    } else if (sectionType === "extreme") {
-                        return {
-                            "background-color": "#D9534F",
-                            "color": "#FFFFFF"
-                        };
-                    } else {
-                        return {
-                            "background-color": "#777777",
-                            "color": "#FFFFFF"
-                        };
-                    }
-*/
+ var sectionType = $scope.daySections[index].event.type;
+ if (sectionType === "culture") {
+ return {
+ "background-color": "#337AB7",
+ "color": "#FFFFFF"
+ };
+ } else if (sectionType === "nature") {
+ return {
+ "background-color": "#5CB85C",
+ "color": "#FFFFFF"
+ };
+ } else if (sectionType === "chill") {
+ return {
+ "background-color": "#5BC0DE",
+ "color": "#FFFFFF"
+ };
+ } else if (sectionType === "food") {
+ return {
+ "background-color": "#F0AD4E",
+ "color": "#FFFFFF"
+ };
+ } else if (sectionType === "extreme") {
+ return {
+ "background-color": "#D9534F",
+ "color": "#FFFFFF"
+ };
+ } else {
+ return {
+ "background-color": "#777777",
+ "color": "#FFFFFF"
+ };
+ }
+ */
