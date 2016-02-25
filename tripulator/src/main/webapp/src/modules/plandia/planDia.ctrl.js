@@ -31,6 +31,9 @@
             $scope.daySections = [];
 
             /*
+             * En caso que el service funcionara, se implementarían solo estos métodos y los métodos del $scope.
+             * Sin embargo, al agregar el service al controlador no sirve el controlador
+             * 
             function responseError(response) {
                 self.showError(response.data);
             }
