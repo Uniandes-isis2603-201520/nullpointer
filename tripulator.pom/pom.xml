@@ -6,7 +6,7 @@
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
     <modules>
-        <module>../../../GitHub/new_new_nullpointer/nullpointer/tripulator</module>
+        <module>../tripulator</module>
     </modules>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
