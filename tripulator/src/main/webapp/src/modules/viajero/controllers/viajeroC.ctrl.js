@@ -1,6 +1,6 @@
 (function (ng) {
     var mod = ng.module("viajeroModule");
-    mod.controller('ViajeroC', ['$scope', '$uibModal', 'viajeroS', function ($scope, viajeroS) {
+    mod.controller('ViajeroC', ['$scope', '$uibModal', 'viajeroS', function ($scope, viajeroS, $rootScope) {
 
             $scope.setValue = function (value) {
                 viajeroS.init += value;
