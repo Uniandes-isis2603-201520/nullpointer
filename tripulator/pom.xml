@@ -6,7 +6,12 @@
     <artifactId>nullPointer</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
-
+    <parent>
+        <groupId>co.edu.uniandes.tripulator</groupId>
+        <artifactId>tripulator.pom</module>
+        <version>1.0-SNAPSHOT</version>
+        <relativePath>../tripulator.pom/pom.xml</relativePath>
+    </parent>
     <name>tripulator</name>
 
     <properties>
