@@ -7,7 +7,13 @@
         "planDiaModule",
         "multimediaModule",
         "eventoModule",
-        "viajeroModule"
+        "viajeroModule",
+        "mapsApp",
+        "inicioSesionModule",
+        "inicioSesionMock"
+        
+        
+            
     ]);
 
     mod.config(['$logProvider', function ($logProvider) {
@@ -19,7 +25,11 @@
             $stateProvider
                     .state('/', {
                         url: '/',
+                        controller: 'inicioSesionController',
                         templateUrl: "src/modules/iniciosesion/iniciosesion.tpl.html"
+                        
+                        
+                        
                     })
                     .state('viajero', {
                         url: '/viajero',
@@ -52,6 +62,7 @@
                         },
                         parent: "itinerario"
                     })
+                    
                     .state('plandia', {
                         url: '/plandia',
                         templateUrl: "src/modules/plandia/plandia.tpl.html",

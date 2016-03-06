@@ -1,9 +1,10 @@
 <link href="resources/css/calendar.css" rel="stylesheet" type="text/css"/>
+<link href="resources/css/mapa.css" rel="stylesheet" type="text/css"/>
 
 <div class="page-switcher" id="left-switcher" ng-click="decreasePageNum();">
     <span class="glyphicon glyphicon-menu-left" ></span>
 </div>
-
+<!-- TEST -->
 <div class="page-switcher" id="right-switcher" ng-click="increasePageNum();">
     <span class="glyphicon glyphicon-menu-right"></span>
 </div>
@@ -93,4 +94,31 @@
             </div>
         </div>
     </div>
+</div>
+
+<div id="browseCityModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="text-center">Browse cities</h3>
+            </div>
+            <div class="modal-body">
+                <h4 class="tab-text">Please choose the city you're visiting today:</h4>
+                <input type="text" placeholder="choose a city" class="form-control input-sm" ng-model="cityName">
+            </div>
+            <div class="modal-footer">
+                <button 
+                    type="button" 
+                    class="btn btn-success  col-xs-3" 
+                    ng-click="selectedDay.city = cityName" 
+                    data-dismiss="modal"
+                    >
+                    Ok!
+                </button>
+                <button type="button" class="btn btn-danger col-xs-3" data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+    <!-- /.modal -->
+
 </div>

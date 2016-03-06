@@ -17,7 +17,12 @@
         <script src="resources/js/angular-ui-router.min.js" type="text/javascript"></script>
         <script src="resources/js/ui-bootstrap-tpls-1.1.2.min.js" type="text/javascript"></script>
         <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.js"></script>
+        <script src="resources/js/angular-mocks.js" type="text/javascript"></script>
 
+
+        <!-- Google Maps Javascript API -->
+      
+        <script src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
 
         <script src="src/app.js" type="text/javascript"></script>
         <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
@@ -25,25 +30,32 @@
         <link href="resources/css/index.css" rel="stylesheet" type="text/css" >
 
         <!-- Modules -->
-        <script src="src/modules/app.js"></script>
+    
         <script src="src/modules/plandia/planDia.mod.js"></script>
         <script src="src/modules/itinerario/itinerario.mod.js"></script>
         <script src="src/modules/multimedia/multimedia.mod.js"></script>
         <script src="src/modules/evento/evento.mod.js"></script>
         <script src="src/modules/viajero/viajero.mod.js"></script>
+        <script src="src/modules/iniciosesion/inicioSesion.mod.js"></script>
+        
         <!-- Controllers -->
         <script src="src/modules/plandia/planDia.ctrl.js"></script>
+        <script src="src/modules/iniciosesion/inicioSesion.ctrl.js"></script>
         <script src="src/modules/itinerario/controllers/ItinerarioController.js"></script>
-        <script src="src/modules/viajero/controllers/ViajeroController.js"></script>
+        <script src="src/modules/viajero/controllers/viajeroC.ctrl.js"></script>
         <script src="src/modules/evento/evento.ctrl.js"></script>
+        <script src="src/modules/itinerario/controllers/MapController.js"></script>
         <script src="src/modules/multimedia/multimedia.ctrl.js"></script>
         <!-- Services -->
         <script src="src/modules/evento/evento.srv.js"></script>
         <script src="src/modules/itinerario/services/itinerario.svc.js"></script>
         <script src="src/modules/multimedia/multimedia.svc.js"></script>
-        <script src="src/modules/viajero/services/dayInfoService.js"></script>
+        <script src="src/modules/iniciosesion/inicioSesion.svc.js"></script>
+       
+        
+        <script src="src/modules/iniciosesion/inicioSesion.mock.js"></script>
     </head>
-    <body style="padding-top: 60px;">
+    <body style="padding-top: 60px;" >
         <div class="container-fluid">
             <div class="col-md-12">
                 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -63,8 +75,7 @@
                         <div class="collapse navbar-collapse" id="main-bar">
                             <ul class="nav navbar-nav navbar-right">
                                 <li><a ui-sref="evento">Events</a></li>
-                                <li><a ui-sref="viajero">Trips</a></li>
-                                <li><a ui-sref="itinerario">Home</a></li>
+                                <li><a ui-sref="viajero">Home</a></li>
                             </ul>
                         </div> <!-- /.navbar-collapse -->
                     </div> <!-- /.container-fluid -->
