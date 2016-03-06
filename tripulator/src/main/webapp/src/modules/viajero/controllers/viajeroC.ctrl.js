@@ -63,6 +63,7 @@
                 svc.getTrip(userId, tripId).then(function (response) {
                     $scope.currentTrip = response;
                     self.generateImage();
+                    $scope.$apply();
                 },
                         responseError);
             };
