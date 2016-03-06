@@ -3,24 +3,67 @@
     var mod = ng.module("itinerarioModule");
 
     mod.service("itinerarioService", [function () {
-            var monthStart;
-            var monthEnd;
-            var days;
-            var pages;
-            var nitems;
-            var startDate = new Date("2015-03-24");
-            var endDate = new Date("2015-04-10");
-
-            this.getDateBounds = function (trip) {
-                return new Promise(function (resolve, reject) {
-                    var array = [startDate, endDate];
-                    if (array.length !== 0) {
-                        resolve(array);
-                    } else {
-                        reject("Error occurred");
+            /**
+             * Simula lo que trae el backend.
+             * @param {type} days
+             * @param {type} startDate
+             * @param {type} endDate
+             * @returns {undefined}
+             */
+            function generateDays(days, startDate, endDate) {
+                var i = new Date(startDate);
+                while (i.getTime() !== endDate.getTime()) {
+                    days.push(
+                            {
+                                date: i,
+                                city: "none",
+                                events: [],
+                                valid: true
+                            }
+                    );
+                    var j = new Date(i);
+                    j.setDate(j.getDate() + 1);
+                    i = j;
+                }
+            }
+            /**
+             * Le da formato a la entrada recibida por el backend.
+             * Crea una matriz donde las filas son meses y las columnas dias de ese mes.
+             * Si el mes no comienza en domingo, se le agrega un relleno a la matriz.
+             * @param {type} days
+             * @returns {undefined}
+             */
+            function formatDays(days) {
+                var formattedDays = [];
+                for (var i = 0; i < days.length; ) {
+                    var daysInMonth = [];
+                    var monthStart = days[i].date;
+                    setCalendarOffset(daysInMonth, monthStart);
+                    while (i < days.length && days[i].date.getMonth() === monthStart.getMonth()) {
+                        daysInMonth.push(days[i]);
+                        i++;
                     }
-                });
-            };
+                    formattedDays.push(daysInMonth);
+                }
+                return formattedDays;
+            }
+            /**
+             * Agrega días invalidos al principio del mes si este no empieza en domingo.
+             * @param {type} array
+             * @param {type} monthStart
+             * @returns {undefined}
+             */
+            function setCalendarOffset(array, monthStart) {
+                for (var i = 0; i < monthStart.getDay(); i++) {
+                    var newDate = new Date(monthStart);
+                    newDate.setDate(monthStart.getDate() - (monthStart.getDay() - i));
+                    array.push({
+                        date: newDate,
+                        valid: false
+                    });
+                }
+            }
+
             this.saveTrip = function (days) {
                 return new Promise(function (resolve, reject) {
                     if (days !== null) {
@@ -30,12 +73,13 @@
                     }
                 });
             };
-            this.getTrip = function (id, showFullMonth) {
+            this.getTrip = function (id) {
                 return new Promise(function (resolve, reject) {
-                    createMatrix();
-                    initializeMatrixBounds(showFullMonth);
-                    setCalendarOffset(monthStart);
-                    initializeDaysMatrix();
+                    var days = [];
+                    var startDate = new Date("2015-03-24");
+                    var endDate = new Date("2015-04-10");
+                    generateDays(days, startDate, endDate);
+                    days = formatDays(days);
                     if (id !== null) {
                         resolve(days);
                     } else {
@@ -63,80 +107,6 @@
                     }
                 });
             };
-
-            /**
-             * Inicializa todos los valores asociados a la matriz de días.
-             * @returns {undefined}
-             */
-            function createMatrix() {
-                days = [];
-                days[0] = [];
-                pages = 0;
-                nitems = 0;
-            }
-            /**
-             * Inicializa lo que serían los limites del ciclo para darle los valores a la matriz.
-             * @param {type} displayFullMonth
-             * @returns {undefined}
-             */
-            function initializeMatrixBounds(displayFullMonth) {
-                monthStart = new Date(startDate.getTime());
-                monthEnd = new Date(endDate.getTime());
-                if (displayFullMonth) {
-                    monthStart.setDate(1);
-                    monthEnd.setDate(1);
-                    monthEnd.setMonth(monthEnd.getMonth() + 1);
-                    monthEnd.setDate(monthEnd.getDate() - 1);
-                } else {
-                    monthStart.setDate(monthStart.getDate() - monthStart.getDay());
-                    monthEnd.setDate(monthEnd.getDate() + (6 - monthEnd.getDay()));
-                }
-            }
-
-
-            /**
-             * Agrega días sin visibilidad por relleno en los meses que no comienzan desde el domingo.
-             * @param {type} date
-             * @returns {undefined}
-             */
-            function setCalendarOffset(date) {
-                for (; nitems < 7; nitems++) {
-                    if (nitems === monthStart.getDay()) {
-                        break;
-                    } else {
-                        days[pages][nitems] = {
-                            date: date.getTime(),
-                            valid: false,
-                            invisible: true
-                        };
-                    }
-                }
-            }
-
-            /**
-             * Llena de días la matriz de días.
-             * @returns {undefined}
-             */
-            function initializeDaysMatrix() {
-                var currentMonth = monthStart.getMonth();
-                for (var i = monthStart; i <= monthEnd; i.setDate(i.getDate() + 1), nitems++) {
-
-                    if (currentMonth !== i.getMonth()) {
-                        currentMonth = i.getMonth();
-                        nitems = 0;
-                        days[++pages] = [];
-                        setCalendarOffset(i);
-                    }
-                    days[pages][nitems] = {
-                        date: i.getTime(),
-                        valid: ((i - startDate) > 0 && (i - endDate) < 0),
-                        invisible: false,
-                        pageNum: pages,
-                        itemNum: nitems,
-                        city: "city"
-                    };
-                }
-            }
         }]);
 
 

@@ -63,11 +63,21 @@
                         },
                         parent: "viajero.itinerario"
                     })
+                    .state('viajero.itinerario.evento', {
+                        views: {
+                            "evento": {
+                                url: '/evento',
+                                controller: 'EventosController',
+                                templateUrl: "src/modules/evento/evento.tpl.html"
+                            }
+                        },
+                        parent: "viajero.itinerario"
+                    })
                     .state('itinerario', {
                         url: '/itinerario',
                         controller: 'ItinerarioController',
                         controllerAs: "ctrl",
-                        templateUrl: "src/modules/itinerario/itinerario.tpl.html",
+                        templateUrl: "src/modules/itinerario/itinerario.tpl.html"
                     })
                     .state('plandia', {
                         url: '/plandia',
@@ -82,7 +92,7 @@
                     .state('evento', {
                         url: '/evento',
                         controller: 'EventosController',
-                        templateUrl: "src/modules/evento/evento.tpl.html",
+                        templateUrl: "src/modules/evento/evento.tpl.html"
                     });
         }]);
 })(window.angular);
