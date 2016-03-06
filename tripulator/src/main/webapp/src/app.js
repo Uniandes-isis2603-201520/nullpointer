@@ -53,6 +53,17 @@
                         },
                         parent: "viajero"
                     })
+                    
+                    .state('viajero.mapa', {
+                        views: {
+                            "multimedia": {
+                                url: '\mapa',
+                                controller: 'MapController',
+                                templateUrl: "src/modules/mapa/mapa.tpl.html"
+                            }
+                        },
+                        parent: "viajero"
+                    })
                     .state('viajero.itinerario.plandia', {
                         views: {
                             "plandia": {
@@ -93,6 +104,13 @@
                         url: '/evento',
                         controller: 'EventosController',
                         templateUrl: "src/modules/evento/evento.tpl.html"
+                    })
+                     .state('mapa', {
+                        url: '/mapa',
+                        controller: 'MapController',
+                        templateUrl: "src/modules/mapa/mapa.tpl.html"
                     });
+                    
+                    
         }]);
 })(window.angular);
