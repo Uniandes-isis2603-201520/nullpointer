@@ -67,6 +67,7 @@
 .planner{
     position: relative;
     height: 100%;
+    width: 95%;
 }
 
 .planner-background{

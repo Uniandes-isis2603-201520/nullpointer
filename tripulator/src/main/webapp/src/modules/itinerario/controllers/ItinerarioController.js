@@ -132,11 +132,11 @@
 
                 if (!day.valid && !highlight) {
                     return{
-                        "background-color": "rgba(180, 209, 255, 0.5)"
+                        "background-color": "rgba(180, 209, 255, 0.1)"
                     };
                 } else if (!day.valid && highlight) {
                     return{
-                        "background-color": "rgba(180, 209, 255, 1)"
+                        "background-color": "rgba(180, 209, 255, 0.1)"
                     };
                 } else if (day.valid && !highlight) {
                     return{

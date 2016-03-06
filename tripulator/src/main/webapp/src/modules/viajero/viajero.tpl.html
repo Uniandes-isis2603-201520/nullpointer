@@ -19,52 +19,52 @@
                 <a>Delete</a>
             </li>
             <li class="sidebar-brand">
-                <a>Trip actions</a>
+                <a>Actions</a>
             </li>
-            <li>
-                <a>Calendar</a>
-            </li>
-            <li>
-                <a>Map</a>
-            </li>
-            <li>
-                <a>Gallery</a>
+            <li ng-repeat="action in menuActions">
+                <a ng-style="isActionSelected(action)" ng-click="selectAction(action)" ui-sref="{{selectView(action);}}">
+                    {{action.name}}
+                </a>
             </li>
             <li class="sidebar-brand">
                 <a>History</a>
             </li>
             <li ng-repeat="trip in trips" ng-click="ctrl.getTrip(trip.id)">
-                <a>{{trip.name}}</a>
+                <a ng-style="isTripSelected(trip)">{{trip.name}}</a>
             </li>
         </ul>
     </div>
     <!-- /#sidebar-wrapper -->
     <!--<a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a>-->
     <div class="container-fluid" id="nospace">
-        <div class="trip-banner">
-            <uib-carousel active="0" interval="10000">
-                <uib-slide ng-repeat="image in currentTrip.images">
-                    <img ng-src="{{image.src}}">
-                    <div class="carousel-caption">
-                        <h4>{{currentTrip.name}}</h4>
-                        <p>{{image.name}}</p>
-                    </div>
-                </uib-slide>
-            </uib-carousel>
-        </div>  
-        <div class="trip-information">
-            <h2 id="trip-name">{{currentTrip.name}}</h2>
-            <div id="date-information">
-                <h3 class="col-xs-4 ">Start date: {{currentTrip.startDate| date}}</h3>
-                <h3 class="col-xs-4 text-center ">End date: {{currentTrip.endDate| date}}</h3>
-                <h3 class="col-xs-4 text-right">Current date: {{today| date}}</h3>
-                <h3 class="col-xs-4 ">photos: {{currentTrip.images.length}}</h3>
-                <h3 class="col-xs-4 text-center">events: {{currentTrip.events.length}}</h3>
-                <h3 class="col-xs-4 text-right" ui-sref="itinerario">visit trip <span class="glyphicon glyphicon-plane"></span></h3>
+        <div class="overview" ng-show="menuActions[0].active">
+            <div class="trip-banner">
+                <uib-carousel active="0" interval="10000">
+                    <uib-slide ng-repeat="image in currentTrip.images">
+                        <img ng-src="{{image.src}}">
+                        <div class="carousel-caption">
+                            <h4>{{currentTrip.name}}</h4>
+                            <p>{{image.name}}</p>
+                        </div>
+                    </uib-slide>
+                </uib-carousel>
+            </div>  
+            <div class="trip-information">
+                <h2 id="trip-name">{{currentTrip.name}}</h2>
+                <div id="date-information">
+                    <h3 class="col-xs-4 ">Start date: {{currentTrip.startDate| date}}</h3>
+                    <h3 class="col-xs-4 text-center ">End date: {{currentTrip.endDate| date}}</h3>
+                    <h3 class="col-xs-4 text-right">Current date: {{today| date}}</h3>
+                    <h3 class="col-xs-4 ">photos: {{currentTrip.images.length}}</h3>
+                    <h3 class="col-xs-4 text-center">events: {{currentTrip.events.length}}</h3>
+                    <h3 class="col-xs-4 text-right" ui-sref="itinerario">visit trip <span class="glyphicon glyphicon-plane"></span></h3>
+                </div>
             </div>
         </div>
+        <div ui-view="itinerario" ng-show="menuActions[1].active"></div>
+        <div ui-view="multimedia" ng-show="menuActions[3].active"></div>
+        <div ui-view="mapa" ng-show="menuActions[2].active"></div>
     </div>
-
     <!-- Menu Toggle Script -->
     <script>
                 $("#menu-toggle").click(function (e) {

@@ -7,7 +7,25 @@
             $scope.trips = [];
             $scope.currentTrip;
             $scope.today = new Date();
-            
+            $scope.menuActions = [
+                {
+                    name: "Overview",
+                    active: true
+                },
+                {
+                    name: "Calendar",
+                    active: false
+                },
+                {
+                    name: "Map",
+                    active: false
+                },
+                {
+                    name: "Gallery",
+                    active: false
+                }
+            ];
+
             function responseError(response) {
                 self.showError(response.data);
             }
@@ -47,6 +65,44 @@
                     self.generateImage();
                 },
                         responseError);
+            };
+
+            $scope.isTripSelected = function (trip) {
+                if (trip === $scope.currentTrip) {
+                    return {"background": "rgba(180, 209, 255, 0.5)"};
+                }
+                return {};
+            };
+
+            $scope.selectAction = function (action) {
+                for (var i = 0; i < $scope.menuActions.length; i++) {
+                    if ($scope.menuActions[i] === action)
+                        $scope.menuActions[i].active = true;
+                    else
+                        $scope.menuActions[i].active = false;
+                }
+            };
+
+            $scope.isActionSelected = function (action) {
+                if (action.active)
+                    return {"background": "rgba(180,209,255,0.5)"};
+                return {};
+            };
+
+            $scope.selectView = function (action) {
+                switch (action.name) {
+                    case "Calendar":
+                        return "viajero.itinerario()";
+                        break;
+                    case "Gallery":
+                        return "viajero.multimedia()";
+                        break;
+                    case "Map":
+                        return "viajero.mapa()";
+                        break;
+                    default:
+                        return "";
+                }
             };
 
             this.getTrips(userId);

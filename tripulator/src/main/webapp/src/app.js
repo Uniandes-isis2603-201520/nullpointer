@@ -24,7 +24,7 @@
                     .state('/', {
                         url: '/',
                         controller: 'inicioSesionController',
-                        templateUrl: "src/modules/iniciosesion/iniciosesion.tpl.html"    
+                        templateUrl: "src/modules/iniciosesion/iniciosesion.tpl.html"
                     })
                     .state('viajero', {
                         url: '/viajero',
@@ -32,13 +32,18 @@
                         controllerAs: "ctrl",
                         templateUrl: "src/modules/viajero/viajero.tpl.html"
                     })
-                    .state('itinerario', {
-                        url: '/itinerario',
-                        controller: 'ItinerarioController',
-                        controllerAs: "ctrl",
-                        templateUrl: "src/modules/itinerario/itinerario.tpl.html",
+                    .state('viajero.itinerario', {
+                        views: {
+                            "itinerario": {
+                                url: '\itinerario',
+                                controller: 'ItinerarioController',
+                                controllerAs: "ctrl",
+                                templateUrl: "src/modules/itinerario/itinerario.tpl.html"
+                            }
+                        },
+                        parent: "viajero"
                     })
-                    .state('itinerario.multimedia', {
+                    .state('viajero.multimedia', {
                         views: {
                             "multimedia": {
                                 url: '\multimedia',
@@ -46,9 +51,9 @@
                                 templateUrl: "src/modules/multimedia/multimedia.tpl.html"
                             }
                         },
-                        parent: "itinerario"
+                        parent: "viajero"
                     })
-                    .state('itinerario.plandia', {
+                    .state('viajero.itinerario.plandia', {
                         views: {
                             "plandia": {
                                 url: '\plandia',
@@ -56,9 +61,14 @@
                                 templateUrl: "src/modules/plandia/plandia.tpl.html"
                             }
                         },
-                        parent: "itinerario"
+                        parent: "viajero.itinerario"
                     })
-                    
+                    .state('itinerario', {
+                        url: '/itinerario',
+                        controller: 'ItinerarioController',
+                        controllerAs: "ctrl",
+                        templateUrl: "src/modules/itinerario/itinerario.tpl.html",
+                    })
                     .state('plandia', {
                         url: '/plandia',
                         templateUrl: "src/modules/plandia/plandia.tpl.html",
