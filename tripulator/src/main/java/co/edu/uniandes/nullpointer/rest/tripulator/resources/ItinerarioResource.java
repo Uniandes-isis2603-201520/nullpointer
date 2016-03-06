@@ -18,7 +18,7 @@ import javax.ws.rs.PathParam;
  *
  * @author Antonio de la Vega
  */
-@Path("/itinerarios")
+@Path("/viajeros/:id/itinerarios")
 public class ItinerarioResource {
     @GET
     public List<ItinerarioDTO> getItinerarios(){
