@@ -13,7 +13,22 @@
                 <a>Create</a>
             </li>
             <li>
+                <a>Edit</a>
+            </li>
+            <li>
                 <a>Delete</a>
+            </li>
+            <li class="sidebar-brand">
+                <a>Trip actions</a>
+            </li>
+            <li>
+                <a>Calendar</a>
+            </li>
+            <li>
+                <a>Map</a>
+            </li>
+            <li>
+                <a>Gallery</a>
             </li>
             <li class="sidebar-brand">
                 <a>History</a>
@@ -38,11 +53,11 @@
             </uib-carousel>
         </div>  
         <div class="trip-information">
-            <h1 id="trip-name">{{currentTrip.name}}</h1>
+            <h2 id="trip-name">{{currentTrip.name}}</h2>
             <div id="date-information">
                 <h3 class="col-xs-4 ">Start date: {{currentTrip.startDate| date}}</h3>
                 <h3 class="col-xs-4 text-center ">End date: {{currentTrip.endDate| date}}</h3>
-                <h3 class="col-xs-4 text-right">Current date: {{today | date}}</h3>
+                <h3 class="col-xs-4 text-right">Current date: {{today| date}}</h3>
                 <h3 class="col-xs-4 ">photos: {{currentTrip.images.length}}</h3>
                 <h3 class="col-xs-4 text-center">events: {{currentTrip.events.length}}</h3>
                 <h3 class="col-xs-4 text-right" ui-sref="itinerario">visit trip <span class="glyphicon glyphicon-plane"></span></h3>
