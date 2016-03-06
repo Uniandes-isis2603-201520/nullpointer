@@ -3,6 +3,7 @@
     var mod = ng.module("mainApp", [
         "ui.router",
         "ngAnimate",
+        "ui.bootstrap",
         "itinerarioModule",
         "planDiaModule",
         "multimediaModule",
@@ -11,9 +12,6 @@
         "mapsApp",
         "inicioSesionModule",
         "inicioSesionMock"
-        
-        
-            
     ]);
 
     mod.config(['$logProvider', function ($logProvider) {
@@ -26,14 +24,12 @@
                     .state('/', {
                         url: '/',
                         controller: 'inicioSesionController',
-                        templateUrl: "src/modules/iniciosesion/iniciosesion.tpl.html"
-                        
-                        
-                        
+                        templateUrl: "src/modules/iniciosesion/iniciosesion.tpl.html"    
                     })
                     .state('viajero', {
                         url: '/viajero',
-                        controller: 'ViajeroController',
+                        controller: 'ViajeroC',
+                        controllerAs: "ctrl",
                         templateUrl: "src/modules/viajero/viajero.tpl.html"
                     })
                     .state('itinerario', {

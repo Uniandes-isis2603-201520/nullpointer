@@ -1,58 +1,59 @@
 <link rel="stylesheet" type="text/css" href="resources/css/home.css">
 
-<div class = "container-fluid"><!--Pagina Principal Con Viajes-->
-    <div>
-        <h1 class="title text-center">Trips</h1>
-        <br/>
-    </div>
 
-    <div class="row-fluid">
-        <div>
-            <div class="text-center col-xs-0"><!--division para cada viaje/itinerario-->
-                <div class="btn-group inline">
-                    <button type="button" class="btn btn-default btn-circle btn-xl add-trip-button" data-toggle="modal" data-target="#modalRate"><h4>click to add a new trip!</h4></button>
-                    <button type="button" class="btn btn-default btn-circle btn-xl add-trip-button" data-toggle="modal" data-target="#modalRate"><h4>click to add a new trip!</h4></button>
-                    <button type="button" class="btn btn-default btn-circle btn-xl add-trip-button" data-toggle="modal" data-target="#modalRate"><h4>click to add a new trip!</h4></button>
-                    <button type="button" class="btn btn-default btn-circle btn-xl add-trip-button" data-toggle="modal" data-target="#modalRate"><h4>click to add a new trip!</h4></button>
-                    <button type="button" class="btn btn-default btn-circle btn-xl add-trip-button" data-toggle="modal" data-target="#modalRate"><h4>click to add a new trip!</h4></button>
-                    <button type="button" class="btn btn-default btn-circle btn-xl add-trip-button" data-toggle="modal" data-target="#modalRate"><h4>click to add a new trip!</h4></button>
-                    
-                </div>
+<div id="wrapper" style="margin-right:0px;">
+
+    <!-- Sidebar -->
+    <div id="sidebar-wrapper">
+        <ul class="sidebar-nav">
+            <li class="sidebar-brand">
+                <a>Options</a>
+            </li>
+            <li>
+                <a>Create</a>
+            </li>
+            <li>
+                <a>Delete</a>
+            </li>
+            <li class="sidebar-brand">
+                <a>History</a>
+            </li>
+            <li ng-repeat="trip in trips" ng-click="ctrl.getTrip(trip.id)">
+                <a>{{trip.name}}</a>
+            </li>
+        </ul>
+    </div>
+    <!-- /#sidebar-wrapper -->
+    <!--<a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a>-->
+    <div class="container-fluid" id="nospace">
+        <div class="trip-banner">
+            <uib-carousel active="0" interval="10000">
+                <uib-slide ng-repeat="image in currentTrip.images">
+                    <img ng-src="{{image.src}}">
+                    <div class="carousel-caption">
+                        <h4>{{currentTrip.name}}</h4>
+                        <p>{{image.name}}</p>
+                    </div>
+                </uib-slide>
+            </uib-carousel>
+        </div>  
+        <div class="trip-information">
+            <h1 id="trip-name">{{currentTrip.name}}</h1>
+            <div id="date-information">
+                <h3 class="col-xs-4 ">Start date: {{currentTrip.startDate| date}}</h3>
+                <h3 class="col-xs-4 text-center ">End date: {{currentTrip.endDate| date}}</h3>
+                <h3 class="col-xs-4 text-right">Current date: {{today | date}}</h3>
+                <h3 class="col-xs-4 ">photos: {{currentTrip.images.length}}</h3>
+                <h3 class="col-xs-4 text-center">events: {{currentTrip.events.length}}</h3>
+                <h3 class="col-xs-4 text-right" ui-sref="itinerario">visit trip <span class="glyphicon glyphicon-plane"></span></h3>
             </div>
         </div>
-    </div>    
+    </div>
 
-    <div id="modalRate" class="modal fade" role="dialog">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h3 class="text-center">Agrega un nuevo itinerario</h3>
-                </div>
-                <!-- Modal content-->
-                <div class="modal-body">
-                    <form action="">
-                        <md-datepicker ng-model="myDate" md-placeholder="Enter date">
-                            <input type="date" ng-init="message1 = 'Initial Date'" ng-model="message1" >
-                        </md-datepicker>
-
-                        <md-datepicker ng-model="myDate" md-placeholder="Enter date">
-                            <input type="date"ng-init="message2 = 'Final Date'" ng-model="message2" >
-                        </md-datepicker>
-
-                        <button ng-click="setInit(message1);
-                            setEnd(message2);" onclick="removeModal();">
-                            <a ui-sref="itinerario">Crear</a>
-                        </button>
-
-                        <button data-dismiss="modal">Cancelar</button>
-                    </form>
-                </div>
-                <div class="row-fluid">
-                    <div>
-                        <div class="row-fluid" ng-controller="ViajeroC" ng-repeat="viajes in viajes">
-                            <app-info info="viajes"></app-info>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            </div>
+    <!-- Menu Toggle Script -->
+    <script>
+                $("#menu-toggle").click(function (e) {
+                    e.preventDefault();
+                    $("#wrapper").toggleClass("toggled");
+                });
+    </script>

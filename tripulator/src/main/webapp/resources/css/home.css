@@ -1,63 +1,26 @@
-.imageTrip{
-    width: 200px;
-    height: 200px;
-    background-size: cover;
-    display: block;
-    border-radius: 100px;
-    -webkit-border-radius: 100px;
-    -moz-border-radius: 100px;
-    float: none;
-    margin: 0 auto;
+.trip-banner{
+    background-color: rgba(0,0,0,.1);
+    width: 100%;
+    height: 400px;
+    padding: 0px !important;
+    margin: 0px !important;
+}
+.trip-information{
+    margin-left: 0px;
 }
 
-#addbutton{
-    width: 50px;
-    height: 50px;
-    background-size: cover;
-    display: block;
-    border-radius: 100px;
-    -webkit-border-radius: 100px;
-    -moz-border-radius: 100px;
-    float: none;
-    margin: 0 auto;
+#nospace{
+    margin:0px !important;
+    padding:0px !important;
 }
-
-.imageTrip:hover{
-    transform: scale(1.15, 1.15);
-    -moz-transform: scale(1.15, 1.15);
-    -ms-transform: scale(1.15, 1.15);
-    -webkit-transform: scale(1.15, 1.15);
-    -o-transform: scale(1.15, 1.15);
+#trip-name{
+    margin: 0px;
+    padding-top: 10px;
+    padding-bottom: 5px;
+    color: rgba(0,0,0,0.95);
+    background: rgba(94, 168, 167, 0.7);
 }
-
-.tripBox{
-    padding : 200px;
-    max-height: 150px;
-    max-width: 300px;   
-}
-
-.btn-circle.btn-xl {
-  width: 1.1em;
-  height: 1.1em;
-  padding: 7px 2px;
-  font-size: 24px;
-  line-height: 1.33;
-  border-radius: 110px;
-  font-size: 14em;
-}
-
-.add-trip-button{
-    background-color:rgba(180, 209, 255, 0.3);
-    border: none !important;
-    margin-right:15px;
-    margin-left: 20px;
-    margin-bottom: 15px;
-}
-
-.agregarCalendario md-content {
-    padding-bottom: 200px; 
-}
-
-.test{
-    border-radius: 50px;
+#date-information h3{
+    display: inline;
+    margin-left: 0px;
 }

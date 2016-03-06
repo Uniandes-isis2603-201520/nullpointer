@@ -1,68 +1,55 @@
 (function (ng) {
     var mod = ng.module("viajeroModule");
-    mod.controller('ViajeroC', ['$scope', '$uibModal', 'viajeroS', function ($scope, viajeroS, $rootScope) {
+    mod.controller('ViajeroC', ['$scope', '$element', 'viajeroS', function ($scope, $element, svc) {
+            var userId = 0;
+            var self = this;
 
-            $scope.setValue = function (value) {
-                viajeroS.init += value;
-                alert(viajeroS.init);
-            };
-            $scope.setInit = function (value) {
-                viajeroS.setValue1(value);
-                alert(viajeroS.getValue());
-            };
-            $scope.setEnd = function (value) {
-                viajeroS.setValue2(value);
-                alert(viajeroS.getValue2());
-            };
-
-            $scope.myDate = new Date();
-
-            $scope.viajes = [
-                /** {
-                 image: 'http://digital.fespa.com/images/Amsterdam.jpg',
-                 nombre: 'Amsterdam',
-                 Fecha: '17/05/1996'
-                 },
-                 {
-                 image: 'http://media-cdn.tripadvisor.com/media/photo-s/07/bd/a1/8a/downtown-dubai-cityscape.jpg',
-                 nombre: 'Dubai',
-                 fecha: '11/22/2005'
-                 },
-                 {
-                 image: 'https://i.imgur.com/6EUAQg4.png',
-                 nombre: 'PlaceHolder',
-                 fecha: 'DatePlaceHolder'
-                 },*/
-            ];
+            $scope.trips = [];
+            $scope.currentTrip;
+            $scope.today = new Date();
             
-            $scope.new =
-                {/*
-                 image: 'glyphicon glyphicon-plus-sign',
-                 nombre: 'Agregar',
-                 Fecha: ''*/
-                 };
-
-         /*   function createNew() {
-                if (!inProgress)
-                {
-
-                }
-                else
-                {
-
-                }
-            }*/
-            function validar()
-            {
-                if (false)
-                {
-                    alert("Ingrese fechas validas");
-                    returnToPreviousPage();
-                    return false;
-                }
-                return true;
+            function responseError(response) {
+                self.showError(response.data);
             }
-        }]);
-})
 
-        (window.angular);
+            this.showError = function (data) {
+                alert(data);
+            };
+
+            this.generateImage = function () {
+                $scope.currentTrip.images = [];
+                for (var i = 0; i < 4; i++) {
+                    $scope.currentTrip.images.push({
+                        id: i,
+                        src: 'http://lorempixel.com/' + ($element.width() + i) + '/500',
+                        name: "image title"
+                    });
+                }
+            };
+
+            this.getTrips = function () {
+                svc.getTrips(userId).then(function (response) {
+                    $scope.trips = response;
+                },
+                        responseError);
+            };
+
+            this.getTrips = function () {
+                svc.getTrips(userId).then(function (response) {
+                    $scope.trips = response;
+                },
+                        responseError);
+            };
+
+            this.getTrip = function (tripId) {
+                svc.getTrip(userId, tripId).then(function (response) {
+                    $scope.currentTrip = response;
+                    self.generateImage();
+                },
+                        responseError);
+            };
+
+            this.getTrips(userId);
+            this.getTrip(0);
+        }]);
+})(window.angular);

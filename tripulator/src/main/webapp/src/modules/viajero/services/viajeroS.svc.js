@@ -1,55 +1,54 @@
 (function (ng) {
     var mod = ng.module("viajeroModule");
     mod.service('viajeroS', [function () {
+            var trips = [
+                {
+                    id: 0,
+                    name: "Eurotrip 2014",
+                    startDate: new Date("2014-04-10"),
+                    endDate: new Date("2014-04-20"),
+                    events: [{},{},{},{}]
+                },
+                {
+                    id: 1,
+                    name: "Dubai 2015",
+                    startDate: new Date("2015-05-01"),
+                    endDate: new Date("2015-05-9"),
+                    events: [{},{},{},{}]
+                }
+            ];
             
+            var idCount  = 2;
             
-            this.getValue1 = function () {
-                return this.myValue1;
+            this.getTrips = function (userId) {
+                return new Promise(function (resolve, reject) {
+                    if (trips.length !== 0) {
+                        resolve(trips);
+                    } else {
+                        reject("Error occurred");
+                    }
+                });
             };
             
-            this.getValue2 = function () {
-                return this.myValue2;
-            };
-
-            this.setValue1 = function (newValue) {
-                this.myValue1 = newValue;
-            };
-            
-            this.setValue2 = function (newValue) {
-                this.myValue2 = newValue;
+            this.getTrip = function(userId, tripId){
+                return new Promise(function (resolve,reject){
+                    if(true){
+                        resolve(trips[tripId]);
+                    } else {
+                        reject("Error occurred");
+                    }
+                });
             };
             
-        /**
-        this.fetchViajes = function () {
-            return $http.get(context);
-        };
-
-
-        this.irViaje = function (id) {
-            return $http.get(context + "/" + id);
-        };
-
-
-        this.saveViaje = function (currentRecord) {
-            if (currentRecord.id) {
-                return $http.put(context + "/" + record.id, record);
-            } else {
-                return $http.post(context, record);
-            }
-        };
-
-        this.deleteViaje = function (id) {
-            return $http.delete(context + "/" + id);
-        };  
-
-        this.getViaje = function (id) {
-            return $http.get(context + "/" + id + "/viajes");
-        };
-
-
-        this.removeViaje = function (authorId, bookId) {
-            return $http.delete(context + "/viajes/" + viajesId);
-        };
-        */
+            this.addTrip = function(trip){
+                return new Promise(function (resolve,reject){
+                    if(trip.id === null){
+                        trips[idCount++] = trip;
+                        resolve(true);
+                    } else {
+                        reject(false);
+                    }
+                });
+            };
         }]);
 })(window.angular);

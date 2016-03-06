@@ -1,8 +1,4 @@
-/* Move down content because we have a fixed navbar that is 50px tall */
-body {
-    padding-top: 50px;
-    padding-bottom: 20px;
-}
+
 .loginform{
     overflow: visible;
     top: 160px;
@@ -20,12 +16,6 @@ body {
 
 .bg{
     height: 600px;
-    background-repeat: no-repeat;
-    background-size: cover;
-}
-.bg1{
-
-
     background-repeat: no-repeat;
     background-size: cover;
 }
@@ -59,3 +49,7 @@ minimalistic-btn{
     left: 0;     
 }
 
+#nospace{
+    margin:0px !important;
+    padding:0px !important;
+}
