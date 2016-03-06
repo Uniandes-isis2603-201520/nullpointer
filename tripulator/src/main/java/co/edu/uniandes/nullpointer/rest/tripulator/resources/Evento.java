@@ -5,6 +5,7 @@
  */
 package co.edu.uniandes.nullpointer.rest.tripulator.resources;
 
+import co.edu.uniandes.nullpointer.rest.tripulator.datos.EventoDTO;
 import java.util.List;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
