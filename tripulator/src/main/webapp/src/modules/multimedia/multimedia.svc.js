@@ -5,11 +5,12 @@
     mod.service("multimediaService", [function () {
             
     var photos = [ 
-            {src: 'http://blogs-images.forbes.com/adamhartung/files/2014/08/Tropical-Vacation.jpg', index: 0},
-            {src: 'http://thenextweb.com/wp-content/blogs.dir/1/files/2011/11/san-francisco.jpg', index: 1},
-            {src: 'https://media-cdn.tripadvisor.com/media/photo-s/03/9b/2d/f2/new-york-city.jpg', index: 2},
-            {src: 'http://cache-graphicslib.viator.com/graphicslib/thumbs674x446/2484/SITours/corcovado-mountain-and-christ-redeemer-statue-half-day-tour-in-rio-de-janeiro-128058.jpg', index: 3},
-            {src: 'https://images.trvl-media.com/media/content/shared/images/travelguides/destination/178281/Madrid-26512.jpg', index: 4}
+            {src: 'http://bootstrapbay.com/blog/wp-content/uploads/2014/05/stocksnap-free-stock-photos1.jpg'},
+            {src: 'http://bootstrapbay.com/blog/wp-content/uploads/2014/05/unslpash-desert-road_uvsq5s.png'},
+            {src: 'http://bootstrapbay.com/blog/wp-content/uploads/2014/05/yellow-taxi_vvvjao.png'},
+            {src: 'http://bootstrapbay.com/blog/wp-content/uploads/2014/05/negative-space.jpg'},
+            {src: 'http://bootstrapbay.com/blog/wp-content/uploads/2014/05/SplitShire_air_balloons_gma6ks.jpg'}
+            
         ];
 
         
@@ -21,7 +22,61 @@
                         reject("Error occurred");
                     }
                 });
-            };    
+        };
+        
+        this.getSplitPhotos = function () {
+                return new Promise(function (resolve, reject) {
+                    if (photos.length !== 0) {
+                       var cont=0;
+                       var total=[];
+                       var split=[];
+                       for(var i=0;i<photos.length;i++)
+                       {
+                           var obj=photos[i];
+                           split.push(obj);
+                           if(cont===4)
+                           {
+                               total.push(split);
+                               split=[];
+                               cont=0;
+                           }
+                           else
+                           {
+                               cont++;
+                           }
+                           
+                       }
+                       resolve(total);
+                       
+                    } else {
+                        reject("Error occurred");
+                    }
+                });
+        };
+        
+      this.addPhoto = function (url) {
+                return new Promise(function (resolve, reject) {
+                    if (url!=null) {
+                        var ingreso={src: url};
+                        photos.push(ingreso);
+                        resolve("Se agrego correctamente la foto.");
+                    } else {
+                        reject("Error occurred");
+                    }
+                });
+        };
+        
+     this.deletePhoto=function(index)
+     {
+         return new Promise(function (resolve, reject) {
+                    if (index>-1 || index<photos.length) {
+                        photos=photos.splice(index, 1);
+                        resolve("Se elimino correctamente la foto");
+                    } else {
+                        reject("No se pudo eliminar la foto!");
+                    }
+                });   
+     };
             
             
        

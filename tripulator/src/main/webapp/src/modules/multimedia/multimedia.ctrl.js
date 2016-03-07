@@ -2,19 +2,44 @@
     var mod =ng.module("multimediaModule");
     
     mod.controller('multimediaCtrl', ['$scope','multimediaService', function ($scope, svc) {
+    
         var self=this;
+             
+        $scope.slides=[];
         
-        $scope.actIndex=0;
-                
-        $scope.photos=[];
+        $scope.splitSlides=[];
+        
+        $scope.showAll=false;
+        
+        $scope.changeView=function()
+        {
+           $scope.showAll=!$scope.showAll;
+        };
 
         this.initPhotos = function(){
             svc.getPhotos().then(function(response){
             
-            $scope.photos=response;
+            $scope.slides=response;
+            
+            },responseError);
+            
+            svc.getSplitPhotos().then(function(response){
+            
+            $scope.splitSlides=response;
+            System.out.println("llegamos aqui");
+            },responseError);
+        };
+        
+        this.initSplitPhotos = function(){
+            
+            svc.getSplitPhotos().then(function(response){
+            
+            $scope.splitSlides=response;
             
             },responseError);
         };
+        
+        
         
        
         function responseError(response) {
@@ -22,17 +47,43 @@
         }
         
 
-        $scope.nextImage = function () {
-            $scope.actIndex = ($scope.actIndex < $scope.photos.length - 1) ? ++$scope.actIndex : 0;
+        $scope.currentIndex = 0;
+
+        $scope.setCurrentSlideIndex = function (index) {
+            $scope.currentIndex = index;
         };
 
-        $scope.previousImage = function ()
+        $scope.isCurrentSlideIndex = function (index) {
+            return $scope.currentIndex === index;
+        };
+
+        $scope.prevSlide = function () {
+            $scope.currentIndex = ($scope.currentIndex < $scope.slides.length - 1) ? ++$scope.currentIndex : 0;
+        };
+
+        $scope.nextSlide = function () {
+            $scope.currentIndex = ($scope.currentIndex > 0) ? --$scope.currentIndex : $scope.slides.length - 1;
+        };
+        
+        $scope.addSlide=function()
         {
-            $scope.actIndex = ($scope.actIndex > 0) ? --$scope.actIndex : $scope.photos.length - 1;
-        };
+            var url = prompt("Ingrese el URL de la imagen.", "");
+            if (url != null) {
+                
+                 svc.addPhoto(url).then(function(response){
+                 this.initPhotos();
+                 },responseError);
+            }
 
-        $scope.changePhoto = function(photo){
-          $scope.actIndex = photo.index;  
+        };
+        
+        $scope.deleteSlide=function(index)
+        {
+            svc.deletePhoto(index).then(function(response){
+            
+            this.initPhotos();
+            
+            },responseError);
         };
         
         this.initPhotos();

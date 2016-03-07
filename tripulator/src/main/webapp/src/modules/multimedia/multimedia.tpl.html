@@ -1,25 +1,41 @@
 <link rel="stylesheet" type="text/css" href="resources/css/photogallery.css">
+<div ng-hide="showAll">
+<div class="container slider">
+    <img ng-repeat="slide in slides" class="slide slide-animation nonDraggableImage"
+         ng-swipe-right="nextSlide()" ng-swipe-left="prevSlide()"
+         ng-hide="!isCurrentSlideIndex($index)" ng-src="{{slide.src}}">
 
+    <a class="arrow prev" ng-click="nextSlide()"></a>
+    <a class="arrow next" ng-click="prevSlide()"></a>
+    <nav class="nav">
+        <div class="wrapper">
+            <ul class="dots">
+                <li class="dot" ng-repeat="slide in slides">
+                    <a ng-class="{'active':isCurrentSlideIndex($index)}"
+                       ng-click="setCurrentSlideIndex($index);"></a></li>
+            </ul>
+        </div>
+    </nav>
+    
+</div>
+<div class="container-fluid">
+    <button type="button" ng-click="changeView()">Ver todo</button>
+    <button type="button" class="col-xs-offset-8" ng-click="addSlide()">Agregar Foto</button>
+    <button type="button" ng-click="deleteSlide($index)">Eliminar Foto</button>
+</div>
+</div>
 
-<div class="col-xs-12 main-image">    
+<div ng-show="showAll">
     
-    <img src="{{photos[actIndex].src}}"/>
-    
-    <div class="dotstyle dotstyle-fillup col-xs-offset-4">
-        <ul ng-repeat="photo in photos">
-            <li class="current" ng-click="changePhoto(photo)"><a></a></li>
-	</ul>
+    <div class="container-fluid">
+        <button class="col-xs-offset-0" type="button" ng-click="changeView()">Volver</button>
     </div>
-   
+    
+    <div ng-repeat="items in splitSlides" class="row">
+        <div ng-repeat="item in items" class="col-md-2">
+            <div class="minPicture">
+                <img ng-src="{{item.src}}" ng-click="setCurrentSlideIndex($index);changeView()">
+            </div>
+        </div>
+    </div>
 </div>
-
-
-
-<div class="page-switcher col-xs-offset-0" id="left-switcher" ng-click="previousImage();">
-    <span class="glyphicon glyphicon-menu-left" ></span>
-</div>
-
-<div class="page-switcher col-xs-offset-10" id="right-switcher" ng-click="nextImage();">
-    <span class="glyphicon glyphicon-menu-right"></span>
-</div>
-
