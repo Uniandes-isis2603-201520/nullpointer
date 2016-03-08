@@ -56,7 +56,7 @@
                     
                     .state('viajero.mapa', {
                         views: {
-                            "multimedia": {
+                            "mapa": {
                                 url: '\mapa',
                                 controller: 'MapController',
                                 templateUrl: "src/modules/mapa/mapa.tpl.html"
