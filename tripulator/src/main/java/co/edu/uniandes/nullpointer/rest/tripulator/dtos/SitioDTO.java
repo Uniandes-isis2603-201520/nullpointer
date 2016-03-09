@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package co.edu.uniandes.nullpointer.rest.tripulator.datos;
+package co.edu.uniandes.nullpointer.rest.tripulator.dtos;
 
 /**
  *
- * @author Antonio de la Vega
+ * @author Daniel Delgado
  */
-public class EventoDTO {
+public class SitioDTO {
     
 }

@@ -5,7 +5,7 @@
  */
 package co.edu.uniandes.nullpointer.rest.tripulator.resources;
 
-import co.edu.uniandes.nullpointer.rest.tripulator.datos.DiaDTO;
+import co.edu.uniandes.nullpointer.rest.tripulator.dtos.DiaDTO;
 import co.edu.uniandes.nullpointer.rest.tripulator.exceptions.TripulatorLogicException;
 import java.util.List;
 import javax.ws.rs.DELETE;
