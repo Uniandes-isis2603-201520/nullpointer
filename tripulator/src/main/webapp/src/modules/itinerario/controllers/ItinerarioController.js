@@ -3,6 +3,7 @@
     var mod = ng.module("itinerarioModule");
     
     mod.controller('ItinerarioController', ['$scope', '$window', 'itinerarioService', function ($scope, $window, svc) {
+            
             $scope.days;
             $scope.showDayInfo = false;
             $scope.daynames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];

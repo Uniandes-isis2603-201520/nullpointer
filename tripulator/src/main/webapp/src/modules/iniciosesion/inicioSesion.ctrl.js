@@ -9,7 +9,12 @@
 
             $scope.buscar = -1;
             var self = this;
-            $scope.currentRecord = {};
+            $scope.currentRecord = {
+                    id: 0,
+                    username: '',
+                    email: '',
+                    password:''
+                };
             $scope.searchRecord = {};
             $scope.records = [];
 
@@ -26,7 +31,6 @@
 
             
               this.saveRecord = function () {
-                  console.log("llegue");
                     return svc.saveRecord($scope.currentRecord).then(function () {
                         self.fetchRecords();
                     });
