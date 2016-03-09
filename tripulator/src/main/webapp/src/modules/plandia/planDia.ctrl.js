@@ -31,9 +31,6 @@
             $scope.daySections = [];
 
             /*
-             * En caso que el service funcionara, se implementarían solo estos métodos y los métodos del $scope.
-             * Sin embargo, al agregar el service al controlador no sirve el controlador
-             * 
             function responseError(response) {
                 self.showError(response.data);
             }
@@ -93,7 +90,7 @@
                 if (!$scope.daySections[index].available) {
                     return {
                         "background-color": "#5CB85C",
-                        "color": "#FFFFFF",
+                        "color": "#FFFFFF"
                     };
                 }
             };
@@ -133,38 +130,3 @@
 
         }]);
 })(window.angular);
-
-/*
- var sectionType = $scope.daySections[index].event.type;
- if (sectionType === "culture") {
- return {
- "background-color": "#337AB7",
- "color": "#FFFFFF"
- };
- } else if (sectionType === "nature") {
- return {
- "background-color": "#5CB85C",
- "color": "#FFFFFF"
- };
- } else if (sectionType === "chill") {
- return {
- "background-color": "#5BC0DE",
- "color": "#FFFFFF"
- };
- } else if (sectionType === "food") {
- return {
- "background-color": "#F0AD4E",
- "color": "#FFFFFF"
- };
- } else if (sectionType === "extreme") {
- return {
- "background-color": "#D9534F",
- "color": "#FFFFFF"
- };
- } else {
- return {
- "background-color": "#777777",
- "color": "#FFFFFF"
- };
- }
- */
