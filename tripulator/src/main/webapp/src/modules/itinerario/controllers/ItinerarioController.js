@@ -1,13 +1,22 @@
 (function (ng) {
-    
+
     var mod = ng.module("itinerarioModule");
-    
+
     mod.controller('ItinerarioController', ['$scope', '$window', 'itinerarioService', function ($scope, $window, svc) {
-            
+
             $scope.days;
             $scope.showDayInfo = false;
             $scope.daynames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
             $scope.selectedDay = {};
+            $scope.itinerario = {
+                id: Number, //número de identificación de un itinerario,  
+                nombre: String, // Nombre dado al itinerario.  
+                fechaInicio: Date, // Fecha de inicio del itinerario en cuestión.  
+                fechaFin: Date, // Fecha de fin del itinerario en cuestión.  
+                dias: [], // Arreglo que contiene todos los id de los días del itinerario.  
+                multimedia: [], // Arreglo que contiene todos los id del multidemia asociada al itinerario.  
+                mapa: [] // Arreglo que contiene todos los id necesarios para desplegar el mapa.
+            };
             var self = this;
             var scrollY = 0;
 
@@ -16,27 +25,27 @@
              * @param {type} day
              * @returns {undefined}
              */
-            this.getDayEvents = function(day){
-                svc.getDayEvents(day).then(function(response){
+            this.getDayEvents = function (day) {
+                svc.getDayEvents(day).then(function (response) {
                     alert(response);
-                },responseError);
+                }, responseError);
             };
             /**
              * Hace un update de todos los eventos registrados de un día en particular.
              * @param {type} day
              * @returns {undefined}
              */
-            this.updateDayEvents = function(day){
-                svc.updateDayEvents(day).then(function(response){
+            this.updateDayEvents = function (day) {
+                svc.updateDayEvents(day).then(function (response) {
                     alert(response);
-                },responseError);
+                }, responseError);
             };
             /**
              * Guarda el estado de todos los días del viaje.
              * @returns {undefined}
              */
-            this.saveTrip = function(){
-                svc.saveTrip($scope.days).then(function(response){
+            this.saveTrip = function () {
+                svc.saveTrip($scope.days).then(function (response) {
                     alert(response);
                 }, responseError);
             };
@@ -45,20 +54,20 @@
              * @param id
              * @returns {undefined}
              */
-            this.getTrip = function(id){
-                svc.getTrip(id).then(function(resolve){
+            this.getTrip = function (id) {
+                svc.getTrip(id).then(function (resolve) {
                     $scope.days = resolve;
                 }, responseError);
             };
-            
-            this.showError = function(data){
+
+            this.showError = function (data) {
                 alert(data);
             };
-            
+
             function responseError(response) {
                 self.showError(response);
             }
-                        
+
             /**
              * Sets the square background depending of a series of tests.
              * @param {type} day
@@ -102,7 +111,7 @@
                 else
                     $window.scrollTo($window.scrollX, scrollY);
             };
-            
+
             this.getTrip(0);
         }]);
 })(window.angular);
