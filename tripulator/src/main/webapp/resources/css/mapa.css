@@ -5,8 +5,9 @@ a {
     text-decoration: none;
   }
 #map{
-    height:500px; 
-    width:500px; 
+    height:90%; 
+    width:80%; 
+    position: absolute;
     box-shadow: 3px 3px 10px gray;
     }
 #repeat{ 
