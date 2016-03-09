@@ -55,7 +55,7 @@
     background-image: url(../assets/img/paddle_next_fff.png);
 }
 
-.nav {
+.nav1 {
     text-align: center;
     display: block;
     position: absolute;
@@ -70,18 +70,18 @@
     -webkit-user-drag: none;
 }
 
-.nav .wrapper {
+.nav1 .wrapper {
     margin: 0 auto;
     width: 100%;
     padding: 1em 0 .8em;
 }
 
-.nav ul {
+.nav1 ul {
     margin: 0;
     width: 100%;
 }
 
-.nav .dot, .nav .dot a {
+.nav1 .dot, .nav1 .dot a {
     display: inline-block;
     zoom: 1;
 }
