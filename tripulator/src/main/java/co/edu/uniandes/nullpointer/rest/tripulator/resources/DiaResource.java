@@ -34,9 +34,9 @@ public class DiaResource {
     /**
      * Obtiene un día específico
      * @param id id del día que se quiere.
-     * @return día con la fecha dada.
+     * @return día con el id dado.
      * @throws co.edu.uniandes.nullpointer.rest.tripulator.exceptions.
-     * TripulatorLogicException cuando el itinerario no existe
+     * TripulatorLogicException cuando el día no existe
      */
     @GET
     @Path("{id: \\d+}")
@@ -58,7 +58,7 @@ public class DiaResource {
     /**
      * Actualiza los datos de un día.
      * @param id identificador del día a modificar
-     * @param itinerario itinerario a modificar
+     * @param dia dia a modificar
      * @return datos resultantes
      * @throws TripulatorLogicException cuando no existe un día con el id suministrado
      */
