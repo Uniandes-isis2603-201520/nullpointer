@@ -57,7 +57,7 @@
                     <h3 class="col-xs-4 text-right">Current date: {{today| date}}</h3>
                     <h3 class="col-xs-4 ">photos: {{currentTrip.images.length}}</h3>
                     <h3 class="col-xs-4 text-center">events: {{currentTrip.events.length}}</h3>
-                    <h3 class="col-xs-4 text-right" ui-sref="itinerario">visit trip <span class="glyphicon glyphicon-plane"></span></h3>
+                    <h3 class="col-xs-4 text-right" ng-click="selectAction(menuActions[1])" ui-sref="viajero.itinerario()">visit trip <span class="glyphicon glyphicon-plane"></span></h3>
                 </div>
             </div>
         </div>
