@@ -93,7 +93,7 @@
                 if (!$scope.daySections[index].available) {
                     return {
                         "background-color": "#5CB85C",
-                        "color": "#FFFFFF",
+                        "color": "#FFFFFF"
                     };
                 }
             };

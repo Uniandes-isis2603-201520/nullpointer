@@ -34,10 +34,8 @@ sampleApp.controller('MapController', function ($scope) {
     var mapOptions = {
         zoom: 6,
         center: new google.maps.LatLng(6.2, -75),
-        mapTypeId: google.maps.MapTypeId.ROADMAP,
-       
-       
-    }
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+    };
 
     $scope.map = new google.maps.Map(document.getElementById('map'), mapOptions);
 
@@ -60,7 +58,7 @@ sampleApp.controller('MapController', function ($scope) {
 
         $scope.markers.push(marker);
 
-    }
+    };
 
     for (i = 0; i < cities.length; i++) {
         createMarker(cities[i]);
@@ -70,6 +68,6 @@ sampleApp.controller('MapController', function ($scope) {
         e.preventDefault();
         google.maps.event.trigger(selectedMarker, 'click');
  
-    }
+    };
 
 });
