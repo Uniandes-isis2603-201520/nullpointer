@@ -10,5 +10,13 @@ package co.edu.uniandes.nullpointer.rest.tripulator.dtos;
  * @author Antonio de la Vega
  */
 public class EventoDTO {
+
+    public long getId() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public void setId(long newId) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }
