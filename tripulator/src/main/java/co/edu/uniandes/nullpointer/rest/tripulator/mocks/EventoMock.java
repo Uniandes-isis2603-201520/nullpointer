@@ -142,7 +142,6 @@ public class EventoMock {
             	
             	// modifica el evento
             	e.setId(nuevo.getId());
-                e.setName(nuevo.getName());
                 
                 // retorna la ciudad modificada
             	logger.info("Modificando ciudad " + e);
