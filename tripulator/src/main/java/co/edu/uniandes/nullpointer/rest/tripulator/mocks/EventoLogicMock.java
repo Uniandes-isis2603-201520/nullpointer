@@ -79,12 +79,12 @@ public class EventoLogicMock {
      *
      * @param id identificador del evento
      * @return evento encontrada
-     * @throws EventoLogicException cuando la ciudad no existe
+     * @throws EventoLogicException cuando la viajero no existe
      */
     public EventoDTO getEvento(Long id) throws TripulatorLogicException {
         logger.info("recibiendo solicitud de evento con id " + id);
 
-        // busca la ciudad con el id suministrado
+        // busca la viajero con el id suministrado
         for (EventoDTO evento : eventos) {
             if (Objects.equals(evento.getId(), id)) {
                 logger.info("retornando evento " + evento);
@@ -92,7 +92,7 @@ public class EventoLogicMock {
             }
         }
 
-        // si no encuentra la ciudad
+        // si no encuentra la viajero
         logger.severe("No existe evento con ese id");
         throw new TripulatorLogicException("No existe evento con ese id");
     }
@@ -100,30 +100,30 @@ public class EventoLogicMock {
     /**
      * Agrega un evento a la lista.
      *
-     * @param newEvento ciudad a adicionar
-     * @throws TripulatorLogicException cuando ya existe una ciudad con el id
+     * @param newEvento viajero a adicionar
+     * @throws TripulatorLogicException cuando ya existe una viajero con el id
      * suministrado
-     * @return ciudad agregada
+     * @return viajero agregada
      */
     public EventoDTO createEvento(EventoDTO newEvento) throws TripulatorLogicException {
         logger.info("recibiendo solicitud de agregar evento " + newEvento);
 
-        // la nueva ciudad tiene id ?
+        // la nueva viajero tiene id ?
         if (newEvento.getId() != null) {
-            // busca la ciudad con el id suministrado
+            // busca la viajero con el id suministrado
             for (EventoDTO city : eventos) {
-                // si existe una ciudad con ese id
+                // si existe una viajero con ese id
                 if (Objects.equals(city.getId(), newEvento.getId())) {
                     logger.severe("Ya existe un evento con ese id");
                     throw new TripulatorLogicException("Ya existe un evento con ese id");
                 }
             }
 
-            // la nueva ciudad no tiene id ? 
+            // la nueva viajero no tiene id ? 
         } else {
 
-            // genera un id para la ciudad
-            logger.info("Generando id paa la nueva ciudad");
+            // genera un id para la viajero
+            logger.info("Generando id paa la nueva viajero");
             long newId = 1;
             for (EventoDTO e : eventos) {
                 if (newId <= e.getId()) {
@@ -133,7 +133,7 @@ public class EventoLogicMock {
             newEvento.setId(newId);
         }
 
-        // agrega la ciudad
+        // agrega la viajero
         logger.info("agregando evento " + newEvento);
         eventos.add(newEvento);
         return newEvento;
@@ -145,26 +145,26 @@ public class EventoLogicMock {
      * @param id identificador del evento a modificar
      * @param evento evento a modificar
      * @return datos del evento modificado
-     * @throws TripulatorLogicException cuando no existe una ciudad con el id
+     * @throws TripulatorLogicException cuando no existe una viajero con el id
      * suministrado
      */
     public EventoDTO updateEvento(Long id, EventoDTO nuevo) throws TripulatorLogicException {
         logger.info("recibiendo solictud de modificar evento " + nuevo);
 
-        // busca la ciudad con el id suministrado
+        // busca la viajero con el id suministrado
         for (EventoDTO e : eventos) {
             if (Objects.equals(e.getId(), id)) {
 
                 // modifica el evento
                 e.setId(nuevo.getId());
 
-                // retorna la ciudad modificada
-                logger.info("Modificando ciudad " + e);
+                // retorna la viajero modificada
+                logger.info("Modificando viajero " + e);
                 return e;
             }
         }
 
-        // no encontró la ciudad con ese id ?
+        // no encontró la viajero con ese id ?
         logger.severe("No existe un evento con ese id");
         throw new TripulatorLogicException("No existe un evento con ese id");
     }
@@ -179,11 +179,11 @@ public class EventoLogicMock {
     public void deleteEvento(Long id) throws TripulatorLogicException {
         logger.info("recibiendo solictud de eliminar evento con id " + id);
 
-        // busca la ciudad con el id suministrado
+        // busca la viajero con el id suministrado
         for (EventoDTO e : eventos) {
             if (Objects.equals(e.getId(), id)) {
 
-                // elimina la ciudad
+                // elimina la viajero
                 logger.info("eliminando evento " + e);
                 eventos.remove(e);
                 return;
