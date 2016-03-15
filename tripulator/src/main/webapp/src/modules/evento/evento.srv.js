@@ -9,7 +9,7 @@
                     "type": "Site",
                     "start": "--",
                     "end": "--",
-                    "description": "Bogotá ha sido llamada \"La Atenas Sudamericana\", apodo que se fortaleció a finales del siglo XIX y principios del siglo XX, por iniciativa del escritor español Marcelino Menéndez Pelayo, debido a la gran admiración que tenía por los filósofos colombianos, entre ellos Rufino José Cuervo y Miguel Antonio Caro. 120 121 La ciudad dispone de una amplia oferta cultural que se ha incrementado considerablemente en las últimas décadas, además de ser la sede de importantes festivales de amplia trayectoria y reconocimiento nacional e internacional",
+                    "description": "Bogotá ha sido llamada \"La Atenas Sudamericana\", apodo que se fortaleció a finales del siglo XIX y principios del siglo XX, por iniciativa del escritor español Marcelino Menéndez Pelayo, debido a la gran admiración que tenía por los filósofos colombianos, entre ellos Rufino José Cuervo y Miguel Antonio Caro. 120 121 La viajero dispone de una amplia oferta cultural que se ha incrementado considerablemente en las últimas décadas, además de ser la sede de importantes festivales de amplia trayectoria y reconocimiento nacional e internacional",
                     "comments": [
                         {
                             "user": "Usuario1",

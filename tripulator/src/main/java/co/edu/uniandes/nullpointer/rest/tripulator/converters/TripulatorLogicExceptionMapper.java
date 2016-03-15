@@ -7,7 +7,7 @@ import javax.ws.rs.ext.Provider;
 import co.edu.uniandes.nullpointer.rest.tripulator.exceptions.TripulatorLogicException;
 
 /**
- * Convertidor de Excepciones CityLogicException a mensajes REST.
+ * Convertidor de Excepciones TripulatorLogicException a mensajes REST.
  */
 @Provider
 public class TripulatorLogicExceptionMapper implements ExceptionMapper<TripulatorLogicException> {

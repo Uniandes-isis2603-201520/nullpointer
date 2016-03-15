@@ -27,7 +27,7 @@ public class ItinerarioResource {
     }
     
     /**
-     * Obtiene una ciudad
+     * Obtiene una viajero
      * @param id identificador del itinerario.
      * @return itinerario encontrado.
      * @throws co.edu.uniandes.nullpointer.rest.tripulator.exceptions.
@@ -54,8 +54,8 @@ public class ItinerarioResource {
      * Actualiza los datos de un itinerario.
      * @param id identificador del itinerario a modificar
      * @param itinerario itinerario a modificar
-     * @return datos de la ciudad modificada 
-     * @throws TripulatorLogicException cuando no existe una ciudad con el id suministrado
+     * @return datos de la viajero modificada 
+     * @throws TripulatorLogicException cuando no existe una viajero con el id suministrado
      */
     @PUT
     @Path("{id: \\d+}")
@@ -64,7 +64,7 @@ public class ItinerarioResource {
     }
     
     /**
-     * Elimina los datos de una ciudad
+     * Elimina los datos de una viajero
      * @param id identificador del itinerario a eliminar
      * @throws TripulatorLogicException cuando no existe un itinerario con el id suministrado
      */

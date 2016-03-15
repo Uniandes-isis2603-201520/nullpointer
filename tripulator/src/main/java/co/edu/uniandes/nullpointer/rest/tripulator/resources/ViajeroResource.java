@@ -1,8 +1,10 @@
 package co.edu.uniandes.nullpointer.rest.tripulator.resources;
 
 import co.edu.uniandes.nullpointer.rest.tripulator.dtos.ViajeroDTO;
+import co.edu.uniandes.nullpointer.rest.tripulator.mocks.ViajeroLogicMock;
 import co.edu.uniandes.nullpointer.rest.tripulator.exceptions.TripulatorLogicException;
 import java.util.List;
+import javax.inject.Inject;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -16,9 +18,13 @@ import javax.ws.rs.PathParam;
  */
 @Path("/viajeros")
 public class ViajeroResource {
+    
+    @Inject
+	ViajeroLogicMock viajeroLogic;
+    
     @GET
-    public List<ViajeroDTO> getViajeros(){
-        return null;
+    public List<ViajeroDTO> getViajeros() throws TripulatorLogicException{
+        return viajeroLogic.getViajeros();
     }
     
     /**
@@ -30,8 +36,8 @@ public class ViajeroResource {
      */
     @GET
     @Path("{id: \\d+}")
-    public ViajeroDTO getItinerario(@PathParam("id") Long id) throws TripulatorLogicException{
-        return null;
+    public ViajeroDTO getViaejero(@PathParam("id") Long id) throws TripulatorLogicException{
+        return viajeroLogic.getViajero(id);
     }
     
         /**
@@ -41,8 +47,8 @@ public class ViajeroResource {
      * @throws co.edu.uniandes.nullpointer.rest.tripulator.exceptions.TripulatorLogicException
      */
     @POST
-    public ViajeroDTO createItinerario(ViajeroDTO viajero) throws TripulatorLogicException {
-        return null;
+    public ViajeroDTO createViajero(ViajeroDTO viajero) throws TripulatorLogicException {
+        return viajeroLogic.createViajero(viajero);
     }
     
     /**
@@ -55,7 +61,7 @@ public class ViajeroResource {
     @PUT
     @Path("{id: \\d+}")
     public ViajeroDTO updateViajero(@PathParam("id") Long id, ViajeroDTO viajero) throws TripulatorLogicException {
-        return null;
+        return viajeroLogic.updateViajero(id, viajero);
     }
     
     /**
@@ -66,6 +72,6 @@ public class ViajeroResource {
     @DELETE
     @Path("{id: \\d+}")
     public void deleteViajero(@PathParam("id") Long id) throws TripulatorLogicException {
-    	//itinerarioLogic.deleteCity(id);
+    	viajeroLogic.deleteViajero(id);
     }
 }
