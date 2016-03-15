@@ -140,5 +140,4 @@ public class ItinerarioDTO {
     public void setMapa(ArrayList mapa) {
         this.mapa = mapa;
     }
-    
 }
