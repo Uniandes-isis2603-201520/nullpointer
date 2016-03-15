@@ -79,7 +79,7 @@ public class EventoLogicMock {
      *
      * @param id identificador del evento
      * @return evento encontrada
-     * @throws EventoLogicException cuando el evento no existe
+     * @throws TripulatorLogicException cuando el evento no existe
      */
     public EventoDTO getEvento(Long id) throws TripulatorLogicException {
         logger.info("recibiendo solicitud de evento con id " + id);
@@ -91,7 +91,6 @@ public class EventoLogicMock {
                 return evento;
             }
         }
-
         // si no encuentra el evento
         logger.severe("No existe evento con ese id");
         throw new TripulatorLogicException("No existe evento con ese id");
@@ -100,10 +99,17 @@ public class EventoLogicMock {
     /**
      * Agrega un evento a la lista.
      *
+<<<<<<< HEAD
      * @param newEvento evento a adicionar
      * @throws TripulatorLogicException cuando ya existe un evento con el id
      * suministrado
      * @return evento agregada
+=======
+     * @param newEvento viajero a adicionar
+     * @throws TripulatorLogicException cuando ya existe una viajero con el id
+     * suministrado
+     * @return viajero agregada
+>>>>>>> 529eac0bd2957fc4b18bcd0c40c51df9ca70d2e3
      */
     public EventoDTO createEvento(EventoDTO newEvento) throws TripulatorLogicException {
         logger.info("recibiendo solicitud de agregar evento " + newEvento);
@@ -168,7 +174,6 @@ public class EventoLogicMock {
                 return e;
             }
         }
-
         // no encontró el evento con ese id ?
         logger.severe("No existe un evento con ese id");
         throw new TripulatorLogicException("No existe un evento con ese id");
