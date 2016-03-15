@@ -18,12 +18,7 @@ public class ViajeroDTO {
     private String usuario;
     // itinerarios : arreglo de ids y nombre de los itinerarios//
 
-    /**
-     * Constructor por defecto
-     */
-    public ViajeroDTO() {
-    }
-
+   
     /**
      * Constructor con parámetros.
      *
