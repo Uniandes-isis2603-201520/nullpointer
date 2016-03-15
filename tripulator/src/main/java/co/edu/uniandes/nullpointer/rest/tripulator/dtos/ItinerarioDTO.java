@@ -7,13 +7,11 @@ package co.edu.uniandes.nullpointer.rest.tripulator.dtos;
 
 import java.util.ArrayList;
 import java.util.Date;
-import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
  * @author Antonio de la Vega
  */
-@XmlRootElement
 public class ItinerarioDTO {
     private Long id;
     private String nombre;
