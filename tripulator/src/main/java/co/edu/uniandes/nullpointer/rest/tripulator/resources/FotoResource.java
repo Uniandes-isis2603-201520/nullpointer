@@ -7,7 +7,9 @@ package co.edu.uniandes.nullpointer.rest.tripulator.resources;
 
 import co.edu.uniandes.nullpointer.rest.tripulator.dtos.FotoDTO;
 import co.edu.uniandes.nullpointer.rest.tripulator.exceptions.TripulatorLogicException;
+import co.edu.uniandes.nullpointer.rest.tripulator.mocks.FotoLogicMock;
 import java.util.List;
+import javax.inject.Inject;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -19,11 +21,15 @@ import javax.ws.rs.PathParam;
  *
  * @author Jose Quiroga
  */
-@Path("/viajeros/:id/itinerarios/:id/fotos/:id")
+@Path("/viajeros/:id/itinerarios/:id/fotos")
 public class FotoResource {
+    
+    @Inject
+	FotoLogicMock fotoLogic;
+    
     @GET
-    public List<FotoDTO> getFotos(){
-        return null;
+    public List<FotoDTO> getFotos() throws TripulatorLogicException{
+        return fotoLogic.getFotos();
     }
     
     /**
@@ -36,7 +42,7 @@ public class FotoResource {
     @GET
     @Path("{id: \\d+}")
     public FotoDTO getFoto(@PathParam("id") Long id) throws TripulatorLogicException{
-        return null;
+        return fotoLogic.getFoto(id);
     }
     
         /**
@@ -47,7 +53,7 @@ public class FotoResource {
      */
     @POST
     public FotoDTO createFotos(FotoDTO foto) throws TripulatorLogicException {
-        return null;
+        return fotoLogic.createFoto(foto);
     }
     
     
@@ -59,6 +65,7 @@ public class FotoResource {
     @DELETE
     @Path("{id: \\d+}")
     public void deleteFoto(@PathParam("id") Long id) throws TripulatorLogicException {
+        fotoLogic.deleteFoto(id);
     	
     }
 }

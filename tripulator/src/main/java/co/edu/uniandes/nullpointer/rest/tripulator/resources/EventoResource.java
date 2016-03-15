@@ -21,7 +21,7 @@ import javax.ws.rs.PathParam;
  *
  * @author jd.fandino10
  */
-@Path("eventos")
+@Path("/eventos")
 public class EventoResource {
 
     
