@@ -7,7 +7,7 @@
     var mod = ng.module('inicioSesionMock', ['ngMockE2E']);
 
 
-    mod.run(['$httpBackend', function ($httpBackend) {
+    mod.run(['$httpBackend', function ($httpBackend) { 
             var ignore_regexp = new RegExp('^((?!api).)*$');
             /*
              * @type RegExp
