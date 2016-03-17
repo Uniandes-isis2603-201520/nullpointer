@@ -1,4 +1,4 @@
 (function (ng){
     var mod = ng.module("inicioSesionModule",["ui.bootstrap"]);
-      mod.constant("personContext", "api/persons");
+      mod.constant("viajeroContext", "api/viajeros");
 })(window.angular); 
