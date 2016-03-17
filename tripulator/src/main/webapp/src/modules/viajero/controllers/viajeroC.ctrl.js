@@ -1,12 +1,93 @@
 (function (ng) {
     var mod = ng.module("viajeroModule");
     mod.controller('ViajeroC', ['$scope', '$element', 'viajeroS', function ($scope, $element, svc) {
+            mod.service('TripService', function () {
+                //to create unique trip id
+                var uid = 1;
+
+                //trips array to hold list of all trips
+                var trips = [{
+                        id: 0,
+                        'name': 'Dubai!',
+                        'algo': 'n',
+                        'algomas': 'n'
+                    }];
+
+                //crea un viaje nuevo si no existe
+                //modifica de lo contrario
+                this.save = function (trip) {
+                    if (trip.id == null) {
+                        //si encuentra el viaje agregar array
+                        trip.id = uid++;
+                        trips.push(trip);
+                    } else {
+                        //modifica un viaje actual
+                        for (i in trips) {
+                            if (trips[i].id == trip.id) {
+                                trips[i] = trip;
+                            }
+                        }
+                    }
+
+                }
+
+                //busca el id de un viaje
+                this.get = function (id) {
+                    for (i in trips) {
+                        if (trips[i].id == id) {
+                            return trips[i];
+                        }
+                    }
+
+                }
+
+                //Busca y borra el viaje
+                this.delete = function (id) {
+                    for (i in trips) {
+                        if (trips[i].id == id) {
+                            trips.splice(i, 1);
+                        }
+                    }
+                }
+
+                //Devuelve la Lista de viajes
+                this.list = function () {
+                    return trips;
+                }
+            });
+
+            mod.controller('TripController', function ($scope, TripService) {
+
+                $scope.trips = TripService.list();
+
+                $scope.saveTrip = function () {
+                    TripService.save($scope.newtrip);
+                    $scope.newtrip = {};
+                }
+
+
+                $scope.delete = function (id) {
+
+                    TripService.delete(id);
+                    if ($scope.newtrip.id == id)
+                        $scope.newtrip = {};
+                }
+
+
+                $scope.edit = function (id) {
+                    $scope.newtrip = ng.copy(TripService.get(id));
+                }
+            })
+
+
             var userId = 0;
             var self = this;
 
             $scope.trips = [];
             $scope.currentTrip;
             $scope.today = new Date();
+            $scope.master = {};
+            $scope.reset();
             $scope.menuActions = [
                 {
                     name: "Overview",
@@ -25,6 +106,25 @@
                     active: false
                 }
             ];
+            $scope.users = UserService.list();
+
+            $scope.saveUser = function () {
+                UserService.save($scope.newuser);
+                $scope.newuser = {};
+            }
+
+
+            $scope.delete = function (id) {
+
+                UserService.delete(id);
+                if ($scope.newuser.id == id)
+                    $scope.newuser = {};
+            }
+
+
+            $scope.edit = function (id) {
+                $scope.newuser = angular.copy(UserService.get(id));
+            }
 
             function responseError(response) {
                 self.showError(response.data);

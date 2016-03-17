@@ -4,7 +4,7 @@ import co.edu.uniandes.nullpointer.rest.tripulator.dtos.ViajeroDTO;
 import co.edu.uniandes.nullpointer.rest.tripulator.mocks.ViajeroLogicMock;
 import co.edu.uniandes.nullpointer.rest.tripulator.exceptions.TripulatorLogicException;
 import java.util.List;
-import javafx.scene.control.Alert;
+//mport javafx.scene.control.Alert;
 import javax.inject.Inject;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
