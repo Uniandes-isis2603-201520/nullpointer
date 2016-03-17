@@ -16,9 +16,7 @@ import javax.ws.rs.Produces;
  *
  * @author Daniel Delgado
  */
-@Path("/sitios")
-@Produces("application/json")
-@RequestScoped
+@Path("/viajeros/:id/itinerarios/:id/ciudades/:id/sitios")
 public class SitioResource {
     @GET
     public List<SitioDTO> getSitios(){

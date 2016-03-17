@@ -11,6 +11,55 @@
             </li>
             <li>
                 <a>Create</a>
+                <div ng-app="ng" ng-controller="TripController">
+                    <div id="container">
+                        <form name="form">
+                            <div id="heading">Trip Details Demo</div>
+                            <table>
+                                <tr>
+                                    <td><label>Name:</label></td>
+                                    <td><input type="text" name="name" ng-model="newtrip.name" required autofocus/>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td><label>algo:</label></td>
+                                    <td><input type="algo" name="algo" ng-model="newtrip.algo" required/>
+                                        <span ng-show="form.algo.$dirty && form.algo.$error.algo">No es un algo!</span>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td><label>algomas:</label></td>
+                                    <td><input type="text" name="algomas" ng-model="newtrip.algomas" maxlength="0" required /><td>
+                                </tr>    
+                                <tr>
+                                    <td></td>
+                                    <td><input ng-disabled="form.$invalid" id="save-btn" type="button" value="Save" ng-click="saveTrip()" /></td>
+                                </tr>
+                            </table>
+                        </form>
+                    </div>
+                    <table id="trip-details-in-table">
+                        <thead>
+                            <tr>
+                                <th>Trip Name</th>
+                                <th>algo</th>
+                                <th>algomas</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="trip in trips">
+                                <td>{{ trip.name}}</td>
+                                <td>{{ trip.algo}}</td>
+                                <td>{{ trip.algomas}}</td>
+                                <td> <a href="javascript:void(0)" ng-click="edit(trip.id)">Editar</a> | <a href="javascript:void(0)" ng-click="delete(trip.id)">Borrar</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </li>
             <li>
                 <a>Edit</a>
@@ -67,8 +116,8 @@
     </div>
     <!-- Menu Toggle Script -->
     <script>
-                $("#menu-toggle").click(function (e) {
-                    e.preventDefault();
-                    $("#wrapper").toggleClass("toggled");
-                });
+        $("#menu-toggle").click(function (e) {
+            e.preventDefault();
+            $("#wrapper").toggleClass("toggled");
+        });
     </script>
