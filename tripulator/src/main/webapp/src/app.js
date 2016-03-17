@@ -25,7 +25,7 @@
                         url: '/',
                         controller: 'inicioSesionCtrl',
                         controllerAs: "ctrl",
-                        templateUrl: "src/modules/inicioSesion/iniciosesion.tpl.html"
+                        templateUrl: "src/modules/iniciosesion/iniciosesion.tpl.html"
                         
                     })
                     .state('viajero', {
