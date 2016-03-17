@@ -16,14 +16,14 @@
                 //crea un viaje nuevo si no existe
                 //modifica de lo contrario
                 this.save = function (trip) {
-                    if (trip.id == null) {
+                    if (trip.id === null) {
                         //si encuentra el viaje agregar array
                         trip.id = uid++;
                         trips.push(trip);
                     } else {
                         //modifica un viaje actual
                         for (i in trips) {
-                            if (trips[i].id == trip.id) {
+                            if (trips[i].id === trip.id) {
                                 trips[i] = trip;
                             }
                         }
@@ -34,7 +34,7 @@
                 //busca el id de un viaje
                 this.get = function (id) {
                     for (i in trips) {
-                        if (trips[i].id == id) {
+                        if (trips[i].id === id) {
                             return trips[i];
                         }
                     }
@@ -44,7 +44,7 @@
                 //Busca y borra el viaje
                 this.delete = function (id) {
                     for (i in trips) {
-                        if (trips[i].id == id) {
+                        if (trips[i].id === id) {
                             trips.splice(i, 1);
                         }
                     }
@@ -69,7 +69,7 @@
                 $scope.delete = function (id) {
 
                     TripService.delete(id);
-                    if ($scope.newtrip.id == id)
+                    if ($scope.newtrip.id === id)
                         $scope.newtrip = {};
                 }
 
@@ -106,24 +106,24 @@
                     active: false
                 }
             ];
-            $scope.users = UserService.list();
+            $scope.trips = TripService.list();
 
-            $scope.saveUser = function () {
-                UserService.save($scope.newuser);
-                $scope.newuser = {};
+            $scope.saveTrip = function () {
+                TripService.save($scope.newtrip);
+                $scope.newtrip = {};
             }
 
 
             $scope.delete = function (id) {
 
-                UserService.delete(id);
-                if ($scope.newuser.id == id)
-                    $scope.newuser = {};
+                TripService.delete(id);
+                if ($scope.newtrip.id === id)
+                    $scope.newtrip = {};
             }
 
 
             $scope.edit = function (id) {
-                $scope.newuser = angular.copy(UserService.get(id));
+                $scope.newtrip = ng.copy(TripService.get(id));
             }
 
             function responseError(response) {

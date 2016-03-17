@@ -14,7 +14,7 @@ import javax.ws.rs.PathParam;
  *
  * @author Daniel Delgado
  */
-@Path("/sitios")
+@Path("/viajeros/:id/itinerarios/:id/ciudades/:id/sitios")
 public class SitioResource {
     @GET
     public List<SitioDTO> getSitios(){
