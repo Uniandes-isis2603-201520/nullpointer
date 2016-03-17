@@ -13,17 +13,17 @@ import java.util.List;
 import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Named;
+import javax.inject.Singleton;
 
 /**
  *
  * @author Nicolás
  */
 @Named
-@ApplicationScoped
+@Singleton
 public class DiaLogicMock {
-       private final static Logger LOGGER = Logger.getLogger(EventoLogicMock.class.getName());
+       private final static Logger LOGGER = Logger.getLogger(DiaLogicMock.class.getName());
     
     private static ArrayList<DiaDTO> dias;
     

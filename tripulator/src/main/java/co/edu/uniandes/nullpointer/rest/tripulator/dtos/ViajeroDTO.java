@@ -14,7 +14,7 @@ public class ViajeroDTO {
     private Long id;
     private String nombre;
     private String apellido;
-    private String contraseña;
+    private String contrasena;
     private String usuario;
     // itinerarios : arreglo de ids y nombre de los itinerarios//
 
@@ -28,12 +28,12 @@ public class ViajeroDTO {
      * @param contraseña contraseña de un Viajero
      * @param usuario usuario de un Viajero
      */
-    public ViajeroDTO(Long id, String nombre, String apellido, String contraseña, String usuario) {
+    public ViajeroDTO(Long id, String nombre, String apellido, String contrasena, String usuario) {
         super();
         this.id = id;
         this.nombre = nombre;
         this.apellido = apellido;
-        this.contraseña = contraseña;
+        this.contrasena = contrasena;
         this.usuario = usuario;
     }
 
@@ -68,8 +68,8 @@ public class ViajeroDTO {
     /**
      * @return el contraseña
      */
-    public String getContraseña() {
-        return contraseña;
+    public String getContrasena() {
+        return contrasena;
     }
 
     /**
@@ -96,8 +96,8 @@ public class ViajeroDTO {
     /**
      * @param contraseña la contraseña a poner
      */
-    public void setContraseña(String contraseña) {
-        this.contraseña = contraseña;
+    public void setContraseña(String contrasena) {
+        this.contrasena = contrasena;
     }
 
     /**
@@ -109,12 +109,13 @@ public class ViajeroDTO {
 
     /**
      * Convierte el objeto a una cadena
+     * @return 
      */
     @Override
     public String toString() {
         return "{ id : " + getId() + ", nombre : \"" + getNombre() + "\" "
                 + ", apellido : \"" + getApellido() + "\" "
-                + ", contraseña : \"" + getContraseña() + "\" "
+                + ", contrasena : \"" + getContrasena() + "\" "
                 + ", usuario : \"" + getUsuario() + "\" " + "}";
 
     }

@@ -13,18 +13,18 @@ import java.util.List;
 import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Named;
+import javax.inject.Singleton;
 
 /**
  *
  * @author Antonio de la Vega
  */
 @Named
-@ApplicationScoped
+@Singleton
 public class ItinerarioLogicMock {
     
-    private final static Logger LOGGER = Logger.getLogger(EventoLogicMock.class.getName());
+    private final static Logger logger = Logger.getLogger(ItinerarioLogicMock.class.getName());
     
     private static ArrayList<ItinerarioDTO> itinerarios;
     
@@ -40,41 +40,41 @@ public class ItinerarioLogicMock {
         }
 
         // indica que se muestren todos los mensajes
-        LOGGER.setLevel(Level.INFO);
+        logger.setLevel(Level.INFO);
 
         // muestra información 
-        LOGGER.info("Inicializa la lista de itinerarios");
-        LOGGER.log(Level.INFO, "itinerarios{0}", itinerarios);
+        logger.info("Inicializa la lista de itinerarios");
+        logger.log(Level.INFO, "itinerarios{0}", itinerarios);
     }
     
     public List<ItinerarioDTO> getItinerarios() throws TripulatorLogicException {
         if (itinerarios == null) {
-            LOGGER.severe("Error interno: lista de itinerarios no existe.");
+            logger.severe("Error interno: lista de itinerarios no existe.");
             throw new TripulatorLogicException("Error interno: lista de itinerarios no existe.");
         }
         
-        LOGGER.info("retornando todos los itinerarios");
+        logger.info("retornando todos los itinerarios");
         return itinerarios;
     }
     
     public ItinerarioDTO getItinerario(Long id) throws TripulatorLogicException {
-        LOGGER.log(Level.INFO, "recibiendo solicitud de un itinerario con id {0}", id);
+        logger.log(Level.INFO, "recibiendo solicitud de un itinerario con id {0}", id);
 
         // busca el itinerario con el id suministrado
         for (ItinerarioDTO itinerario : itinerarios) {
             if (Objects.equals(itinerario.getId(), id)) {
-                LOGGER.log(Level.INFO, "retornando itinerario {0}", itinerario);
+                logger.log(Level.INFO, "retornando itinerario {0}", itinerario);
                 return itinerario;
             }
         }
 
         // si no encuentra el itinerario
-        LOGGER.severe("No existe un itinerario con ese id");
+        logger.severe("No existe un itinerario con ese id");
         throw new TripulatorLogicException("No existe un itinerario con ese id");
     }
     
     public ItinerarioDTO createItinerario(ItinerarioDTO newItinerario) throws TripulatorLogicException {
-        LOGGER.log(Level.INFO, "recibiendo solicitud de agregar ciudad {0}", newItinerario);
+        logger.log(Level.INFO, "recibiendo solicitud de agregar ciudad {0}", newItinerario);
 
         // el nuevo itinerario tiene id ?
         if (newItinerario.getId() != null) {
@@ -82,7 +82,7 @@ public class ItinerarioLogicMock {
             for (ItinerarioDTO itinerario : itinerarios) {
                 // si existe un itinerario con ese id
                 if (Objects.equals(itinerario.getId(), newItinerario.getId())) {
-                    LOGGER.severe("Ya existe un itinerario con ese id");
+                    logger.severe("Ya existe un itinerario con ese id");
                     throw new TripulatorLogicException("Ya existe un itinerario con ese id");
                 }
             }
@@ -91,7 +91,7 @@ public class ItinerarioLogicMock {
         } else {
 
             // genera un id para el itinerario
-            LOGGER.info("Generando el id para el nuevo itinerario");
+            logger.info("Generando el id para el nuevo itinerario");
             long newId = 1;
             for (ItinerarioDTO itinerario : itinerarios) {
                 if (newId <= itinerario.getId()) {
@@ -102,13 +102,13 @@ public class ItinerarioLogicMock {
         }
 
         // agrega el itinerario
-        LOGGER.log(Level.INFO, "agregando itinerario {0}", newItinerario);
+        logger.log(Level.INFO, "agregando itinerario {0}", newItinerario);
         itinerarios.add(newItinerario);
         return newItinerario;
     }
     
     public ItinerarioDTO updateItinerario(Long id, ItinerarioDTO updatedItinerario) throws TripulatorLogicException {
-        LOGGER.log(Level.INFO, "recibiendo solictud de modificar un itinerario {0}", updatedItinerario);
+        logger.log(Level.INFO, "recibiendo solictud de modificar un itinerario {0}", updatedItinerario);
 
         // busca el itinerario con el id suministrado
         for (ItinerarioDTO itinerario : itinerarios) {
@@ -124,33 +124,33 @@ public class ItinerarioLogicMock {
                 itinerario.setPlanDias(updatedItinerario.getPlanDias());
 
                 // retorna el itinerario modificado.
-                LOGGER.log(Level.INFO, "Modificando itinerario {0}", itinerario);
+                logger.log(Level.INFO, "Modificando itinerario {0}", itinerario);
                 return itinerario;
             }
         }
 
         // no encontró el itineario con ese id ?
-        LOGGER.severe("No existe un itinerario con ese id");
+        logger.severe("No existe un itinerario con ese id");
         throw new TripulatorLogicException("No existe un itinerario con ese id");
     }
 
 
     public void deleteCity(Long id) throws TripulatorLogicException {
-        LOGGER.log(Level.INFO, "recibiendo solictud de eliminar itinerario con id {0}", id);
+        logger.log(Level.INFO, "recibiendo solictud de eliminar itinerario con id {0}", id);
 
         // busca el itinerario con el id suministrado
         for (ItinerarioDTO itinerario : itinerarios) {
             if (Objects.equals(itinerario.getId(), id)) {
 
                 // elimina el itinerario
-                LOGGER.log(Level.INFO, "eliminando itinerario {0}", itinerario);
+                logger.log(Level.INFO, "eliminando itinerario {0}", itinerario);
                 itinerarios.remove(itinerario);
                 return;
             }
         }
 
         // no encontró el itinerario con ese id ?
-        LOGGER.severe("No existe un itinerario con ese id");
+        logger.severe("No existe un itinerario con ese id");
         throw new TripulatorLogicException("No existe un itinerario con ese id");
     }
 }

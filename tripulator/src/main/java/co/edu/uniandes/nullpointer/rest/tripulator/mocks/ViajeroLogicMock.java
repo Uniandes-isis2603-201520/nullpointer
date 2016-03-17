@@ -13,21 +13,21 @@ import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Named;
+import javax.inject.Singleton;
 
 /**
  * Mock del recurso Ciudades (Mock del servicio REST)
  */
 @Named
-@ApplicationScoped
+@Singleton
 public class ViajeroLogicMock {
 
     // objeto para presentar logs de las operaciones
     private final static Logger logger = Logger.getLogger(ViajeroLogicMock.class.getName());
 
     // listado de viajeroes
-    private static ArrayList<ViajeroDTO> viajeros;
+    public static ArrayList<ViajeroDTO> viajeros;
 
     /**
      * Constructor. Crea los datos de ejemplo.
@@ -154,7 +154,7 @@ public class ViajeroLogicMock {
                 viajero.setId(updatedViajero.getId());
                 viajero.setNombre(updatedViajero.getNombre());
                 viajero.setApellido(updatedViajero.getApellido());
-                viajero.setContraseña(updatedViajero.getContraseña());
+                viajero.setContraseña(updatedViajero.getContrasena());
                 viajero.setUsuario(updatedViajero.getUsuario());
 
                 // retorna la viajero modificada

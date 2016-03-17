@@ -13,14 +13,14 @@ import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Named;
+import javax.inject.Singleton;
 
 /**
  * Mock del recurso Evento (Mock del servicio REST)
  */
 @Named
-@ApplicationScoped
+@Singleton
 public class EventoLogicMock {
 
     // objeto para presentar logs de las operaciones

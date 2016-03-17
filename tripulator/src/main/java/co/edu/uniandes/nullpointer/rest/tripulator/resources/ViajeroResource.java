@@ -4,6 +4,8 @@ import co.edu.uniandes.nullpointer.rest.tripulator.dtos.ViajeroDTO;
 import co.edu.uniandes.nullpointer.rest.tripulator.mocks.ViajeroLogicMock;
 import co.edu.uniandes.nullpointer.rest.tripulator.exceptions.TripulatorLogicException;
 import java.util.List;
+import java.util.logging.Logger;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -11,20 +13,26 @@ import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 
 /**
  *
  * @author Juan Sebastian Cardona
  */
 @Path("/viajeros")
+@Produces(MediaType.APPLICATION_JSON)
+@RequestScoped
 public class ViajeroResource {
-    
+    private final static Logger logger = Logger.getLogger(ViajeroResource.class.getName());
     @Inject
 	ViajeroLogicMock viajeroLogic;
     
     @GET
     public List<ViajeroDTO> getViajeros() throws TripulatorLogicException{
-        return viajeroLogic.getViajeros();
+        List<ViajeroDTO> v = viajeroLogic.getViajeros();
+        logger.info("llego aca" + v);
+        return v;
     }
     
     /**

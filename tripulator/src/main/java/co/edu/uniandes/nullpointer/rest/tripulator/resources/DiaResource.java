@@ -9,6 +9,7 @@ import co.edu.uniandes.nullpointer.rest.tripulator.dtos.DiaDTO;
 import co.edu.uniandes.nullpointer.rest.tripulator.exceptions.TripulatorLogicException;
 import co.edu.uniandes.nullpointer.rest.tripulator.mocks.DiaLogicMock;
 import java.util.List;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -25,8 +26,8 @@ import javax.ws.rs.core.MediaType;
  * @author Nicolás Gómez G.
  */
 @Path("/viajeros/:idViajero/itinerarios/:idItinerario/dias")
-@Produces(MediaType.APPLICATION_JSON)
-@Consumes(MediaType.APPLICATION_JSON)
+@Produces("application/json")
+@RequestScoped
 public class DiaResource {
     
     @Inject 

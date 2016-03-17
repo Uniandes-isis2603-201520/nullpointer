@@ -15,6 +15,7 @@ public class TripulatorLogicExceptionMapper implements ExceptionMapper<Tripulato
 	/**
 	 * Generador de una respuesta a partir de una excepción
 	 * @param ex excecpión a convertir a una respuesta REST
+     * @return 
 	 */
 	@Override
 	public Response toResponse(TripulatorLogicException ex) {

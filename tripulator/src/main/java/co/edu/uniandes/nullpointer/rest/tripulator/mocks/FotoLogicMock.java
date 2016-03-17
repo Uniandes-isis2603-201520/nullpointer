@@ -11,8 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.logging.Logger;
-import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Named;
+import javax.inject.Singleton;
 
 /**
  * @author JOSE QUIROGA
@@ -22,13 +22,13 @@ import javax.inject.Named;
  * Mock del recurso Foto (Mock del servicio REST)
  */
 @Named
-@ApplicationScoped
+@Singleton
 public class FotoLogicMock {
     
     /**
      * Objeto para presentar logs de las operaciones
      */
-    private final static Logger logger = Logger.getLogger(EventoLogicMock.class.getName());
+    private final static Logger logger = Logger.getLogger(FotoLogicMock.class.getName());
 
     /**
      * Listado de fotos

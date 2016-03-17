@@ -9,6 +9,7 @@ import co.edu.uniandes.nullpointer.rest.tripulator.dtos.ItinerarioDTO;
 import co.edu.uniandes.nullpointer.rest.tripulator.exceptions.TripulatorLogicException;
 import co.edu.uniandes.nullpointer.rest.tripulator.mocks.ItinerarioLogicMock;
 import java.util.List;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 
 import javax.ws.rs.Consumes;
@@ -26,8 +27,8 @@ import javax.ws.rs.core.MediaType;
  * @author Antonio de la Vega
  */
 @Path("/viajeros/:id/itinerarios")
-@Produces(MediaType.APPLICATION_JSON)
-@Consumes(MediaType.APPLICATION_JSON)
+@Produces("application/json")
+@RequestScoped
 public class ItinerarioResource {
     
     @Inject
