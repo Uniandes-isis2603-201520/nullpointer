@@ -112,7 +112,7 @@
                     return response;
                 }, function (response){
                     $scope.comentariosActuales=[];
-                    console.log(response)
+                    console.log(response);
                 });
             };
             this.update = function(cmt,idEvento){

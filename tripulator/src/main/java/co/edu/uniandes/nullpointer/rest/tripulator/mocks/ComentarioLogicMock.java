@@ -38,11 +38,11 @@ public class ComentarioLogicMock {
 
         if (mapComentarios == null) {
             mapComentarios = new HashMap<>();
-            ArrayList<ComentarioDTO> itinerarios = new ArrayList<>();
-            itinerarios.add(new ComentarioDTO(1L, "User1", "photo1", 4, "comentario1", 1L));
-            itinerarios.add(new ComentarioDTO(1L, "User2", "photo2", 5, "comentario2", 1L));
-            itinerarios.add(new ComentarioDTO(1L, "User3", "photo3", 3, "comentario3", 1L));
-            mapComentarios.put(1L, itinerarios);
+            ArrayList<ComentarioDTO> comentarios = new ArrayList<>();
+            comentarios.add(new ComentarioDTO(1L, "User1", "photo1", 4, "comentario1", 1L));
+            comentarios.add(new ComentarioDTO(1L, "User2", "photo2", 5, "comentario2", 1L));
+            comentarios.add(new ComentarioDTO(1L, "User3", "photo3", 3, "comentario3", 1L));
+            mapComentarios.put(1L, comentarios);
         }
 
         // indica que se muestren todos los mensajes
@@ -68,11 +68,11 @@ public class ComentarioLogicMock {
      */
     public List<ComentarioDTO> getComentarios(Long idEvento) throws TripulatorLogicException {
         if (mapComentarios == null) {
-            logger.severe("Error interno: lista de itinerarios no existe.");
-            throw new TripulatorLogicException("Error interno: lista de itinerarios no existe.");
+            logger.severe("Error interno: lista de comentarios no existe.");
+            throw new TripulatorLogicException("Error interno: lista de comentarios no existe.");
         }
 
-        logger.log(Level.INFO, "retornando todos los itinerarios del usuario: {0}", idEvento);
+        logger.log(Level.INFO, "retornando todos los comentarios del usuario: {0}", idEvento);
         return mapComentarios.get(idEvento);
     }
 
@@ -84,17 +84,17 @@ public class ComentarioLogicMock {
      * @throws TripulatorLogicException cuando el comentario no existe
      */
     public ComentarioDTO getComentario(Long idEvento, Long id) throws TripulatorLogicException {
-        logger.log(Level.INFO, "recibiendo solicitud de un itinerario con id {0}", id);
-        ArrayList<ComentarioDTO> itinerarios = mapComentarios.get(idEvento);
-        // busca el itinerario con el id suministrado
-        for (ComentarioDTO itinerario : itinerarios) {
-            if (Objects.equals(itinerario.getId(), id)) {
-                logger.log(Level.INFO, "retornando itinerario {0}", itinerario);
-                return itinerario;
+        logger.log(Level.INFO, "recibiendo solicitud de un comentario con id {0}", id);
+        ArrayList<ComentarioDTO> comentarios = mapComentarios.get(idEvento);
+        // busca el comentario con el id suministrado
+        for (ComentarioDTO comentario : comentarios) {
+            if (Objects.equals(comentario.getId(), id)) {
+                logger.log(Level.INFO, "retornando comentario {0}", comentario);
+                return comentario;
             }
         }
 
-        // si no encuentra el itinerario
+        // si no encuentra el comentario
         logger.severe("No existe un comentario con ese id");
         throw new TripulatorLogicException("No existe un comentario con ese id");
     }
@@ -108,27 +108,27 @@ public class ComentarioLogicMock {
      * @return comentario agregado
      */
     public ComentarioDTO createComentario(Long idEvento, ComentarioDTO newComentario) throws TripulatorLogicException {
-        logger.log(Level.INFO, "recibiendo solicitud de agregar itinerario {0}", newComentario);
+        logger.log(Level.INFO, "recibiendo solicitud de agregar comentario {0}", newComentario);
         if (!mapComentarios.containsKey(idEvento)) {
             mapComentarios.put(idEvento, new ArrayList());
         }
-        // el nuevo itinerario tiene id ?
+        // el nuevo comentario tiene id ?
         if (newComentario.getId() != null) {
-            // busca el itinerario con el id suministrado
+            // busca el comentario con el id suministrado
             ArrayList<ComentarioDTO> comentarios = mapComentarios.get(idEvento);
             for (ComentarioDTO comentario : comentarios) {
-                // si existe un itinerario con ese id
+                // si existe un comentario con ese id
                 if (Objects.equals(comentario.getId(), newComentario.getId())) {
-                    logger.severe("Ya existe un itinerario con ese id");
-                    throw new TripulatorLogicException("Ya existe un itinerario con ese id");
+                    logger.severe("Ya existe un comentario con ese id");
+                    throw new TripulatorLogicException("Ya existe un comentario con ese id");
                 }
             }
 
-            // el nuevo itinerario no tiene id ? 
+            // el nuevo comentario no tiene id ? 
         } else {
 
-            // genera un id para el itinerario
-            logger.info("Generando el id para el nuevo itinerario");
+            // genera un id para el comentario
+            logger.info("Generando el id para el nuevo comentario");
             long newId = 1;
             ArrayList<ComentarioDTO> comentarios = mapComentarios.get(idEvento);
             for (ComentarioDTO comentario : comentarios) {
@@ -139,8 +139,8 @@ public class ComentarioLogicMock {
             newComentario.setId(newId);
         }
 
-        // agrega el itinerario
-        logger.log(Level.INFO, "agregando itinerario {0}", newComentario);
+        // agrega el comentario
+        logger.log(Level.INFO, "agregando comentario {0}", newComentario);
         mapComentarios.get(idEvento).add(newComentario);
         return newComentario;
     }
