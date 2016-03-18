@@ -3,19 +3,18 @@
     mod.controller('EventosController', ['$scope', 'EventosInfoService', '$http', function ($scope, svc, $http) {
 
             $scope.events = [];
-            $scope.eventoActual = {};
+            $scope.eventoActual = {id:1};
             $scope.commentTemplate = {
                 user: "Default",
                 userPhoto: "http://www.periodicoabc.mx/sites/default/files/anonimoface.png",
                 stars: 0,
                 comment: ""
             };
+            $scope.commentariosActuales=[];
             $scope.starSelected = false;
             $scope.newComment = angular.copy($scope.commentTemplate);
             
-            $scope.actualizarInfo = function (e) {
-                $scope.eventoActual = e;
-            };
+            
             $scope.crearEstrellas = function (s) {
                 var resp = "";
                 var estrellasFaltantes = 5;
@@ -91,28 +90,44 @@
             var self=this;
             this.fetchEventos = function () {
                 return svc.fetchEventos().then(function (response) {
+                    $scope.comentariosActuales=[];
+                    console.log("Comentarios vacio: ");
+                    console.log($scope.comentariosActuales);
                     $scope.events = response.data;
+                    
                     if($scope.events.length>=1){
-                        $scope.eventoActual=$scope.events[0];
+                        $scope.eventoActual=$scope.events[$scope.eventoActual.id-1];
                         self.getComments();
                     }
+                    console.log("Comentarios despues de get comments con id "+$scope.eventoActual.id);
+                    console.log($scope.comentariosActuales);
                     return response;
                 }, function (response){ console.log(response);});
             };
             this.getComments = function (){
               return svc.getComments($scope.eventoActual.id).then(function (response) {
-                    $scope.eventoActual.comments = response.data;
+                    $scope.comentariosActuales = response.data;
+                    console.log($scope.comentariosActuales);
+                    console.log(response.data);
                     return response;
-                }, function (response){ console.log(response);});
+                }, function (response){
+                    $scope.comentariosActuales=[];
+                    console.log(response);
+                });
             };
-            this.update = function(cmt,index){
-                console.log(index);
-                cmt.id=$scope.eventoActual.comments.length+1;
-                cmt.id_evento=index;
-                $scope.eventoActual.comments.push(cmt);
-                return svc.saveRecord($scope.eventoActual,index).then(function () {
+            this.update = function(cmt,idEvento){
+                console.log(idEvento);
+                cmt.id_evento=idEvento;
+                cmt.id=$scope.comentariosActuales.length+1;
+                
+                console.log(cmt.id);
+                return svc.saveRecord(cmt,idEvento).then(function () {
                         self.fetchEventos();
                     }, function (response){ console.log(response);});
+            };
+            $scope.actualizarInfo = function (e) {
+                $scope.eventoActual = e;
+                self.getComments();
             };
             this.fetchEventos();
         }]);

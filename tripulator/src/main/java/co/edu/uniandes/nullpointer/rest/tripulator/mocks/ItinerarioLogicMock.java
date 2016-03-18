@@ -5,9 +5,12 @@
  */
 package co.edu.uniandes.nullpointer.rest.tripulator.mocks;
 
+import co.edu.uniandes.nullpointer.rest.tripulator.dtos.DiaDTO;
 import co.edu.uniandes.nullpointer.rest.tripulator.dtos.ItinerarioDTO;
 import co.edu.uniandes.nullpointer.rest.tripulator.exceptions.TripulatorLogicException;
+import java.sql.Time;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -33,11 +36,16 @@ public class ItinerarioLogicMock {
         if (mapItinerarios == null) {
             mapItinerarios = new HashMap<>();
             ArrayList<ItinerarioDTO> itinerarios = new ArrayList<>();
-            itinerarios.add(new ItinerarioDTO(1L, "Dubai", new Date(), new Date(),
+            Calendar cal = Calendar.getInstance();
+            cal.set(2015, 8, 20);
+            Date first = cal.getTime();
+            cal.set(2015,9, 10);
+            Date second = cal.getTime();
+            itinerarios.add(new ItinerarioDTO(1L, "Dubai", first, second,
                     new ArrayList(), new ArrayList(), new ArrayList()));
-            itinerarios.add(new ItinerarioDTO(2L, "London", new Date(), new Date(),
+            itinerarios.add(new ItinerarioDTO(2L, "London",  first, second,
                     new ArrayList(), new ArrayList(), new ArrayList()));
-            itinerarios.add(new ItinerarioDTO(3L, "Eurotrip", new Date(), new Date(),
+            itinerarios.add(new ItinerarioDTO(3L, "Eurotrip",  first, second,
                     new ArrayList(), new ArrayList(), new ArrayList()));
             mapItinerarios.put(1L, itinerarios);
         }

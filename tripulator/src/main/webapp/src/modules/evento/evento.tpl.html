@@ -36,7 +36,7 @@
             <h4>Calificaciones</h4>
             <div class="calificaciones col-xs-12"><!--Abre div comentarios-->
 
-                <div class="calificacion" ng-repeat="comentario in eventoActual.comments"><!--abre div de un comentario-->
+                <div class="calificacion" ng-repeat="comentario in comentariosActuales"><!--abre div de un comentario-->
                     <img class="img-circle fotoPerfil" ng-src="{{comentario.userPhoto}}"/>
                     <p>{{crearEstrellas(comentario.stars)}}</p>
                     <p><strong>{{comentario.user}}: </strong>{{comentario.comment}}</p>

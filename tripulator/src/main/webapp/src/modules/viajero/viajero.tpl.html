@@ -29,7 +29,7 @@
             <li class="sidebar-brand">
                 <a>History</a>
             </li>
-            <li ng-repeat="trip in trips" ng-click="ctrl.getTrip(trip.id)">
+            <li ng-repeat="trip in trips" ng-click="ctrl.getItinerario(trip.id)">
                 <a ng-style="isTripSelected(trip)">{{trip.nombre}}</a>
             </li>
         </ul>
@@ -40,10 +40,10 @@
         <div class="overview" ng-show="menuActions[0].active">
             <div class="trip-banner">
                 <uib-carousel active="0" interval="10000">
-                    <uib-slide ng-repeat="image in currentTrip.images">
+                    <uib-slide ng-repeat="image in currentTrip.multimedia">
                         <img ng-src="{{image.src}}">
                         <div class="carousel-caption">
-                            <h4>{{currentTrip.name}}</h4>
+                            <h4>{{currentTrip.nombre}}</h4>
                             <p>{{image.name}}</p>
                         </div>
                     </uib-slide>
@@ -55,7 +55,7 @@
                     <h3 class="col-xs-4 ">Start date: {{currentTrip.fechaInicio| date}}</h3>
                     <h3 class="col-xs-4 text-center ">End date: {{currentTrip.fechaFin| date}}</h3>
                     <h3 class="col-xs-4 text-right">Current date: {{today| date}}</h3>
-                    <h3 class="col-xs-4 ">photos: {{currentTrip.images.length}}</h3>
+                    <h3 class="col-xs-4 ">photos: {{currentTrip.multimedia.length}}</h3>
                     <h3 class="col-xs-4 text-center">events: {{currentTrip.multimedia.length}}</h3>
                     <h3 class="col-xs-4 text-right" ng-click="selectAction(menuActions[1])" ui-sref="viajero.itinerario()">visit trip <span class="glyphicon glyphicon-plane"></span></h3>
                 </div>
