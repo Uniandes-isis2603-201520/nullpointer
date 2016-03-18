@@ -11,7 +11,6 @@ import co.edu.uniandes.nullpointer.rest.tripulator.mocks.DiaLogicMock;
 import java.util.List;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
-import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -19,13 +18,12 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
 
 /**
  *
  * @author Nicolás Gómez G.
  */
-@Path("/viajeros/:idViajero/itinerarios/:idItinerario/dias")
+@Path("/viajeros/{idViajero}/itinerarios/{idItinerario}/dias")
 @Produces("application/json")
 @RequestScoped
 public class DiaResource {
@@ -35,12 +33,15 @@ public class DiaResource {
     
     /**
      * 
+     * @param idViajero
+     * @param idItinerario
      * @return
      * @throws TripulatorLogicException 
      */
     @GET
-    public List<DiaDTO> getDias() throws TripulatorLogicException {
-        return diaLogic.getDias();
+    public List<DiaDTO> getDias(@PathParam("idViajero") Long idViajero,
+            @PathParam("idItinerario") Long idItinerario) throws TripulatorLogicException {
+        return diaLogic.getDias(idViajero,idItinerario);
     }
     
     /**
@@ -52,8 +53,10 @@ public class DiaResource {
      */
     @GET
     @Path("{id: \\d+}")
-    public DiaDTO getDia(@PathParam("id") Long id) throws TripulatorLogicException{
-        return diaLogic.getDia(id);
+    public DiaDTO getDia(@PathParam("idViajero") Long idViajero,
+            @PathParam("idItinerario") Long idItinerario,
+            @PathParam("id") Long id) throws TripulatorLogicException{
+        return diaLogic.getDia(idViajero, idItinerario, id);
     }
     
         /**
@@ -63,8 +66,10 @@ public class DiaResource {
      * @throws co.edu.uniandes.nullpointer.rest.tripulator.exceptions.TripulatorLogicException
      */
     @POST
-    public DiaDTO createDia(DiaDTO dia) throws TripulatorLogicException {
-        return diaLogic.createDia(dia);
+    public DiaDTO createDia(@PathParam("idViajero") Long idViajero,
+            @PathParam("idItinerario") Long idItinerario,
+            DiaDTO dia) throws TripulatorLogicException {
+        return diaLogic.createDia(idViajero, idItinerario, dia);
     }
     
     /**
@@ -76,8 +81,10 @@ public class DiaResource {
      */
     @PUT
     @Path("{id: \\d+}")
-    public DiaDTO updateDia(@PathParam("id") Long id, DiaDTO dia) throws TripulatorLogicException {
-        return diaLogic.updateDia(id, dia);
+    public DiaDTO updateDia(@PathParam("idViajero") Long idViajero,
+            @PathParam("idItinerario") Long idItinerario,
+            @PathParam("id") Long id, DiaDTO dia) throws TripulatorLogicException {
+        return diaLogic.updateDia(idViajero, idItinerario, id, dia);
     }
     
     /**
@@ -87,7 +94,9 @@ public class DiaResource {
      */
     @DELETE
     @Path("{id: \\d+}")
-    public void deleteDia(@PathParam("id") Long id) throws TripulatorLogicException {
-        diaLogic.deleteDia(id);
+    public void deleteDia(@PathParam("idViajero") Long idViajero,
+            @PathParam("idItinerario") Long idItinerario,
+            @PathParam("id") Long id) throws TripulatorLogicException {
+        diaLogic.deleteDia(idViajero, idItinerario, id);
     }
 }

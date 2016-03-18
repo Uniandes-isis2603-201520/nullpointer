@@ -18,8 +18,13 @@ public class DiaDTO {
     Date fecha;
     ArrayList eventos;
     Long idCiudad;
+    
+    public DiaDTO(){
+        
+    }
 
-    public DiaDTO(Long id, Date fecha, ArrayList eventos, long idCiudad) {
+    public DiaDTO(Long id, Date fecha, ArrayList eventos, Long idCiudad) {
+        super();
         this.id = id;
         this.fecha = fecha;
         this.eventos = eventos;
@@ -61,4 +66,16 @@ public class DiaDTO {
     public void setIdCiudad(Long idCiudad) {
         this.idCiudad = idCiudad;
     }   
+    
+    /**
+     * Convierte el objeto a una cadena
+     * @return 
+     */
+    @Override
+    public String toString() {
+        return "{ id : " + id + ", fecha : \"" + fecha + "\" "
+                + ", eventos : \"" + eventos + "\" "
+                + ", idCiudad : \"" +  idCiudad + "\" " + "}";
+
+    }
 }

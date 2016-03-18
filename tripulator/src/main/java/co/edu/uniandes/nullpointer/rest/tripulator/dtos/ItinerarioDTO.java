@@ -21,7 +21,11 @@ public class ItinerarioDTO {
     private ArrayList multimedia;
     private ArrayList mapa;
 
+    public ItinerarioDTO(){
+        
+    }
     public ItinerarioDTO(Long id, String nombre, Date fechaInicio, Date fechaFin, ArrayList planDias, ArrayList multimedia, ArrayList mapa) {
+        super();
         this.id = id;
         this.nombre = nombre;
         this.fechaInicio = fechaInicio;
@@ -30,17 +34,7 @@ public class ItinerarioDTO {
         this.multimedia = multimedia;
         this.mapa = mapa;
     }
-/*
-    public ItinerarioDTO(Long id, String nombre, Date fechaInicio, Date fechaFin) {
-        this.id = id;
-        this.nombre = nombre;
-        this.fechaInicio = fechaInicio;
-        this.fechaFin = fechaFin;
-        planDias = new ArrayList();
-        multimedia = new ArrayList();
-        mapa = new ArrayList();
-    }
-*/
+
     /**
      * @return the id
      */
@@ -138,4 +132,15 @@ public class ItinerarioDTO {
     public void setMapa(ArrayList mapa) {
         this.mapa = mapa;
     }
+
+        /**
+     * Convierte el objeto a una cadena
+     */
+    @Override
+    public String toString() {
+        return "{id:" + id + ",\n nombre:'" + nombre + "',\n fechaInicio:'" + fechaInicio
+                +"', \n fechaFin:'" + fechaFin + "',\n planDias:" + planDias + ",\n  multimedia:"
+                + multimedia + ",\n mapa:'" + mapa + "', }";
+    }
+    
 }

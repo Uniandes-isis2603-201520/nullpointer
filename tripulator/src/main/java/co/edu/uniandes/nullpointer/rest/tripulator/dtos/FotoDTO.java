@@ -75,8 +75,12 @@ public class FotoDTO {
     }
     
     
-    
-    
-    
-    
+        /**
+     * Convierte el objeto a una cadena
+     * @return 
+     */
+    @Override
+    public String toString() {
+        return "{ id : " + id + ", src : \"" + src + "\" " + "}";
+    }
 }

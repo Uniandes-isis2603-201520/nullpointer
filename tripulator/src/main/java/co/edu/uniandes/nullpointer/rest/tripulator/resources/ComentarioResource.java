@@ -23,7 +23,7 @@ import javax.ws.rs.Produces;
  *
  * @author jd.fandino10
  */
-@Path("/comentarios")
+@Path("/eventos/{idEvento}/comentarios")
 @Produces("application/json")
 @RequestScoped
 public class ComentarioResource {
@@ -38,8 +38,8 @@ public class ComentarioResource {
 	 * @throws TripulatorLogicException excepción retornada por la lógica  
 	 */
     @GET
-    public List<ComentarioDTO> getComentarios() throws TripulatorLogicException {
-        return comentarioLogic.getComentarios();
+    public List<ComentarioDTO> getComentarios(@PathParam("idEvento")Long idEvento) throws TripulatorLogicException {
+        return comentarioLogic.getComentarios(idEvento);
     }
 
     /**
@@ -50,8 +50,9 @@ public class ComentarioResource {
      */
     @GET
     @Path("{id: \\d+}")
-    public ComentarioDTO getComentario(@PathParam("id") Long id) throws TripulatorLogicException {
-        return comentarioLogic.getComentario(id);
+    public ComentarioDTO getComentario(@PathParam("idEvento")Long idEvento,
+            @PathParam("id") Long id) throws TripulatorLogicException {
+        return comentarioLogic.getComentario(idEvento,id);
     }
 
     /**
@@ -61,8 +62,9 @@ public class ComentarioResource {
      * @throws TripulatorLogicException cuando ya existe un comentario con el id suministrado
      */
     @POST
-    public ComentarioDTO createComentario(ComentarioDTO comentario) throws TripulatorLogicException {
-        return comentarioLogic.createComentario(comentario);
+    public ComentarioDTO createComentario(@PathParam("idEvento")Long idEvento
+            ,ComentarioDTO comentario) throws TripulatorLogicException {
+        return comentarioLogic.createComentario(idEvento, comentario);
     }
 
     /**
@@ -74,8 +76,9 @@ public class ComentarioResource {
      */
     @PUT
     @Path("{id: \\d+}")
-    public ComentarioDTO updateComentario(@PathParam("id") Long id, ComentarioDTO comentario) throws TripulatorLogicException {
-        return comentarioLogic.updateComentario(id, comentario);
+    public ComentarioDTO updateComentario(@PathParam("idEvento")Long idEvento,
+            @PathParam("id") Long id, ComentarioDTO comentario) throws TripulatorLogicException {
+        return comentarioLogic.updateComentario(idEvento, id, comentario);
     }
 
     /**
@@ -85,7 +88,8 @@ public class ComentarioResource {
      */
     @DELETE
     @Path("{id: \\d+}")
-    public void deleteComentario(@PathParam("id") Long id) throws TripulatorLogicException {
-    	comentarioLogic.deleteComentario(id);
+    public void deleteComentario(@PathParam("idEvento")Long idEvento,
+            @PathParam("id") Long id) throws TripulatorLogicException {
+    	comentarioLogic.deleteComentario(idEvento, id);
     }
 }

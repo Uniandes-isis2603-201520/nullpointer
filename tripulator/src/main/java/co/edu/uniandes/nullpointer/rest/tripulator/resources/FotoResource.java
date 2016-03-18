@@ -23,21 +23,23 @@ import javax.ws.rs.Produces;
  *
  * @author Jose Quiroga
  */
-@Path("/viajeros/:id/itinerarios/:id/fotos")
+@Path("/viajeros/{idViajero}/itinerarios/{idItinerario}/fotos")
 @Produces("application/json")
 @RequestScoped
 public class FotoResource {
-    
+
     @Inject
-	FotoLogicMock fotoLogic;
-    
+    FotoLogicMock fotoLogic;
+
     @GET
-    public List<FotoDTO> getFotos() throws TripulatorLogicException{
-        return fotoLogic.getFotos();
+    public List<FotoDTO> getFotos(@PathParam("idViajero") Long idViajero,
+            @PathParam("idItinerario") Long idItinerario) throws TripulatorLogicException {
+        return fotoLogic.getFotos(idViajero, idItinerario);
     }
-    
+
     /**
      * Obtiene una foto
+     *
      * @param id identificador de la foto.
      * @return foto encontrada.
      * @throws co.edu.uniandes.nullpointer.rest.tripulator.exceptions.
@@ -45,31 +47,49 @@ public class FotoResource {
      */
     @GET
     @Path("{id: \\d+}")
-    public FotoDTO getFoto(@PathParam("id") Long id) throws TripulatorLogicException{
-        return fotoLogic.getFoto(id);
+    public FotoDTO getFoto(@PathParam("idViajero") Long idViajero,
+            @PathParam("idItinerario") Long idItinerario,
+            @PathParam("id") Long id) throws TripulatorLogicException {
+        return fotoLogic.getFoto(idViajero, idItinerario, id);
     }
-    
-        /**
+
+    /**
      * Agrega fotos
+     *
      * @param foto foto a agregar
      * @return datos de la foto a agregar
-     * @throws co.edu.uniandes.nullpointer.rest.tripulator.exceptions.TripulatorLogicException
+     * @throws
+     * co.edu.uniandes.nullpointer.rest.tripulator.exceptions.TripulatorLogicException
      */
     @POST
-    public FotoDTO createFotos(FotoDTO foto) throws TripulatorLogicException {
-        return fotoLogic.createFoto(foto);
+    public FotoDTO createFotos(@PathParam("idViajero") Long idViajero,
+            @PathParam("idItinerario") Long idItinerario,
+            FotoDTO foto) throws TripulatorLogicException {
+        return fotoLogic.createFoto(idViajero, idItinerario, foto);
     }
-    
-    
+
+    @PUT
+    @Path("{id: \\d+}")
+    public FotoDTO updateFoto(@PathParam("idViajero") Long idViajero,
+            @PathParam("idItinerario") Long idItinerario,
+            @PathParam("id") Long id,
+            FotoDTO foto) throws TripulatorLogicException {
+        return fotoLogic.updateFoto(idViajero, idItinerario, id, foto);
+    }
+
     /**
      * Elimina los datos de una foto
+     *
      * @param id identificador de la foto a eliminar
-     * @throws TripulatorLogicException cuando no existe un itinerario con el id suministrado
+     * @throws TripulatorLogicException cuando no existe un itinerario con el id
+     * suministrado
      */
     @DELETE
     @Path("{id: \\d+}")
-    public void deleteFoto(@PathParam("id") Long id) throws TripulatorLogicException {
-        fotoLogic.deleteFoto(id);
-    	
+    public void deleteFoto(@PathParam("idViajero") Long idViajero,
+            @PathParam("idItinerario") Long idItinerario,
+            @PathParam("id") Long id) throws TripulatorLogicException {
+        fotoLogic.deleteFoto(idViajero, idItinerario, id);
+
     }
 }
