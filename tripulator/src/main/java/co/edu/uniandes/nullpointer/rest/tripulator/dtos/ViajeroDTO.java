@@ -12,7 +12,7 @@ public class ViajeroDTO {
     private Long id;
     private String nombre;
     private String apellido;
-    private String contrasena;
+    private String password;
     private String usuario;
     // itinerarios : arreglo de ids y nombre de los itinerarios//
 
@@ -35,7 +35,7 @@ public class ViajeroDTO {
         this.id = id;
         this.nombre = nombre;
         this.apellido = apellido;
-        this.contrasena = contrasena;
+        this.password = contrasena;
         this.usuario = usuario;
     }
 
@@ -71,7 +71,7 @@ public class ViajeroDTO {
      * @return el contraseña
      */
     public String getContrasena() {
-        return contrasena;
+        return password;
     }
 
     /**
@@ -98,8 +98,8 @@ public class ViajeroDTO {
     /**
      * @param contraseña la contraseña a poner
      */
-    public void setContraseña(String contrasena) {
-        this.contrasena = contrasena;
+    public void setContrasena(String contrasena) {
+        this.password = contrasena;
     }
 
     /**
@@ -117,7 +117,7 @@ public class ViajeroDTO {
     public String toString() {
         return "{ id : " + id + ", nombre : \"" + nombre + "\" "
                 + ", apellido : \"" + apellido + "\" "
-                + ", contrasena : \"" +  contrasena + "\" "
+                + ", contrasena : \"" +  password + "\" "
                 + ", usuario : \"" + usuario + "\" " + "}";
 
     }
