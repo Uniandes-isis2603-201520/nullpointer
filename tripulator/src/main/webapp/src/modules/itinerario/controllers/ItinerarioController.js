@@ -13,7 +13,7 @@
                 nombre: String, // Nombre dado al itinerario.  
                 fechaInicio: Date, // Fecha de inicio del itinerario en cuestión.  
                 fechaFin: Date, // Fecha de fin del itinerario en cuestión.  
-                dias: [], // Arreglo que contiene todos los id de los días del itinerario.  
+                planDias: [], // Arreglo que contiene todos los id de los días del itinerario.  
                 multimedia: [], // Arreglo que contiene todos los id del multidemia asociada al itinerario.  
                 mapa: [] // Arreglo que contiene todos los id necesarios para desplegar el mapa.
             };

@@ -1,6 +1,6 @@
 (function (ng) {
     var mod = ng.module("viajeroModule");
-    mod.service('viajeroS', [function () {
+    mod.service('viajeroS', ['$http','viajeroContext',function ($http, context) {
             var trips = [
                 {
                     id: 0,
@@ -17,38 +17,25 @@
                     events: [{},{},{},{}]
                 }
             ];
-            
-            var idCount  = 2;
-            
-            this.getTrips = function (userId) {
-                return new Promise(function (resolve, reject) {
-                    if (trips.length !== 0) {
-                        resolve(trips);
-                    } else {
-                        reject("Error occurred");
-                    }
-                });
+                        
+            this.getItinerarios = function (userId) {
+                return $http.get(context + "/" + userId+ "/itinerarios");
             };
             
-            this.getTrip = function(userId, tripId){
-                return new Promise(function (resolve,reject){
-                    if(true){
-                        resolve(trips[tripId]);
-                    } else {
-                        reject("Error occurred");
-                    }
-                });
+            this.getItinerario = function(userId, tripId){
+                return $http.get(context + "/" + userId+ "/itinerarios/" + tripId + "/");
             };
             
-            this.addTrip = function(trip){
-                return new Promise(function (resolve,reject){
-                    if(trip.id === null){
-                        trips[idCount++] = trip;
-                        resolve(true);
-                    } else {
-                        reject(false);
-                    }
-                });
+            this.addItinerario = function(userId, trip){
+                if (trip.id) {
+                    return $http.put(context + "/" + userId + "/itinerarios/" + trip.id, trip);
+                } else {
+                    return $http.post(context + "/" + userId + "/itinerarios/", trip);
+                }
+            };
+            
+            this.deleteItinerario = function (userId, id) {
+                return $http.delete(context + "/" + userId + "/itinerarios/" + id);
             };
         }]);
 })(window.angular);
