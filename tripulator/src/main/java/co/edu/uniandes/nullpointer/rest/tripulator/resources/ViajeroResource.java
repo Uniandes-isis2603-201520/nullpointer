@@ -21,25 +21,23 @@ import javax.ws.rs.core.MediaType;
  * @author Juan Sebastian Cardona
  */
 @Path("/viajeros")
-@Produces(MediaType.APPLICATION_JSON)
+@Produces("application/json")
 @RequestScoped
 public class ViajeroResource {
-    private final static Logger logger = Logger.getLogger(ViajeroResource.class.getName());
-    @Inject
+
+        @Inject
 	ViajeroLogicMock viajeroLogic;
     
     @GET
     public List<ViajeroDTO> getViajeros() throws TripulatorLogicException{
-        List<ViajeroDTO> v = viajeroLogic.getViajeros();
-        logger.info("llego aca" + v);
-        return v;
+        return viajeroLogic.getViajeros();
     }
     
     /**
      * Obtiene un viajero
      * @param id identificador del viajero.
      * @return viajero encontrado.
-     * @throws co.edu.uniandes.nullpointer.rest.tripulator.exceptions.
+     * @throws co.edu.uniandes.nullpointer.rest.tripulator.exceptions.TripulatorLogicException
      * TripulatorLogicException cuando el viajero no existe
      */
     @GET

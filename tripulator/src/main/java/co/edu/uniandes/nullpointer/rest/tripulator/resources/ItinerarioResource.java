@@ -12,7 +12,6 @@ import java.util.List;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 
-import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -20,13 +19,12 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
 
 /**
  *
  * @author Antonio de la Vega
  */
-@Path("/viajeros/:id/itinerarios")
+@Path("/viajeros/{idViajero}/itinerarios")
 @Produces("application/json")
 @RequestScoped
 public class ItinerarioResource {
@@ -36,12 +34,13 @@ public class ItinerarioResource {
     
     /**
      * Devuelve todos los itinerarios.
+     * @param idViajero
      * @return itinerarios
      * @throws TripulatorLogicException 
      */
     @GET
-    public List<ItinerarioDTO> getItinerarios() throws TripulatorLogicException{
-        return itinerarioLogic.getItinerarios();
+    public List<ItinerarioDTO> getItinerarios(@PathParam("idViajero") Long idViajero) throws TripulatorLogicException{
+        return itinerarioLogic.getItinerarios(idViajero);
     }
     
     /**
@@ -53,8 +52,9 @@ public class ItinerarioResource {
      */
     @GET
     @Path("{id: \\d+}")
-    public ItinerarioDTO getItinerario(@PathParam("id") Long id) throws TripulatorLogicException{
-        return itinerarioLogic.getItinerario(id);
+    public ItinerarioDTO getItinerario(@PathParam("idViajero") Long idViajero,
+            @PathParam("id") Long id) throws TripulatorLogicException{
+        return itinerarioLogic.getItinerario(idViajero, id);
     }
     
         /**
@@ -64,8 +64,9 @@ public class ItinerarioResource {
      * @throws co.edu.uniandes.nullpointer.rest.tripulator.exceptions.TripulatorLogicException
      */
     @POST
-    public ItinerarioDTO createItinerario(ItinerarioDTO itinerario) throws TripulatorLogicException {
-        return itinerarioLogic.createItinerario(itinerario);
+    public ItinerarioDTO createItinerario(@PathParam("idViajero") Long idViajero,
+            ItinerarioDTO itinerario) throws TripulatorLogicException {
+        return itinerarioLogic.createItinerario(idViajero,itinerario);
     }
     
     /**
@@ -77,8 +78,9 @@ public class ItinerarioResource {
      */
     @PUT
     @Path("{id: \\d+}")
-    public ItinerarioDTO updateItinerario(@PathParam("id") Long id, ItinerarioDTO itinerario) throws TripulatorLogicException {
-        return itinerarioLogic.updateItinerario(id, itinerario);
+    public ItinerarioDTO updateItinerario(@PathParam("idViajero") Long idViajero,
+            @PathParam("id") Long id, ItinerarioDTO itinerario) throws TripulatorLogicException {
+        return itinerarioLogic.updateItinerario(idViajero, id, itinerario);
     }
     
     /**
@@ -88,7 +90,8 @@ public class ItinerarioResource {
      */
     @DELETE
     @Path("{id: \\d+}")
-    public void deleteItinerario(@PathParam("id") Long id) throws TripulatorLogicException {
-    	itinerarioLogic.deleteCity(id);
+    public void deleteItinerario(@PathParam("idViajero") Long idViajero,
+            @PathParam("id") Long id) throws TripulatorLogicException {
+    	itinerarioLogic.deleteItinerario(idViajero,id);
     }
 }

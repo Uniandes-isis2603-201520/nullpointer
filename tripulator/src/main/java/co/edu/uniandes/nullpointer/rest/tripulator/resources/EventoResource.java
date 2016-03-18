@@ -9,6 +9,7 @@ import co.edu.uniandes.nullpointer.rest.tripulator.dtos.EventoDTO;
 import co.edu.uniandes.nullpointer.rest.tripulator.exceptions.TripulatorLogicException;
 import co.edu.uniandes.nullpointer.rest.tripulator.mocks.EventoLogicMock;
 import java.util.List;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -16,12 +17,15 @@ import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
 
 /**
  *
  * @author jd.fandino10
  */
 @Path("/eventos")
+@Produces("application/json")
+@RequestScoped
 public class EventoResource {
 
     

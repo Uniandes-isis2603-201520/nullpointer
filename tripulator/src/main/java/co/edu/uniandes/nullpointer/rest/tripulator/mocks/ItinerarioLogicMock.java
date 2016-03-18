@@ -9,6 +9,7 @@ import co.edu.uniandes.nullpointer.rest.tripulator.dtos.ItinerarioDTO;
 import co.edu.uniandes.nullpointer.rest.tripulator.exceptions.TripulatorLogicException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 import java.util.logging.Level;
@@ -23,43 +24,45 @@ import javax.inject.Singleton;
 @Named
 @Singleton
 public class ItinerarioLogicMock {
-    
+
     private final static Logger logger = Logger.getLogger(ItinerarioLogicMock.class.getName());
-    
-    private static ArrayList<ItinerarioDTO> itinerarios;
-    
+
+    private static HashMap<Long, ArrayList<ItinerarioDTO>> mapItinerarios;
+
     public ItinerarioLogicMock() {
-        if (itinerarios == null) {
-            itinerarios = new ArrayList<>();
+        if (mapItinerarios == null) {
+            mapItinerarios = new HashMap<>();
+            ArrayList<ItinerarioDTO> itinerarios = new ArrayList<>();
             itinerarios.add(new ItinerarioDTO(1L, "Dubai", new Date(), new Date(),
                     new ArrayList(), new ArrayList(), new ArrayList()));
-            itinerarios.add(new ItinerarioDTO(1L, "London", new Date(), new Date(),
+            itinerarios.add(new ItinerarioDTO(2L, "London", new Date(), new Date(),
                     new ArrayList(), new ArrayList(), new ArrayList()));
-            itinerarios.add(new ItinerarioDTO(1L, "Eurotrip", new Date(), new Date(),
+            itinerarios.add(new ItinerarioDTO(3L, "Eurotrip", new Date(), new Date(),
                     new ArrayList(), new ArrayList(), new ArrayList()));
+            mapItinerarios.put(1L, itinerarios);
         }
 
         // indica que se muestren todos los mensajes
         logger.setLevel(Level.INFO);
 
         // muestra información 
-        logger.info("Inicializa la lista de itinerarios");
-        logger.log(Level.INFO, "itinerarios{0}", itinerarios);
+        logger.info("Inicializa el hashmap");
+        logger.log(Level.INFO, "mapItinerarios{0}", mapItinerarios);
     }
-    
-    public List<ItinerarioDTO> getItinerarios() throws TripulatorLogicException {
-        if (itinerarios == null) {
+
+    public List<ItinerarioDTO> getItinerarios(Long idUsuario) throws TripulatorLogicException {
+        if (mapItinerarios == null) {
             logger.severe("Error interno: lista de itinerarios no existe.");
             throw new TripulatorLogicException("Error interno: lista de itinerarios no existe.");
         }
-        
-        logger.info("retornando todos los itinerarios");
-        return itinerarios;
-    }
-    
-    public ItinerarioDTO getItinerario(Long id) throws TripulatorLogicException {
-        logger.log(Level.INFO, "recibiendo solicitud de un itinerario con id {0}", id);
 
+        logger.log(Level.INFO, "retornando todos los itinerarios del usuario: {0}", idUsuario);
+        return mapItinerarios.get(idUsuario);
+    }
+
+    public ItinerarioDTO getItinerario(Long idUsuario, Long id) throws TripulatorLogicException {
+        logger.log(Level.INFO, "recibiendo solicitud de un itinerario con id {0}", id);
+        ArrayList<ItinerarioDTO> itinerarios = mapItinerarios.get(idUsuario);
         // busca el itinerario con el id suministrado
         for (ItinerarioDTO itinerario : itinerarios) {
             if (Objects.equals(itinerario.getId(), id)) {
@@ -72,13 +75,16 @@ public class ItinerarioLogicMock {
         logger.severe("No existe un itinerario con ese id");
         throw new TripulatorLogicException("No existe un itinerario con ese id");
     }
-    
-    public ItinerarioDTO createItinerario(ItinerarioDTO newItinerario) throws TripulatorLogicException {
-        logger.log(Level.INFO, "recibiendo solicitud de agregar ciudad {0}", newItinerario);
 
+    public ItinerarioDTO createItinerario(Long idUsuario, ItinerarioDTO newItinerario) throws TripulatorLogicException {
+        logger.log(Level.INFO, "recibiendo solicitud de agregar itinerario {0}", newItinerario);
+        if (!mapItinerarios.containsKey(idUsuario)) {
+            mapItinerarios.put(idUsuario, new ArrayList());
+        }
         // el nuevo itinerario tiene id ?
         if (newItinerario.getId() != null) {
             // busca el itinerario con el id suministrado
+            ArrayList<ItinerarioDTO> itinerarios = mapItinerarios.get(idUsuario);
             for (ItinerarioDTO itinerario : itinerarios) {
                 // si existe un itinerario con ese id
                 if (Objects.equals(itinerario.getId(), newItinerario.getId())) {
@@ -93,6 +99,7 @@ public class ItinerarioLogicMock {
             // genera un id para el itinerario
             logger.info("Generando el id para el nuevo itinerario");
             long newId = 1;
+            ArrayList<ItinerarioDTO> itinerarios = mapItinerarios.get(idUsuario);
             for (ItinerarioDTO itinerario : itinerarios) {
                 if (newId <= itinerario.getId()) {
                     newId = itinerario.getId() + 1;
@@ -103,19 +110,19 @@ public class ItinerarioLogicMock {
 
         // agrega el itinerario
         logger.log(Level.INFO, "agregando itinerario {0}", newItinerario);
-        itinerarios.add(newItinerario);
+        mapItinerarios.get(idUsuario).add(newItinerario);
         return newItinerario;
     }
-    
-    public ItinerarioDTO updateItinerario(Long id, ItinerarioDTO updatedItinerario) throws TripulatorLogicException {
-        logger.log(Level.INFO, "recibiendo solictud de modificar un itinerario {0}", updatedItinerario);
 
+    public ItinerarioDTO updateItinerario(Long idUsuario,
+            Long id, ItinerarioDTO updatedItinerario) throws TripulatorLogicException {
+        logger.log(Level.INFO, "recibiendo solictud de modificar un itinerario {0}", updatedItinerario);
+        ArrayList<ItinerarioDTO> itinerarios = mapItinerarios.get(idUsuario);
         // busca el itinerario con el id suministrado
         for (ItinerarioDTO itinerario : itinerarios) {
             if (Objects.equals(itinerario.getId(), id)) {
 
                 // modifica el itinerario
-                itinerario.setId(updatedItinerario.getId());
                 itinerario.setNombre(updatedItinerario.getNombre());
                 itinerario.setFechaFin(updatedItinerario.getFechaFin());
                 itinerario.setFechaInicio(updatedItinerario.getFechaInicio());
@@ -134,10 +141,9 @@ public class ItinerarioLogicMock {
         throw new TripulatorLogicException("No existe un itinerario con ese id");
     }
 
-
-    public void deleteCity(Long id) throws TripulatorLogicException {
+    public void deleteItinerario(Long idUsuario, Long id) throws TripulatorLogicException {
         logger.log(Level.INFO, "recibiendo solictud de eliminar itinerario con id {0}", id);
-
+        ArrayList<ItinerarioDTO> itinerarios = mapItinerarios.get(idUsuario);
         // busca el itinerario con el id suministrado
         for (ItinerarioDTO itinerario : itinerarios) {
             if (Objects.equals(itinerario.getId(), id)) {

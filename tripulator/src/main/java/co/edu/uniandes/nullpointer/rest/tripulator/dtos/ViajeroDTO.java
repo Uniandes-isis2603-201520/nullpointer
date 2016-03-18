@@ -4,13 +4,11 @@
  * and open the template in the editor.
  */
 package co.edu.uniandes.nullpointer.rest.tripulator.dtos;
-
 /**
  *
  * @author Juan Sebastian Cardona
  */
 public class ViajeroDTO {
-
     private Long id;
     private String nombre;
     private String apellido;
@@ -28,6 +26,10 @@ public class ViajeroDTO {
      * @param contraseña contraseña de un Viajero
      * @param usuario usuario de un Viajero
      */
+    public ViajeroDTO(){
+        
+    }
+    
     public ViajeroDTO(Long id, String nombre, String apellido, String contrasena, String usuario) {
         super();
         this.id = id;
@@ -113,10 +115,10 @@ public class ViajeroDTO {
      */
     @Override
     public String toString() {
-        return "{ id : " + getId() + ", nombre : \"" + getNombre() + "\" "
-                + ", apellido : \"" + getApellido() + "\" "
-                + ", contrasena : \"" + getContrasena() + "\" "
-                + ", usuario : \"" + getUsuario() + "\" " + "}";
+        return "{ id : " + id + ", nombre : \"" + nombre + "\" "
+                + ", apellido : \"" + apellido + "\" "
+                + ", contrasena : \"" +  contrasena + "\" "
+                + ", usuario : \"" + usuario + "\" " + "}";
 
     }
 }
