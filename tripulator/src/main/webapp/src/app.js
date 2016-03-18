@@ -11,7 +11,6 @@
         "viajeroModule",
         "mapsApp",
         "inicioSesionModule",
-        "inicioSesionMock"
     ]);
 
     mod.config(['$logProvider', function ($logProvider) {

@@ -73,7 +73,32 @@
                     }
                 });
             };
+            
+            this.updateTrip = function (days) {
+                return new Promise(function (resolve, reject) {
+                    if (days !== null) {
+                        resolve("se guardó el viaje!");
+                    } else {
+                        reject("Error occurred");
+                    }
+                });
+            };
+            
             this.getTrip = function (id) {
+                return new Promise(function (resolve, reject) {
+                    var days = [];
+                    var startDate = new Date("2015-03-24");
+                    var endDate = new Date("2015-04-10");
+                    generateDays(days, startDate, endDate);
+                    days = formatDays(days);
+                    if (id !== null) {
+                        resolve(days);
+                    } else {
+                        reject("Error occurred");
+                    }
+                });
+            };
+            this.getTrips = function (id) {
                 return new Promise(function (resolve, reject) {
                     var days = [];
                     var startDate = new Date("2015-03-24");

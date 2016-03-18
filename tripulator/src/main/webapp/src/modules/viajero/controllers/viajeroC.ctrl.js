@@ -1,9 +1,8 @@
 (function (ng) {
     var mod = ng.module("viajeroModule");
     mod.controller('ViajeroC', ['$scope', '$element', 'viajeroS', function ($scope, $element, svc) {
-            var userId = 0;
+            var userId = 1;
             var self = this;
-
             $scope.trips = [];
             $scope.currentTrip;
             $scope.today = new Date();
@@ -31,7 +30,7 @@
             }
 
             this.showError = function (data) {
-                alert(data);
+                alert("ERROR:" +  data);
             };
 
             this.generateImage = function () {
@@ -45,23 +44,18 @@
                 }
             };
 
-            this.getTrips = function () {
-                svc.getTrips(userId).then(function (response) {
-                    $scope.trips = response;
+            this.getItinerarios = function () {
+                svc.getItinerarios(userId).then(function (response) {
+                    $scope.trips = response.data;
+                    alert($scope.trips[0].nombre);
+                    return response;
                 },
                         responseError);
             };
 
-            this.getTrips = function () {
-                svc.getTrips(userId).then(function (response) {
-                    $scope.trips = response;
-                },
-                        responseError);
-            };
-
-            this.getTrip = function (tripId) {
-                svc.getTrip(userId, tripId).then(function (response) {
-                    $scope.currentTrip = response;
+            this.getItinerario = function (tripId) {
+                svc.getItinerario(userId, tripId).then(function (response) {
+                    $scope.currentTrip = response.data;
                     self.generateImage();
                     $scope.$apply();
                 },
@@ -106,7 +100,7 @@
                 }
             };
 
-            this.getTrips(userId);
-            this.getTrip(0);
+            this.getItinerarios(userId);
+            
         }]);
 })(window.angular);
