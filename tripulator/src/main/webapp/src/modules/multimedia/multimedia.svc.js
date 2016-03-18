@@ -2,84 +2,60 @@
     
     var mod = ng.module("multimediaModule");
 
-    mod.service("multimediaService", [function () {
+    mod.service("multimediaService", ["$http", "multimediaContext", function ($http, context) {
             
-    var photos = [ 
-            {src: 'http://bootstrapbay.com/blog/wp-content/uploads/2014/05/stocksnap-free-stock-photos1.jpg'},
-            {src: 'http://bootstrapbay.com/blog/wp-content/uploads/2014/05/unslpash-desert-road_uvsq5s.png'},
-            {src: 'http://bootstrapbay.com/blog/wp-content/uploads/2014/05/yellow-taxi_vvvjao.png'},
-            {src: 'http://bootstrapbay.com/blog/wp-content/uploads/2014/05/negative-space.jpg'},
-            {src: 'http://bootstrapbay.com/blog/wp-content/uploads/2014/05/SplitShire_air_balloons_gma6ks.jpg'}
-            
-        ];
+        
+   /**
+         * Obtener la lista de fotos.
+         * Hace una petición GET con $http a /f para obtener la lista
+         * de fotos
+         * @returns {promise} promise para leer la respuesta del servidor}
+         * Devuelve una lista de objetos de foto con sus atributos
+         */
+        this.fetchRecords = function () {
+           
+            return $http.get(context);
+        };
 
-        
-     this.getPhotos = function () {
-                return new Promise(function (resolve, reject) {
-                    if (photos.length !== 0) {
-                        resolve(photos);
-                    } else {
-                        reject("Error occurred");
-                    }
-                });
+        /**
+         * Obtener una foto.
+         * Hace una petición GET a /foto/:id para obtener
+         * los datos de un registro específico de fotos
+         * @param {number} id del registro a obtener
+         * @returns {promise} promise para leer la respuesta del servidor
+         * Devuelve un objeto de foto con sus atributos y reviews
+         */
+        this.fetchRecord = function (id) {
+            return $http.get(context + "/" + id);
         };
-        
-        this.getSplitPhotos = function () {
-                return new Promise(function (resolve, reject) {
-                    if (photos.length !== 0) {
-                       var cont=0;
-                       var total=[];
-                       var split=[];
-                       for(var i=0;i<photos.length;i++)
-                       {
-                           var obj=photos[i];
-                           split.push(obj);
-                           if(cont===4)
-                           {
-                               total.push(split);
-                               split=[];
-                               cont=0;
-                           }
-                           else
-                           {
-                               cont++;
-                           }
-                           
-                       }
-                       resolve(total);
-                       
-                    } else {
-                        reject("Error occurred");
-                    }
-                });
+
+        /**
+         * Guardar un registro de foto.
+         * Si currentRecord tiene la propiedad id, hace un PUT a /fotos/:id con los
+         * nuevos datos de la instancia de fotos.
+         * Si currentRecord no tiene la propiedad id, se hace un POST a /foto
+         * para crear el nuevo registro de fotos
+         * @param {object} currentRecord instancia de foto a guardar/actualizar
+         * @returns {promise} promise para leer la respuesta del servidor
+         * Devuelve un objeto de fotos con sus datos incluyendo el id
+         */
+        this.saveRecord = function (currentRecord) {
+            if (currentRecord.id) {
+                return $http.put(context + "/" + currentRecord.id, currentRecord);
+            } else {
+                return $http.post(context, currentRecord);
+            }
         };
-        
-      this.addPhoto = function (url) {
-                return new Promise(function (resolve, reject) {
-                    if (url!=null) {
-                        var ingreso={src: url};
-                        photos.push(ingreso);
-                        resolve("Se agrego correctamente la foto.");
-                    } else {
-                        reject("Error occurred");
-                    }
-                });
+
+        /**
+         * Hace una petición DELETE a /fotos/:id para eliminar una foto
+         * @param {number} id identificador de la instancia de foto a eliminar
+         * @returns {promise} promise para leer la respuesta del servidor
+         * No devuelve datos.
+         */
+        this.deleteRecord = function (id) {
+            return $http.delete(context + "/" + id);
         };
-        
-     this.deletePhoto=function(index)
-     {
-         return new Promise(function (resolve, reject) {
-                    if (index>-1 || index<photos.length) {
-                        photos=photos.splice(index, 1);
-                        resolve("Se elimino correctamente la foto");
-                    } else {
-                        reject("No se pudo eliminar la foto!");
-                    }
-                });   
-     };
-            
-            
-       
              
     }]);
 })(window.angular);

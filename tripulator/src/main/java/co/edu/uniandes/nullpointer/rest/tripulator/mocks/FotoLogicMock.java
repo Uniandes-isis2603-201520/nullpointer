@@ -46,16 +46,17 @@ public class FotoLogicMock {
             // Se mapea el id del viajero a un mapa que contiene el arreglo de dias de cada itinerario.
             mapViajeroItinerario.put(1L, mapItinerarioDia);
 
-            // Se mapean 3 itinerarios con arreglos de dias para el viajero con id 1.
+            // Se mapean 3 itinerarios con arreglos de fotos para el viajero con id 1.
             mapItinerarioDia.put(1L, new ArrayList<FotoDTO>());
             mapItinerarioDia.put(2L, new ArrayList<FotoDTO>());
             mapItinerarioDia.put(3L, new ArrayList<FotoDTO>());
 
             // Se agregan 4 fotos al itinerario con id 1 del viajero con id 1.
-            mapItinerarioDia.get(1L).add(new FotoDTO(0L, "src1"));
-            mapItinerarioDia.get(1L).add(new FotoDTO(1L, "src2"));
-            mapItinerarioDia.get(1L).add(new FotoDTO(2L, "src3"));
-            mapItinerarioDia.get(1L).add(new FotoDTO(3L, "src4"));
+            mapItinerarioDia.get(1L).add(new FotoDTO(0L, "http://bootstrapbay.com/blog/wp-content/uploads/2014/05/stocksnap-free-stock-photos1.jpg"));
+            mapItinerarioDia.get(1L).add(new FotoDTO(1L, "http://bootstrapbay.com/blog/wp-content/uploads/2014/05/unslpash-desert-road_uvsq5s.png"));
+            mapItinerarioDia.get(1L).add(new FotoDTO(2L, "http://bootstrapbay.com/blog/wp-content/uploads/2014/05/yellow-taxi_vvvjao.png"));
+            mapItinerarioDia.get(1L).add(new FotoDTO(3L, "http://bootstrapbay.com/blog/wp-content/uploads/2014/05/negative-space.jpg"));
+            mapItinerarioDia.get(1L).add(new FotoDTO(4L, "http://bootstrapbay.com/blog/wp-content/uploads/2014/05/SplitShire_air_balloons_gma6ks.jpg"));
         }
 
         // indica que se muestren todos los mensajes
@@ -78,7 +79,7 @@ public class FotoLogicMock {
     public FotoDTO getFoto(Long idViajero, Long idItinerario, Long id) throws TripulatorLogicException {
         logger.log(Level.INFO, "recibiendo solicitud de una foto con id {0}", id);
         ArrayList<FotoDTO> fotos = mapViajeroItinerario.get(idViajero).get(idItinerario);
-        // busca el itinerario con el id suministrado
+        // busca la foto con el id suministrado
         for (FotoDTO itinerario : fotos) {
             if (Objects.equals(itinerario.getId(), id)) {
                 logger.log(Level.INFO, "retornando foto {0}", itinerario);
@@ -86,7 +87,7 @@ public class FotoLogicMock {
             }
         }
 
-        // si no encuentra el itinerario
+        // si no encuentra la foto
         logger.severe("No existe una foto con ese id");
         throw new TripulatorLogicException("No existe una foto con ese id");
     }
@@ -97,23 +98,23 @@ public class FotoLogicMock {
             mapViajeroItinerario.put(idViajero, new HashMap());
         if(!mapViajeroItinerario.get(idViajero).containsKey(idItinerario))
             mapViajeroItinerario.get(idViajero).put(idItinerario,new ArrayList());
-        // el nuevo día tiene id ?
+        // la nueva foto tiene id ?
         if (fotoNueva.getId() != null) {
-            // busca el día con el id suministrado
+            // busca la foto con el id suministrado
             ArrayList<FotoDTO> fotos = mapViajeroItinerario.get(idViajero).get(idItinerario);
             for (FotoDTO foto : fotos) {
-                // si existe un día con ese id
+                // si existe una foto con ese id
                 if (Objects.equals(foto.getId(), fotoNueva.getId())) {
-                    logger.severe("Ya existe un día con ese id");
-                    throw new TripulatorLogicException("Ya existe un día con ese id");
+                    logger.severe("Ya existe una foto con ese id");
+                    throw new TripulatorLogicException("Ya existe una foto con ese id");
                 }
             }
 
-        // el nuevo día no tiene id ? 
+        // la nueva foto tiene id? 
         } else {
 
-            // genera un id para el día
-            logger.info("Generando el id para el nuevo itinerario");
+            // genera un id para la foto
+            logger.info("Generando el id para la nueva fotos");
             long newId = 1;
             ArrayList<FotoDTO> fotos = mapViajeroItinerario.get(idViajero).get(idItinerario);
             for (FotoDTO foto : fotos) {
@@ -124,7 +125,7 @@ public class FotoLogicMock {
             fotoNueva.setId(newId);
         }
 
-        // agrega el día
+        // agrega la foto
         logger.log(Level.INFO, "agregando foto {0}", fotoNueva);
         ArrayList<FotoDTO> fotos = mapViajeroItinerario.get(idViajero).get(idItinerario);
         fotos.add(fotoNueva);
