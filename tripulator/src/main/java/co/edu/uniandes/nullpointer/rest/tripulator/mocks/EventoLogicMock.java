@@ -5,6 +5,7 @@ package co.edu.uniandes.nullpointer.rest.tripulator.mocks;
  *
  * @author Asistente
  */
+import co.edu.uniandes.nullpointer.rest.tripulator.dtos.ComentarioDTO;
 import co.edu.uniandes.nullpointer.rest.tripulator.dtos.EventoDTO;
 import co.edu.uniandes.nullpointer.rest.tripulator.exceptions.TripulatorLogicException;
 import java.util.ArrayList;
@@ -36,13 +37,13 @@ public class EventoLogicMock {
 
         if (eventos == null) {
             eventos = new ArrayList<>();
-            eventos.add(new EventoDTO(new Long(1), "Concierto",
+            eventos.add(new EventoDTO(1L, "Concierto",
                     "http://www.shock.co/sites/default/files/content_files/2015_11/article/los-rolling-stone-en-colombia.jpg",
                     EventoDTO.tipoE, new Long("1457640000000"), new Long("1457650800000"), "Un gran concierto que no te puedes perder"));
-            eventos.add(new EventoDTO(new Long(2), "Monserrate",
+            eventos.add(new EventoDTO(2L, "Monserrate",
                     "http://stellamaris.com.co/images/monserrate.jpg",
                     EventoDTO.tipoS, null, null, "Un hermoso sitio que no debes perder"));
-            eventos.add(new EventoDTO(new Long(3), "La Mambanegra - Carpa Cabaret",
+            eventos.add(new EventoDTO(3L, "La Mambanegra - Carpa Cabaret",
                     "https://res.cloudinary.com/civico/image/upload/c_fill,f_auto,fl_lossy,h_368,w_1122/v1456532162/entity/event_image/file/206/000/56d0eabf2f41f384b6000206.jpg",
                     EventoDTO.tipoE, new Long("1457640000000"), new Long("1457650800000"), "Liderada por el mítico Callegüeso, La Mambanegra es una poderosa orquesta de música latina. Su veneno tiene como sustancia la salsa dura y callejera, integrada a elementos del funk y el hip-hop.\n" +
 "\n" +
@@ -99,17 +100,10 @@ public class EventoLogicMock {
     /**
      * Agrega un evento a la lista.
      *
-<<<<<<< HEAD
      * @param newEvento evento a adicionar
      * @throws TripulatorLogicException cuando ya existe un evento con el id
      * suministrado
      * @return evento agregada
-=======
-     * @param newEvento viajero a adicionar
-     * @throws TripulatorLogicException cuando ya existe una viajero con el id
-     * suministrado
-     * @return viajero agregada
->>>>>>> 529eac0bd2957fc4b18bcd0c40c51df9ca70d2e3
      */
     public EventoDTO createEvento(EventoDTO newEvento) throws TripulatorLogicException {
         logger.info("recibiendo solicitud de agregar evento " + newEvento);

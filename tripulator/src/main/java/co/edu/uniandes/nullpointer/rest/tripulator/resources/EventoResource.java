@@ -23,6 +23,7 @@ import javax.ws.rs.Produces;
  *
  * @author jd.fandino10
  */
+
 @Path("/eventos")
 @Produces("application/json")
 @RequestScoped
@@ -49,7 +50,7 @@ public class EventoResource {
      * @throws TripulatorLogicException cuando el evento no existe
      */
     @GET
-    @Path("{id: \\d+}")
+    @Path("{id}")
     public EventoDTO getEvento(@PathParam("id") Long id) throws TripulatorLogicException {
         return eventoLogic.getEvento(id);
     }
@@ -73,7 +74,7 @@ public class EventoResource {
      * @throws TripulatorLogicException cuando no existe un evento con el id suministrado
      */
     @PUT
-    @Path("{id: \\d+}")
+    @Path("{id}")
     public EventoDTO updateEvento(@PathParam("id") Long id, EventoDTO Evento) throws TripulatorLogicException {
         return eventoLogic.updateEvento(id, Evento);
     }
@@ -84,7 +85,7 @@ public class EventoResource {
      * @throws TripulatorLogicException cuando no existe un evento con el id suministrado
      */
     @DELETE
-    @Path("{id: \\d+}")
+    @Path("{id}")
     public void deleteEvento(@PathParam("id") Long id) throws TripulatorLogicException {
     	eventoLogic.deleteEvento(id);
     }
