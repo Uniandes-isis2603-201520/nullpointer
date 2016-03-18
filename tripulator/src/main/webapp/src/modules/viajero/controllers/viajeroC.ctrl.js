@@ -34,9 +34,9 @@
             };
 
             this.generateImage = function () {
-                $scope.currentTrip.images = [];
+                $scope.currentTrip.multimedia = [];
                 for (var i = 0; i < 4; i++) {
-                    $scope.currentTrip.images.push({
+                    $scope.currentTrip.multimedia.push({
                         id: i,
                         src: 'http://lorempixel.com/' + ($element.width() + i) + '/500',
                         name: "image title"
@@ -47,7 +47,6 @@
             this.getItinerarios = function () {
                 svc.getItinerarios(userId).then(function (response) {
                     $scope.trips = response.data;
-                    alert($scope.trips[0].nombre);
                     return response;
                 },
                         responseError);
@@ -100,7 +99,7 @@
                 }
             };
 
-            this.getItinerarios(userId);
-            
+            this.getItinerarios();
+            this.getItinerario(1);
         }]);
 })(window.angular);

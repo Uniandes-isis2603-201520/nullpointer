@@ -10,7 +10,7 @@
         "eventoModule",
         "viajeroModule",
         "mapsApp",
-        "inicioSesionModule",
+        "inicioSesionModule"
     ]);
 
     mod.config(['$logProvider', function ($logProvider) {
