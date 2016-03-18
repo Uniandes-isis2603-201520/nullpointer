@@ -56,7 +56,6 @@
                 svc.getItinerario(userId, tripId).then(function (response) {
                     $scope.currentTrip = response.data;
                     self.generateImage();
-                    $scope.$apply();
                 },
                         responseError);
             };
