@@ -12,9 +12,7 @@
             };
             $scope.starSelected = false;
             $scope.newComment = angular.copy($scope.commentTemplate);
-            if ($scope.events != null) {
-                $scope.eventoActual = $scope.events[0];
-            };
+            
             $scope.actualizarInfo = function (e) {
                 $scope.eventoActual = e;
             };
@@ -93,13 +91,26 @@
             var self=this;
             this.fetchEventos = function () {
                 return svc.fetchEventos().then(function (response) {
-                    $scope.events = response;
+                    $scope.events = response.data;
+                    if($scope.events.length>=1){
+                        $scope.eventoActual=$scope.events[0];
+                        self.getComments();
+                    }
                     return response;
                 }, function (response){ console.log(response);});
             };
-            this.update = function(coment,index){
+            this.getComments = function (){
+              return svc.getComments($scope.eventoActual.id).then(function (response) {
+                    $scope.eventoActual.comments = response.data;
+                    return response;
+                }, function (response){ console.log(response);});
+            };
+            this.update = function(cmt,index){
                 console.log(index);
-                return svc.saveRecord(coment,index).then(function () {
+                cmt.id=$scope.eventoActual.comments.length+1;
+                cmt.id_evento=index;
+                $scope.eventoActual.comments.push(cmt);
+                return svc.saveRecord($scope.eventoActual,index).then(function () {
                         self.fetchEventos();
                     }, function (response){ console.log(response);});
             };

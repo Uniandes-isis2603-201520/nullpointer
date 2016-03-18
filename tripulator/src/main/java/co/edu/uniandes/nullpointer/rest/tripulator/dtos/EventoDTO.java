@@ -5,6 +5,8 @@
  */
 package co.edu.uniandes.nullpointer.rest.tripulator.dtos;
 
+import java.util.List;
+
 /**
  *
  * @author Jose Daniel
@@ -40,7 +42,8 @@ public class EventoDTO {
      * @param end long de fecha fin del evento
      * @param description descripcion del evento
      */
-    public EventoDTO(Long id, String title, String image, String type, Long start, Long end, String description) {
+    public EventoDTO(Long id, String title, String image, String type, Long start,
+            Long end, String description) {
         super();
         this.id = id;
         this.title = title;
@@ -156,7 +159,7 @@ public class EventoDTO {
     public String toString() {
         return "{id:" + id + ",\n title:'" + title + "',\n image:'" + image
                 +"', \n type:'" + type + "',\n start:" + start + ",\n  end:"
-                + end + ",\n description:'" + description + "', }";
+                + end + ",\n description:'" + description + "' }";
     }
 
 }
