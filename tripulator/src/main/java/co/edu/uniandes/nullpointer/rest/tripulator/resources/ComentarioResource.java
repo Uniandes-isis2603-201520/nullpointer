@@ -49,7 +49,7 @@ public class ComentarioResource {
      * @throws TripulatorLogicException cuando el comentario no existe
      */
     @GET
-    @Path("{id: \\d+}")
+    @Path("{id}")
     public ComentarioDTO getComentario(@PathParam("idEvento")Long idEvento,
             @PathParam("id") Long id) throws TripulatorLogicException {
         return comentarioLogic.getComentario(idEvento,id);
@@ -75,7 +75,7 @@ public class ComentarioResource {
      * @throws TripulatorLogicException cuando no existe un comentario con el id suministrado
      */
     @PUT
-    @Path("{id: \\d+}")
+    @Path("{id}")
     public ComentarioDTO updateComentario(@PathParam("idEvento")Long idEvento,
             @PathParam("id") Long id, ComentarioDTO comentario) throws TripulatorLogicException {
         return comentarioLogic.updateComentario(idEvento, id, comentario);
@@ -87,7 +87,7 @@ public class ComentarioResource {
      * @throws TripulatorLogicException cuando no existe un comentario con el id suministrado
      */
     @DELETE
-    @Path("{id: \\d+}")
+    @Path("{id}")
     public void deleteComentario(@PathParam("idEvento")Long idEvento,
             @PathParam("id") Long id) throws TripulatorLogicException {
     	comentarioLogic.deleteComentario(idEvento, id);
