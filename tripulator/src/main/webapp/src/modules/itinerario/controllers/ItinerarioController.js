@@ -4,10 +4,11 @@
 
     mod.controller('ItinerarioController', ['$scope', '$window', 'itinerarioService', function ($scope, $window, svc) {
 
-            $scope.days;
+            $scope.days = [];
             $scope.showDayInfo = false;
             $scope.daynames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
             $scope.selectedDay = {};
+            $scope.trip;
             $scope.itinerario = {
                 id: Number, //número de identificación de un itinerario,  
                 nombre: String, // Nombre dado al itinerario.  
@@ -19,34 +20,76 @@
             };
             var self = this;
             var scrollY = 0;
-
-            /**
-             * Le pide los eventos de un día en especifico al servicio. 
-             * @param {type} day
+            var userId = 1;
+                       /**
+             * Simula lo que trae el backend.
+             * @param {type} days
+             * @param {type} startDate
+             * @param {type} endDate
              * @returns {undefined}
              */
-            this.getDayEvents = function (day) {
-                svc.getDayEvents(day).then(function (response) {
-                    alert(response);
-                }, responseError);
-            };
+            function generateDays(days, startDate, endDate) {
+                var i = new Date(startDate);
+                while (i.getTime() !== endDate.getTime()) {
+                    days.push(
+                            {
+                                date: i,
+                                city: "none",
+                                events: [],
+                                valid: true
+                            }
+                    );
+                    var j = new Date(i);
+                    j.setDate(j.getDate() + 1);
+                    i = j;
+                }
+            }
             /**
-             * Hace un update de todos los eventos registrados de un día en particular.
-             * @param {type} day
+             * Le da formato a la entrada recibida por el backend.
+             * Crea una matriz donde las filas son meses y las columnas dias de ese mes.
+             * Si el mes no comienza en domingo, se le agrega un relleno a la matriz.
+             * @param {type} days
              * @returns {undefined}
              */
-            this.updateDayEvents = function (day) {
-                svc.updateDayEvents(day).then(function (response) {
-                    alert(response);
-                }, responseError);
-            };
+            function formatDays(days) {
+                var formattedDays = [];
+                for (var i = 0; i < days.length; ) {
+                    var daysInMonth = [];
+                    var monthStart = days[i].date;
+                    setCalendarOffset(daysInMonth, monthStart);
+                    while (i < days.length && days[i].date.getMonth() === monthStart.getMonth()) {
+                        daysInMonth.push(days[i]);
+                        i++;
+                    }
+                    formattedDays.push(daysInMonth);
+                }
+                return formattedDays;
+            }
+            /**
+             * Agrega días invalidos al principio del mes si este no empieza en domingo.
+             * @param {type} array
+             * @param {type} monthStart
+             * @returns {undefined}
+             */
+            function setCalendarOffset(array, monthStart) {
+                for (var i = 0; i < monthStart.getDay(); i++) {
+                    var newDate = new Date(monthStart);
+                    newDate.setDate(monthStart.getDate() - (monthStart.getDay() - i));
+                    array.push({
+                        date: newDate,
+                        valid: false
+                    });
+                }
+            }
+            
             /**
              * Guarda el estado de todos los días del viaje.
              * @returns {undefined}
              */
-            this.saveTrip = function () {
-                svc.saveTrip($scope.days).then(function (response) {
-                    alert(response);
+            this.updateTrip = function () {
+                $scope.trip["planDias"] = $scope.days;
+                svc.updateItinerario(userId, $scope.trip.id, $scope.trip).then(function (response) {
+                    return response.data;
                 }, responseError);
             };
             /**
@@ -54,9 +97,12 @@
              * @param id
              * @returns {undefined}
              */
-            this.getTrip = function (id) {
-                svc.getTrip(id).then(function (resolve) {
-                    $scope.days = resolve;
+            this.getItinerario = function (id) {
+                svc.getItinerario(userId, id).then(function (resolve) {
+                    $scope.trip = resolve.data;
+                    generateDays($scope.days, new Date($scope.trip["fechaInicio"])
+                        , new Date($scope.trip["fechaFin"]));
+                    $scope.days = formatDays($scope.days);
                 }, responseError);
             };
 
@@ -112,6 +158,6 @@
                     $window.scrollTo($window.scrollX, scrollY);
             };
 
-            this.getTrip(0);
+            this.getItinerario(1);
         }]);
 })(window.angular);
