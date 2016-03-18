@@ -154,7 +154,7 @@ public class ViajeroLogicMock {
                 viajero.setId(updatedViajero.getId());
                 viajero.setNombre(updatedViajero.getNombre());
                 viajero.setApellido(updatedViajero.getApellido());
-                viajero.setContraseña(updatedViajero.getContrasena());
+                viajero.setContrasena(updatedViajero.getContrasena());
                 viajero.setUsuario(updatedViajero.getUsuario());
 
                 // retorna la viajero modificada
