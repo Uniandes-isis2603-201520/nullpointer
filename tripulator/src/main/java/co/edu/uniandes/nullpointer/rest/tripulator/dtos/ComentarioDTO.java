@@ -5,6 +5,8 @@
  */
 package co.edu.uniandes.nullpointer.rest.tripulator.dtos;
 
+import java.util.Date;
+
 /**
  *
  * @author Jose Daniel
@@ -35,13 +37,13 @@ public class ComentarioDTO {
      * @param end long de fecha fin del evento
      * @param description descripcion del evento
      */
-    public ComentarioDTO(Long id, String user, String userPhoto, int stars, Long date, Long end, String comment, Long id_evento) {
+    public ComentarioDTO(Long id, String user, String userPhoto, int stars, String comment, Long id_evento) {
         super();
         this.id = id;
         this.user = user;
         this.userPhoto = userPhoto;
         this.stars = stars;
-        this.date = date;
+        this.date = new Date().getTime();
         this.comment = comment;
         this.id_evento=id_evento;
     }
@@ -149,7 +151,7 @@ public class ComentarioDTO {
     @Override
     public String toString() {
         return "{id:" + id + ",\n user:'" + user + "',\n userPhoto:'" + userPhoto
-                +"', \n stars:" + stars + ",\n date:" + date + ",\n comment:'" + comment + "}";
+                +"', \n stars:" + stars + ",\n date:" + date + ",\n comment:'" + comment + "'}";
     }
 
 }

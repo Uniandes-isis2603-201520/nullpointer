@@ -100,6 +100,7 @@
             this.update = function(cmt,index){
                 console.log(index);
                 cmt.id=$scope.eventoActual.comments.length+1;
+                cmt.id_evento=index;
                 $scope.eventoActual.comments.push(cmt);
                 return svc.saveRecord($scope.eventoActual,index).then(function () {
                         self.fetchEventos();

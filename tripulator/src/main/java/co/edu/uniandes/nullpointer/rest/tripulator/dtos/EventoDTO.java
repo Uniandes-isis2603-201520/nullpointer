@@ -23,7 +23,6 @@ public class EventoDTO {
     private Long start;  //Long de la fecha de inicio
     private Long end;    //Long de la fecha final
     private String description;   //String de la descripcion
-    private List<ComentarioDTO> comments;
     //comments;  //Arreglo de comentarios
 
     /**
@@ -44,7 +43,7 @@ public class EventoDTO {
      * @param description descripcion del evento
      */
     public EventoDTO(Long id, String title, String image, String type, Long start,
-            Long end, String description, List<ComentarioDTO> comments) {
+            Long end, String description) {
         super();
         this.id = id;
         this.title = title;
@@ -53,7 +52,6 @@ public class EventoDTO {
         this.start = start;
         this.end = end;
         this.description = description;
-        this.comments=comments;
     }
 
     /**
@@ -153,20 +151,6 @@ public class EventoDTO {
     public void setDescription(String description) {
         this.description = description;
     }
-    /**
-     * @return the description
-     */
-    public List<ComentarioDTO> getComments() {
-        return comments;
-    }
-
-    /**
-     * @param comments the comments to set
-     */
-    public void setComments(List<ComentarioDTO> comments) {
-        this.comments = comments;
-    }
-
 
     /**
      * Convierte el objeto a una cadena
@@ -175,7 +159,7 @@ public class EventoDTO {
     public String toString() {
         return "{id:" + id + ",\n title:'" + title + "',\n image:'" + image
                 +"', \n type:'" + type + "',\n start:" + start + ",\n  end:"
-                + end + ",\n description:'" + description + "', }";
+                + end + ",\n description:'" + description + "' }";
     }
 
 }

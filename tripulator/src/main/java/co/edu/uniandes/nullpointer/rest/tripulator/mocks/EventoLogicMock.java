@@ -5,6 +5,7 @@ package co.edu.uniandes.nullpointer.rest.tripulator.mocks;
  *
  * @author Asistente
  */
+import co.edu.uniandes.nullpointer.rest.tripulator.dtos.ComentarioDTO;
 import co.edu.uniandes.nullpointer.rest.tripulator.dtos.EventoDTO;
 import co.edu.uniandes.nullpointer.rest.tripulator.exceptions.TripulatorLogicException;
 import java.util.ArrayList;
@@ -162,7 +163,6 @@ public class EventoLogicMock {
                 e.setImage(nuevo.getImage());
                 e.setTitle(nuevo.getTitle());
                 e.setType(nuevo.getType());
-                e.setComments(nuevo.getComments());
                 // retorna el evento modificada
                 logger.info("Modificando evento " + e);
                 return e;

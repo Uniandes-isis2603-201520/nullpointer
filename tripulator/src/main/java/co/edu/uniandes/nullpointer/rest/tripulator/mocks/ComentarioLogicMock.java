@@ -39,12 +39,9 @@ public class ComentarioLogicMock {
         if (mapComentarios == null) {
             mapComentarios = new HashMap<>();
             ArrayList<ComentarioDTO> itinerarios = new ArrayList<>();
-            itinerarios.add(new ComentarioDTO(1L, "User1", "photo1", 4,
-                    new Date().getTime(), new Date().getTime(), "comentario1", 1L));
-            itinerarios.add(new ComentarioDTO(1L, "User2", "photo2", 5,
-                    new Date().getTime(), new Date().getTime(), "comentario2", 1L));
-            itinerarios.add(new ComentarioDTO(1L, "User3", "photo3", 3,
-                    new Date().getTime(), new Date().getTime(), "comentario3", 1L));
+            itinerarios.add(new ComentarioDTO(1L, "User1", "photo1", 4, "comentario1", 1L));
+            itinerarios.add(new ComentarioDTO(1L, "User2", "photo2", 5, "comentario2", 1L));
+            itinerarios.add(new ComentarioDTO(1L, "User3", "photo3", 3, "comentario3", 1L));
             mapComentarios.put(1L, itinerarios);
         }
 
