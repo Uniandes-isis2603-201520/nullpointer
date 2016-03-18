@@ -230,6 +230,7 @@
 
             ];
             this.fetchEventos = function () {
+                //return $http.get("http://localhost:8080/tripulator/api/eventos");
                 return $q(function (resolve, reject) {
                     setTimeout(function () {
                         if (true) {
@@ -240,7 +241,8 @@
                     }, 1000);
                 });
             };
-            this.saveRecord = function (newComment, id) {
+            this.saveRecord = function (newEvento, id) {
+                //return $http.put("http://localhost:8080/tripulator/api/eventos/"+id,newEvento);
                 var nc = newComment;
                 var i = id;
                 console.log(nc);

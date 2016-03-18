@@ -5,6 +5,8 @@
  */
 package co.edu.uniandes.nullpointer.rest.tripulator.dtos;
 
+import java.util.List;
+
 /**
  *
  * @author Jose Daniel
@@ -21,6 +23,7 @@ public class EventoDTO {
     private Long start;  //Long de la fecha de inicio
     private Long end;    //Long de la fecha final
     private String description;   //String de la descripcion
+    private List<ComentarioDTO> comments;
     //comments;  //Arreglo de comentarios
 
     /**
@@ -40,7 +43,8 @@ public class EventoDTO {
      * @param end long de fecha fin del evento
      * @param description descripcion del evento
      */
-    public EventoDTO(Long id, String title, String image, String type, Long start, Long end, String description) {
+    public EventoDTO(Long id, String title, String image, String type, Long start,
+            Long end, String description, List<ComentarioDTO> comments) {
         super();
         this.id = id;
         this.title = title;
@@ -49,6 +53,7 @@ public class EventoDTO {
         this.start = start;
         this.end = end;
         this.description = description;
+        this.comments=comments;
     }
 
     /**
@@ -148,6 +153,20 @@ public class EventoDTO {
     public void setDescription(String description) {
         this.description = description;
     }
+    /**
+     * @return the description
+     */
+    public List<ComentarioDTO> getComments() {
+        return comments;
+    }
+
+    /**
+     * @param comments the comments to set
+     */
+    public void setComments(List<ComentarioDTO> comments) {
+        this.comments = comments;
+    }
+
 
     /**
      * Convierte el objeto a una cadena

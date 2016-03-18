@@ -99,17 +99,10 @@ public class EventoLogicMock {
     /**
      * Agrega un evento a la lista.
      *
-<<<<<<< HEAD
      * @param newEvento evento a adicionar
      * @throws TripulatorLogicException cuando ya existe un evento con el id
      * suministrado
      * @return evento agregada
-=======
-     * @param newEvento viajero a adicionar
-     * @throws TripulatorLogicException cuando ya existe una viajero con el id
-     * suministrado
-     * @return viajero agregada
->>>>>>> 529eac0bd2957fc4b18bcd0c40c51df9ca70d2e3
      */
     public EventoDTO createEvento(EventoDTO newEvento) throws TripulatorLogicException {
         logger.info("recibiendo solicitud de agregar evento " + newEvento);
@@ -169,6 +162,7 @@ public class EventoLogicMock {
                 e.setImage(nuevo.getImage());
                 e.setTitle(nuevo.getTitle());
                 e.setType(nuevo.getType());
+                e.setComments(nuevo.getComments());
                 // retorna el evento modificada
                 logger.info("Modificando evento " + e);
                 return e;

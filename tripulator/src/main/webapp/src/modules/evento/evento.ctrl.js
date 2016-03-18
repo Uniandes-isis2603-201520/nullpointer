@@ -97,9 +97,11 @@
                     return response;
                 }, function (response){ console.log(response);});
             };
-            this.update = function(coment,index){
+            this.update = function(cmt,index){
                 console.log(index);
-                return svc.saveRecord(coment,index).then(function () {
+                cmt.id=$scope.eventoActual.comments.length+1;
+                $scope.eventoActual.comments.push(cmt);
+                return svc.saveRecord($scope.eventoActual,index).then(function () {
                         self.fetchEventos();
                     }, function (response){ console.log(response);});
             };
