@@ -23,8 +23,10 @@
             $stateProvider
                     .state('/', {
                         url: '/',
-                        controller: 'inicioSesionController',
+                        controller: 'inicioSesionCtrl',
+                        controllerAs: "ctrl",
                         templateUrl: "src/modules/iniciosesion/iniciosesion.tpl.html"
+                        
                     })
                     .state('viajero', {
                         url: '/viajero',

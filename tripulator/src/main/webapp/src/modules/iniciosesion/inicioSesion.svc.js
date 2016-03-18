@@ -13,7 +13,7 @@
              * Devuelve una lista de objetos de persons con sus atributos
              */
             this.fetchRecords = function () {
-                return $http.get(context);
+                return $http.get(context);  
             };
 
             /**
