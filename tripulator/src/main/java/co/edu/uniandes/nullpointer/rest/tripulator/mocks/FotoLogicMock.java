@@ -57,6 +57,7 @@ public class FotoLogicMock {
             mapItinerarioDia.get(1L).add(new FotoDTO(2L, "http://bootstrapbay.com/blog/wp-content/uploads/2014/05/yellow-taxi_vvvjao.png"));
             mapItinerarioDia.get(1L).add(new FotoDTO(3L, "http://bootstrapbay.com/blog/wp-content/uploads/2014/05/negative-space.jpg"));
             mapItinerarioDia.get(1L).add(new FotoDTO(4L, "http://bootstrapbay.com/blog/wp-content/uploads/2014/05/SplitShire_air_balloons_gma6ks.jpg"));
+            mapItinerarioDia.get(1L).add(new FotoDTO(5L, "http://cottrellboatbuilding.com/wp-content/uploads/2013/06/Fiddlehead-Tender-Maine-Boat-2014.jpg"));
         }
 
         // indica que se muestren todos los mensajes
@@ -94,10 +95,12 @@ public class FotoLogicMock {
 
     public FotoDTO createFoto(Long idViajero, Long idItinerario, FotoDTO fotoNueva) throws TripulatorLogicException {
         logger.log(Level.INFO, "recibiendo solicitud de agregar foto {0}", fotoNueva);
-        if(!mapViajeroItinerario.containsKey(idViajero))
+        if (!mapViajeroItinerario.containsKey(idViajero)) {
             mapViajeroItinerario.put(idViajero, new HashMap());
-        if(!mapViajeroItinerario.get(idViajero).containsKey(idItinerario))
-            mapViajeroItinerario.get(idViajero).put(idItinerario,new ArrayList());
+        }
+        if (!mapViajeroItinerario.get(idViajero).containsKey(idItinerario)) {
+            mapViajeroItinerario.get(idViajero).put(idItinerario, new ArrayList());
+        }
         // la nueva foto tiene id ?
         if (fotoNueva.getId() != null) {
             // busca la foto con el id suministrado
@@ -110,12 +113,13 @@ public class FotoLogicMock {
                 }
             }
 
-        // la nueva foto tiene id? 
+            // la nueva foto tiene id? 
         } else {
 
             // genera un id para la foto
             logger.info("Generando el id para la nueva fotos");
             long newId = 1;
+            int newIndex = 1;
             ArrayList<FotoDTO> fotos = mapViajeroItinerario.get(idViajero).get(idItinerario);
             for (FotoDTO foto : fotos) {
                 if (newId <= foto.getId()) {
@@ -123,6 +127,7 @@ public class FotoLogicMock {
                 }
             }
             fotoNueva.setId(newId);
+
         }
 
         // agrega la foto
@@ -130,24 +135,6 @@ public class FotoLogicMock {
         ArrayList<FotoDTO> fotos = mapViajeroItinerario.get(idViajero).get(idItinerario);
         fotos.add(fotoNueva);
         return fotoNueva;
-    }
-
-    public FotoDTO updateFoto(Long idViajero,Long idItinerario, Long id, FotoDTO nuevo) throws TripulatorLogicException {
-        logger.info("Recibiendo solictud de modificar foto: " + nuevo);
-        ArrayList<FotoDTO> fotos = mapViajeroItinerario.get(idViajero).get(idItinerario);
-
-        for (FotoDTO e : fotos) {
-            if (Objects.equals(e.getId(), id)) {
-
-                e.setSrc(nuevo.getSrc());
-
-                logger.info("Modificando foto " + e);
-                return e;
-            }
-        }
-
-        logger.severe("No existe un evento con ese id");
-        throw new TripulatorLogicException("No existe un evento con ese id");
     }
 
     public void deleteFoto(Long idViajero, Long idItinerario, Long id) throws TripulatorLogicException {

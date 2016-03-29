@@ -21,6 +21,7 @@ public class FotoDTO {
      */
     private String src;
     
+       
     
     /**
      * Constructor
@@ -34,6 +35,7 @@ public class FotoDTO {
         this.id=id;
         
         this.src=src;
+        
         
     }
     
@@ -73,7 +75,7 @@ public class FotoDTO {
     public void setSrc(String src) {
         this.src = src;
     }
-    
+   
     
         /**
      * Convierte el objeto a una cadena

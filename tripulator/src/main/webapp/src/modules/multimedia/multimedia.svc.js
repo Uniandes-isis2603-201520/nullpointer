@@ -40,9 +40,11 @@
          * Devuelve un objeto de fotos con sus datos incluyendo el id
          */
         this.saveRecord = function (currentRecord) {
+            
             if (currentRecord.id) {
                 return $http.put(context + "/" + currentRecord.id, currentRecord);
             } else {
+               
                 return $http.post(context, currentRecord);
             }
         };

@@ -120,12 +120,35 @@
     background-color: transparent;
 }
 
-.minPicture img
+.minPicture
 {
     height: 100px;
-    width:100%;
     margin: 20px;
-    margin-left: 100px;
+    margin-left: 50px;
     padding: 5px;
     background-color: #f4f3f3;
+}
+
+.minPicture:hover
+{
+    background-color: lightblue;
+}
+
+.minPicture.active
+{
+    background-color: #1b6d85;
+}
+
+.minPicture img
+{
+    height: 100%;
+    width:100%;
+    cursor: pointer;
+}
+
+.addndelete
+{
+    margin: 5px;
+    margin-top: 10px;
+    margin-bottom: 0;
 }

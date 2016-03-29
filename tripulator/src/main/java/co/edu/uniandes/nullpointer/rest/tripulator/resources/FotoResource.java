@@ -68,14 +68,6 @@ public class FotoResource {
         return fotoLogic.createFoto(idViajero, idItinerario, foto);
     }
 
-    @PUT
-    @Path("{id: \\d+}")
-    public FotoDTO updateFoto(@PathParam("idViajero") Long idViajero,
-            @PathParam("idItinerario") Long idItinerario,
-            @PathParam("id") Long id,
-            FotoDTO foto) throws TripulatorLogicException {
-        return fotoLogic.updateFoto(idViajero, idItinerario, id, foto);
-    }
 
     /**
      * Elimina los datos de una foto

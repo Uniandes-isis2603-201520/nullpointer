@@ -1,112 +1,87 @@
-(function (ng){
-    var mod =ng.module("multimediaModule");
-    
-    mod.controller("multimediaCtrl", ["$scope","multimediaService", function ($scope, svc) {
-    
-        var self=this;
+(function (ng) {
+    var mod = ng.module("multimediaModule");
 
-        /*
-        $scope.currentRecord = {
-            id:0,
-            src:""
-        };
-            */
+    mod.controller("multimediaCtrl", ["$scope", "multimediaService", function ($scope, svc) {
+
+            var self = this;
             
-        
-        $scope.slides = [];
-        
-        $scope.splitSlides=[];
-        
-        $scope.showAll=false;
-        
-        $scope.changeView=function()
-        {
-           $scope.showAll=!$scope.showAll;
-        };
-        
-      
-        this.splitPhotos = function () {
-                       var cont=0;
-                       var total=[];
-                       var split=[];
-                     
-                       
-                       for(var i=0;i<$scope.slides.length;i++)
-                       {
-                           var obj=$scope.slides[i];
-                           split.push(obj);
-                           if(cont===4)
-                           {
-                               total.push(split);
-                               split=[];
-                               cont=0;
-                           }
-                           else
-                           {
-                               cont++;
-                           }
-                           
-                       }        
-                       
-                       $scope.splitSlides=total;    
-        };
+            $scope.currentIndex = 0;
 
-        
-        
-        
-       
-        function responseError(response) {
-                self.showError(response.data);
-        };
-        
-
-        $scope.currentIndex = 0;
-
-        $scope.setCurrentSlideIndex = function (index) {
-            
-            $scope.currentIndex = index;
-        };
-
-        $scope.isCurrentSlideIndex = function (index) {
-            return $scope.currentIndex === index;
-        };
-
-        $scope.prevSlide = function () {
-            $scope.currentIndex = ($scope.currentIndex < $scope.slides.length - 1) ? ++$scope.currentIndex : 0;
-        };
-
-        $scope.nextSlide = function () {
-            $scope.currentIndex = ($scope.currentIndex > 0) ? --$scope.currentIndex : $scope.slides.length - 1;
-        };
-        
-        /*
-        $scope.addSlide=function()
-        {
-            var url = prompt("Ingrese el URL de la imagen.", "");
-            if (url !== null) {
-                $scope.currentRecord={id:1, src: url};
-                 svc.saveRecord(currentRecord).then(function(response){
-                 self.fetchRecords();
-                 },responseError);
-            }
-
-        };
-        /*
-          /*
-             * Funcion createRecord emite un evento a los $scope hijos del controlador por medio de la 
-             * sentencia &broadcast ("nombre del evento", record), esto con el fin cargar la información de modulos hijos 
-             * al actual modulo.
-             * Habilita el modo de edicion. El template de la lista cambia por el formulario.
-             * 
-             */
-
-            this.createRecord = function () {
-                $scope.$broadcast("pre-create", $scope.currentRecord);
-                this.editMode = true;
-                $scope.currentRecord = {};
-                $scope.$broadcast("post-create", $scope.currentRecord);
+            var currentRecord = {
+                id: 0,
+                src: '',
+                index: 0
             };
 
+            $scope.slides = [];
+
+            $scope.splitSlides = [];
+
+            $scope.showAll = false;
+            
+            $scope.newUrl="";
+
+            $scope.changeView = function ()
+            {
+                $scope.showAll = !$scope.showAll;
+            };
+
+
+            this.splitSlides = function () {
+                var tot = [];
+                var size = 4;
+                var bigarray = $scope.slides;
+                for (var i = 0; i < bigarray.length; i += size) {
+                    var smallarray = bigarray.slice(i, i + size);
+                    tot.push(smallarray);
+                }
+
+                $scope.splitSlides = tot;
+
+            };
+
+
+            function responseError(response) {
+                self.showError(response.data);
+            };
+           
+
+            $scope.setCurrentSlideIndex = function (index) {
+
+                $scope.currentIndex = index;
+
+            };
+
+            $scope.isCurrentSlideIndex = function (index) {
+                return $scope.currentIndex === index;
+            };
+
+            $scope.prevSlide = function () {
+                $scope.currentIndex = ($scope.currentIndex < $scope.slides.length - 1) ? ++$scope.currentIndex : 0;
+
+            };
+
+            $scope.nextSlide = function () {
+                $scope.currentIndex = ($scope.currentIndex > 0) ? --$scope.currentIndex : $scope.slides.length - 1;
+
+            };
+
+
+            $scope.addSlide = function ()
+            {
+                if ($scope.newUrl !== null) {
+                    currentRecord =
+                            {
+                                id: false,
+                                src: $scope.newUrl
+                            };
+                            
+                    svc.saveRecord(currentRecord).then(function (response) {
+                        self.fetchRecords();
+                    }, responseError);
+                }
+
+            };
 
             /*
              * Funcion fetchRecords consulta el servicio svc.fetchRecords con el fin de consultar 
@@ -117,33 +92,61 @@
 
             this.fetchRecords = function () {
                 return svc.fetchRecords().then(function (response) {
-                    $scope.slides = response.data;
-                    self.splitPhotos();
-                    //$scope.currentRecord = {};
-                    return response;
+                    self.inicializarSlides(response.data);
+                    self.splitSlides();
                 }, responseError);
             };
-
-            /*
-             * Funcion saveRecord hace un llamado al servicio svc.saveRecord con el fin de
-             * persistirlo en base de datos.
-             * Muestra el template de la lista de records al finalizar la operación saveRecord
-             */
-            this.saveRecord = function () {
-                    return svc.saveRecord($scope.currentRecord).then(function () {
-                        self.fetchRecords();
-                    }, responseError);                
+            
+            this.inicializarSlides=function(arreglo)
+            {
+                if(typeof $scope.slides !=='undefined' && $scope.slides.length > 0)
+                {
+                    $scope.slides=[];
+                    
+                }
+                
+                for(var i=0;i<arreglo.length;i++)
+                {
+                    var obj=
+                            {
+                                id: arreglo[i].id,
+                                index: i,
+                                src: arreglo[i].src
+                            };
+                            
+                    $scope.slides.push(obj);
+                    
+                }
+                
+                
             };
+
 
             /*
              * Funcion deleteRecord hace un llamado al servicio svc.deleteRecord con el fin
              * de eliminar el registro asociado.
              * Muestra el template de la lista de records al finalizar el borrado del registro.
              */
-            this.deleteRecord = function (record) {
-                return svc.deleteRecord(record.id).then(function () {
+            $scope.deleteRecord = function () {
+               
+                return svc.deleteRecord(self.darIdFoto($scope.currentIndex)).then(function () { 
                     self.fetchRecords();
                 }, responseError);
+            };
+            
+            this.darIdFoto=function(pIndex)
+            {
+                for(var i=0;i<$scope.slides.length;i++)
+                {
+                    var search=$scope.slides[i].index;
+                    if(pIndex===search)
+                    {
+                        return $scope.slides[i].id;
+                        
+                    }
+                    
+                }
+                
             };
 
             /*
@@ -153,7 +156,7 @@
             this.fetchRecords();
 
 
-    }]);
+        }]);
 })(window.angular);
 
 
