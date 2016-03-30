@@ -7,24 +7,16 @@
     <packaging>pom</packaging>
     <modules>
         <module>../tripulator</module>
+        <module>../tripulator-logic</module>
     </modules>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
-    <dependency>
-        <groupId>org.eclipse.persistence</groupId>
-        <artifactId>eclipselink</artifactId>
-        <version>2.6.2</version>
-    </dependency>
-    <dependency>
-    <groupId>co.edu.uniandes.csw</groupId>
-    <artifactId>crud-utils</artifactId>
-    <version>0.1.3</version>
-</dependency>
-    <dependency>
-        <groupId>javax</groupId>
-        <artifactId>javaee-api</artifactId>
-        <version>7.0</version>
-        <scope>provided</scope>
-    </dependency>
+    <repositories>
+        <repository>
+            <id>csw-releases</id>
+            <name>csw releases</name>
+            <url>http://157.253.238.75:8081/content/repositories/releases/</url>
+        </repository>
+    </repositories>
 </project>
