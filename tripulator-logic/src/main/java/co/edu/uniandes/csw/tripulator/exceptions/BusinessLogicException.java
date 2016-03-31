@@ -1,4 +1,4 @@
-package co.edu.uniandes.csw.bookstore.exceptions;
+package co.edu.uniandes.csw.tripulator.exceptions;
 
 import javax.ejb.ApplicationException;
 
