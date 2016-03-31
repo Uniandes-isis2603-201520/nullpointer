@@ -5,8 +5,7 @@
  */
 package co.edu.uniandes.csw.tripulator.ejbs;
 
-import co.edu.uniandes.csw.bookstore.entities.EditorialEntity;
-import co.edu.uniandes.csw.bookstore.exceptions.BusinessLogicException;
+import co.edu.uniandes.csw.tripulator.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.tripulator.api.IItinerarioLogic;
 import co.edu.uniandes.csw.tripulator.entities.ItinerarioEntity;
 import co.edu.uniandes.csw.tripulator.persistence.ItinerarioPersistence;
