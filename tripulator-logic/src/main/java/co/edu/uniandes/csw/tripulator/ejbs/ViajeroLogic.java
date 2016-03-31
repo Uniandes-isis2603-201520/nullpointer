@@ -1,11 +1,11 @@
 package co.edu.uniandes.csw.tripulator.ejbs;
 
-import co.edu.uniandes.csw.tripulator.api.IItinearioLogic;
+//import co.edu.uniandes.csw.tripulator.api.IItinearioLogic;
 import co.edu.uniandes.csw.tripulator.entities.ViajeroEntity;
-import co.edu.uniandes.csw.tripulator.entities.ItinerarioEntity;
+//import co.edu.uniandes.csw.tripulator.entities.ItinerarioEntity;
 import co.edu.uniandes.csw.tripulator.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.tripulator.persistence.ViajeroPersistence;
-import co.edu.uniandes.csw.tripulator.persistence.ItineraioPersistence;
+//import co.edu.uniandes.csw.tripulator.persistence.ItinerarioPersistence;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -22,10 +22,10 @@ public class ViajeroLogic implements IViajeroLogic {
     private ViajeroPersistence persistence;
 
     @Inject
-    IItinerarioLogic itinerarioLogic;
+   // IItinerarioLogic itinerarioLogic;
 
-    @Inject
-    private ItinerarioPersistence itinerarioPersistence;
+    //@Inject
+   // private ItinerarioPersistence itinerarioPersistence;
 
     @Override
     public List<ViajeroEntity> getViajeros() {
@@ -70,18 +70,18 @@ public class ViajeroLogic implements IViajeroLogic {
         logger.log(Level.INFO, "Termina proceso de borrar autor con id={0}", id);
     }
 
-    @Override
-    public ItinerarioEntity addItinerario(Long itinerarioId, Long authorId) throws BusinessLogicException {
-        itinerarioLogic.addViajero(authorId, itinerarioId);
-        return itinerarioPersistence.find(itinerarioId);
-    }
+    //@Override
+    //public ItinerarioEntity addItinerario(Long itinerarioId, Long authorId) throws BusinessLogicException {
+    //    itinerarioLogic.addViajero(authorId, itinerarioId);
+    //    return itinerarioPersistence.find(itinerarioId);
+    //}
 
-    @Override
+   /* @Override
     public void removeItinerario(Long itinerarioId, Long authorId) {
         itinerarioLogic.removeViajero(authorId, itinerarioId);
-    }
+   }*/
 
-    @Override
+    /*@Override
     public List<ItinerarioEntity> replaceItinerarios(List<ItinerarioEntity> itinerarios, Long authorId) throws BusinessLogicException {
         List<ItinerarioEntity> itinerarioList = itinerarioPersistence.findAll();
         ViajeroEntity author = persistence.find(authorId);
@@ -114,4 +114,5 @@ public class ViajeroLogic implements IViajeroLogic {
         }
         return null;
     }
+*/
 }
