@@ -1,5 +1,5 @@
 package co.edu.uniandes.csw.tripulator.api;
-import co.edu.uniandes.csw.bookstore.exceptions.BusinessLogicException;
+import co.edu.uniandes.csw.tripulator.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.tripulator.entities.ComentarioEntity;
 import co.edu.uniandes.csw.tripulator.entities.EventoEntity;
 import java.util.List;
