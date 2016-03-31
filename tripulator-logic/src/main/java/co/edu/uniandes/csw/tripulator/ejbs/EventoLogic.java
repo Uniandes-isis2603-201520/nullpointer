@@ -4,7 +4,7 @@ import co.edu.uniandes.csw.bookstore.api.IBookLogic;
 import co.edu.uniandes.csw.bookstore.entities.AuthorEntity;
 import co.edu.uniandes.csw.bookstore.entities.BookEntity;
 import co.edu.uniandes.csw.bookstore.exceptions.BusinessLogicException;
-import co.edu.uniandes.csw.bookstore.persistence.AuthorPersistence;
+import co.edu.uniandes.csw.bookstore.persistence.ViajeroPersistence;
 import co.edu.uniandes.csw.bookstore.persistence.BookPersistence;
 import java.util.Date;
 import java.util.List;
