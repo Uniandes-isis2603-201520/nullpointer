@@ -1,10 +1,10 @@
 package co.edu.uniandes.csw.bookstore.ejbs;
 
 import co.edu.uniandes.csw.bookstore.api.IBookLogic;
-import co.edu.uniandes.csw.bookstore.entities.AuthorEntity;
+import co.edu.uniandes.csw.bookstore.entities.ViajeroEntity;
 import co.edu.uniandes.csw.bookstore.entities.BookEntity;
 import co.edu.uniandes.csw.bookstore.exceptions.BusinessLogicException;
-import co.edu.uniandes.csw.bookstore.persistence.AuthorPersistence;
+import co.edu.uniandes.csw.bookstore.persistence.ViajeroPersistence;
 import co.edu.uniandes.csw.bookstore.persistence.BookPersistence;
 import java.util.Date;
 import java.util.List;
@@ -22,7 +22,7 @@ public class BookLogic implements IBookLogic {
     private BookPersistence persistence;
 
     @Inject
-    private AuthorPersistence authorPersistence;
+    private ViajeroPersistence authorPersistence;
 
     @Override
     public List<BookEntity> getBooks() {
@@ -74,14 +74,14 @@ public class BookLogic implements IBookLogic {
     }
 
     @Override
-    public List<AuthorEntity> getAuthors(Long bookId) {
+    public List<ViajeroEntity> getAuthors(Long bookId) {
         return persistence.find(bookId).getAuthors();
     }
 
     @Override
-    public AuthorEntity getAuthor(Long bookId, Long authorId) {
-        List<AuthorEntity> authors = persistence.find(bookId).getAuthors();
-        AuthorEntity authorEntity = new AuthorEntity();
+    public ViajeroEntity getAuthor(Long bookId, Long authorId) {
+        List<ViajeroEntity> authors = persistence.find(bookId).getAuthors();
+        ViajeroEntity authorEntity = new ViajeroEntity();
         authorEntity.setId(authorId);
         int index = authors.indexOf(authorEntity);
         if (index >= 0) {
@@ -91,9 +91,9 @@ public class BookLogic implements IBookLogic {
     }
 
     @Override
-    public AuthorEntity addAuthor(Long authorId, Long bookId) throws BusinessLogicException {
+    public ViajeroEntity addAuthor(Long authorId, Long bookId) throws BusinessLogicException {
         BookEntity bookEntity = persistence.find(bookId);
-        AuthorEntity authorEntity = authorPersistence.find(authorId);
+        ViajeroEntity authorEntity = authorPersistence.find(authorId);
         if (bornBeforePublishDate(authorEntity.getBirthDate(), bookEntity.getPublishDate())) {
             throw new BusinessLogicException("La fecha de publicación no puede ser anterior a la fecha de nacimiento del autor");
         }
@@ -104,16 +104,16 @@ public class BookLogic implements IBookLogic {
     @Override
     public void removeAuthor(Long authorId, Long bookId) {
         BookEntity bookEntity = persistence.find(bookId);
-        AuthorEntity authorEntity = new AuthorEntity();
+        ViajeroEntity authorEntity = new ViajeroEntity();
         authorEntity.setId(authorId);
         bookEntity.getAuthors().remove(authorEntity);
     }
 
     @Override
-    public List<AuthorEntity> replaceAuthors(List<AuthorEntity> authors, Long bookId) throws BusinessLogicException {
+    public List<ViajeroEntity> replaceAuthors(List<ViajeroEntity> authors, Long bookId) throws BusinessLogicException {
         BookEntity bookEntity = persistence.find(bookId);
         bookEntity.setAuthors(authors);
-        for (AuthorEntity author : authors) {
+        for (ViajeroEntity author : authors) {
             if (bornBeforePublishDate(author.getBirthDate(), bookEntity.getPublishDate())) {
                 throw new BusinessLogicException("La fecha de publicación no puede ser anterior a la fecha de nacimiento del autor");
             }

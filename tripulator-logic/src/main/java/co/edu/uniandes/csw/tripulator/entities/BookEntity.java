@@ -23,7 +23,7 @@ public class BookEntity extends BaseEntity implements Serializable {
     private String description;
 
     @ManyToMany
-    private List<AuthorEntity> authors = new ArrayList<>();
+    private List<ViajeroEntity> authors = new ArrayList<>();
 
     @ManyToOne
     private EditorialEntity editorial;
@@ -87,11 +87,11 @@ public class BookEntity extends BaseEntity implements Serializable {
         this.description = description;
     }
 
-    public List<AuthorEntity> getAuthors() {
+    public List<ViajeroEntity> getAuthors() {
         return authors;
     }
 
-    public void setAuthors(List<AuthorEntity> authors) {
+    public void setAuthors(List<ViajeroEntity> authors) {
         this.authors = authors;
     }
 
