@@ -20,7 +20,7 @@ public class ViajeroPersistence {
     public ViajeroEntity create(ViajeroEntity entity) {
         logger.info("Creando un viajero nuevo");
         em.persist(entity);
-        logger.info("Autor creado");
+        logger.info("Viajero creado");
         return entity;
     }
 
@@ -41,8 +41,8 @@ public class ViajeroPersistence {
     }
 
     public List<ViajeroEntity> findAll() {
-        logger.info("Consultando todos los viajeroes");
-        Query q = em.createQuery("select u from AuthorEntity u");
+        logger.info("Consultando todos los viajero");
+        Query q = em.createQuery("select u from ViajeroEntity u");
         return q.getResultList();
     }
 }

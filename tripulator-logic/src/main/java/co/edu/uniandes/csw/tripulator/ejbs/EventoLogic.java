@@ -56,17 +56,18 @@ public class EventoLogic implements IEventoLogic {
     @Override
     public ComentarioEntity addComentario(Long comentarioId, Long eventoId) {
         EventoEntity eventoEntity = persistence.find(eventoId);
-        ComentarioEntity comentarioEntity = comentarioPersistence.find(eventoId);
-        comentarioEntity.setEvento(eventoEntity);
-        return comentarioEntity;
+        //ComentarioEntity comentarioEntity = comentarioPersistence.find(eventoId);
+        //comentarioEntity.setEvento(eventoEntity);
+        //return comentarioEntity;
+        return null;
     }
 
     @Override
     public void removeComentario(Long comentarioId, Long eventoId) {
         EventoEntity eventoEntity = persistence.find(eventoId);
-        ComentarioEntity book = comentarioPersistence.find(comentarioId);
-        book.setEvento(null);
-        eventoEntity.getComentarios().remove(book);
+        //ComentarioEntity book = comentarioPersistence.find(comentarioId);
+        //book.setEvento(null);
+        //eventoEntity.getComentarios().remove(book);
     }
 
 }
