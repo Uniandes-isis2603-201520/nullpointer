@@ -48,7 +48,6 @@
              */
 
             this.fetchRecords = function () {
-                console.log("llegue1");
                 return svc.fetchRecords().then(function (response) {
                     $scope.records = response.data;
                     $scope.currentRecord = {};
