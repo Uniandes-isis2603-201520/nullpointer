@@ -21,7 +21,7 @@ import javax.ws.rs.Produces;
 
 /**
  *
- * @author jd.fandino10
+ * @author da.delgado11
  */
 @Path("/eventos/{idEvento}/comentarios")
 @Produces("application/json")

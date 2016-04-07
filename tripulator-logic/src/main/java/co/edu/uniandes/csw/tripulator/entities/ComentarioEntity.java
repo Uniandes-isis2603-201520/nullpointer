@@ -27,12 +27,20 @@ import javax.persistence.TemporalType;
 public class ComentarioEntity extends BaseEntity implements Serializable{
     
     private String comment;
+    private Long id;
     
     /**
      * @return Devuelve el comentario
      */
     public String getComentario() {
         return comment;
+    }
+    
+    /**
+     * @return Devuelve antes del id
+     */
+    public Long getID() {
+        return id;
     }
     
         /**
