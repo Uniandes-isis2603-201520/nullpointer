@@ -5,10 +5,33 @@
  */
 package co.edu.uniandes.csw.tripulator.entities;
 
+import co.edu.uniandes.csw.crud.spi.entity.BaseEntity;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 /**
  *
- * @author jd.fandino10
+ * @author Daniel Delgado
  */
-public class ComentarioEntity {
 
+@Entity
+
+public class ComentarioEntity extends BaseEntity implements Serializable{
+    
+    private String comment;
+    
+    /**
+     * @return Devuelve el comentario
+     */
+    public String getComentario() {
+        return comment;
+    }
 }
