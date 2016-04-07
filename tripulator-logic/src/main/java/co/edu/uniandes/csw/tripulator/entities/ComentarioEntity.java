@@ -34,4 +34,12 @@ public class ComentarioEntity extends BaseEntity implements Serializable{
     public String getComentario() {
         return comment;
     }
+    
+        /**
+     * @param id borra el comentario con el id espeificado
+     * @return el comentario que borro
+     */
+    public String deleteComentario(int id) {
+        return comment;
+    }
 }
