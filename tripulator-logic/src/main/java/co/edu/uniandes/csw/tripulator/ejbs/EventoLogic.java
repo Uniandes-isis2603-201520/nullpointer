@@ -30,6 +30,12 @@ public class EventoLogic implements IEventoLogic {
         return eventos;
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     * @throws BusinessLogicException
+     */
     @Override
     public EventoEntity getEvento(Long id) throws BusinessLogicException {
         logger.log(Level.INFO, "Inicia proceso de consultar evento con id={0}", id);
