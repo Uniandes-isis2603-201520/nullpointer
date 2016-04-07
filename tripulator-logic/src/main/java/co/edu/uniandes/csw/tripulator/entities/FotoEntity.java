@@ -5,6 +5,7 @@
  */
 package co.edu.uniandes.csw.tripulator.entities;
 
+import co.edu.uniandes.csw.crud.spi.entity.BaseEntity;
 import java.io.Serializable;
 import javax.persistence.Entity;
 
