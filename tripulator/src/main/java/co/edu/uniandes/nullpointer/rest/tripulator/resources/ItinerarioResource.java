@@ -30,7 +30,7 @@ import javax.ws.rs.Produces;
 public class ItinerarioResource {
     
     @Inject
-    ItinerarioLogic itinerarioLogic;
+    ItinerarioLogicMock itinerarioLogic;
     
     /**
      * Devuelve todos los itinerarios.
