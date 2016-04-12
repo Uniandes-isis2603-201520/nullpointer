@@ -22,24 +22,24 @@ import javax.inject.Inject;
 @Stateless
 public class FotoLogic implements IFotoLogic{
     
-    private static final Logger logger = Logger.getLogger(ViajeroLogic.class.getName());
+    private static final Logger logger = Logger.getLogger(FotoLogic.class.getName());
 
     @Inject
     private FotoPersistence persistence;
     
 
     @Override
-    public List<FotoEntity> getFotos() {
+    public List<FotoEntity> getFotos(Long idViajero, Long idItinerario) {
         logger.info("Inicia proceso de consultar todas las fotos");
-        List<FotoEntity> fotos = persistence.findAll();
+        List<FotoEntity> fotos = persistence.findAll(idViajero, idItinerario);
         logger.info("Termina proceso de consultar todas las fotos");
         return fotos;
     }
 
     @Override
-    public FotoEntity getFoto(Long id) throws BusinessLogicException {
+    public FotoEntity getFoto(Long idViajero, Long idItinerario, Long id) throws BusinessLogicException {
         logger.log(Level.INFO, "Inicia proceso de consultar foto con id={0}", id);
-        FotoEntity foto = persistence.find(id);
+        FotoEntity foto = persistence.find(idViajero, idItinerario, id);
         if (foto == null) {
             logger.log(Level.SEVERE, "La foto con el id {0} no existe", id);
             throw new BusinessLogicException("La foto solicitada no existe");
@@ -49,18 +49,18 @@ public class FotoLogic implements IFotoLogic{
     }
 
     @Override
-    public FotoEntity createFoto(FotoEntity entity) {
+    public FotoEntity createFoto(Long idViajero, Long idItinerario, FotoEntity entity) {
         logger.info("Inicia proceso de creación de foto");
-        persistence.create(entity);
+        persistence.create(idViajero, idItinerario, entity);
         logger.info("Termina proceso de creación de foto");
         return entity;
     }
 
 
     @Override
-    public void deleteFoto(Long id) {
+    public void deleteFoto(Long idViajero, Long idItinerario, Long id) {
         logger.log(Level.INFO, "Inicia proceso de borrar foto con id={0}", id);
-        persistence.delete(id);
+        persistence.delete(idViajero, idItinerario, id);
         logger.log(Level.INFO, "Termina proceso de borrar foto con id={0}", id);
     }
     

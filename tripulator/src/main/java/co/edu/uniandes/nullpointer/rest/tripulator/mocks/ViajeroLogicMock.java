@@ -36,12 +36,8 @@ public class ViajeroLogicMock {
 
         if (viajeros == null) {
             viajeros = new ArrayList<>();
-            ViajeroDTO add1 = new ViajeroDTO(1L, "Juan", "Cardona", "hola", "js.cardona12");
-            ViajeroDTO add2 = new ViajeroDTO(2L, "Antonio", "De La Vega", "hola", "aj.dlv10");
-            ViajeroDTO add3 = new ViajeroDTO(3L, "Felipe", "Quiroga", "hola", "jf.quitoga10");
-            viajeros.add(add1);
-            viajeros.add(add2);
-            viajeros.add(add3);
+            
+            
 
         }
 
@@ -154,7 +150,7 @@ public class ViajeroLogicMock {
                 viajero.setId(updatedViajero.getId());
                 viajero.setNombre(updatedViajero.getNombre());
                 viajero.setApellido(updatedViajero.getApellido());
-                viajero.setContrasena(updatedViajero.getContrasena());
+                viajero.setPassword(updatedViajero.getPassword());
                 viajero.setUsuario(updatedViajero.getUsuario());
 
                 // retorna la viajero modificada
