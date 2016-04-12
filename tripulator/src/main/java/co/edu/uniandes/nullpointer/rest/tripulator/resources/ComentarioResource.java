@@ -6,8 +6,10 @@
 package co.edu.uniandes.nullpointer.rest.tripulator.resources;
 
 import co.edu.uniandes.csw.tripulator.ejbs.ComentarioLogic;
+import co.edu.uniandes.csw.tripulator.exceptions.BusinessLogicException;
 import co.edu.uniandes.nullpointer.rest.tripulator.dtos.ComentarioDTO;
 import co.edu.uniandes.nullpointer.rest.tripulator.exceptions.TripulatorLogicException;
+import co.edu.uniandes.nullpointer.rest.tripulator.converters.ComentarioConverter;
 
 import java.util.List;
 import javax.enterprise.context.RequestScoped;
@@ -40,7 +42,7 @@ public class ComentarioResource {
 	 */
     @GET
     public List<ComentarioDTO> getComentarios(@PathParam("idEvento")Long idEvento) throws TripulatorLogicException {
-        return comentarioLogic.getComentarios(idEvento);
+        return ComentarioConverter.listEntity2DTO(comentarioLogic.getComentarios(idEvento));
     }
 
     /**
@@ -52,8 +54,8 @@ public class ComentarioResource {
     @GET
     @Path("{id}")
     public ComentarioDTO getComentario(@PathParam("idEvento")Long idEvento,
-            @PathParam("id") Long id) throws TripulatorLogicException {
-        return comentarioLogic.getComentario(idEvento,id);
+            @PathParam("id") Long id) throws TripulatorLogicException, BusinessLogicException {
+     return  ComentarioConverter.fullEntity2DTO(comentarioLogic.getComentario(idEvento));
     }
 
     /**
@@ -64,8 +66,8 @@ public class ComentarioResource {
      */
     @POST
     public ComentarioDTO createComentario(@PathParam("idEvento")Long idEvento
-            ,ComentarioDTO comentario) throws TripulatorLogicException {
-        return comentarioLogic.createComentario(idEvento, comentario);
+            ,ComentarioDTO comentario) throws TripulatorLogicException, BusinessLogicException {
+        return ComentarioConverter.fullEntity2DTO(comentarioLogic.createComentario(ComentarioConverter.fullDTO2Entity(comentario)));
     }
 
     /**
@@ -78,8 +80,8 @@ public class ComentarioResource {
     @PUT
     @Path("{id}")
     public ComentarioDTO updateComentario(@PathParam("idEvento")Long idEvento,
-            @PathParam("id") Long id, ComentarioDTO comentario) throws TripulatorLogicException {
-        return comentarioLogic.updateComentario(idEvento, id, comentario);
+            @PathParam("id") Long id, ComentarioDTO comentario) throws TripulatorLogicException, BusinessLogicException {
+        return ComentarioConverter.fullEntity2DTO(comentarioLogic.updateComentario(idEvento, id, (ComentarioConverter.fullDTO2Entity(comentario))));
     }
 
     /**

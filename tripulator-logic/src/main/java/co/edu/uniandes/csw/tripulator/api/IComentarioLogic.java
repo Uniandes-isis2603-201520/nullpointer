@@ -15,12 +15,14 @@ import java.util.List;
  */
 public interface IComentarioLogic {
 
-    public List<ComentarioEntity> getComentarios();
+    public List<ComentarioEntity> getComentarios(Long idEvento);
 
     public ComentarioEntity getComentario(Long id) throws BusinessLogicException;
 
     public ComentarioEntity createComentario(ComentarioEntity entity) throws BusinessLogicException;
     
-    public void deleteComentario(Long id);
+    public ComentarioEntity updateComentario(Long IdEvento, Long id, ComentarioEntity entity) throws BusinessLogicException;
+    
+    public void deleteComentario(Long eventoId, Long id);
 
 }

@@ -43,12 +43,12 @@ public class ComentarioPersistence {
         logger.info("Comentario creado");
         return entity;
     }
-/**
+
     public ComentarioEntity update(ComentarioEntity entity) {
         logger.log(Level.INFO, "Actualizando comentario con id={0}", entity.getId());
         return em.merge(entity);
     }
-*/
+
     /**@param id id del comentario a borrar*/
     public void delete(Long id) {
         logger.log(Level.INFO, "Borrando comentario con id={0}", id);
