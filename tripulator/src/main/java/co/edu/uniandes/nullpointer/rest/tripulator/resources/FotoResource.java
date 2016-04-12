@@ -5,6 +5,9 @@
  */
 package co.edu.uniandes.nullpointer.rest.tripulator.resources;
 
+import co.edu.uniandes.csw.tripulator.ejbs.FotoLogic;
+import co.edu.uniandes.csw.tripulator.exceptions.BusinessLogicException;
+import co.edu.uniandes.nullpointer.rest.tripulator.converters.FotoConverter;
 import co.edu.uniandes.nullpointer.rest.tripulator.dtos.FotoDTO;
 import co.edu.uniandes.nullpointer.rest.tripulator.exceptions.TripulatorLogicException;
 import co.edu.uniandes.nullpointer.rest.tripulator.mocks.FotoLogicMock;
@@ -29,12 +32,12 @@ import javax.ws.rs.Produces;
 public class FotoResource {
 
     @Inject
-    FotoLogicMock fotoLogic;
+    FotoLogic fotoLogic;
 
     @GET
     public List<FotoDTO> getFotos(@PathParam("idViajero") Long idViajero,
             @PathParam("idItinerario") Long idItinerario) throws TripulatorLogicException {
-        return fotoLogic.getFotos(idViajero, idItinerario);
+        return FotoConverter.listEntity2DTO( fotoLogic.getFotos(idViajero, idItinerario) );
     }
 
     /**
@@ -49,8 +52,8 @@ public class FotoResource {
     @Path("{id: \\d+}")
     public FotoDTO getFoto(@PathParam("idViajero") Long idViajero,
             @PathParam("idItinerario") Long idItinerario,
-            @PathParam("id") Long id) throws TripulatorLogicException {
-        return fotoLogic.getFoto(idViajero, idItinerario, id);
+            @PathParam("id") Long id) throws TripulatorLogicException, BusinessLogicException {
+        return FotoConverter.fullEntity2DTO(fotoLogic.getFoto(idViajero, idItinerario, id) );
     }
 
     /**
@@ -65,7 +68,7 @@ public class FotoResource {
     public FotoDTO createFotos(@PathParam("idViajero") Long idViajero,
             @PathParam("idItinerario") Long idItinerario,
             FotoDTO foto) throws TripulatorLogicException {
-        return fotoLogic.createFoto(idViajero, idItinerario, foto);
+        return FotoConverter.fullEntity2DTO( fotoLogic.createFoto(idViajero, idItinerario, FotoConverter.fullDTO2Entity(foto)));
     }
 
 

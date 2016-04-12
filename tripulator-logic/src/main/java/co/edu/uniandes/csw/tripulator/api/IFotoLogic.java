@@ -15,12 +15,12 @@ import co.edu.uniandes.csw.tripulator.entities.FotoEntity;
  */
 public interface IFotoLogic {
     
-    public List<FotoEntity> getFotos();
+    public List<FotoEntity> getFotos(Long idViajero, Long idItinerario);
 
-    public FotoEntity getFoto(Long id) throws BusinessLogicException;
+    public FotoEntity getFoto(Long idViajero, Long idItinerario, Long id) throws BusinessLogicException;
 
-    public FotoEntity createFoto(FotoEntity entity);
+    public FotoEntity createFoto(Long idViajero, Long idItinerario, FotoEntity entity);
 
-    public void deleteFoto(Long id);
+    public void deleteFoto(Long idViajero, Long idItineario, Long id);
     
 }
