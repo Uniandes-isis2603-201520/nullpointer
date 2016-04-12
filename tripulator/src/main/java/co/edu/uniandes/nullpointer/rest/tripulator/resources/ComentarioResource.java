@@ -5,9 +5,10 @@
  */
 package co.edu.uniandes.nullpointer.rest.tripulator.resources;
 
+import co.edu.uniandes.csw.tripulator.ejbs.ComentarioLogic;
 import co.edu.uniandes.nullpointer.rest.tripulator.dtos.ComentarioDTO;
 import co.edu.uniandes.nullpointer.rest.tripulator.exceptions.TripulatorLogicException;
-import co.edu.uniandes.nullpointer.rest.tripulator.mocks.ComentarioLogicMock;
+
 import java.util.List;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
@@ -30,7 +31,7 @@ public class ComentarioResource {
 
     
 	@Inject
-	ComentarioLogicMock comentarioLogic;
+	ComentarioLogic comentarioLogic;
 
 	/**
 	 * Obtiene el listado de comentarios. 
