@@ -5,9 +5,12 @@
  */
 package co.edu.uniandes.nullpointer.rest.tripulator.resources;
 
+import co.edu.uniandes.csw.tripulator.api.IDiaLogic;
+import co.edu.uniandes.csw.tripulator.entities.DiaEntity;
+import co.edu.uniandes.csw.tripulator.exceptions.BusinessLogicException;
+import co.edu.uniandes.nullpointer.rest.tripulator.converters.DiaConverter;
 import co.edu.uniandes.nullpointer.rest.tripulator.dtos.DiaDTO;
 import co.edu.uniandes.nullpointer.rest.tripulator.exceptions.TripulatorLogicException;
-import co.edu.uniandes.nullpointer.rest.tripulator.mocks.DiaLogicMock;
 import java.util.List;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
@@ -29,7 +32,7 @@ import javax.ws.rs.Produces;
 public class DiaResource {
     
     @Inject 
-    DiaLogicMock diaLogic;
+    IDiaLogic diaLogic;
     
     /**
      * 
@@ -41,27 +44,30 @@ public class DiaResource {
     @GET
     public List<DiaDTO> getDias(@PathParam("idViajero") Long idViajero,
             @PathParam("idItinerario") Long idItinerario) throws TripulatorLogicException {
-        return diaLogic.getDias(idViajero,idItinerario);
+        return DiaConverter.listEntity2DTO(diaLogic.getDias(idViajero,idItinerario));
     }
     
     /**
      * Obtiene un día específico
      * @param id id del día que se quiere.
+     * @param idItinerario id del itinerario que contiene el día que se quiere.
+     * @param idViajero id del viajero que tiene el itinerario que contiene el día que se quiere.
      * @return día con el id dado.
-     * @throws co.edu.uniandes.nullpointer.rest.tripulator.exceptions.
-     * TripulatorLogicException cuando el día no existe
+     * @throws co.edu.uniandes.nullpointer.rest.tripulator.exceptions.TripulatorLogicException cuando el día no existe
      */
     @GET
     @Path("{id: \\d+}")
     public DiaDTO getDia(@PathParam("idViajero") Long idViajero,
             @PathParam("idItinerario") Long idItinerario,
-            @PathParam("id") Long id) throws TripulatorLogicException{
-        return diaLogic.getDia(idViajero, idItinerario, id);
+            @PathParam("id") Long id) throws TripulatorLogicException, BusinessLogicException{
+        return DiaConverter.fullEntity2DTO(diaLogic.getDia(idViajero, idItinerario, id));
     }
     
-        /**
+      /**
      * Agrega un día
-     * @param day día a agregar
+     * @param idViajero id del viajero que tiene el itinerario al que se le quiere agregar un día.
+     * @param idItinerario id del itinerario al que se le quiere agregar un día.
+     * @param dia día a agregar
      * @return null
      * @throws co.edu.uniandes.nullpointer.rest.tripulator.exceptions.TripulatorLogicException
      */
@@ -69,11 +75,13 @@ public class DiaResource {
     public DiaDTO createDia(@PathParam("idViajero") Long idViajero,
             @PathParam("idItinerario") Long idItinerario,
             DiaDTO dia) throws TripulatorLogicException {
-        return diaLogic.createDia(idViajero, idItinerario, dia);
+        return DiaConverter.fullEntity2DTO(diaLogic.createDia(idViajero, idItinerario, DiaConverter.fullDTO2Entity(dia)));
     }
     
     /**
      * Actualiza los datos de un día.
+     * @param idViajero id del viajero que tiene el itinerario que contiene el día que se quiere modificar.
+     * @param idItinerario id del itinerario que contiene el día que se quiere modificar.
      * @param id identificador del día a modificar
      * @param dia dia a modificar
      * @return datos resultantes
@@ -84,11 +92,14 @@ public class DiaResource {
     public DiaDTO updateDia(@PathParam("idViajero") Long idViajero,
             @PathParam("idItinerario") Long idItinerario,
             @PathParam("id") Long id, DiaDTO dia) throws TripulatorLogicException {
-        return diaLogic.updateDia(idViajero, idItinerario, id, dia);
+        DiaEntity converted = DiaConverter.fullDTO2Entity(dia);
+        return DiaConverter.fullEntity2DTO(diaLogic.updateDia(idViajero, idItinerario, converted));
     }
     
     /**
      * Elimina los datos de un día
+     * @param idViajero id del viajero que tiene el itinerario que contiene el día a eliminar.
+     * @param idItinerario id del itinerario que contiene el día a eliminar.
      * @param id identificador del día a eliminar
      * @throws TripulatorLogicException cuando no existe un día con el id suministrado
      */
