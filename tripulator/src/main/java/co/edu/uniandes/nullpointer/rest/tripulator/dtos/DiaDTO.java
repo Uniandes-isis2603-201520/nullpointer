@@ -17,18 +17,17 @@ public class DiaDTO {
     Long id;
     Date fecha;
     ArrayList eventos;
-    Long idCiudad;
+    String ciudad;
     
     public DiaDTO(){
-        
     }
 
-    public DiaDTO(Long id, Date fecha, ArrayList eventos, Long idCiudad) {
+    public DiaDTO(Long id, Date fecha, ArrayList eventos, String idCiudad) {
         super();
         this.id = id;
         this.fecha = fecha;
         this.eventos = eventos;
-        this.idCiudad = idCiudad;
+        this.ciudad = idCiudad;
     }
 
     public Long getId() {
@@ -59,12 +58,12 @@ public class DiaDTO {
         this.eventos = eventos;
     }
 
-    public Long getIdCiudad() {
-        return idCiudad;
+    public String getCiudad() {
+        return ciudad;
     }
     
-    public void setIdCiudad(Long idCiudad) {
-        this.idCiudad = idCiudad;
+    public void setCiudad(String idCiudad) {
+        this.ciudad = idCiudad;
     }   
     
     /**
@@ -75,7 +74,7 @@ public class DiaDTO {
     public String toString() {
         return "{ id : " + id + ", fecha : \"" + fecha + "\" "
                 + ", eventos : \"" + eventos + "\" "
-                + ", idCiudad : \"" +  idCiudad + "\" " + "}";
+                + ", idCiudad : \"" +  ciudad + "\" " + "}";
 
     }
 }

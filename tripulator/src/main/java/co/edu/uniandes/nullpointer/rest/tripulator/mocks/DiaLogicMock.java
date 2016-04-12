@@ -42,10 +42,10 @@ public class DiaLogicMock {
             mapItinerarioDia.put(3L, new ArrayList<DiaDTO>());
 
             // Se agregan 4 dias al itinerario con id 1 del viajero con id 1.
-            mapItinerarioDia.get(1L).add(new DiaDTO(0L, new Date(), new ArrayList(), 1L));
-            mapItinerarioDia.get(1L).add(new DiaDTO(1L, new Date(), new ArrayList(), 2L));
-            mapItinerarioDia.get(1L).add(new DiaDTO(2L, new Date(), new ArrayList(), 3L));
-            mapItinerarioDia.get(1L).add(new DiaDTO(3L, new Date(), new ArrayList(), 4L));
+            mapItinerarioDia.get(1L).add(new DiaDTO(0L, new Date(), new ArrayList(), "A"));
+            mapItinerarioDia.get(1L).add(new DiaDTO(1L, new Date(), new ArrayList(), "A"));
+            mapItinerarioDia.get(1L).add(new DiaDTO(2L, new Date(), new ArrayList(), "A"));
+            mapItinerarioDia.get(1L).add(new DiaDTO(3L, new Date(), new ArrayList(), "A"));
         }
 
         // indica que se muestren todos los mensajes
@@ -132,7 +132,7 @@ public class DiaLogicMock {
 
                 // modifica el itinerario
                 dia.setFecha(updatedDia.getFecha());
-                dia.setIdCiudad(updatedDia.getIdCiudad());
+                dia.setCiudad(updatedDia.getCiudad());
                 dia.setEventos(updatedDia.getEventos());
 
                 // retorna el día modificado.
