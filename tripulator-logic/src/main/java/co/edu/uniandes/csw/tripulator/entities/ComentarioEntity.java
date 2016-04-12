@@ -28,26 +28,114 @@ public class ComentarioEntity extends BaseEntity implements Serializable{
     
     private String comment;
     private Long id;
+    private String user;
+    private String userPhoto;
+    private int stars;
+    private Long idEvento;
+    private Long date;
     
     /**
      * @return Devuelve el comentario
      */
     public String getComentario() {
-        return comment;
+        return getComment();
     }
     
     /**
-     * @return Devuelve antes del id
+     * @return Devuelve el usuario
      */
-    public Long getID() {
+    public String getUser() {
+        return user;
+    }
+
+    /**
+     * @return the comment
+     */
+    public String getComment() {
+        return comment;
+    }
+
+    /**
+     * @param comment the comment to set
+     */
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
+
+    /**
+     * @return the id
+     */
+    public Long getId() {
         return id;
     }
-    
-        /**
-     * @param id borra el comentario con el id espeificado
-     * @return el comentario que borro
+
+    /**
+     * @param id the id to set
      */
-    public String deleteComentario(int id) {
-        return comment;
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    /**
+     * @param user the user to set
+     */
+    public void setUser(String user) {
+        this.user = user;
+    }
+
+    /**
+     * @return the userPhoto
+     */
+    public String getUserPhoto() {
+        return userPhoto;
+    }
+
+    /**
+     * @param userPhoto the userPhoto to set
+     */
+    public void setUserPhoto(String userPhoto) {
+        this.userPhoto = userPhoto;
+    }
+
+    /**
+     * @return the stars
+     */
+    public int getStars() {
+        return stars;
+    }
+
+    /**
+     * @param stars the stars to set
+     */
+    public void setStars(int stars) {
+        this.stars = stars;
+    }
+
+    /**
+     * @return the idEvento
+     */
+    public Long getIdEvento() {
+        return idEvento;
+    }
+
+    /**
+     * @param idEvento the idEvento to set
+     */
+    public void setIdEvento(Long idEvento) {
+        this.idEvento = idEvento;
+    }
+
+    /**
+     * @return the date
+     */
+    public Long getDate() {
+        return date;
+    }
+
+    /**
+     * @param date the date to set
+     */
+    public void setDate(Long date) {
+        this.date = date;
     }
 }

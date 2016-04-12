@@ -21,6 +21,12 @@
             <version>0.1.3</version>
         </dependency>
         <dependency>
+            <groupId>edu.uniandes.nullpointer.rest</groupId>
+            <artifactId>nullPointer</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <type>war</type>
+        </dependency>
+        <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-api</artifactId>
             <version>7.0</version>

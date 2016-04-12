@@ -9,6 +9,7 @@ import co.edu.uniandes.csw.tripulator.api.IComentarioLogic;
 import co.edu.uniandes.csw.tripulator.entities.ComentarioEntity;
 import co.edu.uniandes.csw.tripulator.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.tripulator.persistence.ComentarioPersistence;
+
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
@@ -29,7 +30,7 @@ public class ComentarioLogic implements IComentarioLogic {
     private ComentarioPersistence persistence;
 
     @Override
-    public List<ComentarioEntity> getComentarios() {
+    public List<ComentarioEntity> getComentarios(Long idEvento) {
         logger.info("Inicia proceso de consultar todos los comentarios");
         List<ComentarioEntity> comentarios = persistence.findAll();
         logger.info("Termina proceso de consultar todos los comentarios");
@@ -58,9 +59,20 @@ public class ComentarioLogic implements IComentarioLogic {
         logger.info("Termina proceso de creación de comentario");
         return entity;
     }
+    
+    @Override
+    public ComentarioEntity updateComentario(Long IdEvento, Long id, ComentarioEntity entity) throws BusinessLogicException {
+        logger.info("Inicia proceso de edicion de comentario");
+        if (!validateComentario(entity.getComentario())) {
+            throw new BusinessLogicException("El comentario es inválido");
+        }
+        persistence.update(entity);
+        logger.info("Termina proceso de update de comentario");
+        return entity;
+    }
 
     @Override
-    public void deleteComentario(Long id) {
+    public void deleteComentario(Long idEvento, Long id) {
         logger.log(Level.INFO, "Inicia proceso de borrar comentario con id={0}", id);
         persistence.delete(id);
         logger.log(Level.INFO, "Termina proceso de borrar comentario con id={0}", id);
