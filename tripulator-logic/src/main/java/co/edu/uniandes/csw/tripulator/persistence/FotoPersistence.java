@@ -10,6 +10,7 @@ import co.edu.uniandes.csw.tripulator.entities.FotoEntity;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -18,25 +19,26 @@ import javax.persistence.Query;
  *
  * @author josef
  */
+@Stateless
 public class FotoPersistence {
     
-    private static final Logger logger = Logger.getLogger(EventoPersistence.class.getName());
+    private static final Logger logger = Logger.getLogger(FotoPersistence.class.getName());
 
     @PersistenceContext(unitName = "TripulatorPU")
     protected EntityManager em;
 
-    public FotoEntity find(Long id) {
+    public FotoEntity find(Long idViajero, Long idItinerario, Long id) {
         logger.log(Level.INFO, "Consultando foto con id={0}", id);
         return em.find(FotoEntity.class, id);
     }
 
-    public List<FotoEntity> findAll() {
+    public List<FotoEntity> findAll(Long idViajero, Long idItinerario) {
         logger.info("Consultando todos las fotos");
         Query q = em.createQuery("select u from FotoEntity u");
         return q.getResultList();
     }
     
-       public FotoEntity create(FotoEntity entity) {
+       public FotoEntity create(Long idViajero, Long idItinerario, FotoEntity entity) {
         logger.info("Creando una foto nueva");
         em.persist(entity);
         logger.info("Foto creada");
@@ -44,7 +46,7 @@ public class FotoPersistence {
     }
        
        
-    public void delete(Long id) {
+    public void delete(Long idViajero, Long idItinerario,Long id) {
         logger.log(Level.INFO, "Borrando foto con id={0}", id);
         FotoEntity entity = em.find(FotoEntity.class, id);
         em.remove(entity);
