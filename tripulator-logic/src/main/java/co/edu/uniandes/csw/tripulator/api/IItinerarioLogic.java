@@ -18,11 +18,11 @@ public interface IItinerarioLogic {
     
     public ItinerarioEntity getItinerario(Long idViajero, Long idItinerario)throws BusinessLogicException;
     
-    public ItinerarioEntity createItinerario(ItinerarioEntity entity); 
+    public ItinerarioEntity createItinerario(Long idViajero, ItinerarioEntity entity); 
     
-    public ItinerarioEntity updateItinerario(ItinerarioEntity entity);
+    public ItinerarioEntity updateItinerario(Long idViajero, ItinerarioEntity entity);
     
-    public void deleteItinerario(Long id);
+    public void deleteItinerario(Long idVIajero, Long id);
     
     /**
      * Faltan los métodos que marcan relaciones con las otras entidades.

@@ -48,7 +48,7 @@ public class ItinerarioLogic implements IItinerarioLogic {
     }
 
     @Override
-    public ItinerarioEntity createItinerario(ItinerarioEntity entity) {
+    public ItinerarioEntity createItinerario(Long idViajero, ItinerarioEntity entity) {
         logger.info("Inicia proceso de creación de itinerario");
         itinerarioPersistence.create(entity);
         logger.info("Termina proceso de creación de itinerario");
@@ -56,7 +56,7 @@ public class ItinerarioLogic implements IItinerarioLogic {
     }
 
     @Override
-    public ItinerarioEntity updateItinerario(ItinerarioEntity entity) {
+    public ItinerarioEntity updateItinerario(Long idViajero, ItinerarioEntity entity) {
         logger.log(Level.INFO, "Inicia proceso de actualizar itinerario con id={0}", entity.getId());
         ItinerarioEntity newEntity = itinerarioPersistence.update(entity);
         logger.log(Level.INFO, "Termina proceso de actualizar itinerario con id={0}", entity.getId());
@@ -64,7 +64,7 @@ public class ItinerarioLogic implements IItinerarioLogic {
     }
 
     @Override
-    public void deleteItinerario(Long id) {
+    public void deleteItinerario(Long idViajero, Long id) {
         logger.log(Level.INFO, "Inicia proceso de borrar itinerario con id={0}", id);
         itinerarioPersistence.delete(id);
         logger.log(Level.INFO, "Termina proceso de borrar itinerario con id={0}", id);
