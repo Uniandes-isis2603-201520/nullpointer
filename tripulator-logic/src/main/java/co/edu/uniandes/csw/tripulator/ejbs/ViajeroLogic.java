@@ -30,21 +30,21 @@ public class ViajeroLogic implements IViajeroLogic {
     @Override
     public List<ViajeroEntity> getViajeros() {
         logger.info("Inicia proceso de consultar todos los autores");
-        List<ViajeroEntity> authors = persistence.findAll();
+        List<ViajeroEntity> viajeros = persistence.findAll();
         logger.info("Termina proceso de consultar todos los autores");
-        return authors;
+        return viajeros;
     }
 
     @Override
     public ViajeroEntity getViajero(Long id) throws BusinessLogicException {
         logger.log(Level.INFO, "Inicia proceso de consultar autor con id={0}", id);
-        ViajeroEntity author = persistence.find(id);
-        if (author == null) {
+        ViajeroEntity viajero = persistence.find(id);
+        if (viajero == null) {
             logger.log(Level.SEVERE, "El autor con el id {0} no existe", id);
             throw new BusinessLogicException("El autor solicitado no existe");
         }
         logger.log(Level.INFO, "Termina proceso de consultar autor con id={0}", id);
-        return author;
+        return viajero;
     }
 
     @Override
