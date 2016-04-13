@@ -5,13 +5,13 @@ import java.util.List;
 
 public interface IDiaLogic {
 
-    public List<DiaEntity> getDias();
+    public List<DiaEntity> getDias(Long idViajero, Long idItinerario);
 
-    public DiaEntity getDia(Long id) throws BusinessLogicException;
+    public DiaEntity getDia(Long idViajero, Long idItinerario, Long id) throws BusinessLogicException;
 
-    public DiaEntity createDia(DiaEntity dia);
+    public DiaEntity createDia(Long idViajero, Long idItinerario, DiaEntity dia);
 
-    public DiaEntity updateDia(DiaEntity dia);
+    public DiaEntity updateDia(Long idViajero, Long idItinerario, DiaEntity dia);
 
-    public void deleteDia(Long id);
+    public void deleteDia(Long idViajero, Long idItinerario, Long id);
 }

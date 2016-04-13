@@ -22,21 +22,21 @@ import javax.inject.Inject;
 @Stateless
 public class DiaLogic implements IDiaLogic {
     
-    private static final Logger logger = Logger.getLogger(ViajeroLogic.class.getName());
+    private static final Logger logger = Logger.getLogger(DiaLogic.class.getName());
     
     @Inject
-    DiaPersistence persistence;
+    private DiaPersistence persistence;
     
     @Override
-    public List<DiaEntity> getDias() {
-        logger.info("Inicia proceso de consultar todos los días");
+    public List<DiaEntity> getDias(Long idViajero, Long idItinerario) {
+        logger.info("Inicia proceso de consultar todos los días del itinerario "+ idItinerario);
         List<DiaEntity> dias = persistence.findAll();
         logger.info("Termina proceso de consultar todos los días");
         return dias;
     }
 
     @Override
-    public DiaEntity getDia(Long id) throws BusinessLogicException {
+    public DiaEntity getDia(Long idViajero, Long idItinerario, Long id) throws BusinessLogicException {
         logger.log(Level.INFO, "Inicia proceso de consultar día con id={0}", id);
         DiaEntity dia = persistence.find(id);
         if (dia == null) {
@@ -48,7 +48,7 @@ public class DiaLogic implements IDiaLogic {
     }
 
     @Override
-    public DiaEntity createDia(DiaEntity entity) {
+    public DiaEntity createDia(Long idViajero, Long idItinerario, DiaEntity entity) {
         logger.info("Inicia proceso de creación de día");
         persistence.create(entity);
         logger.info("Termina proceso de creación de día");
@@ -56,7 +56,7 @@ public class DiaLogic implements IDiaLogic {
     }
 
     @Override
-    public DiaEntity updateDia(DiaEntity entity) {
+    public DiaEntity updateDia(Long idViajero, Long idItinerario, DiaEntity entity) {
         logger.log(Level.INFO, "Inicia proceso de actualizar día con id={0}", entity.getId());
         DiaEntity newEntity = persistence.update(entity);
         logger.log(Level.INFO, "Termina proceso de actualizar día con id={0}", entity.getId());
@@ -64,7 +64,7 @@ public class DiaLogic implements IDiaLogic {
     }
 
     @Override
-    public void deleteDia(Long id) {
+    public void deleteDia(Long idViajero, Long idItinerario, Long id) {
         logger.log(Level.INFO, "Inicia proceso de borrar día con id={0}", id);
         persistence.delete(id);
         logger.log(Level.INFO, "Termina proceso de borrar día con id={0}", id);
