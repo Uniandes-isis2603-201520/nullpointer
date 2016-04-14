@@ -62,7 +62,7 @@ public class ViajeroLogicTest {
         try {
             utx.begin();
             clearData();
-//            insertData();
+            insertData();
             utx.commit();
         } catch (Exception e) {
             e.printStackTrace();
@@ -75,29 +75,22 @@ public class ViajeroLogicTest {
     }
 
     private void clearData() {
-        em.createQuery("delete from ItinerarioEntity").executeUpdate();
+        //em.createQuery("delete from ItinerarioEntity").executeUpdate();
         em.createQuery("delete from ViajeroEntity").executeUpdate();
     }
-/*
+
     private void insertData() {
-        for (int i = 0; i < 3; i++) {
-            ItinerarioEntity itinerarios = factory.manufacturePojo(ItinerarioEntity.class);
-            itinerarios.setPublishDate(getMaxDate());
-            em.persist(itinerarios);
-            itinerariosData.add(itinerarios);
-        }
+        
 
         for (int i = 0; i < 3; i++) {
             ViajeroEntity entity = factory.manufacturePojo(ViajeroEntity.class);
 
             em.persist(entity);
             data.add(entity);
-
-            itinerariosData.get(0).getViajeros().add(entity);
+            
         }
     }
-    */
-
+   
     @Test
     public void createViajeroTest() {
         ViajeroEntity expected = factory.manufacturePojo(ViajeroEntity.class);
