@@ -25,6 +25,7 @@ public class EventoEntity extends BaseEntity implements Serializable {
     @Temporal(TemporalType.DATE)
     private Date fechaFin;
     private String description;
+    private String ciudad;
 
     @OneToMany(mappedBy = "evento")
     private List<ComentarioEntity> comentarios = new ArrayList<>();
@@ -68,6 +69,14 @@ public class EventoEntity extends BaseEntity implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getCiudad() {
+        return ciudad;
+    }
+
+    public void setCiudad(String ciudad) {
+        this.ciudad = ciudad;
     }
 
     public List<ComentarioEntity> getComentarios() {

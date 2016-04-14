@@ -5,6 +5,7 @@ import co.edu.uniandes.csw.tripulator.entities.ComentarioEntity;
 import co.edu.uniandes.csw.tripulator.entities.EventoEntity;
 import co.edu.uniandes.csw.tripulator.persistence.ComentarioPersistence;
 import co.edu.uniandes.csw.tripulator.persistence.EventoPersistence;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -27,6 +28,23 @@ public class EventoLogic implements IEventoLogic {
         logger.info("Inicia proceso de consultar todos los eventos");
         List<EventoEntity> eventos = persistence.findAll();
         logger.info("Termina proceso de consultar todos los eventos");
+        return eventos;
+    }
+     /**
+     *
+     * @param id
+     * @return
+     * @throws BusinessLogicException
+     */
+    @Override
+    public List<EventoEntity> getEventosCiudadFecha(String ciudad, Date fecha) throws BusinessLogicException {
+        logger.log(Level.INFO, "Inicia proceso de consultar eventos de "+ciudad+ " antes de "+fecha);
+        List<EventoEntity> eventos = persistence.find(ciudad,fecha);
+        if (eventos == null) {
+            logger.log(Level.SEVERE, "No hay eventos para "+ciudad+" antes de "+fecha);
+            throw new BusinessLogicException("Los eventos solicitados no existen");
+        }
+        logger.log(Level.INFO, "Termina proceso de consultar eventos de "+ciudad+ " antes de "+fecha);
         return eventos;
     }
 

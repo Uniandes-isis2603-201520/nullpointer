@@ -5,6 +5,9 @@
  */
 package co.edu.uniandes.nullpointer.rest.tripulator.resources;
 
+import co.edu.uniandes.csw.tripulator.ejbs.EventoLogic;
+import co.edu.uniandes.csw.tripulator.exceptions.BusinessLogicException;
+import co.edu.uniandes.nullpointer.rest.tripulator.converters.EventoConverter;
 import co.edu.uniandes.nullpointer.rest.tripulator.dtos.EventoDTO;
 import co.edu.uniandes.nullpointer.rest.tripulator.exceptions.TripulatorLogicException;
 import co.edu.uniandes.nullpointer.rest.tripulator.mocks.EventoLogicMock;
@@ -29,18 +32,18 @@ import javax.ws.rs.Produces;
 @RequestScoped
 public class EventoResource {
 
-    
+
 	@Inject
-	EventoLogicMock eventoLogic;
+	EventoLogic eventoLogic;
 
 	/**
-	 * Obtiene el listado de eventos. 
+	 * Obtiene el listado de eventos.
 	 * @return lista de eventos
-	 * @throws TripulatorLogicException excepción retornada por la lógica  
+	 * @throws TripulatorLogicException excepción retornada por la lógica
 	 */
     @GET
     public List<EventoDTO> getEventos() throws TripulatorLogicException {
-        return eventoLogic.getEventos();
+        return EventoConverter.listEntity2DTO(eventoLogic.getEventos());
     }
 
     /**
@@ -51,8 +54,8 @@ public class EventoResource {
      */
     @GET
     @Path("{id}")
-    public EventoDTO getEvento(@PathParam("id") Long id) throws TripulatorLogicException {
-        return eventoLogic.getEvento(id);
+    public EventoDTO getEvento(@PathParam("id") Long id) throws TripulatorLogicException, BusinessLogicException {
+        return EventoConverter.fullEntity2DTO(eventoLogic.getEvento(id));
     }
 
     /**
@@ -61,32 +64,33 @@ public class EventoResource {
      * @return datos de el evento a agregar
      * @throws TripulatorLogicException cuando ya existe un evento con el id suministrado
      */
-    @POST
+    /*@POST
     public EventoDTO createEvento(EventoDTO Evento) throws TripulatorLogicException {
-        return eventoLogic.createEvento(Evento);
-    }
+        return EventoConverter.fullEntity2DTO(eventoLogic.createEvento(Evento));
+    }*/
 
     /**
      * Actualiza los datos de un evento
      * @param id identificador de el evento a modificar
      * @param Evento evento a modificar
-     * @return datos de el evento modificada 
+     * @return datos de el evento modificada
      * @throws TripulatorLogicException cuando no existe un evento con el id suministrado
      */
-    @PUT
+    /*@PUT
     @Path("{id}")
     public EventoDTO updateEvento(@PathParam("id") Long id, EventoDTO Evento) throws TripulatorLogicException {
         return eventoLogic.updateEvento(id, Evento);
-    }
+    }*/
 
     /**
      * Elimina los datos de un evento
      * @param id identificador de el evento a eliminar
      * @throws TripulatorLogicException cuando no existe un evento con el id suministrado
      */
-    @DELETE
+    /*@DELETE
     @Path("{id}")
     public void deleteEvento(@PathParam("id") Long id) throws TripulatorLogicException {
     	eventoLogic.deleteEvento(id);
     }
+    */
 }

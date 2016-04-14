@@ -15,7 +15,7 @@ public class EventoDTO {
 
     public static final String tipoE ="Evento";
     public static final String tipoS ="Sitio";
-    
+
     private Long id;//Long para el identificador del evento
     private String title; //String del nombre del evento
     private String image; //String de la ruta de la imagen del evento
@@ -23,6 +23,7 @@ public class EventoDTO {
     private Long start;  //Long de la fecha de inicio
     private Long end;    //Long de la fecha final
     private String description;   //String de la descripcion
+    private String ciudad;
     //comments;  //Arreglo de comentarios
 
     /**
@@ -151,6 +152,19 @@ public class EventoDTO {
     public void setDescription(String description) {
         this.description = description;
     }
+     /**
+     * @return la ciudad
+     */
+    public String getCiudad() {
+        return ciudad;
+    }
+
+    /**
+     * @param ciudad la nueva ciudad
+     */
+    public void setCiudad(String ciudad) {
+        this.ciudad = ciudad;
+    }
 
     /**
      * Convierte el objeto a una cadena
@@ -159,7 +173,7 @@ public class EventoDTO {
     public String toString() {
         return "{id:" + id + ",\n title:'" + title + "',\n image:'" + image
                 +"', \n type:'" + type + "',\n start:" + start + ",\n  end:"
-                + end + ",\n description:'" + description + "' }";
+                + end + ",\n description:'" + description + "',\n ciudad:'"+ciudad+"' }";
     }
 
 }
