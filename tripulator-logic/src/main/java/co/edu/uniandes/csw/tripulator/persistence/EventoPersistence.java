@@ -6,6 +6,7 @@
 package co.edu.uniandes.csw.tripulator.persistence;
 
 import co.edu.uniandes.csw.tripulator.entities.EventoEntity;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -34,6 +35,17 @@ public class EventoPersistence {
     public List<EventoEntity> findAll() {
         logger.info("Consultando todos los eventos");
         Query q = em.createQuery("select u from EventoEntity u");
+        return q.getResultList();
+    }
+    /**
+     * Metodo que da los eventos de una ciudad que empiezan antes de una fecha
+     * @param ciudad El nombre de la ciudad
+     * @param fecha La fecha limite del evento
+     * @return
+     */
+    public List<EventoEntity> find(String ciudad, Date fecha) {
+        logger.info("Consultando todos los eventos de "+ciudad+" antes de "+fecha);
+        Query q = em.createQuery("select u from Evento Entity u where ciudad="+ciudad+" and fecha_inicio<="+fecha);
         return q.getResultList();
     }
 }
