@@ -14,12 +14,10 @@ import java.util.Date;
 public class ComentarioDTO {
     
     private Long id;//Long para el identificador del comentario
-    private String user; //String del nombre del usuario que comento
     private String userPhoto; //String de la ruta de la foto del usuario
     private int stars;  //int de la cantidad de estrellas de la calificacion
-    private Long date;  //Long de la fecha del comentario
+    private Date date;  //Long de la fecha del comentario
     private String comment;   //String del comentario
-    private Long id_evento;
     /**
      * Constructor por defecto
      */
@@ -40,12 +38,10 @@ public class ComentarioDTO {
     public ComentarioDTO(Long id, String user, String userPhoto, int stars, String comment, Long id_evento) {
         super();
         this.id = id;
-        this.user = user;
         this.userPhoto = userPhoto;
         this.stars = stars;
-        this.date = new Date().getTime();
+        this.date = new Date();
         this.comment = comment;
-        this.id_evento=id_evento;
     }
     
     /**
@@ -60,33 +56,6 @@ public class ComentarioDTO {
      */
     public void setId(Long id) {
         this.id = id;
-    }
-    /**
-     * @return the id_evento
-     */
-    public Long getIdEvento() {
-        return id_evento;
-    }
-
-    /**
-     * @param id the id_evento to set
-     */
-    public void setIdEvento(Long id) {
-        this.id_evento = id;
-    }
-
-    /**
-     * @return the user
-     */
-    public String getUser() {
-        return user;
-    }
-
-    /**
-     * @param user the user to set
-     */
-    public void setUser(String user) {
-        this.user = user;
     }
 
     /**
@@ -120,14 +89,14 @@ public class ComentarioDTO {
     /**
      * @return the date
      */
-    public Long getDate() {
+    public Date getDate() {
         return date;
     }
 
     /**
      * @param date the date to set
      */
-    public void setDate(Long date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 
@@ -150,7 +119,7 @@ public class ComentarioDTO {
      */
     @Override
     public String toString() {
-        return "{id:" + id + ",\n user:'" + user + "',\n userPhoto:'" + userPhoto
+        return "{id:" + id + ",\n userPhoto:'" + userPhoto
                 +"', \n stars:" + stars + ",\n date:" + date + ",\n comment:'" + comment + "'}";
     }
 

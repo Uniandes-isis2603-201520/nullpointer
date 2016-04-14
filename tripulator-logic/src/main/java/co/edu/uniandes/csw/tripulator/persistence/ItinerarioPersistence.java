@@ -9,6 +9,7 @@ import co.edu.uniandes.csw.tripulator.entities.ItinerarioEntity;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -17,6 +18,7 @@ import javax.persistence.Query;
  *
  * @author Antonio de la Vega
  */
+@Stateless
 public class ItinerarioPersistence {
     
         private static final Logger logger = Logger.getLogger(ItinerarioPersistence.class.getName());

@@ -21,7 +21,7 @@ public class ViajeroLogic implements IViajeroLogic {
     @Inject
     private ViajeroPersistence persistence;
 
-    @Inject
+    //@Inject
    // IItinerarioLogic itinerarioLogic;
 
     //@Inject

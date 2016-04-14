@@ -27,26 +27,12 @@ import javax.persistence.TemporalType;
 public class ComentarioEntity extends BaseEntity implements Serializable{
     
     private String comment;
-    private Long id;
-    private String user;
+   
+   
     private String userPhoto;
     private int stars;
-    private Long idEvento;
-    private Long date;
-    
-    /**
-     * @return Devuelve el comentario
-     */
-    public String getComentario() {
-        return getComment();
-    }
-    
-    /**
-     * @return Devuelve el usuario
-     */
-    public String getUser() {
-        return user;
-    }
+    @Temporal(TemporalType.DATE)
+    private Date date;
 
     /**
      * @return the comment
@@ -60,27 +46,6 @@ public class ComentarioEntity extends BaseEntity implements Serializable{
      */
     public void setComment(String comment) {
         this.comment = comment;
-    }
-
-    /**
-     * @return the id
-     */
-    public Long getId() {
-        return id;
-    }
-
-    /**
-     * @param id the id to set
-     */
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    /**
-     * @param user the user to set
-     */
-    public void setUser(String user) {
-        this.user = user;
     }
 
     /**
@@ -112,30 +77,18 @@ public class ComentarioEntity extends BaseEntity implements Serializable{
     }
 
     /**
-     * @return the idEvento
-     */
-    public Long getIdEvento() {
-        return idEvento;
-    }
-
-    /**
-     * @param idEvento the idEvento to set
-     */
-    public void setIdEvento(Long idEvento) {
-        this.idEvento = idEvento;
-    }
-
-    /**
      * @return the date
      */
-    public Long getDate() {
+    public Date getDate() {
         return date;
     }
 
     /**
      * @param date the date to set
      */
-    public void setDate(Long date) {
+    public void setDate(Date date) {
         this.date = date;
     }
+    
+
 }

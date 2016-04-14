@@ -38,9 +38,7 @@ public class ComentarioConverter {
         if (entity != null) {
             ComentarioDTO dto = new ComentarioDTO();
             dto.setId(entity.getId());
-            dto.setUser(entity.getUser());
-            dto.setIdEvento(entity.getIdEvento());
-            dto.setComment(entity.getComentario());
+            dto.setComment(entity.getComment());
             dto.setStars(entity.getStars());
             dto.setDate(entity.getDate());
             dto.setUserPhoto(entity.getUserPhoto());
@@ -83,9 +81,7 @@ public class ComentarioConverter {
         if (entity != null) {
             ComentarioDTO dto = new ComentarioDTO();
             dto.setId(entity.getId());
-            dto.setUser(entity.getUser());
-            dto.setIdEvento(entity.getIdEvento());
-            dto.setComment(entity.getComentario());
+            dto.setComment(entity.getComment());
             dto.setStars(entity.getStars());
             dto.setDate(entity.getDate());
             dto.setUserPhoto(entity.getUserPhoto());
@@ -109,8 +105,6 @@ public class ComentarioConverter {
         if (dto != null) {
             ComentarioEntity entity = new ComentarioEntity();
             entity.setId(dto.getId());
-            entity.setUser(dto.getUser());
-            entity.setIdEvento(dto.getIdEvento());
             entity.setComment(dto.getComment());
             entity.setStars(dto.getStars());
             entity.setDate(dto.getDate());

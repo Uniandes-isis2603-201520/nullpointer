@@ -5,6 +5,7 @@
  */
 package co.edu.uniandes.nullpointer.rest.tripulator.resources;
 
+import co.edu.uniandes.csw.tripulator.api.IComentarioLogic;
 import co.edu.uniandes.csw.tripulator.ejbs.ComentarioLogic;
 import co.edu.uniandes.csw.tripulator.exceptions.BusinessLogicException;
 import co.edu.uniandes.nullpointer.rest.tripulator.dtos.ComentarioDTO;
@@ -33,7 +34,7 @@ public class ComentarioResource {
 
     
 	@Inject
-	ComentarioLogic comentarioLogic;
+	IComentarioLogic comentarioLogic;
 
 	/**
 	 * Obtiene el listado de comentarios. 

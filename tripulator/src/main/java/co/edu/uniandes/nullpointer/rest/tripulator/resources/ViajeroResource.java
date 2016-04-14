@@ -1,4 +1,5 @@
 package co.edu.uniandes.nullpointer.rest.tripulator.resources;
+import co.edu.uniandes.csw.tripulator.api.IViajeroLogic;
 import co.edu.uniandes.csw.tripulator.ejbs.ViajeroLogic;
 import co.edu.uniandes.csw.tripulator.entities.ViajeroEntity;
 import co.edu.uniandes.csw.tripulator.exceptions.BusinessLogicException;
@@ -35,7 +36,7 @@ public class ViajeroResource {
 
         private static final Logger logger = Logger.getLogger(ViajeroResource.class.getName());
         @Inject
-	ViajeroLogic viajeroLogic;
+	IViajeroLogic viajeroLogic;
     
     @GET
     public List<ViajeroDTO> getViajeros() throws TripulatorLogicException{

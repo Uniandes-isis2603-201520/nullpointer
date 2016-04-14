@@ -5,6 +5,7 @@
  */
 package co.edu.uniandes.nullpointer.rest.tripulator.resources;
 
+import co.edu.uniandes.csw.tripulator.api.IFotoLogic;
 import co.edu.uniandes.csw.tripulator.ejbs.FotoLogic;
 import co.edu.uniandes.csw.tripulator.exceptions.BusinessLogicException;
 import co.edu.uniandes.nullpointer.rest.tripulator.converters.FotoConverter;
@@ -32,7 +33,7 @@ import javax.ws.rs.Produces;
 public class FotoResource {
 
     @Inject
-    FotoLogic fotoLogic;
+    IFotoLogic fotoLogic;
 
     @GET
     public List<FotoDTO> getFotos(@PathParam("idViajero") Long idViajero,

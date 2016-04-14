@@ -26,8 +26,8 @@ public class EventoEntity extends BaseEntity implements Serializable {
     private Date fechaFin;
     private String description;
 
-    @OneToMany(mappedBy = "evento")
-    private List<ComentarioEntity> comentarios = new ArrayList<>();
+    //@OneToMany(mappedBy = "evento")
+    //private List<ComentarioEntity> comentarios = new ArrayList<>();
 
 
     public String getImage() {
@@ -70,6 +70,7 @@ public class EventoEntity extends BaseEntity implements Serializable {
         this.description = description;
     }
 
+    /**
     public List<ComentarioEntity> getComentarios() {
         return comentarios;
     }
@@ -77,5 +78,6 @@ public class EventoEntity extends BaseEntity implements Serializable {
     public void setComentarios(List<ComentarioEntity> comentarios) {
         this.comentarios = comentarios;
     }
+    **/
 }
 

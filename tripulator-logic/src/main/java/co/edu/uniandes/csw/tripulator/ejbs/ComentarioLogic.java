@@ -52,7 +52,7 @@ public class ComentarioLogic implements IComentarioLogic {
     @Override
     public ComentarioEntity createComentario(ComentarioEntity entity) throws BusinessLogicException {
         logger.info("Inicia proceso de creación de comentario");
-        if (!validateComentario(entity.getComentario())) {
+        if (!validateComentario(entity.getComment())) {
             throw new BusinessLogicException("El comentario es inválido");
         }
         persistence.create(entity);
@@ -63,7 +63,7 @@ public class ComentarioLogic implements IComentarioLogic {
     @Override
     public ComentarioEntity updateComentario(Long IdEvento, Long id, ComentarioEntity entity) throws BusinessLogicException {
         logger.info("Inicia proceso de edicion de comentario");
-        if (!validateComentario(entity.getComentario())) {
+        if (!validateComentario(entity.getComment())) {
             throw new BusinessLogicException("El comentario es inválido");
         }
         persistence.update(entity);

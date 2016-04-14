@@ -165,7 +165,6 @@ public class ComentarioLogicMock {
                 e.setDate(nuevo.getDate());
                 e.setComment(nuevo.getComment());
                 e.setStars(nuevo.getStars());
-                e.setUser(nuevo.getUser());
                 e.setUserPhoto(nuevo.getUserPhoto());
                 // retorna el comentario modificada
                 logger.info("Modificando comentario " + e);
