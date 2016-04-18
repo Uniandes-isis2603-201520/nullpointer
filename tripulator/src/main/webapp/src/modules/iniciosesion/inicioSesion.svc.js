@@ -5,7 +5,7 @@
 
     var mod = ng.module("inicioSesionModule");
 
-    mod.service("InicioSesionService", ["$http", "personContext", function ($http, context) {
+    mod.service("InicioSesionService", ["$http", "inicioContext", function ($http, context) {
             /**
              * Obtener la lista de persons.
              * Hace una petición GET con $http a /persons para obtener la lista

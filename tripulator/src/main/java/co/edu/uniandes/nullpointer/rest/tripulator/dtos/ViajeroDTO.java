@@ -31,12 +31,12 @@ public class ViajeroDTO {
         
     }
     
-    public ViajeroDTO(Long id, String nombre, String apellido,String email, String contrasena, String usuario) {
+    public ViajeroDTO(Long id, String nombre, String apellido,String email, String password, String usuario) {
         super();
         this.id = id;
         this.nombre = nombre;
         this.apellido = apellido;
-        this.password = contrasena;
+        this.password = password;
         this.usuario = usuario;
         this.email = email;
     }

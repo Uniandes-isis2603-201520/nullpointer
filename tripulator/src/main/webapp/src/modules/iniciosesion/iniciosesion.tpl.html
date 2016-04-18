@@ -39,9 +39,23 @@
 
             <form class="form-inline text-center" novalidate name="form"  role="form" ng-submit="ctrl.saveRecord()">
                 <div class="form-group">
-                    <h4 class="text-center" >Username</h4>
-                    <input type="text" placeholder="Username" class="form-control col-xs-12 text-center" id="sinput"ng-model="currentRecord.username"/>
+                    <h4  class="text-center" >Nombre</h4>
+
+                <div class="form-group">
+
+                    <input type="text" placeholder="Nombre" class="form-control col-xs-12 text-center" id="sinput"ng-model="currentRecord.nombre"/>
                 </div>
+                    <h4  class="text-center" >Apellido</h4>
+
+                <div class="form-group">
+
+                    <input type="text" placeholder="apellido" class="form-control col-xs-12 text-center" id="sinput"ng-model="currentRecord.apellido"/>
+                </div>
+                    
+                    <h4 class="text-center" >Username</h4>
+                    <input type="text" placeholder="Username" class="form-control col-xs-12 text-center" id="sinput"ng-model="currentRecord.usuario"/>
+                </div>
+                
 
                 <h4  class="text-center" >E-Mail</h4>
 

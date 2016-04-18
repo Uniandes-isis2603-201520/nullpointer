@@ -11,7 +11,9 @@
             var self = this;
             $scope.currentRecord = {
                     id: 0,
-                    username: '', 
+                    nombre:'',
+                    apellido:'',
+                    usuario: '', 
                     email: '',
                     password:''
                 };
@@ -48,7 +50,6 @@
              */
 
             this.fetchRecords = function () {
-                console.log("llegue1");
                 return svc.fetchRecords().then(function (response) {
                     $scope.records = response.data;
                     $scope.currentRecord = {};
@@ -62,7 +63,6 @@
                 });
             };
              this.deleteRecord = function (username) {
-                 console.log("llegued");
                 return svc.deleteRecord(username).then(function () {
                     self.fetchRecords();
                 });
