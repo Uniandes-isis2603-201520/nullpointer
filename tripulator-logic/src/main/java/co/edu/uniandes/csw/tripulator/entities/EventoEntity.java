@@ -10,6 +10,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
@@ -27,8 +28,8 @@ public class EventoEntity extends BaseEntity implements Serializable {
     private String description;
     private String ciudad;
 
-    //@OneToMany(mappedBy = "evento")
-    //private List<ComentarioEntity> comentarios = new ArrayList<>();
+    @OneToMany(mappedBy = "evento", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ComentarioEntity> comentarios = new ArrayList<>();
 
 
     public String getImage() {
@@ -84,10 +85,7 @@ public class EventoEntity extends BaseEntity implements Serializable {
     public void setCiudad(String ciudad) {
         this.ciudad = ciudad;
     }
-    
-    
 
-    /**
     public List<ComentarioEntity> getComentarios() {
         return comentarios;
     }
@@ -95,6 +93,5 @@ public class EventoEntity extends BaseEntity implements Serializable {
     public void setComentarios(List<ComentarioEntity> comentarios) {
         this.comentarios = comentarios;
     }
-    **/
 }
 

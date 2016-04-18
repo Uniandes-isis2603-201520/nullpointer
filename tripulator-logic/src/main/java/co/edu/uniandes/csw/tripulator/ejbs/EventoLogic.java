@@ -20,8 +20,6 @@ public class EventoLogic implements IEventoLogic {
     @Inject
     private EventoPersistence persistence;
 
-    //@Inject
-    //private ComentarioPersistence comentarioPersistence;
 
     @Override
     public List<EventoEntity> getEventos() {
