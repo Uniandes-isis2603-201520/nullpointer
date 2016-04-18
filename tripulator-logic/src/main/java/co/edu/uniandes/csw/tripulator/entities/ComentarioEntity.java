@@ -17,6 +17,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import uk.co.jemos.podam.common.PodamExclude;
 /**
  *
  * @author Daniel Delgado
@@ -25,14 +26,18 @@ import javax.persistence.TemporalType;
 @Entity
 
 public class ComentarioEntity extends BaseEntity implements Serializable{
-    
+
     private String comment;
-   
-   
+
+
     private String userPhoto;
     private int stars;
     @Temporal(TemporalType.DATE)
     private Date date;
+
+    @ManyToOne
+    @PodamExclude
+    private EventoEntity evento;//daniel, le habia faltado esto
 
     /**
      * @return the comment
@@ -89,6 +94,6 @@ public class ComentarioEntity extends BaseEntity implements Serializable{
     public void setDate(Date date) {
         this.date = date;
     }
-    
+
 
 }
