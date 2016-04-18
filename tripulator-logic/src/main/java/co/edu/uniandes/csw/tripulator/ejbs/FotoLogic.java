@@ -36,17 +36,6 @@ public class FotoLogic implements IFotoLogic{
         return fotos;
     }
 
-    @Override
-    public FotoEntity getFoto(Long idViajero, Long idItinerario, Long id) throws BusinessLogicException {
-        logger.log(Level.INFO, "Inicia proceso de consultar foto con id={0}", id);
-        FotoEntity foto = persistence.find(idViajero, idItinerario, id);
-        if (foto == null) {
-            logger.log(Level.SEVERE, "La foto con el id {0} no existe", id);
-            throw new BusinessLogicException("La foto solicitada no existe");
-        }
-        logger.log(Level.INFO, "Termina proceso de consultar foto con id={0}", id);
-        return foto;
-    }
 
     @Override
     public FotoEntity createFoto(Long idViajero, Long idItinerario, FotoEntity entity) {
