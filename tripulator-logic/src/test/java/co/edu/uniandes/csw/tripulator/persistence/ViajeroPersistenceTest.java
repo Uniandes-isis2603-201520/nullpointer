@@ -36,7 +36,7 @@ public class ViajeroPersistenceTest {
     }
 
     @Inject
-    private ViajeroPersistence authorPersistence;
+    private ViajeroPersistence viajeroPersistence;
 
     @PersistenceContext
     private EntityManager em;
@@ -81,7 +81,7 @@ public class ViajeroPersistenceTest {
     @Test
     public void createViajeroTest() {
         ViajeroEntity newEntity = factory.manufacturePojo(ViajeroEntity.class);
-        ViajeroEntity result = authorPersistence.create(newEntity);
+        ViajeroEntity result = viajeroPersistence.create(newEntity);
 
         Assert.assertNotNull(result);
 
@@ -92,7 +92,7 @@ public class ViajeroPersistenceTest {
 
     @Test
     public void getViajerosTest() {
-        List<ViajeroEntity> list = authorPersistence.findAll();
+        List<ViajeroEntity> list = viajeroPersistence.findAll();
         Assert.assertEquals(data.size(), list.size());
         for (ViajeroEntity ent : list) {
             boolean found = false;
@@ -108,7 +108,7 @@ public class ViajeroPersistenceTest {
     @Test
     public void getViajeroTest() {
         ViajeroEntity entity = data.get(0);
-        ViajeroEntity newEntity = authorPersistence.find(entity.getId());
+        ViajeroEntity newEntity = viajeroPersistence.find(entity.getId());
         Assert.assertNotNull(newEntity);
         Assert.assertEquals(entity.getName(), newEntity.getName());
         Assert.assertEquals(entity.getApellido(), newEntity.getApellido());
@@ -122,7 +122,7 @@ public class ViajeroPersistenceTest {
     @Test
     public void deleteViajeroTest() {
         ViajeroEntity entity = data.get(0);
-        authorPersistence.delete(entity.getId());
+        viajeroPersistence.delete(entity.getId());
         ViajeroEntity deleted = em.find(ViajeroEntity.class, entity.getId());
         Assert.assertNull(deleted);
     }
@@ -134,7 +134,7 @@ public class ViajeroPersistenceTest {
 
         newEntity.setId(entity.getId());
 
-        authorPersistence.update(newEntity);
+        viajeroPersistence.update(newEntity);
 
         ViajeroEntity resp = em.find(ViajeroEntity.class, entity.getId());
 

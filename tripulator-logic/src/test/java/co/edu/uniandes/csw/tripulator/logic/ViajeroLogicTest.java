@@ -7,8 +7,6 @@ import co.edu.uniandes.csw.tripulator.entities.ItinerarioEntity;
 import co.edu.uniandes.csw.tripulator.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.tripulator.persistence.ViajeroPersistence;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import java.util.Random;
 import javax.inject.Inject;
@@ -44,7 +42,7 @@ public class ViajeroLogicTest {
 
     private List<ViajeroEntity> data = new ArrayList<ViajeroEntity>();
 
-    private List<ItinerarioEntity> itinerariosData = new ArrayList<>();
+    private List<ItinerarioEntity> itinerariosData = new ArrayList<ItinerarioEntity>();
 
     @Deployment
     public static JavaArchive createDeployment() {
@@ -75,20 +73,26 @@ public class ViajeroLogicTest {
     }
 
     private void clearData() {
-        //em.createQuery("delete from ItinerarioEntity").executeUpdate();
+        em.createQuery("delete from ItinerarioEntity").executeUpdate();
         em.createQuery("delete from ViajeroEntity").executeUpdate();
     }
 
-    private void insertData() {
-        
-
+    private void insertData(){
         for (int i = 0; i < 3; i++) {
             ViajeroEntity entity = factory.manufacturePojo(ViajeroEntity.class);
-
             em.persist(entity);
-            data.add(entity);
+            data.add(entity);  
+            
+            for(int j = 0; j<3;j++)
+            {
+                ItinerarioEntity itinerarioentity = factory.manufacturePojo(ItinerarioEntity.class);
+                em.persist(itinerarioentity);
+                data.get(i).addItinerario(itinerarioentity);
+                
+            }
             
         }
+        System.out.println(data.get(0).getId());
     }
    
     @Test
@@ -126,9 +130,11 @@ public class ViajeroLogicTest {
 
     @Test
     public void getViajeroTest() throws BusinessLogicException {
+        System.out.println(data.get(0).getId());
+        ViajeroEntity expected = em.find(ViajeroEntity.class, data.get(0).getId());
         ViajeroEntity result = viajeroLogic.getViajero(data.get(0).getId());
 
-        ViajeroEntity expected = em.find(ViajeroEntity.class, data.get(0).getId());
+        
 
         Assert.assertNotNull(expected);
         Assert.assertNotNull(result);
@@ -142,7 +148,8 @@ public class ViajeroLogicTest {
 
     @Test
     public void deleteViajeroTest() {
-        ViajeroEntity entity = data.get(1);
+        insertData();
+        ViajeroEntity entity = data.get(0);
         viajeroLogic.deleteViajero(entity.getId());
         ViajeroEntity expected = em.find(ViajeroEntity.class, entity.getId());
         Assert.assertNull(expected);
@@ -167,6 +174,15 @@ public class ViajeroLogicTest {
         Assert.assertEquals(expected.getEmail(), resp.getEmail());
         Assert.assertEquals(expected.getUsuario(), resp.getUsuario());
     }
+    
+    @Test
+    public void listItinerariosTest() {
+        List<ItinerarioEntity> list = viajeroLogic.getItinerarios(data.get(0).getId());
+        ViajeroEntity expected = em.find(ViajeroEntity.class, data.get(0).getId());
+
+        Assert.assertNotNull(expected);
+        Assert.assertEquals(expected.getItinerarios().size(), list.size());
+    }
 
     /**
     @Test
@@ -186,14 +202,7 @@ public class ViajeroLogicTest {
         Assert.assertEquals(expected.getImage(), response.getImage());
     }
 
-    @Test
-    public void listItinerariosTest() {
-        List<ItinerarioEntity> list = viajeroLogic.getItinerarios(data.get(0).getId());
-        ViajeroEntity expected = em.find(ViajeroEntity.class, data.get(0).getId());
-
-        Assert.assertNotNull(expected);
-        Assert.assertEquals(expected.getItinerarios().size(), list.size());
-    }
+    
 
     @Test
     public void addItinerariosTest() {

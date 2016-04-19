@@ -5,9 +5,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
+import uk.co.jemos.podam.common.PodamExclude;
+
 
 @Entity
 public class ViajeroEntity extends BaseEntity implements Serializable {
@@ -19,12 +19,9 @@ public class ViajeroEntity extends BaseEntity implements Serializable {
     private String usuario;
     private String password;
     
-
-    @ManyToMany(mappedBy = "viajeros")
-    //private List<ItinerarioEntity> itinerarios = new ArrayList<>();
-
-   
-
+    @OneToMany
+    @PodamExclude
+    private List<ItinerarioEntity> itinerarios = new ArrayList<>();
     
     public String getApellido() {
         return apellido;
@@ -58,12 +55,16 @@ public class ViajeroEntity extends BaseEntity implements Serializable {
         this.password = password;
     }
 
-   // public List<ItinerarioEntity> getItinerarios() {
-   //     return itinerarios;
-   // }
+    public List<ItinerarioEntity> getItinerarios() {
+        return itinerarios;
+    }
 
-   // public void setItinerarios(List<ItinerarioEntity> itinerarios) {
-   //     this.itinerarios = itinerarios;
-   // }
+    public void setItinerarios(List<ItinerarioEntity> itinerarios) {
+        this.itinerarios = itinerarios;
+    }
+    
+    public void addItinerario(ItinerarioEntity itinerario){
+        itinerarios.add(itinerario);
+    }
 
 }
