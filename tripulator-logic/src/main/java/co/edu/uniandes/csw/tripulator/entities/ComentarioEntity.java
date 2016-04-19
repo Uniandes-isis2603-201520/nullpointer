@@ -95,5 +95,11 @@ public class ComentarioEntity extends BaseEntity implements Serializable{
         this.date = date;
     }
 
+    public void setEvento(EventoEntity evento){
+        this.evento = evento;
+    }
+    public EventoEntity getEvento(){
+        return evento;
+    }
 
 }
