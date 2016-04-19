@@ -148,7 +148,6 @@ public class ViajeroLogicTest {
 
     @Test
     public void deleteViajeroTest() {
-        insertData();
         ViajeroEntity entity = data.get(0);
         viajeroLogic.deleteViajero(entity.getId());
         ViajeroEntity expected = em.find(ViajeroEntity.class, entity.getId());
