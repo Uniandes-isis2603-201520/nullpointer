@@ -20,8 +20,6 @@ public class EventoLogic implements IEventoLogic {
     @Inject
     private EventoPersistence persistence;
 
-    //@Inject
-    //private ComentarioPersistence comentarioPersistence;
 
     @Override
     public List<EventoEntity> getEventos() {
@@ -86,6 +84,35 @@ public class EventoLogic implements IEventoLogic {
         //ComentarioEntity book = comentarioPersistence.find(comentarioId);
         //book.setEvento(null);
         //eventoEntity.getComentarios().remove(book);
+    }
+
+    @Override
+    public EventoEntity createEvento(EventoEntity entity) throws BusinessLogicException {
+        logger.info("Inicia proceso de creación de libro");
+        if (entity.getFechaInicio().after(entity.getFechaFin())) {
+            throw new BusinessLogicException("El ISBN es inválido");
+        }
+        persistence.create(entity);
+        logger.info("Termina proceso de creación de libro");
+        return entity;
+    }
+
+    @Override
+    public EventoEntity updateEvento(EventoEntity entity) throws BusinessLogicException {
+        logger.log(Level.INFO, "Inicia proceso de actualizar libro con id={0}", entity.getId());
+        if (entity.getFechaInicio().after(entity.getFechaFin())) {
+            throw new BusinessLogicException("La fecha de inicio debe ser anterior a la fecha final");
+        }
+        EventoEntity newEntity = persistence.update(entity);
+        logger.log(Level.INFO, "Termina proceso de actualizar libro con id={0}", entity.getId());
+        return newEntity;
+    }
+
+    @Override
+    public void deleteEvento(Long id) {
+        logger.log(Level.INFO, "Inicia proceso de borrar libro con id={0}", id);
+        persistence.delete(id);
+        logger.log(Level.INFO, "Termina proceso de borrar libro con id={0}", id);
     }
 
 }

@@ -17,10 +17,9 @@ public interface IFotoLogic {
     
     public List<FotoEntity> getFotos(Long idViajero, Long idItinerario);
 
-    public FotoEntity getFoto(Long idViajero, Long idItinerario, Long id) throws BusinessLogicException;
-
     public FotoEntity createFoto(Long idViajero, Long idItinerario, FotoEntity entity);
 
     public void deleteFoto(Long idViajero, Long idItineario, Long id);
     
 }
+  

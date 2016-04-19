@@ -1,4 +1,5 @@
 /*
+
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -17,6 +18,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import uk.co.jemos.podam.common.PodamExclude;
 /**
  *
  * @author Daniel Delgado
@@ -25,14 +27,21 @@ import javax.persistence.TemporalType;
 @Entity
 
 public class ComentarioEntity extends BaseEntity implements Serializable{
-    
+
     private String comment;
-   
-   
+
+
     private String userPhoto;
-    private int stars;
+
+    private Integer stars;
+
     @Temporal(TemporalType.DATE)
+    @PodamExclude
     private Date date;
+
+    @ManyToOne
+    @PodamExclude
+    private EventoEntity evento;
 
     /**
      * @return the comment
@@ -72,7 +81,7 @@ public class ComentarioEntity extends BaseEntity implements Serializable{
     /**
      * @param stars the stars to set
      */
-    public void setStars(int stars) {
+    public void setStars(Integer stars) {
         this.stars = stars;
     }
 
@@ -89,6 +98,19 @@ public class ComentarioEntity extends BaseEntity implements Serializable{
     public void setDate(Date date) {
         this.date = date;
     }
-    
+
+    /**
+     * @return the evento
+     */
+    public EventoEntity getEvento() {
+        return evento;
+    }
+
+    /**
+     * @param evento the evento to set
+     */
+    public void setEvento(EventoEntity evento) {
+        this.evento = evento;
+    }
 
 }

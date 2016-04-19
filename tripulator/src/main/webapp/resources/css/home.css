@@ -26,6 +26,12 @@
     margin-left: 0px;
 }
 
+#cancel-ok h3{
+    display: inline;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
 #container{
 	color: white;
 	width: 230px;
