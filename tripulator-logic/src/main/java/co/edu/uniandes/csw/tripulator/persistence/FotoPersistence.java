@@ -27,11 +27,6 @@ public class FotoPersistence {
     @PersistenceContext(unitName = "TripulatorPU")
     protected EntityManager em;
 
-    public FotoEntity find(Long idViajero, Long idItinerario, Long id) {
-        logger.log(Level.INFO, "Consultando foto con id={0}", id);
-        return em.find(FotoEntity.class, id);
-    }
-
     public List<FotoEntity> findAll(Long idViajero, Long idItinerario) {
         logger.info("Consultando todos las fotos");
         Query q = em.createQuery("select u from FotoEntity u");

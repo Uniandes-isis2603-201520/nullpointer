@@ -12,21 +12,9 @@
          * @returns {promise} promise para leer la respuesta del servidor}
          * Devuelve una lista de objetos de foto con sus atributos
          */
-        this.fetchRecords = function () {
+        this.fetchRecords = function (idViajero, idItinerario) {
            
-            return $http.get(context);
-        };
-
-        /**
-         * Obtener una foto.
-         * Hace una petición GET a /foto/:id para obtener
-         * los datos de un registro específico de fotos
-         * @param {number} id del registro a obtener
-         * @returns {promise} promise para leer la respuesta del servidor
-         * Devuelve un objeto de foto con sus atributos y reviews
-         */
-        this.fetchRecord = function (id) {
-            return $http.get(context + "/" + id);
+            return $http.get(context+idViajero+"/itinerarios/"+idItinerario+"/fotos");
         };
 
         /**
@@ -39,10 +27,10 @@
          * @returns {promise} promise para leer la respuesta del servidor
          * Devuelve un objeto de fotos con sus datos incluyendo el id
          */
-        this.saveRecord = function (currentRecord) {
+        this.saveRecord = function (idViajero, idItinerario, currentRecord) {
             
             if (currentRecord.id) {
-                return $http.put(context + "/" + currentRecord.id, currentRecord);
+                return $http.put(context+idViajero+"/itinerarios/"+idItinerario+"/fotos/" + currentRecord.id, currentRecord);
             } else {
                
                 return $http.post(context, currentRecord);
@@ -55,8 +43,8 @@
          * @returns {promise} promise para leer la respuesta del servidor
          * No devuelve datos.
          */
-        this.deleteRecord = function (id) {
-            return $http.delete(context + "/" + id);
+        this.deleteRecord = function (idViajero, idItinerario, id) {
+            return $http.delete(context+idViajero+"/itinerarios/"+idItinerario+"/fotos/"+id);
         };
              
     }]);

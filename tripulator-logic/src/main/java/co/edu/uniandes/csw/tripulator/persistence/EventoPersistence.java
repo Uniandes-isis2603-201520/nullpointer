@@ -48,4 +48,22 @@ public class EventoPersistence {
         Query q = em.createQuery("select u from Evento Entity u where ciudad="+ciudad+" and fecha_inicio<="+fecha);
         return q.getResultList();
     }
+
+    public EventoEntity create(EventoEntity entity) {
+        logger.info("Creando un evento nuevo");
+        em.persist(entity);
+        logger.info("Evento creado");
+        return entity;
+    }
+
+    public EventoEntity update(EventoEntity entity) {
+        logger.log(Level.INFO, "Actualizando evento con id={0}", entity.getId());
+        return em.merge(entity);
+    }
+
+    public void delete(Long id) {
+        logger.log(Level.INFO, "Borrando evento con id={0}", id);
+        EventoEntity entity = em.find(EventoEntity.class, id);
+        em.remove(entity);
+    }
 }

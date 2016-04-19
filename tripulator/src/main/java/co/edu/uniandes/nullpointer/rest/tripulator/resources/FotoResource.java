@@ -42,22 +42,6 @@ public class FotoResource {
     }
 
     /**
-     * Obtiene una foto
-     *
-     * @param id identificador de la foto.
-     * @return foto encontrada.
-     * @throws co.edu.uniandes.nullpointer.rest.tripulator.exceptions.
-     * TripulatorLogicException cuando la foto no existe
-     */
-    @GET
-    @Path("{id: \\d+}")
-    public FotoDTO getFoto(@PathParam("idViajero") Long idViajero,
-            @PathParam("idItinerario") Long idItinerario,
-            @PathParam("id") Long id) throws TripulatorLogicException, BusinessLogicException {
-        return FotoConverter.fullEntity2DTO(fotoLogic.getFoto(idViajero, idItinerario, id) );
-    }
-
-    /**
      * Agrega fotos
      *
      * @param foto foto a agregar

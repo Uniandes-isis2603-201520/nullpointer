@@ -13,6 +13,12 @@ public interface IEventoLogic {
 
     public EventoEntity getEvento(Long id) throws BusinessLogicException;
 
+    public EventoEntity createEvento(EventoEntity entity) throws BusinessLogicException;
+
+    public EventoEntity updateEvento(EventoEntity entity) throws BusinessLogicException;
+
+    public void deleteEvento(Long id);
+
     public List<ComentarioEntity> getComentarios(Long comentarioId);
 
     public ComentarioEntity addComentario(Long comentarioId, Long eventolId);
