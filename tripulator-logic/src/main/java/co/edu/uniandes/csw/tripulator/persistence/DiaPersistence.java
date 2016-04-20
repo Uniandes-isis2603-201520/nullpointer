@@ -51,7 +51,6 @@ public class DiaPersistence {
 
     public List<DiaEntity> findAll() {
         logger.info("Consultando todos los días");
-        //TODO Definir como se accede a los días.
         Query q = em.createQuery("select u from DiaEntity u");
         return q.getResultList();
     }
