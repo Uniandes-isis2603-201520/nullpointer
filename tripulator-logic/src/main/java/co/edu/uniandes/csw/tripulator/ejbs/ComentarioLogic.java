@@ -30,7 +30,7 @@ public class ComentarioLogic implements IComentarioLogic {
     private ComentarioPersistence persistence;
 
     @Override
-    public List<ComentarioEntity> getComentarios(Long idEvento) {
+    public List<ComentarioEntity> getComentarios() {
         logger.info("Inicia proceso de consultar todos los comentarios");
         List<ComentarioEntity> comentarios = persistence.findAll();
         logger.info("Termina proceso de consultar todos los comentarios");
@@ -61,7 +61,7 @@ public class ComentarioLogic implements IComentarioLogic {
     }
     
     @Override
-    public ComentarioEntity updateComentario(Long IdEvento, Long id, ComentarioEntity entity) throws BusinessLogicException {
+    public ComentarioEntity updateComentario(ComentarioEntity entity) throws BusinessLogicException {
         logger.info("Inicia proceso de edicion de comentario");
         if (!validateComentario(entity.getComment())) {
             throw new BusinessLogicException("El comentario es inválido");
@@ -72,7 +72,7 @@ public class ComentarioLogic implements IComentarioLogic {
     }
 
     @Override
-    public void deleteComentario(Long idEvento, Long id) {
+    public void deleteComentario(Long id) {
         logger.log(Level.INFO, "Inicia proceso de borrar comentario con id={0}", id);
         persistence.delete(id);
         logger.log(Level.INFO, "Termina proceso de borrar comentario con id={0}", id);
