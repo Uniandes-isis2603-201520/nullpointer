@@ -12,6 +12,7 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.transaction.UserTransaction;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
@@ -216,5 +217,13 @@ public class EventoLogicTest {
         }catch(Exception e){
             Assert.fail(e.getLocalizedMessage());
         }
+    }
+
+    private DiaEntity getEventoDia(Long eventoId, Long diaId) {
+        Query q = em.createQuery("Select DISTINCT a from EventoEntity e join e.dias d where e.id = :eventoId and d.id=:diaId");
+        q.setParameter("bookId", eventoId);
+        q.setParameter("authorId", diaId);
+
+        return (DiaEntity) q.getSingleResult();
     }
 }
