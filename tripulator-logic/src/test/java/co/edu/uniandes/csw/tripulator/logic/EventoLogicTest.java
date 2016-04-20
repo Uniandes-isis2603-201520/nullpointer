@@ -3,6 +3,7 @@ package co.edu.uniandes.csw.tripulator.logic;
 import co.edu.uniandes.csw.tripulator.api.IEventoLogic;
 import co.edu.uniandes.csw.tripulator.ejbs.EventoLogic;
 import co.edu.uniandes.csw.tripulator.entities.ComentarioEntity;
+import co.edu.uniandes.csw.tripulator.entities.DiaEntity;
 import co.edu.uniandes.csw.tripulator.entities.EventoEntity;
 import co.edu.uniandes.csw.tripulator.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.tripulator.persistence.EventoPersistence;
@@ -39,6 +40,9 @@ public class EventoLogicTest {
 
     private List<EventoEntity> data = new ArrayList<EventoEntity>();
 
+    private List<DiaEntity> diasData = new ArrayList<>();
+
+
     @Deployment
     public static JavaArchive createDeployment() {
         return ShrinkWrap.create(JavaArchive.class)
@@ -69,15 +73,26 @@ public class EventoLogicTest {
 
     private void clearData() {
         em.createQuery("delete from EventoEntity").executeUpdate();
+        em.createQuery("delete from ComentarioEntity").executeUpdate();
+        em.createQuery("delete from DiaEntity").executeUpdate();
     }
 
     private void insertData() {
+        for (int i = 0; i < 3; i++) {
+            DiaEntity dia = factory.manufacturePojo(DiaEntity.class);
+            System.out.println(dia.getCiudad());
+            em.persist(dia);
+            diasData.add(dia);
+        }
+
         for (int i = 0; i < 3; i++) {
             EventoEntity entity = factory.manufacturePojo(EventoEntity.class);
 
             for (ComentarioEntity item : entity.getComentarios()) {
                 item.setEvento(entity);
             }
+
+            entity.getDias().add(diasData.get(0));
             em.persist(entity);
             data.add(entity);
         }
@@ -168,6 +183,38 @@ public class EventoLogicTest {
             Assert.assertEquals(pojoEntity.getType(), resp.getType());
         } catch (BusinessLogicException ex) {
             Assert.fail(ex.getLocalizedMessage());
+        }
+    }
+
+        @Test
+    public void getDateTest() {
+        try{
+        EventoEntity entity = data.get(0);
+        DiaEntity authorEntity = diasData.get(0);
+        DiaEntity response = eventoLogic.getDia(entity.getId(), authorEntity.getId());
+
+        DiaEntity expected = getEventoDia(entity.getId(), authorEntity.getId());
+
+        Assert.assertNotNull(expected);
+        Assert.assertNotNull(response);
+        Assert.assertEquals(expected.getId(), response.getId());
+        Assert.assertEquals(expected.getName(), response.getName());
+        Assert.assertEquals(expected.getBirthDate(), response.getBirthDate());
+        }catch(Exception e){
+            Assert.fail(e.getLocalizedMessage());
+        }
+    }
+
+    @Test
+    public void listDatesTest() {
+        try{
+        List<DiaEntity> list = eventoLogic.getDias(data.get(0).getId());
+        EventoEntity expected = em.find(EventoEntity.class, data.get(0).getId());
+
+        Assert.assertNotNull(expected);
+        Assert.assertEquals(expected.getDias().size(), list.size());
+        }catch(Exception e){
+            Assert.fail(e.getLocalizedMessage());
         }
     }
 }

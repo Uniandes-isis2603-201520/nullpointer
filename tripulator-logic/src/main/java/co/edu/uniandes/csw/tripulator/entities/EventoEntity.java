@@ -13,6 +13,7 @@ import java.util.Date;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
@@ -33,15 +34,14 @@ public class EventoEntity extends BaseEntity implements Serializable {
     private Date fechaFin;
     private String description;
     private String ciudad;
-/*
-    @ManyToOne
+
+    @ManyToMany
     @PodamExclude
-    private DiaEntity dia;
-*/
+    private List<DiaEntity> dias = new ArrayList<>();
+
     @OneToMany(mappedBy = "evento", cascade = CascadeType.ALL, orphanRemoval = true)
     @PodamExclude
     private List<ComentarioEntity> comentarios = new ArrayList<>();
-
 
     public String getImage() {
         return image;
@@ -104,5 +104,13 @@ public class EventoEntity extends BaseEntity implements Serializable {
     public void setComentarios(List<ComentarioEntity> comentarios) {
         this.comentarios = comentarios;
     }
-}
 
+    public List<DiaEntity> getDias() {
+        return dias;
+    }
+
+    public void setDias(List<DiaEntity> dias) {
+        this.dias = dias;
+    }
+
+}

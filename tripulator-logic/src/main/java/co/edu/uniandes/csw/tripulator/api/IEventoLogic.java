@@ -1,6 +1,7 @@
 package co.edu.uniandes.csw.tripulator.api;
 import co.edu.uniandes.csw.tripulator.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.tripulator.entities.ComentarioEntity;
+import co.edu.uniandes.csw.tripulator.entities.DiaEntity;
 import co.edu.uniandes.csw.tripulator.entities.EventoEntity;
 import java.util.Date;
 import java.util.List;
@@ -19,10 +20,14 @@ public interface IEventoLogic {
 
     public void deleteEvento(Long id);
 
-    public List<ComentarioEntity> getComentarios(Long comentarioId);
+    public List<DiaEntity> getDias(Long eventoId) throws Exception;
 
-    public ComentarioEntity addComentario(Long comentarioId, Long eventolId);
+    public DiaEntity getDia(Long eventoId, Long diaId) throws Exception;
 
-    public void removeComentario(Long comentarioId, Long eventoId);
+    public DiaEntity addDia(Long diaId, Long eventoId) throws BusinessLogicException;
+
+    public void removeDia(Long diaId, Long eventoId) throws Exception;
+
+    public List<DiaEntity> replaceDias(List<DiaEntity> dias, Long eventoId) throws BusinessLogicException;
 
 }
