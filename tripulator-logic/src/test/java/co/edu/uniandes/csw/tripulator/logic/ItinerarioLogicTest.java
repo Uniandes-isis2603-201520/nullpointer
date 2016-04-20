@@ -79,8 +79,9 @@ public class ItinerarioLogicTest {
     }
 
     private void clearData() {
-        //em.createQuery("delete from ItinerarioEntity").executeUpdate();
+        em.createQuery("delete from FotoEntity").executeUpdate();
         em.createQuery("delete from ItinerarioEntity").executeUpdate();
+        em.createQuery("delete from DiaEntity").executeUpdate();
     }
 
     private void insertData() {
