@@ -46,8 +46,6 @@ public class EventoPersistence {
      */
     public List<EventoEntity> find(String ciudad, Date fecha, Date fechaLimite) {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-        String fechaString = formatter.format(fecha);
-        String fechaLimiteString = formatter.format(fechaLimite);
         String query = "select u from EventoEntity u where u.ciudad=:ciudad and u.fechaInicio between :fecha"+
                " and :fechaLimite";
         try{

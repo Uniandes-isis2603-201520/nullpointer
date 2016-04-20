@@ -5,7 +5,11 @@
  */
 package co.edu.uniandes.nullpointer.rest.tripulator.dtos;
 
+import co.edu.uniandes.csw.crud.api.podam.strategy.DateStrategy;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import uk.co.jemos.podam.common.PodamStrategyValue;
 
 /**
  *
@@ -20,11 +24,14 @@ public class EventoDTO {
     private String title; //String del nombre del evento
     private String image; //String de la ruta de la imagen del evento
     private String type;  //String del tipo del evento (sitio o evento)
-    private Long start;  //Long de la fecha de inicio
-    private Long end;    //Long de la fecha final
+    @PodamStrategyValue(DateStrategy.class)
+    private Date start;  //Long de la fecha de inicio
+    @PodamStrategyValue(DateStrategy.class)
+    private Date end;    //Long de la fecha final
     private String description;   //String de la descripcion
     private String ciudad;
-    //comments;  //Arreglo de comentarios
+
+    private List<ComentarioDTO> comentarios = new ArrayList<>();  //Arreglo de comentarios
 
     /**
      * Constructor por defecto
@@ -43,8 +50,8 @@ public class EventoDTO {
      * @param end long de fecha fin del evento
      * @param description descripcion del evento
      */
-    public EventoDTO(Long id, String title, String image, String type, Long start,
-            Long end, String description) {
+    public EventoDTO(Long id, String title, String image, String type, Date start,
+            Date end, String description) {
         super();
         this.id = id;
         this.title = title;
@@ -114,28 +121,28 @@ public class EventoDTO {
     /**
      * @return the start
      */
-    public Long getStart() {
+    public Date getStart() {
         return start;
     }
 
     /**
      * @param start the start to set
      */
-    public void setStart(Long start) {
+    public void setStart(Date start) {
         this.start = start;
     }
 
     /**
      * @return the end
      */
-    public Long getEnd() {
+    public Date getEnd() {
         return end;
     }
 
     /**
      * @param end the end to set
      */
-    public void setEnd(Long end) {
+    public void setEnd(Date end) {
         this.end = end;
     }
 
@@ -164,6 +171,20 @@ public class EventoDTO {
      */
     public void setCiudad(String ciudad) {
         this.ciudad = ciudad;
+    }
+
+    /**
+     * @return la ciudad
+     */
+    public List<ComentarioDTO> getComentarios() {
+        return comentarios;
+    }
+
+    /**
+     * @param comentario la nuevo comentario
+     */
+    public void setComentarios(List<ComentarioDTO> comentarios) {
+        this.comentarios = comentarios;
     }
 
     /**
