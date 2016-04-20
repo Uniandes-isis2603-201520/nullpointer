@@ -2,6 +2,8 @@
 
     var mod = ng.module("mainApp", [
         "googlechart",
+        "ngMaterial",
+        "ngMessages",
         "ui.router",
         "ngAnimate",
         "ui.bootstrap",

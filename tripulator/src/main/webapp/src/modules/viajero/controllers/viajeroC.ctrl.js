@@ -1,7 +1,9 @@
 (function (ng) {
     var mod = ng.module("viajeroModule");
-    mod.controller('ViajeroC', ['$scope', '$element', '$window', 'viajeroS', function ($scope, $element, $window, svc) {
+    mod.controller('ViajeroC', ['$scope', '$element', '$window', '$mdDialog', '$mdMedia', 'viajeroS',
+        function ($scope, $element, $window, $mdDialog, $mdMedia, svc) {
             var userId = 1;
+            var numTrips = 1;
             var self = this;
             $scope.trips = [];
             $scope.currentTrip;
@@ -65,10 +67,7 @@
             }
 
             function toggleMenu() {
-                angular.element("#menu-toggle").click(function (e) {
-                    e.preventDefault();
-                    angular.element("#wrapper").toggleClass("toggled");
-                });
+                angular.element("#wrapper").toggleClass("toggled");
             }
 
             this.showError = function (data) {
@@ -100,9 +99,10 @@
                     $scope.menuActions[0].active = true;
                 },
                         function (response) {
-                            alert("Please create a trip! You currently have none.");
                             $scope.menuOptions[0].active = true;
+                            initGeoChart();
                             toggleMenu();
+                            $scope.showNoTripAlert(response);
                         });
             };
 
@@ -118,6 +118,11 @@
             };
 
             $scope.selectOption = function (option) {
+                if (option.name === 'Create') {
+                    toggleMenu();
+                    initGeoChart();
+                    $scope.showNoTripAlert("none");
+                }
                 selectFromMenu(option);
             };
 
@@ -148,48 +153,300 @@
             this.getItinerarios();
             this.getItinerario(1);
 
-            $scope.chart = {
-                type: "GeoChart",
-                data: [
-                    ['Locale']
-                ],
-                options: {
-                    width: "100%",
-                    height: 500,
-                    chartArea: {
-                        left: 10,
-                        top: 10,
-                        bottom: 0,
-                        height: "100%"
-                    },
-                    colorAxis: {
-                        colors: ['#aec7e8', '#1f77b4']
-                    },
-                    displayMode: 'regions',
-                    enableRegionInteractivity: true
+
+            // CREATE A TRIP MODULE
+
+            /**
+             * Tracks whether the current chart has already a listener attached to it.
+             * @type Boolean
+             */
+            var firstClick;
+
+            /**
+             * Holds all chart elements.
+             */
+            $scope.chart;
+
+            /**
+             * Tracks the current create trip page the user is on.
+             */
+            $scope.optionScreen;
+
+            /**
+             * Object that holds an array of cities for each country the trip has.
+             */
+            $scope.tripDetails;
+
+            /**
+             * Initializes all variables associated with creating a new trip.
+             * @returns {undefined}
+             */
+            function initGeoChart() {
+                $scope.optionScreen = 1;
+                $scope.tripDetails = {};
+                firstClick = false;
+                $scope.chart = {
+                    type: "GeoChart",
+                    data: [
+                        ['Locale']
+                    ],
+                    options: {
+                        width: "100%",
+                        height: 500,
+                        chartArea: {
+                            left: 10,
+                            top: 10,
+                            bottom: 0
+                        },
+                        colorAxis: {
+                            colors: ['#aec7e8', '#1f77b4']
+                        },
+                        displayMode: 'regions',
+                        enableRegionInteractivity: true
+                    }
+                };
+            }
+
+            /**
+             * 
+             * @param {String} country
+             * @param {String} city
+             * @param {String} arrivalDate
+             * @param {String} departureDate
+             * @returns {undefined}
+             */
+            $scope.addCity = function (country, city, arrivalDate, departureDate) {
+                var citiesInCountry = $scope.tripDetails[country];
+                for (var i = 0; i < citiesInCountry.length; i++) {
+                    if (citiesInCountry[i].city === city &&
+                            citiesInCountry[i].arrivalDate === arrivalDate &&
+                            citiesInCountry[i].departureDate === departureDate) {
+                        return;
+                    }
+                }
+                citiesInCountry.push({
+                    country: country,
+                    city: city,
+                    arrivalDate: arrivalDate,
+                    departureDate: departureDate
+                });
+            };
+
+            /**
+             * Deletes a city it had already added.
+             * @param {type} city
+             * @returns {undefined}
+             */
+            $scope.deleteCity = function (city) {
+                var citiesInCountry = $scope.tripDetails[city.country];
+                alert("entro");
+                if (city.city === 'Add a city to visit')
+                    return;
+                for (var i = 0; i < citiesInCountry.length; i++) {
+                    if (citiesInCountry[i].city === city.city &&
+                            citiesInCountry[i].arrivalDate === city.arrivalDate &&
+                            citiesInCountry[i].departureDate === city.departureDate) {
+                        citiesInCountry.splice(i, 1);
+                    }
+                    alert(citiesInCountry[i].country + " " + city.country + "\n"
+                            + citiesInCountry[i].city + " " + city.city + "\n"
+                            + citiesInCountry[i].arrivalDate + " " + city.arrivalDate + "\n"
+                            + citiesInCountry[i].departureDate + " " + city.departureDate);
                 }
             };
 
-            $scope.readyHandler = function (chartWrapper) {
-                $window.google.visualization.events.addListener(chartWrapper.getChart(), 'regionClick', function (r) {
-                    $scope.regionClick(r);
-                });
+            /**
+             * Removes the first element from the data array since it contains
+             * the chart's metainfo header.
+             * @returns {Array}
+             */
+            $scope.getCountryData = function () {
+                return $scope.chart.data.slice(1, $scope.chart.data.length);
             };
+
+            /**
+             * Returns true if the city was already added. Otherwise, false.
+             * @param {type} city
+             * @returns {Boolean}
+             */
+            $scope.disableForm = function (city) {
+                return !(city === 'Add a city to visit');
+            };
+
+            /**
+             * Decides whether the geochart should be currently displayed.
+             * @returns {Boolean}
+             */
+            $scope.showChart = function () {
+                return $scope.optionScreen === 1;
+            };
+
+            /**
+             * Decides whether the arrow that moves back in the create trip page
+             * is shown.
+             * @returns {Boolean}
+             */
+            $scope.showPrevArrow = function () {
+                return $scope.optionScreen > 1;
+            };
+            /**
+             * Decides whether the arrow that moves forward in the create trip
+             * page is shown.
+             * @returns {Boolean}
+             */
+            $scope.showNextArrow = function () {
+                return $scope.optionScreen < 3;
+            };
+
+            /**
+             * Moves to the next create trip page.
+             * @returns {undefined}
+             */
+            $scope.nextPage = function (ev) {
+                firstClick = false;
+                if ($scope.optionScreen === 2) {
+                    $scope.showCreateTripConfirm(ev);
+                } else {
+                    $scope.optionScreen++;
+                }
+            };
+            /**
+             * Moves to the previous create trip page.
+             * @returns {undefined}
+             */
+            $scope.prevPage = function () {
+                $scope.optionScreen--;
+            };
+
+            /**
+             * Creates a listener for the chart.
+             * @param {type} chartWrapper
+             * @returns {undefined}
+             */
+            $scope.readyHandler = function (chartWrapper) {
+                if (!firstClick) {
+                    $window.google.visualization.events.addListener(chartWrapper.getChart(), 'regionClick', function (r) {
+                        $scope.regionClick(r);
+                    });
+                    firstClick = true;
+                }
+            };
+
+            /**
+             * Function to be called every time an event is triggered on the geochart.
+             * @param {type} region
+             * @returns {undefined}
+             */
             $scope.regionClick = function (region) {
                 var index = -1;
-                for(var i = 1; i<$scope.chart.data.length; i++){
+                for (var i = 1; i < $scope.chart.data.length; i++) {
                     var curCountry = region.region.toString();
                     var clickedCountry = $scope.chart.data[i].toString();
-                    if(curCountry === clickedCountry){
+                    if (curCountry === clickedCountry) {
                         index = i;
                     }
                 }
-                if(index > -1)
-                    $scope.chart.data.splice(index, 1);
-                else
-                    $scope.chart.data.push([ region.region ]);                
+                if (index > -1) {
+                    var deleted = $scope.chart.data.splice(index, 1).toString();
+                    $scope.tripDetails[deleted] = [];
+                } else {
+                    $scope.chart.data.push([region.region]);
+                    var regionString = region.region.toString();
+                    if (typeof $scope.tripDetails[regionString] === 'undefined') {
+                        $scope.tripDetails[regionString] = [];
+                        $scope.tripDetails[regionString].push({
+                            country: regionString,
+                            city: 'Add a city to visit',
+                            arrivalDate: 'Arrival date',
+                            departureDate: 'Departure date'
+                        });
+                    }
+                }
+                $scope.$apply();
             };
 
+            function finishCreation(){
+                toggleMenu();
+                $scope.menuOptions[0].active = false;
+            }
+            /**
+             * Given all the input, it will organize the data and generate a
+             * trip. (Compatible with ItinerarioDTO)
+             * @returns {undefined}
+             */
+            function getRelevantData() {
+                var completeTrip = [];
+                Object.keys($scope.tripDetails).forEach(function (key) {
+                    completeTrip.concat($scope.tripDetails[key]);
+                });
+
+                for (var i = 0; i < completeTrip.length; i++) {
+                    alert(completeTrip[i]);
+                }
+
+                completeTrip.sort(function (x, y) {
+                    return x.arrivalDate - y.arrivalDate;
+                });
+                for (var i = 0; i < completeTrip.length; i++) {
+                    alert(completeTrip[i]);
+                }
+
+                var fechaInicio = completeTrip[0];
+                var fechaFin = completeTrip[completeTrip.length - 1];
+                var nombre = "Not Supported";
+                var id = numTrips++;
+                var mapa = [];
+                var multimedia = [];
+                var planDias = []; // TO DO: Crear cada día de los rangos de fecha.
+
+                var itinerario = {
+                    id: id,
+                    nombre: nombre,
+                    fechaInicio: fechaInicio,
+                    fechaFin: fechaFin,
+                    planDias: planDias,
+                    multimedia: multimedia,
+                    mapa: mapa
+                };
+
+                return itinerario;
+            }
+
+            // DIALOG WINDOWS CONSTRUCTION
+            $scope.showNoTripAlert = function (ev) {
+                // Appending dialog to document.body to cover sidenav in docs app
+                // Modal dialogs should fully cover application
+                // to prevent interaction outside of dialog
+                $mdDialog.show(
+                        $mdDialog.alert()
+                        .parent(angular.element(document.querySelector('#popupContainer')))
+                        .clickOutsideToClose(true)
+                        .title('It appears you have no trips to see!')
+                        .textContent('We are going to start the creating process.')
+                        .ariaLabel('Alert Dialog Demo')
+                        .ok('Got it!')
+                        .targetEvent(ev)
+                        );
+            };
+
+            $scope.showCreateTripConfirm = function (ev) {
+                // Appending dialog to document.body to cover sidenav in docs app
+                var confirm = $mdDialog.confirm()
+                        .title('Would you like to create your trip?')
+                        .textContent('Make sure all the information you entered is correct.')
+                        .ariaLabel('Lucky day')
+                        .targetEvent(ev)
+                        .ok('Yes!')
+                        .cancel('Not yet');
+                $mdDialog.show(confirm).then(function () {
+                    finishCreation();
+                    svc.addItinerario(userId, getRelevantData());
+                    self.getItinerarios();
+                    self.getItinerario(1);
+                }, function () {
+                    alert("Algo anda muy mal!");
+                });
+            };
 
         }]);
 })(window.angular);
