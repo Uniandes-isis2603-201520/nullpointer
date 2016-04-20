@@ -21,11 +21,11 @@ public class ViajeroLogic implements IViajeroLogic {
     @Inject
     private ViajeroPersistence persistence;
 
-    //@Inject
-   // IItinerarioLogic itinerarioLogic;
+    @Inject
+    IItinerarioLogic itinerarioLogic;
 
-    //@Inject
-   // private ItinerarioPersistence itinerarioPersistence;
+    @Inject
+    private ItinerarioPersistence itinerarioPersistence;
 
     @Override
     public List<ViajeroEntity> getViajeros() {
@@ -74,47 +74,50 @@ public class ViajeroLogic implements IViajeroLogic {
     public List<ItinerarioEntity> getItinerarios(Long viajeroId) {
         return persistence.find(viajeroId).getItinerarios();
     }
-
-    //@Override
-    //public ItinerarioEntity addItinerario(Long itinerarioId, Long authorId) throws BusinessLogicException {
-    //    itinerarioLogic.addViajero(authorId, itinerarioId);
-    //    return itinerarioPersistence.find(itinerarioId);
-    //}
-
-   /* @Override
-    public void removeItinerario(Long itinerarioId, Long authorId) {
-        itinerarioLogic.removeViajero(authorId, itinerarioId);
-   }*/
-
-    /*@Override
-    public List<ItinerarioEntity> replaceItinerarios(List<ItinerarioEntity> itinerarios, Long authorId) throws BusinessLogicException {
-        List<ItinerarioEntity> itinerarioList = itinerarioPersistence.findAll();
-        ViajeroEntity author = persistence.find(authorId);
-        for (ItinerarioEntity itinerario : itinerarioList) {
-            if (itinerarios.contains(itinerario)) {
-                if (!itinerario.getViajeros().contains(author)) {
-                    itinerarioLogic.addViajero(authorId, itinerario.getId());
-                }
-            } else {
-                itinerarioLogic.removeViajero(authorId, itinerario.getId());
+    
+     @Override
+    public ItinerarioEntity getItinerario(Long viajeroId, Long itinerarioId) {
+        List<ItinerarioEntity> itinerarios = persistence.find(viajeroId).getItinerarios();
+        ItinerarioEntity itinerario = new ItinerarioEntity();
+        itinerario.setId(itinerarioId);
+        for(ItinerarioEntity iti : itinerarios)
+        {
+            if(iti.getId() == itinerario.getId())
+            {
+                return iti;
             }
         }
-        author.setItinerarios(itinerarios);
-        return author.getItinerarios();
+        return null;
+    }
+
+    @Override
+    public ItinerarioEntity addItinerario(ItinerarioEntity itinerario, Long viajeroId) throws BusinessLogicException {
+        ViajeroEntity viajero = getViajero(viajeroId);
+        viajero.addItinerario(itinerario);
+        return itinerarioPersistence.find(itinerario.getId());
+    }
+
+    @Override
+    public void removeItinerario(Long itinerarioId, Long viajeroId)  {
+        try {
+            ItinerarioEntity itinerario = getItinerario(viajeroId, itinerarioId);
+            ViajeroEntity viajero = getViajero(viajeroId);
+            viajero.removeItinerario(itinerario);
+            itinerarioPersistence.delete(itinerario.getId());
+        } catch (BusinessLogicException ex) {
+            Logger.getLogger(ViajeroLogic.class.getName()).log(Level.SEVERE, null, ex);
+        }
+   }
+
+    @Override
+    public List<ItinerarioEntity> replaceItinerarios(List<ItinerarioEntity> itinerarios, Long viajeroId) throws BusinessLogicException {
+        ViajeroEntity viajero = persistence.find(viajeroId);
+        viajero.setItinerarios(itinerarios);
+        return viajero.getItinerarios();
     }
 
     
 
-    @Override
-    public ItinerarioEntity getItinerario(Long authorId, Long itinerarioId) {
-        List<ItinerarioEntity> itinerarios = persistence.find(authorId).getItinerarios();
-        ItinerarioEntity itinerario = new ItinerarioEntity();
-        itinerario.setId(itinerarioId);
-        int index = itinerarios.indexOf(itinerario);
-        if (index >= 0) {
-            return itinerarios.get(index);
-        }
-        return null;
-    }
-*/
+   
+
 }
