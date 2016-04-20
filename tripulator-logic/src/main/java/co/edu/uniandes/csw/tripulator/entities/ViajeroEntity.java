@@ -66,5 +66,9 @@ public class ViajeroEntity extends BaseEntity implements Serializable {
     public void addItinerario(ItinerarioEntity itinerario){
         itinerarios.add(itinerario);
     }
+    
+    public void removeItinerario(ItinerarioEntity itinerario){
+        itinerarios.remove(itinerario);
+    }
 
 }
