@@ -7,6 +7,10 @@
   mod.controller("inicioSesionCtrl", ["$scope", "InicioSesionService", function ($scope, svc) {
 
 
+            var modal = document.getElementById("myModal");
+            
+         
+            
             $scope.buscar = -1;
             var self = this;
             $scope.currentRecord = {
@@ -20,9 +24,7 @@
             $scope.searchRecord = {};
             $scope.records = [];
 
-            //Variables para el controlador
-            this.readOnly = false;
-            this.editMode = false;
+            
             /*
              * Funcion createRecord emite un evento a los $scope hijos del controlador por medio de la
              * sentencia &broadcast ("nombre del evento", record), esto con el fin cargar la información de modulos hijos
@@ -30,12 +32,13 @@
              * Habilita el modo de edicion. El template de la lista cambia por el formulario.
              *
              */
-
+                
             
               this.saveRecord = function () {
                   console.log("llegues");
                     return svc.saveRecord($scope.currentRecord).then(function () {
                         self.fetchRecords();
+                        
                     });
             };
 

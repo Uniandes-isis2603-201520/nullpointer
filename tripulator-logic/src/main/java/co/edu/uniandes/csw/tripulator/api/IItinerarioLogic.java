@@ -5,6 +5,8 @@
  */
 package co.edu.uniandes.csw.tripulator.api;
 
+import co.edu.uniandes.csw.tripulator.entities.DiaEntity;
+import co.edu.uniandes.csw.tripulator.entities.FotoEntity;
 import co.edu.uniandes.csw.tripulator.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.tripulator.entities.ItinerarioEntity;
 import java.util.List;
@@ -24,7 +26,23 @@ public interface IItinerarioLogic {
     
     public void deleteItinerario(Long idVIajero, Long id);
     
-    /**
-     * Faltan los métodos que marcan relaciones con las otras entidades.
-     */
+    public List<DiaEntity> replaceDays(List<DiaEntity> dias,Long idViajero, Long itinerarioId);
+    
+    public List<FotoEntity> replacePhotos(List<FotoEntity> photos,Long idViajero, Long itinerarioId);
+    
+    public DiaEntity getDay(Long idViajero, Long itinerarioId, Long dayId);
+    
+    public FotoEntity getPhoto(Long idViajero, Long itinerarioId, Long photoId);
+    
+    public List<DiaEntity> getDays(Long idViajero, Long itinerarioId);
+    
+    public List<FotoEntity> getPhotos(Long idViajero, Long itinerarioId);
+    
+    public void removePhoto(Long viajeroId, Long itinerarioId, Long photoId);
+    
+    public void removeDay(Long viajeroId, Long itinerarioId, Long diaId);
+    
+    public DiaEntity addDay(Long viajeroId, Long itinerarioId, Long dayId);
+    
+    public FotoEntity addPhoto(Long viajeroId, Long itinerarioId, Long photoId);
 }

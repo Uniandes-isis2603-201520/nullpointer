@@ -37,5 +37,19 @@ public class FotoEntity extends BaseEntity implements Serializable{
     {
         this.src=src;
     }
+
+    /**
+     * @return the itinerario
+     */
+    public ItinerarioEntity getItinerario() {
+        return itinerario;
+    }
+
+    /**
+     * @param itinerario the itinerario to set
+     */
+    public void setItinerario(ItinerarioEntity itinerario) {
+        this.itinerario = itinerario;
+    }
     
 }

@@ -7,7 +7,11 @@ package co.edu.uniandes.csw.tripulator.ejbs;
 
 import co.edu.uniandes.csw.tripulator.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.tripulator.api.IItinerarioLogic;
+import co.edu.uniandes.csw.tripulator.entities.DiaEntity;
+import co.edu.uniandes.csw.tripulator.entities.FotoEntity;
 import co.edu.uniandes.csw.tripulator.entities.ItinerarioEntity;
+import co.edu.uniandes.csw.tripulator.persistence.DiaPersistence;
+import co.edu.uniandes.csw.tripulator.persistence.FotoPersistence;
 import co.edu.uniandes.csw.tripulator.persistence.ItinerarioPersistence;
 import java.util.List;
 import java.util.logging.Level;
@@ -26,6 +30,12 @@ public class ItinerarioLogic implements IItinerarioLogic {
     
     @Inject
     private ItinerarioPersistence itinerarioPersistence;
+    
+    @Inject
+    private FotoPersistence fotoPersistence;
+    
+    @Inject
+    private DiaPersistence diaPersistence;
         
     @Override
     public List<ItinerarioEntity> getItinerarios(Long idViajero){
@@ -70,4 +80,97 @@ public class ItinerarioLogic implements IItinerarioLogic {
         logger.log(Level.INFO, "Termina proceso de borrar itinerario con id={0}", id);
     }
     
+    @Override
+    public List<FotoEntity> getPhotos(Long idViajero, Long itinerarioId){
+        return itinerarioPersistence.find(itinerarioId).getFotos();
+    }
+    
+    @Override
+    public List<DiaEntity> getDays(Long idViajero, Long itinerarioId){
+        return itinerarioPersistence.find(itinerarioId).getDias();
+    }
+    
+    @Override
+    public FotoEntity getPhoto(Long idViajero, Long itinerarioId, Long photoId) {
+        List<FotoEntity> fotos = itinerarioPersistence.find(itinerarioId).getFotos();
+        FotoEntity fotoEntity = new FotoEntity();
+        fotoEntity.setId(photoId);
+        int index = fotos.indexOf(fotoEntity);
+        if (index >= 0) {
+            return fotos.get(index);
+        }
+        return null;
+    }
+    
+    @Override
+    public DiaEntity getDay(Long idViajero, Long itinerarioId, Long dayId) {
+        List<DiaEntity> dias = itinerarioPersistence.find(itinerarioId).getDias();
+        DiaEntity diaEntity = new DiaEntity();
+        diaEntity.setId(dayId);
+        int index = dias.indexOf(diaEntity);
+        if (index >= 0) {
+            return dias.get(index);
+        }
+        return null;
+    }
+    
+    @Override
+    public List<FotoEntity> replacePhotos(List<FotoEntity> photos,Long idViajero, Long itinerarioId) {
+        ItinerarioEntity itinerario = itinerarioPersistence.find(itinerarioId);
+        List<FotoEntity> photoList = fotoPersistence.findAll(idViajero, itinerarioId);
+        for (FotoEntity photo : photoList) {
+            if (photos.contains(photo)) {
+                photo.setItinerario(itinerario);
+            } else if (photo.getItinerario() != null && photo.getItinerario().equals(itinerario)) {
+                photo.setItinerario(null);
+            }
+        }
+        return photos;
+    }
+    
+    @Override
+    public List<DiaEntity> replaceDays(List<DiaEntity> dias,Long idViajero, Long itinerarioId) {
+        ItinerarioEntity itinerario = itinerarioPersistence.find(itinerarioId);
+        List<DiaEntity> diaList = diaPersistence.findAll();
+        for (DiaEntity dia : diaList) {
+            if (dias.contains(dia)) {
+                dia.setItinerario(itinerario);
+            } else if (dia.getItinerario() != null && dia.getItinerario().equals(itinerario)) {
+                dia.setItinerario(null);
+            }
+        }
+        return dias;
+    }
+    
+    @Override
+    public void removePhoto(Long viajeroId, Long itinerarioId, Long photoId) {
+        ItinerarioEntity itinerarioEntity = itinerarioPersistence.find(itinerarioId);
+        FotoEntity photo = fotoPersistence.find(photoId);
+        photo.setItinerario(null);
+        itinerarioEntity.getFotos().remove(photo);
+    }
+    
+    @Override
+    public void removeDay(Long viajeroId, Long itinerarioId, Long diaId) {
+        ItinerarioEntity itinerarioEntity = itinerarioPersistence.find(itinerarioId);
+        DiaEntity dia = diaPersistence.find(diaId);
+        dia.setItinerario(null);
+        itinerarioEntity.getDias().remove(dia);
+    }
+    
+    @Override
+    public FotoEntity addPhoto(Long viajeroId, Long itinerarioId, Long photoId) {
+        ItinerarioEntity itinerarioEntity = itinerarioPersistence.find(itinerarioId);
+        FotoEntity fotoEntity = fotoPersistence.find(photoId);
+        fotoEntity.setItinerario(itinerarioEntity);
+        return fotoEntity;
+    }
+    
+    @Override
+    public DiaEntity addDay(Long viajeroId, Long itinerarioId, Long dayId) {
+        ItinerarioEntity itinerarioEntity = itinerarioPersistence.find(itinerarioId);
+        DiaEntity diaEntity = diaPersistence.find(dayId);
+        diaEntity.setItinerario(itinerarioEntity);
+        return diaEntity;
+    }
 }
