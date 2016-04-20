@@ -10,6 +10,7 @@ import co.edu.uniandes.csw.tripulator.persistence.EventoPersistence;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -65,7 +66,9 @@ public class EventoLogicTest {
         } catch (Exception e) {
             e.printStackTrace();
             try {
+            System.out.println("ERROR VA A HACER ROLLBACK");
                 utx.rollback();
+            System.out.println("HIZO ROLLBACK");
             } catch (Exception e1) {
                 e1.printStackTrace();
             }
@@ -145,18 +148,23 @@ public class EventoLogicTest {
     @Test
     public void getEventosCiudadFecha() {
         try {
+            System.out.println("VA A EMPEZAR GETEVENTOSCIUDADFECHA");
             List<EventoEntity> eventos = eventoLogic.getEventos();
+            System.out.println("OBTIENE LISTA DE TODOS LOS EVENTOS");
             for (EventoEntity entity : eventos) {
                 List<EventoEntity> list = eventoLogic.getEventosCiudadFecha(entity.getCiudad(), entity.getFechaInicio());
+            System.out.println("OBTIENE LISTA DE TODOS LOS EVENTOS DE "+entity.getCiudad()+" CON FECHA "+entity.getFechaInicio());
                 boolean esta = false;
+                Date endOfDay = eventoLogic.getEndOfDay(entity.getFechaInicio());
                 for (EventoEntity actual : list) {
-                    if (((EventoLogic) eventoLogic).compareDay(actual.getFechaInicio(), entity.getFechaInicio()) != 0) {
+
+                    if (actual.getFechaInicio().before(entity.getFechaInicio()) || actual.getFechaInicio().after(endOfDay)) {
                         Assert.fail("La lista de eventos con fecha " + entity.getFechaInicio() + " no es correcta,"
                                 + " pues contiene un evento con fecha " + actual.getFechaInicio());
                     }
                     Assert.assertEquals("La lista obtenida contiene un evento de ciudad diferente a la buscada.",
                             entity.getCiudad(), actual.getCiudad());
-                    if (entity.getId() == actual.getId()) {
+                    if (Objects.equals(entity.getId(), actual.getId())) {
                         esta = true;
                     }
                 }
@@ -195,13 +203,13 @@ public class EventoLogicTest {
         }
     }
 
-    /**@Test
+    @Test
     public void deleteEventoTest() {
         EventoEntity entity = data.get(1);
         eventoLogic.deleteEvento(entity.getId());
         EventoEntity deleted = em.find(EventoEntity.class, entity.getId());
         Assert.assertNull(deleted);
-    }*/
+    }
 
     @Test
     public void updateEventoTest() {
@@ -267,9 +275,9 @@ public class EventoLogicTest {
     }
 
     private DiaEntity getEventoDia(Long eventoId, Long diaId) {
-        Query q = em.createQuery("Select DISTINCT a from EventoEntity e join e.dias d where e.id = :eventoId and d.id=:diaId");
-        q.setParameter("bookId", eventoId);
-        q.setParameter("authorId", diaId);
+        Query q = em.createQuery("Select DISTINCT d from EventoEntity e join e.dias d where e.id = :eventoId and d.id=:diaId");
+        q.setParameter("eventoId", eventoId);
+        q.setParameter("diaId", diaId);
 
         return (DiaEntity) q.getSingleResult();
     }

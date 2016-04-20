@@ -6,6 +6,7 @@
 package co.edu.uniandes.csw.tripulator.persistence;
 
 import co.edu.uniandes.csw.tripulator.entities.EventoEntity;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
@@ -43,10 +44,25 @@ public class EventoPersistence {
      * @param fecha La fecha limite del evento
      * @return
      */
-    public List<EventoEntity> find(String ciudad, Date fecha) {
-        logger.info("Consultando todos los eventos de "+ciudad+" antes de "+fecha);
-        Query q = em.createQuery("select u from Evento Entity u where ciudad="+ciudad+" and fecha_inicio<="+fecha);
+    public List<EventoEntity> find(String ciudad, Date fecha, Date fechaLimite) {
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        String fechaString = formatter.format(fecha);
+        String fechaLimiteString = formatter.format(fechaLimite);
+        String query = "select u from EventoEntity u where u.ciudad=:ciudad and u.fechaInicio between :fecha"+
+               " and :fechaLimite";
+        try{
+        logger.info("Consultando todos los eventos de "+ciudad+" despues de "+fecha);
+        Query q = em.createQuery(query);
+        q.setParameter("ciudad", ciudad);
+        q.setParameter("fecha", fecha);
+        q.setParameter("fechaLimite", fechaLimite);
+        logger.info("TERMINA LA CONSULTA DE eventos de "+ciudad+" antes de "+fecha);
         return q.getResultList();
+        }catch(Exception e){
+            System.out.println("ERROR: "+e.getMessage());
+            System.out.println("SQL: "+query);
+            throw e;
+        }
     }
 
     public EventoEntity create(EventoEntity entity) {

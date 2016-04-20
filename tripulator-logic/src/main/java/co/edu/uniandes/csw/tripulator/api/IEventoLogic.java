@@ -30,4 +30,6 @@ public interface IEventoLogic {
 
     public List<DiaEntity> replaceDias(List<DiaEntity> dias, Long eventoId) throws BusinessLogicException;
 
+    public Date getEndOfDay(Date fechaInicio);
+
 }
