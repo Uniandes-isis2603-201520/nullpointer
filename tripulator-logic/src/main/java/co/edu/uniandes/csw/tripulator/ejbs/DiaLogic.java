@@ -31,7 +31,7 @@ public class DiaLogic implements IDiaLogic {
     public List<DiaEntity> getDias(Long idViajero, Long idItinerario) {
         logger.info("Inicia proceso de consultar todos los días del itinerario "+ idItinerario);
         List<DiaEntity> dias = persistence.findAll();
-        logger.info("Termina proceso de consultar todos los días");
+        logger.info("Termina proceso de consulta");
         return dias;
     }
 
