@@ -2,10 +2,8 @@ package co.edu.uniandes.csw.tripulator.ejbs;
 
 import co.edu.uniandes.csw.tripulator.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.tripulator.api.IEventoLogic;
-import co.edu.uniandes.csw.tripulator.entities.ComentarioEntity;
 import co.edu.uniandes.csw.tripulator.entities.DiaEntity;
 import co.edu.uniandes.csw.tripulator.entities.EventoEntity;
-import co.edu.uniandes.csw.tripulator.persistence.ComentarioPersistence;
 import co.edu.uniandes.csw.tripulator.persistence.DiaPersistence;
 import co.edu.uniandes.csw.tripulator.persistence.EventoPersistence;
 import java.util.Date;

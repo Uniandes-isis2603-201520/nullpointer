@@ -8,6 +8,7 @@ import co.edu.uniandes.csw.tripulator.entities.EventoEntity;
 import co.edu.uniandes.csw.tripulator.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.tripulator.persistence.EventoPersistence;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
@@ -42,7 +43,6 @@ public class EventoLogicTest {
     private List<EventoEntity> data = new ArrayList<EventoEntity>();
 
     private List<DiaEntity> diasData = new ArrayList<>();
-
 
     @Deployment
     public static JavaArchive createDeployment() {
@@ -88,7 +88,11 @@ public class EventoLogicTest {
 
         for (int i = 0; i < 3; i++) {
             EventoEntity entity = factory.manufacturePojo(EventoEntity.class);
-
+            if(entity.getFechaInicio().after(entity.getFechaFin())){
+                Date temp = entity.getFechaInicio();
+                entity.setFechaInicio(entity.getFechaFin());
+                entity.setFechaFin(temp);
+            }
             for (ComentarioEntity item : entity.getComentarios()) {
                 item.setEvento(entity);
             }
@@ -134,9 +138,40 @@ public class EventoLogicTest {
     }
 
     @Test
+    public void getEventosCiudadFecha() {
+        try {
+            List<EventoEntity> eventos = eventoLogic.getEventos();
+            for (EventoEntity entity : eventos) {
+                List<EventoEntity> list = eventoLogic.getEventosCiudadFecha(entity.getCiudad(), entity.getFechaInicio());
+                boolean esta = false;
+                for (EventoEntity actual : list) {
+                    if (((EventoLogic) eventoLogic).compareDay(actual.getFechaInicio(), entity.getFechaInicio()) != 0) {
+                        Assert.fail("La lista de eventos con fecha " + entity.getFechaInicio() + " no es correcta,"
+                                + " pues contiene un evento con fecha " + actual.getFechaInicio());
+                    }
+                    Assert.assertEquals("La lista obtenida contiene un evento de ciudad diferente a la buscada.",
+                            entity.getCiudad(), actual.getCiudad());
+                    if (entity.getId() == actual.getId()) {
+                        esta = true;
+                    }
+                }
+                Assert.assertTrue("La lista de eventos segun ciudad y fecha no contiene un evento que cumple las condiciones", esta);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            Assert.fail(e.getMessage());
+        }
+    }
+
+    @Test
     public void createEventoTest() {
         try {
             EventoEntity entity = factory.manufacturePojo(EventoEntity.class);
+            if(entity.getFechaInicio().after(entity.getFechaFin())){
+                Date temp = entity.getFechaInicio();
+                entity.setFechaInicio(entity.getFechaFin());
+                entity.setFechaFin(temp);
+            }
             EventoEntity result = eventoLogic.createEvento(entity);
 
             EventoEntity resp = em.find(EventoEntity.class, result.getId());
@@ -166,14 +201,19 @@ public class EventoLogicTest {
     @Test
     public void updateEventoTest() {
         try {
-            EventoEntity entity = data.get(0);
+            EventoEntity entity = data.get(1);
             EventoEntity pojoEntity = factory.manufacturePojo(EventoEntity.class);
             pojoEntity.setId(entity.getId());
-
+            if(pojoEntity.getFechaInicio().after(pojoEntity.getFechaFin())){
+                Date temp = pojoEntity.getFechaInicio();
+                pojoEntity.setFechaInicio(pojoEntity.getFechaFin());
+                pojoEntity.setFechaFin(temp);
+            }
             eventoLogic.updateEvento(pojoEntity);
+            EventoEntity resp = eventoLogic.getEvento(entity.getId());
+            //EventoEntity resp = em.find(EventoEntity.class, entity.getId());
 
-            EventoEntity resp = em.find(EventoEntity.class, entity.getId());
-
+            Assert.assertNotNull("La respuesta no deberia ser nulla", resp);
             Assert.assertEquals(pojoEntity.getId(), resp.getId());
             Assert.assertEquals(pojoEntity.getName(), resp.getName());
             Assert.assertEquals(pojoEntity.getDescription(), resp.getDescription());
@@ -186,38 +226,40 @@ public class EventoLogicTest {
             Assert.fail(ex.getLocalizedMessage());
         }
     }
-
-        @Test
-    public void getDateTest() {
-        try{
-        EventoEntity entity = data.get(0);
-        DiaEntity authorEntity = diasData.get(0);
-        DiaEntity response = eventoLogic.getDia(entity.getId(), authorEntity.getId());
-
-        DiaEntity expected = getEventoDia(entity.getId(), authorEntity.getId());
-
-        Assert.assertNotNull(expected);
-        Assert.assertNotNull(response);
-        Assert.assertEquals(expected.getId(), response.getId());
-        Assert.assertEquals(expected.getName(), response.getName());
-        Assert.assertEquals(expected.getBirthDate(), response.getBirthDate());
-        }catch(Exception e){
-            Assert.fail(e.getLocalizedMessage());
-        }
-    }
-
+    /*
     @Test
-    public void listDatesTest() {
-        try{
-        List<DiaEntity> list = eventoLogic.getDias(data.get(0).getId());
-        EventoEntity expected = em.find(EventoEntity.class, data.get(0).getId());
+    public void getDateTest() {
+        try {
+            EventoEntity entity = data.get(0);
+            DiaEntity authorEntity = diasData.get(0);
+            DiaEntity response = eventoLogic.getDia(entity.getId(), authorEntity.getId());
 
-        Assert.assertNotNull(expected);
-        Assert.assertEquals(expected.getDias().size(), list.size());
-        }catch(Exception e){
+            DiaEntity expected = getEventoDia(entity.getId(), authorEntity.getId());
+
+            Assert.assertNotNull(expected);
+            Assert.assertNotNull(response);
+            Assert.assertEquals(expected.getId(), response.getId());
+            Assert.assertEquals(expected.getName(), response.getName());
+            Assert.assertEquals(expected.getDate(), response.getDate());
+            Assert.assertEquals(expected.getCiudad(), response.getCiudad());
+
+        } catch (Exception e) {
             Assert.fail(e.getLocalizedMessage());
         }
-    }
+    }*/
+
+    /*@Test
+    public void listDatesTest() {
+        try {
+            List<DiaEntity> list = eventoLogic.getDias(data.get(0).getId());
+            EventoEntity expected = em.find(EventoEntity.class, data.get(0).getId());
+
+            Assert.assertNotNull(expected);
+            Assert.assertEquals(expected.getDias().size(), list.size());
+        } catch (Exception e) {
+            Assert.fail(e.getLocalizedMessage());
+        }
+    }*/
 
     private DiaEntity getEventoDia(Long eventoId, Long diaId) {
         Query q = em.createQuery("Select DISTINCT a from EventoEntity e join e.dias d where e.id = :eventoId and d.id=:diaId");
