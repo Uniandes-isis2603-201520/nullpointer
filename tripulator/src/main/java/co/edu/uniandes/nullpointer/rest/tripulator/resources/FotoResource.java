@@ -50,10 +50,10 @@ public class FotoResource {
      * co.edu.uniandes.nullpointer.rest.tripulator.exceptions.TripulatorLogicException
      */
     @POST
-    public FotoDTO createFotos(@PathParam("idViajero") Long idViajero,
+    public FotoDTO createFoto(@PathParam("idViajero") Long idViajero,
             @PathParam("idItinerario") Long idItinerario,
             FotoDTO foto) throws TripulatorLogicException {
-        return FotoConverter.fullEntity2DTO( fotoLogic.createFoto(idViajero, idItinerario, FotoConverter.fullDTO2Entity(foto)));
+        return FotoConverter.fullEntity2DTO( fotoLogic.createFoto(FotoConverter.fullDTO2Entity(foto)));
     }
 
 
@@ -69,7 +69,7 @@ public class FotoResource {
     public void deleteFoto(@PathParam("idViajero") Long idViajero,
             @PathParam("idItinerario") Long idItinerario,
             @PathParam("id") Long id) throws TripulatorLogicException {
-        fotoLogic.deleteFoto(idViajero, idItinerario, id);
+        fotoLogic.deleteFoto(id);
 
     }
 }

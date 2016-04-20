@@ -38,19 +38,20 @@ public class FotoLogic implements IFotoLogic{
 
 
     @Override
-    public FotoEntity createFoto(Long idViajero, Long idItinerario, FotoEntity entity) {
+    public FotoEntity createFoto(FotoEntity entity) {
         logger.info("Inicia proceso de creación de foto");
-        persistence.create(idViajero, idItinerario, entity);
+        persistence.create(entity);
         logger.info("Termina proceso de creación de foto");
         return entity;
     }
 
 
     @Override
-    public void deleteFoto(Long idViajero, Long idItinerario, Long id) {
+    public void deleteFoto(Long id) {
         logger.log(Level.INFO, "Inicia proceso de borrar foto con id={0}", id);
-        persistence.delete(idViajero, idItinerario, id);
+        persistence.delete(id);
         logger.log(Level.INFO, "Termina proceso de borrar foto con id={0}", id);
     }
     
 }
+ 

@@ -29,12 +29,8 @@
          */
         this.saveRecord = function (idViajero, idItinerario, currentRecord) {
             
-            if (currentRecord.id) {
-                return $http.put(context+idViajero+"/itinerarios/"+idItinerario+"/fotos/" + currentRecord.id, currentRecord);
-            } else {
-               
-                return $http.post(context, currentRecord);
-            }
+            return $http.put(context+idViajero+"/itinerarios/"+idItinerario+"/fotos/" + currentRecord.id, currentRecord);
+          
         };
 
         /**
