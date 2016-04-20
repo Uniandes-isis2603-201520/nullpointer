@@ -94,7 +94,7 @@ public class ViajeroResource {
         viajeroLogic.deleteViajero(id);
     }
 
-    /*
+   
     /**
      * Obtiene una colección de objetos de ItinerarioDTO asociadas a un objeto de Viajero
      *
