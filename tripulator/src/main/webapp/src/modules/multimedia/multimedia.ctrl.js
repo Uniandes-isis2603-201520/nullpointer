@@ -8,9 +8,9 @@
             $scope.currentIndex = 0;
 
             var currentRecord = {
-                id: 0,
-                src: '',
-                index: 0
+                id: Number,
+                name: String,
+                src: String
             };
 
             $scope.slides = [];
@@ -72,11 +72,12 @@
                 if ($scope.newUrl !== null) {
                     currentRecord =
                             {
-                                id: false,
+                                id: undefined,
+                                name: $scope.newUrl,
                                 src: $scope.newUrl
                             };
-                            
-                    svc.saveRecord(currentRecord).then(function (response) {
+                           
+                    svc.saveRecord(1,1,currentRecord).then(function (response) {
                         self.fetchRecords();
                     }, responseError);
                 }
@@ -91,7 +92,7 @@
              */
 
             this.fetchRecords = function () {
-                return svc.fetchRecords().then(function (response) {
+                return svc.fetchRecords(1,1).then(function (response) {
                     self.inicializarSlides(response.data);
                     self.splitSlides();
                 }, responseError);
@@ -129,7 +130,7 @@
              */
             $scope.deleteRecord = function () {
                
-                return svc.deleteRecord(self.darIdFoto($scope.currentIndex)).then(function () { 
+                return svc.deleteRecord(1,1,self.darIdFoto($scope.currentIndex)).then(function () { 
                     self.fetchRecords();
                 }, responseError);
             };

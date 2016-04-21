@@ -7,7 +7,13 @@ package co.edu.uniandes.csw.tripulator.entities;
 
 import co.edu.uniandes.csw.crud.spi.entity.BaseEntity;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import uk.co.jemos.podam.common.PodamExclude;
 
 /**
  *
@@ -15,6 +21,10 @@ import javax.persistence.Entity;
  */
 @Entity
 public class FotoEntity extends BaseEntity implements Serializable{
+    
+    @ManyToOne
+    @PodamExclude
+    private ItinerarioEntity itinerario;
    
     private String src;
     
