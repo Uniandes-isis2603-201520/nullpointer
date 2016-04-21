@@ -17,9 +17,9 @@ public interface IFotoLogic {
     
     public List<FotoEntity> getFotos(Long idViajero, Long idItinerario);
 
-    public FotoEntity createFoto(Long idViajero, Long idItinerario, FotoEntity entity);
+    public FotoEntity createFoto(FotoEntity entity);
 
-    public void deleteFoto(Long idViajero, Long idItineario, Long id);
+    public void deleteFoto(Long id);
     
 }
   

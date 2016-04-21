@@ -33,7 +33,12 @@ public class FotoPersistence {
         return q.getResultList();
     }
     
-       public FotoEntity create(Long idViajero, Long idItinerario, FotoEntity entity) {
+    public FotoEntity find(Long id) {
+        logger.log(Level.INFO, "Consultando foto con id={0}", id);
+        return em.find(FotoEntity.class, id);
+    }
+    
+       public FotoEntity create(FotoEntity entity) {
         logger.info("Creando una foto nueva");
         em.persist(entity);
         logger.info("Foto creada");
@@ -41,7 +46,7 @@ public class FotoPersistence {
     }
        
        
-    public void delete(Long idViajero, Long idItinerario,Long id) {
+    public void delete(Long id) {
         logger.log(Level.INFO, "Borrando foto con id={0}", id);
         FotoEntity entity = em.find(FotoEntity.class, id);
         em.remove(entity);
