@@ -37,45 +37,56 @@
             </div>
 
 
-            <form class="form-inline text-center" novalidate name="form"  role="form" ng-submit="ctrl.saveRecord()">
-                <div class="form-group">
+            <form class="form-inline text-center" id="user-form" name="form"  ng-submit="ctrl.saveRecord()" >
+                <alert ng-messages="form.$error" type="danger" close="" ng-hide="!form.$error.required">
+                    <div ng-message="required">
+                        Please, Fill the required fields!
+                    </div>
+                </alert>
+                <fieldset>
                     <h4  class="text-center" >Nombre</h4>
+                    <div class="form-group" ng-class="{'has-success': form.nombre.$valid && form.nombre.$dirty, 'has-error': form.nombre.$invalid && (form.nombre.$dirty || form.$submitted)}" >
 
-                <div class="form-group">
+                        <input type="text" id="sinput" name="nombre" placeholder= "Nombre" class="form-control col-xs-12 text-center"  ng-model="currentRecord.nombre" required />
 
-                    <input type="text" placeholder="Nombre" class="form-control col-xs-12 text-center" id="sinput"ng-model="currentRecord.nombre"/>
-                </div>
+                    </div>
                     <h4  class="text-center" >Apellido</h4>
 
-                <div class="form-group">
+                    <div class="form-group" ng-class="{'has-success': form.apellido.$valid && form.apellido.$dirty, 'has-error': form.apellido.$invalid && (form.apellido.$dirty || form.$submitted)}" >
 
-                    <input type="text" placeholder="apellido" class="form-control col-xs-12 text-center" id="sinput"ng-model="currentRecord.apellido"/>
-                </div>
-                    
+                        <input type="text" id="sinput" name="apellido" placeholder= "Apellido" class="form-control col-xs-12 text-center"  ng-model="currentRecord.apellido" required />
+
+                    </div>
+
                     <h4 class="text-center" >Username</h4>
-                    <input type="text" placeholder="Username" class="form-control col-xs-12 text-center" id="sinput"ng-model="currentRecord.usuario"/>
-                </div>
-                
+                    <div class="form-group" ng-class="{'has-success': form.usuario.$valid && form.usuario.$dirty, 'has-error': form.usuario.$invalid && (form.usuario.$dirty || form.$submitted)}" >
 
-                <h4  class="text-center" >E-Mail</h4>
+                        <input type="text" id="sinput" name="usuario" placeholder= "Username" class="form-control col-xs-12 text-center"  ng-model="currentRecord.usuario" required />
 
-                <div class="form-group">
+                    </div>
 
-                    <input type="text" placeholder="Email" class="form-control col-xs-12 text-center" id="sinput"ng-model="currentRecord.email"/>
-                </div>
 
-                <h4 class="text-center">Password</h4>
+                    <h4  class="text-center" >E-Mail</h4>
 
-                <div class="form-group">
+                    <div class="form-group" ng-class="{'has-success': form.email.$valid && form.email.$dirty, 'has-error': form.email.$invalid && (form.email.$dirty || form.$submitted)}" >
 
-                    <input type="password" placeholder="Password" class="form-control col-xs-12 text-center" id="sinput" ng-model="currentRecord.password"/>
-                </div>
+                        <input type="text" id="sinput" name="email" placeholder= "EMail" class="form-control col-xs-12 text-center"  ng-model="currentRecord.email" required />
 
-                <div class ="modal-footer  ">
-                    <input type="submit" class="btn btn-default col-xs-offset-4 col-xs-2"  id="submit" value="Register"  />
-                    <button type="button" class="btn btn-default col-xs-offset-7 col-xs-2" data-dismiss="modal">Close</button>
-                </div>
+                    </div>
 
+                    <h4 class="text-center">Password</h4>
+
+                    <div class="form-group" ng-class="{'has-success': form.password.$valid && form.password.$dirty, 'has-error': form.password.$invalid && (form.password.$dirty || form.$submitted)}" >
+
+                        <input type="password" id="sinput" name="password" placeholder= "Password" class="form-control col-xs-12 text-center"  ng-model="currentRecord.password" required />
+
+                    </div>
+
+                    <div class ="modal-footer  ">
+                        <button type="submit" form="user-form" class="btn btn-default col-xs-offset-4 col-xs-2" > Register</button>
+                        <button type="button" class="btn btn-default col-xs-offset-7 col-xs-2" data-dismiss="modal">Close</button>
+                    </div>
+                </fieldset>
             </form>
         </div>
 
@@ -113,7 +124,7 @@
     </footer>
 </div> <!-- /container -->
 
-<div ng-hide="ctrl.editMode">
+<div >
     <div >
 
         <table style="border-collapse:collapse;">
@@ -131,7 +142,7 @@
             <tbody>
                 <tr ng-repeat="record in records">
                     <td style="padding:5px;">{{record.id}}</td>
-                    <td style="padding:5px;border-left:1px solid black;">{{record.username}}</td>
+                    <td style="padding:5px;border-left:1px solid black;">{{record.usuario}}</td>
                     <td style="padding:5px;border-left:1px solid black;">{{record.email}}</td>
                     <td style="padding:5px;border-left:1px solid black;">{{record.password}}</td>
                     <td style="padding:5px;border-left:1px solid black;"><button  class="btn-default" ng-click="ctrl.deleteRecord(record.id)">Borrar</button></td>

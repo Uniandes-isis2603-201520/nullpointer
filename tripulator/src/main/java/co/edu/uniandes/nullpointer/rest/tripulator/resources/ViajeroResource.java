@@ -130,12 +130,12 @@ public class ViajeroResource {
      * @param itinerarioId Identificador del objeto de Itinerario
      * @return Instancia de ItinerarioDTO (representación full) que fue asociada a Viajero
      * @generated
-     *
+     */
     @POST
-    @Path("{viajeroId: \\d+}/itinerarios/{itinerarioId: \\d+}")
-    public ItinerarioDTO addItinerarios(@PathParam("viajeroId") Long viajeroId, @PathParam("itinerarioId") Long itinerarioId) {
+    @Path("{viajeroId: \\d+}/itinerarios")
+    public ItinerarioDTO addItinerarios(@PathParam("viajeroId") Long viajeroId, ItinerarioDTO itinerario) {
         try {
-            return ItinerarioConverter.fullEntity2DTO(viajeroLogic.addItinerario(viajeroId, itinerarioId));
+            return ItinerarioConverter.fullEntity2DTO(viajeroLogic.addItinerario(ItinerarioConverter.fullDTO2Entity(itinerario), viajeroId));
         } catch (BusinessLogicException ex) {
             logger.log(Level.SEVERE, ex.getLocalizedMessage(), ex);
             throw new WebApplicationException(ex.getLocalizedMessage(), ex, Response.Status.BAD_REQUEST);
@@ -150,7 +150,7 @@ public class ViajeroResource {
      * Viajero
      * @return Nueva colección de ItinerarioDTO (representación basic) asociada al objeto de Viajero
      * @generated
-     *
+     */
     @PUT
     @Path("{viajeroId: \\d+}/itinerarios")
     public List<ItinerarioDTO> replaceItinerarios(@PathParam("viajeroId") Long viajeroId, List<ItinerarioDTO> itinerarios) {
@@ -168,11 +168,11 @@ public class ViajeroResource {
      * @param viajeroId Identificador del objeto de Viajero
      * @param itinerarioId Identificador del objeto de Itinerario
      * @generated
-     *
+     */
     @DELETE
     @Path("{viajeroId: \\d+}/itinerarios/{itinerarioId: \\d+}")
     public void removeItinerarios(@PathParam("viajeroId") Long viajeroId, @PathParam("itinerarioId") Long itinerarioId) {
         viajeroLogic.removeItinerario(viajeroId, itinerarioId);
     }
-    */
+    
 }
