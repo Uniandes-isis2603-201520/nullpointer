@@ -116,6 +116,7 @@ public class DiaResourceIT {
 
         Assert.assertEquals(CREATED, response.getStatus());
         Assert.assertEquals(dia.getCiudad(), diaTest.getCiudad());
+        Assert.assertEquals(dia.getFecha(), diaTest.getFecha());
     }
 
     @Test
@@ -127,6 +128,7 @@ public class DiaResourceIT {
                 .request().get(DiaDTO.class);
         Assert.assertEquals(diaTest.getId(), oraculo.get(0).getId());
         Assert.assertEquals(diaTest.getCiudad(), oraculo.get(0).getCiudad());
+        Assert.assertEquals(diaTest.getFecha(), oraculo.get(0).getFecha());
     }
 
     @Test
@@ -153,6 +155,7 @@ public class DiaResourceIT {
         DiaDTO diaTest = (DiaDTO) response.readEntity(DiaDTO.class);
         Assert.assertEquals(OK, response.getStatus());
         Assert.assertEquals(dia.getCiudad(), diaTest.getCiudad());
+        Assert.assertEquals(dia.getFecha(), diaTest.getFecha());
     }
 
     @Test
