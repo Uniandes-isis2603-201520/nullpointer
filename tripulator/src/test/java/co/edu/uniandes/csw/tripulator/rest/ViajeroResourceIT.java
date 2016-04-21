@@ -95,8 +95,7 @@ public class ViajeroResourceIT {
     @InSequence(1)
     public void createViajeroTest() {
         ViajeroDTO viajero = oraculo.get(0);
-        Response response = target.path(viajeroPath).request()
-                .post(Entity.entity(viajero, MediaType.APPLICATION_JSON));
+        Response response = target.path(viajeroPath).request().post(Entity.entity(viajero, MediaType.APPLICATION_JSON));
         ViajeroDTO viajeroTest = (ViajeroDTO) response.readEntity(ViajeroDTO.class);
 
         Assert.assertEquals(viajero.getNombre(), viajeroTest.getNombre());
@@ -105,7 +104,7 @@ public class ViajeroResourceIT {
         Assert.assertEquals(viajero.getEmail(), viajeroTest.getEmail());
         Assert.assertEquals(viajero.getPassword(), viajeroTest.getPassword());
         
-        Assert.assertEquals(CREATED, response.getStatus());
+        Assert.assertEquals(OK, response.getStatus());
     }
     
 

@@ -4,10 +4,17 @@
  * and open the template in the editor.
  */
 package co.edu.uniandes.nullpointer.rest.tripulator.dtos;
+
+import java.util.ArrayList;
+import java.util.List;
+import javax.xml.bind.annotation.XmlRootElement;
+import uk.co.jemos.podam.common.PodamExclude;
+
 /**
  *
  * @author Juan Sebastian Cardona
  */
+@XmlRootElement
 public class ViajeroDTO {
     private Long id;
     private String nombre;
@@ -15,7 +22,8 @@ public class ViajeroDTO {
     private String email;
     private String password;
     private String usuario;
-    // itinerarios : arreglo de ids y nombre de los itinerarios//
+    @PodamExclude
+    private List<ItinerarioDTO> itinerarios = new ArrayList<>();
 
    
     /**
