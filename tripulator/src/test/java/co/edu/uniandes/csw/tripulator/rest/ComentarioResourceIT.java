@@ -47,7 +47,7 @@ public class ComentarioResourceIT {
     private final int CREATED = Response.Status.CREATED.getStatusCode();
     private final int NO_CONTENT = Response.Status.NO_CONTENT.getStatusCode();
 
-    private final String comentarioPath = "/viajeros/1/comentarios";
+    private final String comentarioPath = "/eventos/1/comentarios";
 
     private final static List<ComentarioDTO> oraculo = new ArrayList<>();
 
