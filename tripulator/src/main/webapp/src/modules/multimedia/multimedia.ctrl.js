@@ -9,7 +9,6 @@
 
             var currentRecord = {
                 id: Number,
-                name: String,
                 src: String
             };
 
@@ -72,14 +71,20 @@
                 if ($scope.newUrl !== null) {
                     currentRecord =
                             {
-                                id: undefined,
-                                name: $scope.newUrl,
+                                id: '',
                                 src: $scope.newUrl
                             };
-                           
-                    svc.saveRecord(1,1,currentRecord).then(function (response) {
-                        self.fetchRecords();
-                    }, responseError);
+                         
+                    
+                      return svc.saveRecord(1,1,currentRecord).then(function () { 
+                          alert("llegamos aqui");  
+                    self.fetchRecords();
+                }, responseError);
+                    
+                    //svc.saveRecord(1,1,currentRecord).then(function (response) {
+                        
+                     ///   self.fetchRecords();
+                    //}, responseError);
                 }
 
             };
