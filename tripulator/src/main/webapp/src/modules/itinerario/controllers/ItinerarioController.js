@@ -4,7 +4,6 @@
 
     mod.controller('ItinerarioController', ['$scope', '$window', 'itinerarioService', 'dataSvc',
         function ($scope, $window, svc, dataSvc) {
-            alert("Entro al controlador");
             $scope.days = [];
             $scope.showDayInfo = false;
             $scope.daynames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
