@@ -25,7 +25,7 @@
             <li class="sidebar-brand">
                 <a>History</a>
             </li>
-            <li ng-repeat="trip in trips" ng-click="ctrl.getItinerario(trip.id)">
+            <li ng-repeat="trip in trips" ng-click="ctrl.getCachedItinerario(trip)" ui-sref="viajero">
                 <a ng-style="isTripSelected(trip)">{{trip.nombre}}</a>
             </li>
         </ul>

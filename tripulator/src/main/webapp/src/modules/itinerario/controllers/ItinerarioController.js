@@ -2,8 +2,9 @@
 
     var mod = ng.module("itinerarioModule");
 
-    mod.controller('ItinerarioController', ['$scope', '$window', 'itinerarioService', function ($scope, $window, svc) {
-
+    mod.controller('ItinerarioController', ['$scope', '$window', 'itinerarioService', 'dataSvc',
+        function ($scope, $window, svc, dataSvc) {
+            alert("Entro al controlador");
             $scope.days = [];
             $scope.showDayInfo = false;
             $scope.daynames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
@@ -20,8 +21,8 @@
             };
             var self = this;
             var scrollY = 0;
-            var userId = 1;
-                       /**
+            var userId = dataSvc.userId;
+            /**
              * Simula lo que trae el backend.
              * @param {type} days
              * @param {type} startDate
@@ -81,7 +82,7 @@
                     });
                 }
             }
-            
+
             /**
              * Guarda el estado de todos los días del viaje.
              * @returns {undefined}
@@ -101,7 +102,7 @@
                 svc.getItinerario(userId, id).then(function (resolve) {
                     $scope.trip = resolve.data;
                     generateDays($scope.days, new Date($scope.trip["fechaInicio"])
-                        , new Date($scope.trip["fechaFin"]));
+                            , new Date($scope.trip["fechaFin"]));
                     $scope.days = formatDays($scope.days);
                 }, responseError);
             };
@@ -158,6 +159,6 @@
                     $window.scrollTo($window.scrollX, scrollY);
             };
 
-            this.getItinerario(1);
+            this.getItinerario(dataSvc.tripId);
         }]);
 })(window.angular);
