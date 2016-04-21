@@ -33,6 +33,11 @@ public class FotoPersistence {
         return q.getResultList();
     }
     
+    public FotoEntity find(Long id) {
+        logger.log(Level.INFO, "Consultando foto con id={0}", id);
+        return em.find(FotoEntity.class, id);
+    }
+    
        public FotoEntity create(FotoEntity entity) {
         logger.info("Creando una foto nueva");
         em.persist(entity);
