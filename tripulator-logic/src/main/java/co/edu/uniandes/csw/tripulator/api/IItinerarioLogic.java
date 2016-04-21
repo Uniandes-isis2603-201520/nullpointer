@@ -37,4 +37,12 @@ public interface IItinerarioLogic {
     public List<DiaEntity> getDays(Long idViajero, Long itinerarioId);
     
     public List<FotoEntity> getPhotos(Long idViajero, Long itinerarioId);
+    
+    public void removePhoto(Long viajeroId, Long itinerarioId, Long photoId);
+    
+    public void removeDay(Long viajeroId, Long itinerarioId, Long diaId);
+    
+    public DiaEntity addDay(Long viajeroId, Long itinerarioId, Long dayId);
+    
+    public FotoEntity addPhoto(Long viajeroId, Long itinerarioId, Long photoId);
 }

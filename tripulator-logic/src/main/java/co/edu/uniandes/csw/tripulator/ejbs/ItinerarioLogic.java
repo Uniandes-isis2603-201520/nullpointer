@@ -141,4 +141,36 @@ public class ItinerarioLogic implements IItinerarioLogic {
         }
         return dias;
     }
+    
+    @Override
+    public void removePhoto(Long viajeroId, Long itinerarioId, Long photoId) {
+        ItinerarioEntity itinerarioEntity = itinerarioPersistence.find(itinerarioId);
+        FotoEntity photo = fotoPersistence.find(photoId);
+        photo.setItinerario(null);
+        itinerarioEntity.getFotos().remove(photo);
+    }
+    
+    @Override
+    public void removeDay(Long viajeroId, Long itinerarioId, Long diaId) {
+        ItinerarioEntity itinerarioEntity = itinerarioPersistence.find(itinerarioId);
+        DiaEntity dia = diaPersistence.find(diaId);
+        dia.setItinerario(null);
+        itinerarioEntity.getDias().remove(dia);
+    }
+    
+    @Override
+    public FotoEntity addPhoto(Long viajeroId, Long itinerarioId, Long photoId) {
+        ItinerarioEntity itinerarioEntity = itinerarioPersistence.find(itinerarioId);
+        FotoEntity fotoEntity = fotoPersistence.find(photoId);
+        fotoEntity.setItinerario(itinerarioEntity);
+        return fotoEntity;
+    }
+    
+    @Override
+    public DiaEntity addDay(Long viajeroId, Long itinerarioId, Long dayId) {
+        ItinerarioEntity itinerarioEntity = itinerarioPersistence.find(itinerarioId);
+        DiaEntity diaEntity = diaPersistence.find(dayId);
+        diaEntity.setItinerario(itinerarioEntity);
+        return diaEntity;
+    }
 }
