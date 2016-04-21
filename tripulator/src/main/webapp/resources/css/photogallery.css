@@ -152,3 +152,32 @@
     margin-top: 10px;
     margin-bottom: 0;
 }
+
+.opts
+{
+    cursor: pointer; 
+    cursor: hand;
+    margin-top: 10px;
+    margin-right: 50px;
+}
+
+.glyphicon.glyphicon-plus-sign
+{
+
+    font-size: 35px;
+}
+
+.glyphicon.glyphicon-trash
+{
+font-size: 35px;
+    
+}
+
+.glyphicon.glyphicon-th{
+    font-size: 35px;
+}
+
+.opt2
+{
+    margin-top: -5px
+}

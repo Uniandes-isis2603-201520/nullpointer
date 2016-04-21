@@ -29,7 +29,7 @@
          */
         this.saveRecord = function (idViajero, idItinerario, currentRecord) {
             
-            return $http.put(context+idViajero+"/itinerarios/"+idItinerario+"/fotos/" + currentRecord.id, currentRecord);
+            return $http.post(context+idViajero+"/itinerarios/"+idItinerario+"/fotos/" + currentRecord.id, currentRecord);
           
         };
 
