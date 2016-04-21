@@ -119,7 +119,6 @@ public class EventoResourceIT {
         EventoDTO evento = oraculo.get(0);
         Response response = target.path(eventoPath).request()
                 .post(Entity.entity(evento, MediaType.APPLICATION_JSON));
-
         EventoDTO eventoTest = (EventoDTO) response.readEntity(EventoDTO.class);
 
         Assert.assertEquals(CREATED, response.getStatus());
