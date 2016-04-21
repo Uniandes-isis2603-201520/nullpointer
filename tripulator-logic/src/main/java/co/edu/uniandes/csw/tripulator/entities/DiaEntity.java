@@ -24,6 +24,7 @@ public class DiaEntity extends BaseEntity implements Serializable {
     private ItinerarioEntity itinerario;
     
     @ManyToMany(mappedBy = "dias")
+    @PodamExclude
     private List<EventoEntity> eventos = new ArrayList();
     
     @PodamStrategyValue(DateStrategy.class)
