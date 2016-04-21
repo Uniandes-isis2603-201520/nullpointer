@@ -1,7 +1,7 @@
 (function (ng) {
 
     var mod = ng.module("planDiaModule");
-
+//'planDiaService', , svc
     mod.controller('PlanDiaController', ['$scope', function ($scope) {
 
             var self = this;
@@ -11,10 +11,9 @@
                 '09:30', '10:00', '10:30', '11:00', '11:30', '12:00', '12:30', '13:00', '13:30', '14:00',
                 '14:30', '15:00', '15:30', '16:00', '16:30', '17:00', '17:30', '18:00', '18:30', '19:00',
                 '19:30', '20:00', '20:30', '21:00', '21:30', '22:00', '22:30', '23:00', '23:30'];
-
-            $scope.hours = ['00:00', '01:00', '02:00', '03:00', '04:00', '05:00', '06:00', '07:00',
-                '08:00', '09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00',
-                '18:00', '19:00', '20:00', '21:00', '22:00', '23:00'];
+            
+            
+            $scope.diaActual = {id:1};
 
             $scope.events = [];
 
@@ -30,23 +29,37 @@
 
             $scope.daySections = [];
 
-            /*
-            function responseError(response) {
-                self.showError(response.data);
-            }
-             
-             this.getEvents = function () {
-             svc.getEvents().then(function (response) {
-             
-             $scope.photos = response;
-             
-             }, responseError);
-             };
-             
-            svc.createSections();
-            svc.markOccupiedSections();
+            /**
+             * Le pide todos los datos del día actual al servicio.
+             * @param id
+             * @returns {undefined}
+             *
+            this.getPlanDia = function (id) {
+                svc.getDia(1,1,id).then(function (resolve) {
+                    $scope.diaActual = resolve.data;
+                    $scope.events = $scope.diaActual.eventos;
+                }, responseError);
+            };
             
-             */
+            /**
+             * Actualiza un plan día con las modificaciones que se le han hecho.
+             * @param dia
+             * @returns {undefined}
+             *
+            this.updatePlanDia = function (dia) {
+                svc.updatePlanDia(1,1,dia).then(function (resolve) {
+                    markOccupiedSections();
+                }, responseError);
+            };
+            
+            
+            this.showError = function (data) {
+                alert(data);
+            };
+
+            function responseError(response) {
+                self.showError(response);
+            }*/
 
             createSections();
             markOccupiedSections();
