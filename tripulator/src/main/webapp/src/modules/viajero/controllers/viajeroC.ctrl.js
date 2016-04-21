@@ -1,10 +1,11 @@
 (function (ng) {
     var mod = ng.module("viajeroModule");
-    mod.controller('ViajeroC', ['$scope', '$element', '$window', '$mdDialog', '$mdMedia', 'viajeroS',
-        function ($scope, $element, $window, $mdDialog, $mdMedia, svc) {
+    mod.controller('ViajeroC', ['$scope', '$element', '$window', '$mdDialog', '$mdMedia', 'viajeroS', 'dataSvc',
+        function ($scope, $element, $window, $mdDialog, $mdMedia, svc, dataSvc) {
             var userId = 1;
             var numTrips = 1;
             var self = this;
+            var userData = dataSvc;
             $scope.trips = [];
             $scope.currentTrip;
             $scope.today = new Date();
@@ -85,6 +86,13 @@
                 }
             };
 
+            this.addItinerario = function (userId, trip) {
+                svc.addItinerario(userId, trip).then(function (response) {
+                    self.getItinerarios();
+                    finishCreation();
+                }, responseError);
+            };
+
             this.getItinerarios = function () {
                 svc.getItinerarios(userId).then(function (response) {
                     $scope.trips = response.data;
@@ -92,10 +100,19 @@
                         $scope.menuOptions[0].active = true;
                         initGeoChart();
                         toggleMenu();
-                        $scope.showNoTripAlert(response);
+                        $scope.showAlert("Create Trip", "It appears you have no trips created!");
                     }
+                    self.getCachedItinerario($scope.trips[$scope.trips.length - 1]);
+                    $scope.$apply();
                     return response;
                 }, responseError);
+            };
+
+            this.getCachedItinerario = function (trip) {
+                $scope.currentTrip = trip;
+                self.generateImage();
+                $scope.menuActions[0].active = true;
+                userData.tripId = trip.id;
             };
 
             this.getItinerario = function (tripId) {
@@ -103,13 +120,8 @@
                     $scope.currentTrip = response.data;
                     self.generateImage();
                     $scope.menuActions[0].active = true;
-                },
-                        function (response) {
-                            $scope.menuOptions[0].active = true;
-                            initGeoChart();
-                            toggleMenu();
-                            $scope.showNoTripAlert(response);
-                        });
+                    userData.tripId = tripId;
+                }, responseError);
             };
 
             $scope.isTripSelected = function (trip) {
@@ -127,7 +139,7 @@
                 if (option.name === 'Create') {
                     toggleMenu();
                     initGeoChart();
-                    $scope.showNoTripAlert("none");
+                    $scope.showAlert("Create trip", "Lets start!");
                 }
                 selectFromMenu(option);
             };
@@ -152,11 +164,9 @@
                         return "viajero.mapa()";
                         break;
                     default:
-                        return "";
+                        return "viajero";
                 }
             };
-
-            this.getItinerarios();
 
             // CREATE A TRIP MODULE
 
@@ -212,6 +222,37 @@
             }
 
             /**
+             * Checks whether the new city can be added taking into account
+             * several factors.
+             * @param {type} country
+             * @param {type} city
+             * @param {type} arrivalDate
+             * @param {type} departureDate
+             * @returns {Boolean}
+             */
+            function addConditions(city, arrivalDate, departureDate) {
+                if (city == null)
+                    return "Please name the city!";
+                if (arrivalDate == null)
+                    return "Dates must have a value";
+                if (departureDate == null)
+                    return "Dates must have a value";
+                if (arrivalDate > departureDate)
+                    return "The arrival date must come before the departure date";
+                for (var property in $scope.tripDetails) {
+                    if ($scope.tripDetails.hasOwnProperty(property)) {
+                        var tripSegment = $scope.tripDetails[property].slice(1, $scope.tripDetails[property].length);
+                        for (var i = 0; i < tripSegment.length; i++) {
+                            if (arrivalDate < tripSegment[i].departureDate &&
+                                    departureDate > tripSegment[i].arrivalDate) {
+                                return "The range of dates you entered is in conflit with another range of dates";
+                            }
+                        }
+                    }
+                }
+                return "OK";
+            }
+            /**
              * 
              * @param {String} country
              * @param {String} city
@@ -220,20 +261,20 @@
              * @returns {undefined}
              */
             $scope.addCity = function (country, city, arrivalDate, departureDate) {
-                var citiesInCountry = $scope.tripDetails[country];
-                for (var i = 0; i < citiesInCountry.length; i++) {
-                    if (citiesInCountry[i].city === city &&
-                            citiesInCountry[i].arrivalDate === arrivalDate &&
-                            citiesInCountry[i].departureDate === departureDate) {
-                        return;
-                    }
+                var errorMsg = addConditions(city, arrivalDate, departureDate);
+                if (errorMsg !== "OK") {
+                    $scope.showAlert("Form Error", errorMsg);
+                    return false;
                 }
+                var citiesInCountry = $scope.tripDetails[country];
+
                 citiesInCountry.push({
                     country: country,
                     city: city,
                     arrivalDate: arrivalDate,
                     departureDate: departureDate
                 });
+                return true;
             };
 
             /**
@@ -243,7 +284,6 @@
              */
             $scope.deleteCity = function (city) {
                 var citiesInCountry = $scope.tripDetails[city.country];
-                alert("entro");
                 if (city.city === 'Add a city to visit')
                     return;
                 for (var i = 0; i < citiesInCountry.length; i++) {
@@ -252,10 +292,6 @@
                             citiesInCountry[i].departureDate === city.departureDate) {
                         citiesInCountry.splice(i, 1);
                     }
-                    alert(citiesInCountry[i].country + " " + city.country + "\n"
-                            + citiesInCountry[i].city + " " + city.city + "\n"
-                            + citiesInCountry[i].arrivalDate + " " + city.arrivalDate + "\n"
-                            + citiesInCountry[i].departureDate + " " + city.departureDate);
                 }
             };
 
@@ -380,23 +416,23 @@
              */
             function getRelevantData() {
                 var completeTrip = [];
-                Object.keys($scope.tripDetails).forEach(function (key) {
-                    completeTrip.concat($scope.tripDetails[key]);
-                });
-
-                for (var i = 0; i < completeTrip.length; i++) {
-                    alert(completeTrip[i]);
+                for (var property in $scope.tripDetails) {
+                    if ($scope.tripDetails.hasOwnProperty(property)) {
+                        completeTrip = completeTrip.concat($scope.tripDetails[property].slice(1, $scope.tripDetails[property].length));
+                    }
                 }
 
                 completeTrip.sort(function (x, y) {
                     return x.arrivalDate - y.arrivalDate;
                 });
-                for (var i = 0; i < completeTrip.length; i++) {
-                    alert(completeTrip[i]);
-                }
 
-                var fechaInicio = completeTrip[0];
-                var fechaFin = completeTrip[completeTrip.length - 1];
+                var fechaInicio = completeTrip[0].arrivalDate;
+
+                completeTrip.sort(function (x, y) {
+                    return x.departureDate - y.departureDate;
+                });
+                var fechaFin = completeTrip[completeTrip.length - 1].departureDate;
+
                 var nombre = "Not Supported";
                 var id = numTrips++;
                 var mapa = [];
@@ -417,7 +453,7 @@
             }
 
             // DIALOG WINDOWS CONSTRUCTION
-            $scope.showNoTripAlert = function (ev) {
+            $scope.showAlert = function (title, info) {
                 // Appending dialog to document.body to cover sidenav in docs app
                 // Modal dialogs should fully cover application
                 // to prevent interaction outside of dialog
@@ -425,11 +461,11 @@
                         $mdDialog.alert()
                         .parent(angular.element(document.querySelector('#popupContainer')))
                         .clickOutsideToClose(true)
-                        .title('It appears you have no trips to see!')
-                        .textContent('We are going to start the creating process.')
+                        .title(title)
+                        .textContent(info)
                         .ariaLabel('Alert Dialog Demo')
                         .ok('Got it!')
-                        .targetEvent(ev)
+                        .targetEvent(info)
                         );
             };
 
@@ -443,15 +479,12 @@
                         .ok('Yes!')
                         .cancel('Not yet');
                 $mdDialog.show(confirm).then(function () {
-                    finishCreation();
                     var itinerario = getRelevantData();
-                    svc.addItinerario(userId, itinerario);
-                    self.getItinerarios();
-                    self.getItinerario(itinerario.id);
+                    self.addItinerario(userId, itinerario);
                 }, function () {
-                    alert("Algo anda muy mal!");
+
                 });
             };
-
+            this.getItinerarios();
         }]);
 })(window.angular);
