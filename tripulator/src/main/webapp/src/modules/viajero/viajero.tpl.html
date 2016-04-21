@@ -33,7 +33,7 @@
     <!-- /#sidebar-wrapper -->
     <!--<a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a>-->
     <div class="container-fluid" id="nospace">
-        <div class="create" ng-if="menuOptions[0].active">
+        <div class="create" ng-if="menuOptions[0].active" ng-cloak="">
             <a class="arrow prev" ng-show="showPrevArrow()" ng-click="prevPage()"></a>
             <a class="arrow next" ng-show="showNextArrow()" ng-click="nextPage($event)"></a>
 

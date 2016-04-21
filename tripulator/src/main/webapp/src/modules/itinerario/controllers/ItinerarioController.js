@@ -29,7 +29,9 @@
              * @returns {undefined}
              */
             function generateDays(days, startDate, endDate) {
+                endDate.setDate(endDate.getDate() + 2);
                 var i = new Date(startDate);
+                i.setDate(i.getDate() + 1);
                 while (i.getTime() !== endDate.getTime()) {
                     days.push(
                             {
