@@ -88,6 +88,12 @@
             this.getItinerarios = function () {
                 svc.getItinerarios(userId).then(function (response) {
                     $scope.trips = response.data;
+                    if ($scope.trips.length === 0) {
+                        $scope.menuOptions[0].active = true;
+                        initGeoChart();
+                        toggleMenu();
+                        $scope.showNoTripAlert(response);
+                    }
                     return response;
                 }, responseError);
             };
@@ -151,8 +157,6 @@
             };
 
             this.getItinerarios();
-            this.getItinerario(1);
-
 
             // CREATE A TRIP MODULE
 
@@ -365,7 +369,7 @@
                 $scope.$apply();
             };
 
-            function finishCreation(){
+            function finishCreation() {
                 toggleMenu();
                 $scope.menuOptions[0].active = false;
             }
@@ -440,9 +444,10 @@
                         .cancel('Not yet');
                 $mdDialog.show(confirm).then(function () {
                     finishCreation();
-                    svc.addItinerario(userId, getRelevantData());
+                    var itinerario = getRelevantData();
+                    svc.addItinerario(userId, itinerario);
                     self.getItinerarios();
-                    self.getItinerario(1);
+                    self.getItinerario(itinerario.id);
                 }, function () {
                     alert("Algo anda muy mal!");
                 });
