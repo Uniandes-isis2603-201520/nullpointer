@@ -6,6 +6,7 @@
             var numTrips = 1;
             var self = this;
             var userData = dataSvc;
+            dataSvc.userId = 1;
             $scope.trips = [];
             $scope.currentTrip;
             $scope.today = new Date();
