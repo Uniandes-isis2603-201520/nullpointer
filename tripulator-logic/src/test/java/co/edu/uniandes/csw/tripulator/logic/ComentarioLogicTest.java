@@ -80,6 +80,7 @@ public class ComentarioLogicTest {
 
     private void clearData() {
         em.createQuery("delete from EventoEntity").executeUpdate();
+        em.createQuery("delete from ComentarioEntity").executeUpdate();
     }
 
     private void insertData() {
