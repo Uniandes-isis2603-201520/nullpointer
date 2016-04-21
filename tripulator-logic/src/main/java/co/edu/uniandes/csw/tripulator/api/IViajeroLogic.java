@@ -17,13 +17,13 @@ public interface IViajeroLogic {
 
     public void deleteViajero(Long id);
 
-    //public ItinerarioEntity addItinerario(Long bookId, Long authorId) throws BusinessLogicException;
+    public ItinerarioEntity addItinerario(ItinerarioEntity itinerario, Long viajeroId)throws BusinessLogicException;
 
-    //public void removeItinerario(Long bookId, Long authorId);
+    public void removeItinerario(Long itinerarioId, Long viajeroId);
 
-    //public List<ItinerarioEntity> replaceItinerarios(List<ItinerarioEntity> books, Long authorId) throws BusinessLogicException;
+    public List<ItinerarioEntity> replaceItinerarios(List<ItinerarioEntity> itinerarios, Long viajeroId) throws BusinessLogicException;
 
     public List<ItinerarioEntity> getItinerarios(Long viajeroId);
 
-   // public ItinerarioEntity getItinerario(Long authorId, Long bookId);
+    public ItinerarioEntity getItinerario(Long itinerarioId, Long viajeroId);
 }

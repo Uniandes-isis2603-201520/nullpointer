@@ -73,7 +73,6 @@ public class ViajeroLogicTest {
     }
 
     private void clearData() {
-        em.createQuery("delete from ItinerarioEntity").executeUpdate();
         em.createQuery("delete from ViajeroEntity").executeUpdate();
     }
 
@@ -92,6 +91,13 @@ public class ViajeroLogicTest {
             }
             
         }
+        for(int j = 0; j<3;j++)
+            {
+                ItinerarioEntity itinerarioentity = factory.manufacturePojo(ItinerarioEntity.class);
+                em.persist(itinerarioentity);
+                itinerariosData.add(itinerarioentity);
+                
+            }
         System.out.println(data.get(0).getId());
     }
    
@@ -148,7 +154,6 @@ public class ViajeroLogicTest {
 
     @Test
     public void deleteViajeroTest() {
-        insertData();
         ViajeroEntity entity = data.get(0);
         viajeroLogic.deleteViajero(entity.getId());
         ViajeroEntity expected = em.find(ViajeroEntity.class, entity.getId());
@@ -184,22 +189,22 @@ public class ViajeroLogicTest {
         Assert.assertEquals(expected.getItinerarios().size(), list.size());
     }
 
-    /**
+    
     @Test
     public void getItinerarioTest() {
         ViajeroEntity entity = data.get(0);
-        ItinerarioEntity bookEntity = itinerariosData.get(0);
-        ItinerarioEntity response = viajeroLogic.getItinerario(entity.getId(), bookEntity.getId());
+        ItinerarioEntity itinerarioEntity = data.get(0).getItinerarios().get(0);
+        ItinerarioEntity response = viajeroLogic.getItinerario(entity.getId(), itinerarioEntity.getId());
 
-        ItinerarioEntity expected = getViajeroItinerario(entity.getId(), bookEntity.getId());
+        ItinerarioEntity expected = getViajeroItinerario(entity.getId(), itinerarioEntity.getId());
 
         Assert.assertNotNull(expected);
         Assert.assertNotNull(response);
         Assert.assertEquals(expected.getId(), response.getId());
         Assert.assertEquals(expected.getName(), response.getName());
-        Assert.assertEquals(expected.getDescription(), response.getDescription());
-        Assert.assertEquals(expected.getIsbn(), response.getIsbn());
-        Assert.assertEquals(expected.getImage(), response.getImage());
+        Assert.assertEquals(expected.getFechaInicio(), response.getFechaInicio());
+        Assert.assertEquals(expected.getFechaFin(), response.getFechaFin());
+        
     }
 
     
@@ -208,10 +213,10 @@ public class ViajeroLogicTest {
     public void addItinerariosTest() {
         try {
             ViajeroEntity entity = data.get(0);
-            ItinerarioEntity bookEntity = itinerariosData.get(1);
-            ItinerarioEntity response = viajeroLogic.addItinerario(bookEntity.getId(), entity.getId());
+            ItinerarioEntity itinerarioEntity = itinerariosData.get(0);
+            ItinerarioEntity response = viajeroLogic.addItinerario(itinerarioEntity, entity.getId());
 
-            ItinerarioEntity expected = getViajeroItinerario(entity.getId(), bookEntity.getId());
+            ItinerarioEntity expected = getViajeroItinerario(entity.getId(), itinerarioEntity.getId());
 
             Assert.assertNotNull(expected);
             Assert.assertNotNull(response);
@@ -220,7 +225,18 @@ public class ViajeroLogicTest {
             Assert.fail(ex.getLocalizedMessage());
         }
     }
+    
+    @Test
+    public void removeItinerariosTest() throws BusinessLogicException {
+        ViajeroEntity entity = data.get(0);
+        ItinerarioEntity itinerarioEntity = entity.getItinerarios().get(0);
+        viajeroLogic.removeItinerario(itinerarioEntity.getId(), entity.getId());
+        ItinerarioEntity expected = em.find(ItinerarioEntity.class,itinerarioEntity.getId());
+        Assert.assertNull(expected);
+    }
 
+
+    
     @Test
     public void replaceItinerariosTest() {
         try {
@@ -238,32 +254,12 @@ public class ViajeroLogicTest {
             Assert.fail(ex.getLocalizedMessage());
         }
     }
-
-    @Test(expected = NoResultException.class)
-    public void removeItinerariosTest() {
-        viajeroLogic.removeItinerario(itinerariosData.get(0).getId(), data.get(0).getId());
-        getViajeroItinerario(data.get(0).getId(), itinerariosData.get(0).getId());
-    }
-
-    private Date getMaxDate() {
-        Random r = new Random();
-        Calendar c = Calendar.getInstance();
-        c.set(Calendar.YEAR, 9999);
-        c.set(Calendar.DAY_OF_YEAR, c.getActualMaximum(Calendar.DAY_OF_YEAR));
-        c.set(Calendar.HOUR_OF_DAY, c.getActualMinimum(Calendar.HOUR_OF_DAY));
-        c.set(Calendar.MINUTE, c.getActualMinimum(Calendar.MINUTE));
-        c.set(Calendar.SECOND, c.getActualMinimum(Calendar.SECOND));
-        c.set(Calendar.MILLISECOND, c.getActualMinimum(Calendar.MILLISECOND));
-        return c.getTime();
-    }
-
-    private ItinerarioEntity getViajeroItinerario(Long viajeroId, Long bookId) {
-        Query q = em.createQuery("Select DISTINCT b from ViajeroEntity a join a.itinerarios b where a.id=:viajeroId and b.id = :bookId");
-        q.setParameter("bookId", bookId);
+    
+      private ItinerarioEntity getViajeroItinerario(Long viajeroId, Long itinerarioId) {
+        Query q = em.createQuery("Select DISTINCT b from ViajeroEntity a join a.itinerarios b where a.id=:viajeroId and b.id = :itinerarioId");
+        q.setParameter("itinerarioId", itinerarioId);
         q.setParameter("viajeroId", viajeroId);
 
         return (ItinerarioEntity) q.getSingleResult();
     }
-    
-    **/
 }

@@ -43,7 +43,7 @@ public class ComentarioResource {
 	 */
     @GET
     public List<ComentarioDTO> getComentarios(@PathParam("idEvento")Long idEvento) throws TripulatorLogicException {
-        return ComentarioConverter.listEntity2DTO(comentarioLogic.getComentarios(idEvento));
+        return ComentarioConverter.listEntity2DTO(comentarioLogic.getComentarios());
     }
 
     /**
@@ -82,7 +82,7 @@ public class ComentarioResource {
     @Path("{id}")
     public ComentarioDTO updateComentario(@PathParam("idEvento")Long idEvento,
             @PathParam("id") Long id, ComentarioDTO comentario) throws TripulatorLogicException, BusinessLogicException {
-        return ComentarioConverter.fullEntity2DTO(comentarioLogic.updateComentario(idEvento, id, (ComentarioConverter.fullDTO2Entity(comentario))));
+        return ComentarioConverter.fullEntity2DTO(comentarioLogic.updateComentario((ComentarioConverter.fullDTO2Entity(comentario))));
     }
 
     /**
@@ -94,6 +94,6 @@ public class ComentarioResource {
     @Path("{id}")
     public void deleteComentario(@PathParam("idEvento")Long idEvento,
             @PathParam("id") Long id) throws TripulatorLogicException {
-    	comentarioLogic.deleteComentario(idEvento, id);
+    	comentarioLogic.deleteComentario(id);
     }
 }
