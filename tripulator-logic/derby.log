@@ -1,13 +1,13 @@
 ----------------------------------------------------------------
-Wed Apr 20 17:40:58 COT 2016:
- Iniciando instancia a816c00e-0154-35d5-664e-000007e8bb90 de Derby, versión The Apache Software Foundation - Apache Derby - 10.10.2.0 - (1582446): 
-en el directorio de base de datos C:\Users\estudiante\AppData\Local\Temp\gfembed1652994338362896255tmp\lib\databases\embedded_default con el cargador de clases sun.misc.Launcher$AppClassLoader@75b84c92
-Cargado desde file:/C:/Users/estudiante/.m2/repository/org/glassfish/main/extras/glassfish-embedded-all/4.1.1/glassfish-embedded-all-4.1.1.jar
+Thu Apr 21 08:16:12 COT 2016:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.10.2.0 - (1582446): instance a816c00e-0154-38f6-b4cb-00000696c378 
+on database directory C:\Users\Daniel\AppData\Local\Temp\gfembed8333966683511282625tmp\lib\databases\embedded_default with class loader sun.misc.Launcher$AppClassLoader@6bc7c054 
+Loaded from file:/C:/Users/Daniel/.m2/repository/org/glassfish/main/extras/glassfish-embedded-all/4.1.1/glassfish-embedded-all-4.1.1.jar
 java.vendor=Oracle Corporation
-java.runtime.version=1.8.0_66-b18
-user.dir=C:\Users\estudiante\Documents\GitHub\nullpointer\tripulator-logic
-os.name=Windows 7
+java.runtime.version=1.8.0_20-b26
+user.dir=C:\Users\Daniel\Documents\NetBeansProjects\nullpointer\tripulator-logic
+os.name=Windows 8.1
 os.arch=amd64
-os.version=6.1
+os.version=6.3
 derby.system.home=null
-Cargador de clases de base de datos iniciado - derby.database.classpath=''
+Database Class Loader started - derby.database.classpath=''
