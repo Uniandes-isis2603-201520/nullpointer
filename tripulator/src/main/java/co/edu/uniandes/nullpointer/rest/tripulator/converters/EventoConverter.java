@@ -40,8 +40,8 @@ public class EventoConverter {
             EventoDTO dto = new EventoDTO();
             dto.setId(entity.getId());
             dto.setTitle(entity.getName());
-            dto.setStart(entity.getFechaInicio().getTime());
-            dto.setEnd(entity.getFechaFin().getTime());
+            dto.setStart(entity.getFechaInicio());
+            dto.setEnd(entity.getFechaFin());
             dto.setDescription(entity.getDescription());
             dto.setImage(entity.getImage());
             dto.setType(entity.getType());
@@ -86,8 +86,8 @@ public class EventoConverter {
             EventoDTO dto = new EventoDTO();
             dto.setId(entity.getId());
             dto.setTitle(entity.getName());
-            dto.setStart(entity.getFechaInicio().getTime());
-            dto.setEnd(entity.getFechaFin().getTime());
+            dto.setStart(entity.getFechaInicio());
+            dto.setEnd(entity.getFechaFin());
             dto.setDescription(entity.getDescription());
             dto.setImage(entity.getImage());
             dto.setType(entity.getType());
@@ -113,8 +113,8 @@ public class EventoConverter {
             EventoEntity entity = new EventoEntity();
             entity.setId(dto.getId());
             entity.setName(dto.getTitle());
-            entity.setFechaInicio(new Date(dto.getStart()));
-            entity.setFechaFin(new Date(dto.getEnd()));
+            entity.setFechaInicio(dto.getStart());
+            entity.setFechaFin(dto.getEnd());
             entity.setDescription(dto.getDescription());
             entity.setImage(dto.getImage());
             entity.setType(dto.getType());

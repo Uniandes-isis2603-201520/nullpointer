@@ -9,6 +9,7 @@ import co.edu.uniandes.nullpointer.rest.tripulator.dtos.ComentarioDTO;
 import co.edu.uniandes.nullpointer.rest.tripulator.dtos.EventoDTO;
 import co.edu.uniandes.nullpointer.rest.tripulator.exceptions.TripulatorLogicException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 import java.util.logging.Level;
@@ -39,13 +40,13 @@ public class EventoLogicMock {
             eventos = new ArrayList<>();
             eventos.add(new EventoDTO(1L, "Concierto",
                     "http://www.shock.co/sites/default/files/content_files/2015_11/article/los-rolling-stone-en-colombia.jpg",
-                    EventoDTO.tipoE, new Long("1457640000000"), new Long("1457650800000"), "Un gran concierto que no te puedes perder"));
+                    EventoDTO.tipoE, new Date(new Long("1457640000000")), new Date(new Long("1457650800000")), "Un gran concierto que no te puedes perder"));
             eventos.add(new EventoDTO(2L, "Monserrate",
                     "http://stellamaris.com.co/images/monserrate.jpg",
                     EventoDTO.tipoS, null, null, "Un hermoso sitio que no debes perder"));
             eventos.add(new EventoDTO(3L, "La Mambanegra - Carpa Cabaret",
                     "https://res.cloudinary.com/civico/image/upload/c_fill,f_auto,fl_lossy,h_368,w_1122/v1456532162/entity/event_image/file/206/000/56d0eabf2f41f384b6000206.jpg",
-                    EventoDTO.tipoE, new Long("1457640000000"), new Long("1457650800000"), "Liderada por el mítico Callegüeso, La Mambanegra es una poderosa orquesta de música latina. Su veneno tiene como sustancia la salsa dura y callejera, integrada a elementos del funk y el hip-hop.\n" +
+                    EventoDTO.tipoE, new Date(new Long("1457640000000")),new Date( new Long("1457650800000")), "Liderada por el mítico Callegüeso, La Mambanegra es una poderosa orquesta de música latina. Su veneno tiene como sustancia la salsa dura y callejera, integrada a elementos del funk y el hip-hop.\n" +
 "\n" +
 "Este concierto hace parte del cartel internacional del Festival de teatro."));
 
@@ -54,7 +55,7 @@ public class EventoLogicMock {
         // indica que se muestren todos los mensajes
         logger.setLevel(Level.INFO);
 
-        // muestra información 
+        // muestra información
         logger.info("Inicializa la lista de eventos");
         logger.info("eventos" + eventos);
     }
@@ -119,7 +120,7 @@ public class EventoLogicMock {
                 }
             }
 
-            // el nuevo evento no tiene id ? 
+            // el nuevo evento no tiene id ?
         } else {
 
             // genera un id para el evento

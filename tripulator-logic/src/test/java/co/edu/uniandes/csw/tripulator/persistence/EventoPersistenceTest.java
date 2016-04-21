@@ -81,6 +81,24 @@ public class EventoPersistenceTest {
         }
     }
 
+     @Test
+    public void createEventoTest() {
+        EventoEntity newEntity = factory.manufacturePojo(EventoEntity.class);
+        EventoEntity result = eventoPersistence.create(newEntity);
+
+        Assert.assertNotNull(result);
+
+        EventoEntity entity = em.find(EventoEntity.class, result.getId());
+
+        Assert.assertEquals(newEntity.getName(), entity.getName());
+        Assert.assertEquals(newEntity.getDescription(), entity.getDescription());
+        Assert.assertEquals(newEntity.getCiudad(), entity.getCiudad());
+        Assert.assertEquals(newEntity.getImage(), entity.getImage());
+        Assert.assertEquals(newEntity.getFechaInicio(), entity.getFechaInicio());
+        Assert.assertEquals(newEntity.getFechaFin(), entity.getFechaFin());
+        Assert.assertEquals(newEntity.getType(), entity.getType());
+    }
+
     @Test
     public void getEventosTest() {
         List<EventoEntity> list = eventoPersistence.findAll();
@@ -108,6 +126,33 @@ public class EventoPersistenceTest {
         Assert.assertEquals(entity.getFechaInicio(), newEntity.getFechaInicio());
         Assert.assertEquals(entity.getFechaFin(), newEntity.getFechaFin());
         Assert.assertEquals(entity.getType(), newEntity.getType());
+    }
+
+    @Test
+    public void deleteEventoTest() {
+        EventoEntity entity = data.get(0);
+        eventoPersistence.delete(entity.getId());
+        EventoEntity deleted = em.find(EventoEntity.class, entity.getId());
+        Assert.assertNull(deleted);
+    }
+
+    @Test
+    public void updateEventoTest() {
+        EventoEntity entity = data.get(0);
+        EventoEntity newEntity = factory.manufacturePojo(EventoEntity.class);
+        newEntity.setId(entity.getId());
+
+        eventoPersistence.update(newEntity);
+
+        EventoEntity resp = em.find(EventoEntity.class, entity.getId());
+
+        Assert.assertEquals(newEntity.getName(), resp.getName());
+        Assert.assertEquals(newEntity.getDescription(), resp.getDescription());
+        Assert.assertEquals(newEntity.getCiudad(), resp.getCiudad());
+        Assert.assertEquals(newEntity.getImage(), resp.getImage());
+        Assert.assertEquals(newEntity.getFechaInicio(), resp.getFechaInicio());
+        Assert.assertEquals(newEntity.getFechaFin(), resp.getFechaFin());
+        Assert.assertEquals(newEntity.getType(), resp.getType());
     }
 
 }
