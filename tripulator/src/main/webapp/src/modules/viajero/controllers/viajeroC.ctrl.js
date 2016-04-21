@@ -64,8 +64,9 @@
             }
 
             function isMenuOptionSelected(element) {
-                if (element.active)
-                    return {"background": "rgba(180,209,255,0.5)"};
+                if (element.active){
+                    return {"background": "rgba(180, 209, 255, 0.5)"};
+                }
                 return {};
             }
 
@@ -151,6 +152,9 @@
                         $scope.showAlert("Create trip", "Lets start!");
                         selectFromMenu(option);
                         break;
+                    case "Edit":
+                        $scope.showAlert("Under development","This feature will be available soon.");
+                        break;
                     case "Delete":
                         $scope.showDeleteConfirm();
                         break;
@@ -159,11 +163,11 @@
             };
 
             $scope.isActionSelected = function (action) {
-                isMenuOptionSelected(action);
+                return isMenuOptionSelected(action);
             };
 
             $scope.isOptionSelected = function (option) {
-                isMenuOptionSelected(option);
+                return isMenuOptionSelected(option);
             };
 
             $scope.selectView = function (action) {

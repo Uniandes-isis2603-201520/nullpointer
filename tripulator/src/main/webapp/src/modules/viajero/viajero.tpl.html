@@ -9,16 +9,16 @@
             <li class="sidebar-brand">
                 <a>Options</a>
             </li>
-            <li ng-repeat="option in menuOptions">
-                <a ng-click="selectOption(option)" ng-style="isOptionSelected(option)" >
+            <li ng-repeat="option in menuOptions" ng-click="selectOption(option)">
+                <a ng-style="isOptionSelected(option)" >
                     {{option.name}}
                 </a>
             </li>
             <li class="sidebar-brand">
                 <a>Actions</a>
             </li>
-            <li ng-repeat="action in menuActions">
-                <a ng-style="isActionSelected(action)" ng-click="selectAction(action)" ui-sref="{{selectView(action);}}">
+            <li ng-repeat="action in menuActions" ng-click="selectAction(action)" ui-sref="{{selectView(action);}}">
+                <a ng-style="isActionSelected(action)">
                     {{action.name}}
                 </a>
             </li>
