@@ -47,13 +47,14 @@
             }
 
             function selectFromMenu(element) {
+                
                 for (var i = 0; i < $scope.menuActions.length; i++) {
                     if ($scope.menuActions[i] === element)
                         $scope.menuActions[i].active = true;
                     else
                         $scope.menuActions[i].active = false;
                 }
-                for (var i = 0; i < $scope.menuOptions.length; i++) {
+                for (var i = 0; i < $scope.menuOptions.length-1; i++) {
                     if ($scope.menuOptions[i] === element)
                         $scope.menuOptions[i].active = true;
                     else
@@ -72,7 +73,7 @@
             }
 
             this.showError = function (data) {
-                alert("ERROR:" + data);
+                $scope.showAlert("Error", data);
             };
 
             this.generateImage = function () {
@@ -86,6 +87,12 @@
                 }
             };
 
+            this.deleteItinerario = function(){
+                svc.deleteItinerario(userId, dataSvc.tripId).then(function(response){
+                    $scope.showAlert("Deleted", "The trip has been deleted.");
+                    self.getItinerarios();
+                }, responseError);
+            };
             this.addItinerario = function (userId, trip) {
                 svc.addItinerario(userId, trip).then(function (response) {
                     self.getItinerarios();
@@ -136,12 +143,18 @@
             };
 
             $scope.selectOption = function (option) {
-                if (option.name === 'Create') {
-                    toggleMenu();
-                    initGeoChart();
-                    $scope.showAlert("Create trip", "Lets start!");
+                switch(option.name){
+                    case "Create":
+                        toggleMenu();
+                        initGeoChart();
+                        $scope.showAlert("Create trip", "Lets start!");
+                        selectFromMenu(option);
+                        break;
+                    case "Delete":
+                        $scope.showDeleteConfirm();
+                        break;
+                    
                 }
-                selectFromMenu(option);
             };
 
             $scope.isActionSelected = function (action) {
@@ -338,6 +351,11 @@
                 return $scope.optionScreen < 3;
             };
 
+            function areCountriesSelected() {
+                if ($scope.chart.data.length === 1)
+                    return "Please select a country";
+                return "YES";
+            }
             /**
              * Moves to the next create trip page.
              * @returns {undefined}
@@ -345,9 +363,14 @@
             $scope.nextPage = function (ev) {
                 firstClick = false;
                 if ($scope.optionScreen === 2) {
-                    $scope.showCreateTripConfirm(ev);
+                    $scope.showPrompt(ev);
                 } else {
-                    $scope.optionScreen++;
+                    var msg = areCountriesSelected();
+                    if (msg !== "YES") {
+                        $scope.showAlert("Whoops!", msg);
+                    } else {
+                        $scope.optionScreen++;
+                    }
                 }
             };
             /**
@@ -355,7 +378,9 @@
              * @returns {undefined}
              */
             $scope.prevPage = function () {
-                $scope.optionScreen--;
+                if ($scope.optionScreen > 1) {
+                    $scope.optionScreen--;
+                }
             };
 
             /**
@@ -414,7 +439,7 @@
              * trip. (Compatible with ItinerarioDTO)
              * @returns {undefined}
              */
-            function getRelevantData() {
+            function getRelevantData(tripName) {
                 var completeTrip = [];
                 for (var property in $scope.tripDetails) {
                     if ($scope.tripDetails.hasOwnProperty(property)) {
@@ -441,7 +466,7 @@
 
                 var itinerario = {
                     id: id,
-                    nombre: nombre,
+                    nombre: tripName,
                     fechaInicio: fechaInicio,
                     fechaFin: fechaFin,
                     planDias: planDias,
@@ -469,20 +494,37 @@
                         );
             };
 
-            $scope.showCreateTripConfirm = function (ev) {
+            $scope.showDeleteConfirm = function (ev) {
                 // Appending dialog to document.body to cover sidenav in docs app
                 var confirm = $mdDialog.confirm()
-                        .title('Would you like to create your trip?')
-                        .textContent('Make sure all the information you entered is correct.')
+                        .title('Are you sure you want to delete?')
+                        .textContent('All the information about ' + $scope.currentTrip.nombre
+                            + ' would be permanetly lost')
                         .ariaLabel('Lucky day')
                         .targetEvent(ev)
                         .ok('Yes!')
                         .cancel('Not yet');
                 $mdDialog.show(confirm).then(function () {
-                    var itinerario = getRelevantData();
-                    self.addItinerario(userId, itinerario);
+                    self.deleteItinerario();
                 }, function () {
 
+                });
+            };
+
+            $scope.showPrompt = function (ev) {
+                // Appending dialog to document.body to cover sidenav in docs app
+                var confirm = $mdDialog.prompt()
+                        .title('What would you name your trip?')
+                        .textContent('Please be a little creative.')
+                        .placeholder('trip name')
+                        .ariaLabel('Dog name')
+                        .targetEvent(ev)
+                        .ok('Okay!')
+                        .cancel('I\'m not ready yet');
+                $mdDialog.show(confirm).then(function (result) {
+                    var itinerario = getRelevantData(result);
+                    self.addItinerario(userId, itinerario);
+                }, function () {
                 });
             };
             this.getItinerarios();
