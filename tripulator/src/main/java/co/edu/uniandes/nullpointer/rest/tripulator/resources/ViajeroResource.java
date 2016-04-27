@@ -101,7 +101,7 @@ public class ViajeroResource {
      * @param viajeroId Identificador del objeto de Viajero
      * @return Colección de objetos de ItinerarioDTO (representación basic) asociadas al objeto de Viajero
      * @generated
-     *
+     */
     
     @GET
     @Path("{viajeroId: \\d+}/itinerarios")
@@ -116,7 +116,7 @@ public class ViajeroResource {
      * @param itinerarioId Identificador del objeto de Itinerario
      * @return Objeto de ItinerarioDTO (representación full)
      * @generated
-     *
+     */
     @GET
     @Path("{viajeroId: \\d+}/itinerarios/{itinerarioId: \\d+}")
     public ItinerarioDTO getItinerarios(@PathParam("viajeroId") Long viajeroId, @PathParam("itinerarioId") Long itinerarioId) {

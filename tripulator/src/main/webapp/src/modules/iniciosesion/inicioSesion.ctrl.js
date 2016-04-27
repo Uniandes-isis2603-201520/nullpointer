@@ -1,30 +1,38 @@
 (function (ng) {
 
-  // es parte del módulo "personModule"
-  var mod = ng.module("inicioSesionModule");
+    // es parte del módulo "personModule"
+    var mod = ng.module("inicioSesionModule");
 
-  // crea el controlador con dependencias a $scope y a personService
-  mod.controller("inicioSesionCtrl", ["$scope", "InicioSesionService", function ($scope, svc) {
+    // crea el controlador con dependencias a $scope y a personService
+    mod.controller("inicioSesionCtrl", ["$scope", "InicioSesionService", function ($scope, svc) {
 
 
-            var modal = document.getElementById("myModal");
-            
-         
-            
+
+
+
+            var encontro = false;
             $scope.buscar = -1;
             var self = this;
             $scope.currentRecord = {
-                    id: 0,
-                    nombre:'',
-                    apellido:'',
-                    usuario: '', 
-                    email: '',
-                    password:''
-                };
+                id: 0,
+                nombre: '',
+                apellido: '',
+                usuario: '',
+                email: '',
+                password: ''
+            };
+
+            $scope.loginRecord = {
+                email: '',
+                password: ''
+            };
+
+
+
             $scope.searchRecord = {};
             $scope.records = [];
 
-            
+
             /*
              * Funcion createRecord emite un evento a los $scope hijos del controlador por medio de la
              * sentencia &broadcast ("nombre del evento", record), esto con el fin cargar la información de modulos hijos
@@ -32,14 +40,45 @@
              * Habilita el modo de edicion. El template de la lista cambia por el formulario.
              *
              */
-                
-            
-              this.saveRecord = function () {
-                  console.log("llegues");
-                    return svc.saveRecord($scope.currentRecord).then(function () {
-                        self.fetchRecords();
-                        
-                    });
+
+            $scope.link = "viajero";
+            $scope.iniciarSesion = function () {
+
+                for (var i = 0; i < $scope.records.length && !encontro; i++)
+                {
+                    $scope.currentRecord = $scope.records[i];
+                    if (($scope.currentRecord.email === $scope.loginRecord.email)
+                            && ($scope.currentRecord.password === $scope.loginRecord.password))
+                    {
+
+                        encontro = true;
+                    }
+                }
+
+
+            };
+
+            $scope.validar = function () {
+                if (encontro)
+                {
+                    alert($scope.records.length);
+                    return "viajero";
+
+                } else
+                {
+                    return "/";
+                }
+
+            };
+
+
+
+            this.saveRecord = function () {
+                console.log("llegues");
+                return svc.saveRecord($scope.currentRecord).then(function () {
+                    self.fetchRecords();
+
+                });
             };
 
 
@@ -65,7 +104,7 @@
                     return response;
                 });
             };
-             this.deleteRecord = function (username) {
+            this.deleteRecord = function (username) {
                 return svc.deleteRecord(username).then(function () {
                     self.fetchRecords();
                 });

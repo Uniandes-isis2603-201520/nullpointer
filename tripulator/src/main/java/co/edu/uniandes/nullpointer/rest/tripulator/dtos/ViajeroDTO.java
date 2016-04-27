@@ -125,6 +125,14 @@ public class ViajeroDTO {
         this.usuario = usuario;
     }
 
+    public List<ItinerarioDTO> getItinerarios() {
+        return itinerarios;
+    }
+
+    public void setItinerarios(List<ItinerarioDTO> itinerarios) {
+        this.itinerarios = itinerarios;
+    }
+
     /**
      * Convierte el objeto a una cadena
      * @return 
