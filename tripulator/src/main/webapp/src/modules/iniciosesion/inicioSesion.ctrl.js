@@ -4,7 +4,9 @@
     var mod = ng.module("inicioSesionModule");
 
     // crea el controlador con dependencias a $scope y a personService
-    mod.controller("inicioSesionCtrl", ["$scope", "InicioSesionService", function ($scope, svc) {
+    mod.controller("inicioSesionCtrl", ["$scope", "InicioSesionService", "$state", "$stateParams", function ($scope, svc, $state) {
+         
+         
 
 
 
@@ -41,7 +43,7 @@
              *
              */
 
-            $scope.link = "viajero";
+            $scope.link = "/";
             $scope.iniciarSesion = function () {
 
                 for (var i = 0; i < $scope.records.length && !encontro; i++)
@@ -50,25 +52,22 @@
                     if (($scope.currentRecord.email === $scope.loginRecord.email)
                             && ($scope.currentRecord.password === $scope.loginRecord.password))
                     {
-
-                        encontro = true;
+                        $state.go("viajero");
+                        return;
                     }
                 }
-
-
+                
+                encontro = false;
             };
 
             $scope.validar = function () {
                 if (encontro)
                 {
-                    alert($scope.records.length);
                     return "viajero";
-
                 } else
                 {
                     return "/";
                 }
-
             };
 
 
