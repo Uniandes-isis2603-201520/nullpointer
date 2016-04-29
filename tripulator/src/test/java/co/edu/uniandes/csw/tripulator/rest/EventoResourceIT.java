@@ -121,7 +121,7 @@ public class EventoResourceIT {
                 .post(Entity.entity(evento, MediaType.APPLICATION_JSON));
         EventoDTO eventoTest = (EventoDTO) response.readEntity(EventoDTO.class);
 
-        Assert.assertEquals(CREATED, response.getStatus());
+        Assert.assertEquals(OK, response.getStatus());
 
         Assert.assertEquals(evento.getId(), eventoTest.getId());
         Assert.assertEquals(evento.getTitle(), eventoTest.getTitle());

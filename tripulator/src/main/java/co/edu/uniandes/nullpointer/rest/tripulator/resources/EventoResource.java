@@ -13,6 +13,8 @@ import co.edu.uniandes.nullpointer.rest.tripulator.converters.EventoConverter;
 import co.edu.uniandes.nullpointer.rest.tripulator.dtos.EventoDTO;
 import co.edu.uniandes.nullpointer.rest.tripulator.exceptions.TripulatorLogicException;
 import co.edu.uniandes.nullpointer.rest.tripulator.mocks.EventoLogicMock;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -25,6 +27,7 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response;
 
@@ -64,6 +67,28 @@ public class EventoResource {
     @Path("{id}")
     public EventoDTO getEvento(@PathParam("id") Long id) throws TripulatorLogicException, BusinessLogicException {
         return EventoConverter.fullEntity2DTO(eventoLogic.getEvento(id));
+    }
+
+    /**
+     * Obtiene un evento segun fecha y ciudad
+     * @param ciudad
+     * @return evento encontrado
+     * @throws TripulatorLogicException cuando el evento no existe
+     * @throws co.edu.uniandes.csw.tripulator.exceptions.BusinessLogicException
+     */
+    @GET
+    @Path("/buscar")
+    public List<EventoDTO> getEventoCiudadFecha(
+            @QueryParam("city")String ciudad,
+            @QueryParam("fecha")String d) throws TripulatorLogicException, BusinessLogicException {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+        try{
+        Date dia = sdf.parse(d);
+        List<EventoEntity> dtos = eventoLogic.getEventosCiudadFecha(ciudad, dia);
+        return EventoConverter.listEntity2DTO(dtos);
+        }catch(Exception e){
+            throw new TripulatorLogicException(e.getMessage());
+        }
     }
 
     /**
