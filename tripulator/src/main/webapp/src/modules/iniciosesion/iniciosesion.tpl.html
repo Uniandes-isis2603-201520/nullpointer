@@ -85,7 +85,7 @@
                     </div>
 
                     <div class ="modal-footer  ">
-                        <button type="submit" form="user-form" class="btn btn-default col-xs-offset-4 col-xs-2" > Register</button>
+                        <button ng-click="close()" type="submit" form="user-form" class="btn btn-default col-xs-offset-4 col-xs-2"  > Register</button>
                         <button type="button" class="btn btn-default col-xs-offset-7 col-xs-2" data-dismiss="modal">Close</button>
                     </div>
                 </fieldset>
@@ -144,7 +144,7 @@
             <tbody>
                 <tr ng-repeat="record in records">
                     <td style="padding:5px;">{{record.id}}</td>
-                    <td style="padding:5px;border-left:1px solid black;">{{link}}</td>
+                    <td style="padding:5px;border-left:1px solid black;">{{record.usuario}}</td>
                     <td style="padding:5px;border-left:1px solid black;">{{record.email}}</td>
                     <td style="padding:5px;border-left:1px solid black;">{{record.password}}</td>
                     <td style="padding:5px;border-left:1px solid black;"><button  class="btn-default" ng-click="ctrl.deleteRecord(record.id)">Borrar</button></td>

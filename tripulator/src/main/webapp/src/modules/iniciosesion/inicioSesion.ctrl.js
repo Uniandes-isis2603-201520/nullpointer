@@ -4,9 +4,9 @@
     var mod = ng.module("inicioSesionModule");
 
     // crea el controlador con dependencias a $scope y a personService
-    mod.controller("inicioSesionCtrl", ["$scope", "InicioSesionService", "$state", "$stateParams", function ($scope, svc, $state) {
-         
-         
+    mod.controller("inicioSesionCtrl", ["$scope","dataSvc", "InicioSesionService", "$state", "$stateParams", function ($scope,dataSvc ,svc, $state) {
+
+
 
 
 
@@ -52,12 +52,14 @@
                     if (($scope.currentRecord.email === $scope.loginRecord.email)
                             && ($scope.currentRecord.password === $scope.loginRecord.password))
                     {
+                        dataSvc.userId = $scope.currentRecord.id ;
                         $state.go("viajero");
                         return;
                     }
                 }
-                
+
                 encontro = false;
+                alert("Usuario o contraseña incorrectos");
             };
 
             $scope.validar = function () {
@@ -109,9 +111,11 @@
                 });
             };
 
+           
 
             this.fetchRecords();
 
         }]);
+
 
 })(window.angular);
