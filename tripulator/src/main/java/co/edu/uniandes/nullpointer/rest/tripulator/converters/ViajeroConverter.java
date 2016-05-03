@@ -27,11 +27,7 @@ public abstract class ViajeroConverter {
         if (entity != null) {
             ViajeroDTO dto = new ViajeroDTO();
             dto.setId(entity.getId());
-            dto.setNombre(entity.getName());
-            dto.setApellido(entity.getApellido());
-            dto.setEmail(entity.getEmail());
-            dto.setPassword(entity.getPassword());
-            dto.setUsuario(entity.getUsuario());
+            
 
             return dto;
         } else {
