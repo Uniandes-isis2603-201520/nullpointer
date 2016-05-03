@@ -1,6 +1,4 @@
 <link rel="stylesheet" type="text/css" href="resources/css/home.css">
-
-
 <div id="wrapper" style="margin-right:0px;">
 
     <!-- Sidebar -->
@@ -59,7 +57,7 @@
 
                             <md-content>
                                 <md-list>
-                                    <md-list-item class="md-2-line" md-ink-ripple="#FF0000" flex-offset="10" flex="80" ng-repeat="city in tripDetails[country[0]]">
+                                    <md-list-item class="md-2-line" md-ink-ripple="#0F6D8C" flex-offset="10" flex="80" ng-repeat="city in tripDetails[country[0]]">
                                         <div class="md-list-item-text" layout-fill layout="row" layout-align="space-between center">
                                             <i flex="5" class="material-icons" ng-click="deleteCity(city)">delete_forever</i>
                                             <md-input-container flex="45" layout="column" ng-hide="disableForm(city.city)">
@@ -82,7 +80,7 @@
                     </div>
                 </div>
             </div>
-            
+
         </div>
         <div class="edit" ng-show="menuOptions[1].active">
             <h1>Edit!</h1>

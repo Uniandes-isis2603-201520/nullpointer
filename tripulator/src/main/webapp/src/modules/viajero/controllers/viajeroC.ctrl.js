@@ -90,20 +90,20 @@
             };
 
             this.deleteItinerario = function () {
-                svc.deleteItinerario(userId, dataSvc.tripId).then(function (response) {
+                svc.deleteItinerario(userData.userId, dataSvc.tripId).then(function (response) {
                     $scope.showAlert("Deleted", "The trip has been deleted.");
                     self.getItinerarios();
                 }, responseError);
             };
-            this.addItinerario = function (userId, trip) {
-                svc.addItinerario(userId, trip).then(function (response) {
+            this.addItinerario = function (trip) {
+                svc.addItinerario(userData.userId, trip).then(function (response) {
                     self.getItinerarios();
                     finishCreation();
                 }, responseError);
             };
 
             this.getItinerarios = function () {
-                svc.getItinerarios(userId).then(function (response) {
+                svc.getItinerarios(userData.userId).then(function (response) {
                     $scope.trips = response.data;
                     if ($scope.trips.length === 0) {
                         $scope.menuOptions[0].active = true;
@@ -125,7 +125,7 @@
             };
 
             this.getItinerario = function (tripId) {
-                svc.getItinerario(userId, tripId).then(function (response) {
+                svc.getItinerario(userData.userId, tripId).then(function (response) {
                     $scope.currentTrip = response.data;
                     self.generateImage();
                     $scope.menuActions[0].active = true;
@@ -530,7 +530,7 @@
                         .cancel('I\'m not ready yet');
                 $mdDialog.show(confirm).then(function (result) {
                     var itinerario = getRelevantData(result);
-                    self.addItinerario(userId, itinerario);
+                    self.addItinerario(itinerario);
                 }, function () {
                 });
             };
