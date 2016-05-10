@@ -22,9 +22,6 @@ public class ViajeroLogic implements IViajeroLogic {
     private ViajeroPersistence persistence;
 
     @Inject
-    IItinerarioLogic itinerarioLogic;
-
-    @Inject
     private ItinerarioPersistence itinerarioPersistence;
 
     @Override
@@ -94,7 +91,7 @@ public class ViajeroLogic implements IViajeroLogic {
     public ItinerarioEntity addItinerario(ItinerarioEntity itinerario, Long viajeroId) throws BusinessLogicException {
         ViajeroEntity viajero = getViajero(viajeroId);
         viajero.addItinerario(itinerario);
-        return itinerarioPersistence.find(itinerario.getId());
+        return itinerarioPersistence.find(viajeroId, itinerario.getId());
     }
 
     @Override

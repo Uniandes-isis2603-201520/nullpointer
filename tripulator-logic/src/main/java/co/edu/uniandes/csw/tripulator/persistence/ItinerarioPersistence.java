@@ -13,6 +13,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -38,20 +39,27 @@ public class ItinerarioPersistence {
             return em.merge(entity);
         }
         
-        public void delete(Long id){
-            logger.log(Level.INFO, "Eliminando itinerario con id={0}",id);
-            ItinerarioEntity entity = em.find(ItinerarioEntity.class, id);
+        public void delete(Long idItinerario){
+            logger.log(Level.INFO, "Eliminando itinerario con id={0}",idItinerario);
+            ItinerarioEntity entity = em.find(ItinerarioEntity.class, idItinerario);
             em.remove(entity);
         }
         
-        public ItinerarioEntity find(Long id){
-            logger.log(Level.INFO, "Consultando itinerario con id={0}",id);
-            return em.find(ItinerarioEntity.class, id);
+        public ItinerarioEntity find(Long idViajero, Long idItinerario){
+            logger.log(Level.INFO, "Consultando itinerario con idViajero= {0} idItinerario= {1}", new Object[]{idViajero, idItinerario});
+            TypedQuery<ItinerarioEntity> q = em.createQuery("select i from ItinerarioEntity i where (i.viajero.id = :idViajero) "
+                + "and (i.id = :idItinerario)",ItinerarioEntity.class);
+            q.setParameter("idViajero", idViajero);
+            q.setParameter("idItinerario",idItinerario);
+            return q.getSingleResult();
         }
         
-        public List<ItinerarioEntity> findAll(){
+        public List<ItinerarioEntity> findAll(Long idViajero){
             logger.info("Consultando todos los itinerarios.");
-            Query q = em.createQuery("select u from ItinerarioEntity u");
+            TypedQuery<ItinerarioEntity> q = em.createQuery("select u from "
+                    + "ItinerarioEntity u where (u.viajero.id = :idViajero)",
+                    ItinerarioEntity.class);
+            q.setParameter("idViajero", idViajero);
             return q.getResultList();
         }
 }

@@ -18,6 +18,7 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import javax.transaction.UserTransaction;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
@@ -88,37 +89,41 @@ public class ItinerarioLogicTest {
         em.createQuery("delete from FotoEntity").executeUpdate();
         em.createQuery("delete from DiaEntity").executeUpdate();
         em.createQuery("delete from ItinerarioEntity").executeUpdate();
+        em.createQuery("delete from ViajeroEntity").executeUpdate();
     }
 
     private void insertData() {
 
         viajero = factory.manufacturePojo(ViajeroEntity.class);
-
-        for (int i = 0; i < 3; i++) {
-            FotoEntity fotos = factory.manufacturePojo(FotoEntity.class);
-            em.persist(fotos);
-            fotoData.add(fotos);
-        }
-
-        for (int i = 0; i < 3; i++) {
-            DiaEntity dias = factory.manufacturePojo(DiaEntity.class);
-            em.persist(dias);
-            diaData.add(dias);
-        }
+        em.persist(viajero);
 
         for (int i = 0; i < 3; i++) {
             ItinerarioEntity entity = factory.manufacturePojo(ItinerarioEntity.class);
+            entity.setViajero(viajero);
             em.persist(entity);
             data.add(entity);
+        }
+
+        for (int i = 0; i < 3; i++) {
+            FotoEntity fotos = factory.manufacturePojo(FotoEntity.class);
+
+            DiaEntity dias = factory.manufacturePojo(DiaEntity.class);
+
             if (i == 0) {
-                fotoData.get(i).setItinerario(entity);
-                diaData.get(i).setItinerario(entity);
+                fotos.setItinerario(data.get(i));
+                dias.setItinerario(data.get(i));
             }
+
+            em.persist(dias);
+            diaData.add(dias);
+
+            em.persist(fotos);
+            fotoData.add(fotos);
         }
     }
 
     @Test
-    public void createItinerarioTest() {
+    public void createItinerarioTest() throws BusinessLogicException {
         ItinerarioEntity expected = factory.manufacturePojo(ItinerarioEntity.class);
         ItinerarioEntity created = itinerarioLogic.createItinerario(viajero.getId(), expected);
 
@@ -133,9 +138,13 @@ public class ItinerarioLogicTest {
     }
 
     @Test
-    public void getItinerariosTest() {
+    public void getItinerariosTest() throws BusinessLogicException {
         List<ItinerarioEntity> resultList = itinerarioLogic.getItinerarios(viajero.getId());
-        List<ItinerarioEntity> expectedList = em.createQuery("SELECT u from ItinerarioEntity u").getResultList();
+        TypedQuery<ItinerarioEntity> q = em.createQuery("select u from "
+                    + "ItinerarioEntity u where (u.viajero.id = :idViajero)",
+                    ItinerarioEntity.class);
+        q.setParameter("idViajero", viajero.getId());
+        List<ItinerarioEntity> expectedList = q.getResultList();
         Assert.assertEquals(expectedList.size(), resultList.size());
         for (ItinerarioEntity expected : expectedList) {
             boolean found = false;
@@ -163,7 +172,7 @@ public class ItinerarioLogicTest {
     }
 
     @Test
-    public void deleteItinerarioTest() {
+    public void deleteItinerarioTest() throws BusinessLogicException {
         ItinerarioEntity entity = data.get(1);
         itinerarioLogic.deleteItinerario(viajero.getId(), entity.getId());
         ItinerarioEntity expected = em.find(ItinerarioEntity.class, entity.getId());
@@ -171,7 +180,7 @@ public class ItinerarioLogicTest {
     }
 
     @Test
-    public void updateItinerarioTest() {
+    public void updateItinerarioTest() throws BusinessLogicException {
         ItinerarioEntity entity = data.get(0);
         ItinerarioEntity expected = factory.manufacturePojo(ItinerarioEntity.class);
 
@@ -277,8 +286,8 @@ public class ItinerarioLogicTest {
 
     @Test
     public void removePhotosTest() {
-        itinerarioLogic.removePhoto(viajero.getId(), data.get(0).getId(),fotoData.get(0).getId());
-        FotoEntity response = itinerarioLogic.getPhoto(viajero.getId(), data.get(0).getId(),fotoData.get(0).getId());
+        itinerarioLogic.removePhoto(viajero.getId(), data.get(0).getId(), fotoData.get(0).getId());
+        FotoEntity response = itinerarioLogic.getPhoto(viajero.getId(), data.get(0).getId(), fotoData.get(0).getId());
         Assert.assertNull(response);
     }
 }

@@ -6,6 +6,7 @@
 package co.edu.uniandes.csw.tripulator.persistence;
 
 import co.edu.uniandes.csw.tripulator.entities.ItinerarioEntity;
+import co.edu.uniandes.csw.tripulator.entities.ViajeroEntity;
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
@@ -51,8 +52,10 @@ public class ItinerarioPersistenceTest {
 
     private final PodamFactory factory = new PodamFactoryImpl();
     
-    private List<ItinerarioEntity> data = new ArrayList<>();
-
+    private final List<ItinerarioEntity> data = new ArrayList<>();
+    
+    private ViajeroEntity viajero;
+    
     @Before
     public void configTest() {
         try {
@@ -73,13 +76,17 @@ public class ItinerarioPersistenceTest {
 
     private void clearData() {
         em.createQuery("delete from ItinerarioEntity").executeUpdate();
+        em.createQuery("delete from ViajeroEntity").executeUpdate();
     }
 
     private void insertData() {
+        viajero = factory.manufacturePojo(ViajeroEntity.class);
+        em.persist(viajero);
         for (int i = 0; i < 3; i++) {
             ItinerarioEntity entity = factory.manufacturePojo(ItinerarioEntity.class);
+            entity.setViajero(viajero);
             em.persist(entity);
-            data.add(entity);
+            data.add(entity);            
         }
     }
 
@@ -97,7 +104,7 @@ public class ItinerarioPersistenceTest {
 
     @Test
     public void getItinerariosTest() {
-        List<ItinerarioEntity> list = itinerarioPersistence.findAll();
+        List<ItinerarioEntity> list = itinerarioPersistence.findAll(viajero.getId());
         Assert.assertEquals(data.size(), list.size());
         for(ItinerarioEntity ent : list) {
             boolean found = false;
@@ -113,7 +120,7 @@ public class ItinerarioPersistenceTest {
     @Test
     public void getItinerarioTest() {
         ItinerarioEntity entity = data.get(0);
-        ItinerarioEntity newEntity = itinerarioPersistence.find(entity.getId());
+        ItinerarioEntity newEntity = itinerarioPersistence.find(viajero.getId(),entity.getId());
         Assert.assertNotNull(newEntity);
         Assert.assertEquals(entity.getName(), newEntity.getName());
         Assert.assertEquals(entity.getFechaInicio(), newEntity.getFechaInicio());

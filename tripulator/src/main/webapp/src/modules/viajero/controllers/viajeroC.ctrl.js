@@ -2,11 +2,9 @@
     var mod = ng.module("viajeroModule");
     mod.controller('ViajeroC', ['$scope', '$element', '$window', '$mdDialog', '$mdMedia', 'viajeroS', 'dataSvc',
         function ($scope, $element, $window, $mdDialog, $mdMedia, svc, dataSvc) {
-            var userId = 1;
             var numTrips = 1;
             var self = this;
             var userData = dataSvc;
-            dataSvc.userId = 1;
             $scope.trips = [];
             $scope.currentTrip;
             $scope.today = new Date();
@@ -90,7 +88,7 @@
             };
 
             this.deleteItinerario = function () {
-                svc.deleteItinerario(userData.userId, dataSvc.tripId).then(function (response) {
+                svc.deleteItinerario(userData.userId, userData.tripId).then(function (response) {
                     $scope.showAlert("Deleted", "The trip has been deleted.");
                     self.getItinerarios();
                 }, responseError);
@@ -444,6 +442,7 @@
             /**
              * Given all the input, it will organize the data and generate a
              * trip. (Compatible with ItinerarioDTO)
+             * @param tripName
              * @returns {undefined}
              */
             function getRelevantData(tripName) {
@@ -465,14 +464,11 @@
                 });
                 var fechaFin = completeTrip[completeTrip.length - 1].departureDate;
 
-                var nombre = "Not Supported";
-                var id = numTrips++;
                 var mapa = [];
                 var multimedia = [];
                 var planDias = []; // TO DO: Crear cada día de los rangos de fecha.
 
                 var itinerario = {
-                    id: id,
                     nombre: tripName,
                     fechaInicio: fechaInicio,
                     fechaFin: fechaFin,

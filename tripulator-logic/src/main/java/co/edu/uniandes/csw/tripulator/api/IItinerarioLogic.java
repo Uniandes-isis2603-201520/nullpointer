@@ -16,15 +16,16 @@ import java.util.List;
  * @author Antonio de la Vega
  */
 public interface IItinerarioLogic {
-    public List<ItinerarioEntity> getItinerarios(Long idViajero);
+    
+    public List<ItinerarioEntity> getItinerarios(Long idViajero)throws BusinessLogicException;
     
     public ItinerarioEntity getItinerario(Long idViajero, Long idItinerario)throws BusinessLogicException;
     
-    public ItinerarioEntity createItinerario(Long idViajero, ItinerarioEntity entity); 
+    public ItinerarioEntity createItinerario(Long idViajero, ItinerarioEntity entity)throws BusinessLogicException; 
     
-    public ItinerarioEntity updateItinerario(Long idViajero, ItinerarioEntity entity);
+    public ItinerarioEntity updateItinerario(Long idViajero, ItinerarioEntity entity)throws BusinessLogicException;
     
-    public void deleteItinerario(Long idVIajero, Long id);
+    public void deleteItinerario(Long idViajero, Long idItinerario) throws BusinessLogicException;
     
     public List<DiaEntity> replaceDays(List<DiaEntity> dias,Long idViajero, Long itinerarioId);
     

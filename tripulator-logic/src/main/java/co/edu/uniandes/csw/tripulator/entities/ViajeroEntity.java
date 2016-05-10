@@ -19,7 +19,7 @@ public class ViajeroEntity extends BaseEntity implements Serializable {
     private String usuario;
     private String password;
     
-    @OneToMany
+    @OneToMany(mappedBy = "viajero", cascade = CascadeType.ALL, orphanRemoval = true)
     @PodamExclude
     private List<ItinerarioEntity> itinerarios = new ArrayList<>();
     

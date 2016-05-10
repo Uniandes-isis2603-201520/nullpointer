@@ -11,7 +11,9 @@ import co.edu.uniandes.csw.tripulator.exceptions.BusinessLogicException;
 import co.edu.uniandes.nullpointer.rest.tripulator.converters.ItinerarioConverter;
 import co.edu.uniandes.nullpointer.rest.tripulator.dtos.ItinerarioDTO;
 import co.edu.uniandes.nullpointer.rest.tripulator.exceptions.TripulatorLogicException;
+import co.edu.uniandes.nullpointer.rest.tripulator.mocks.ItinerarioLogicMock;
 import java.util.List;
+import java.util.logging.Logger;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 
@@ -35,6 +37,9 @@ public class ItinerarioResource {
     @Inject
     IItinerarioLogic itinerarioLogic;
     
+    private final static Logger logger = Logger.getLogger(ItinerarioResource.class.getName());
+
+    
     /**
      * Devuelve todos los itinerarios.
      * @param idViajero
@@ -42,7 +47,7 @@ public class ItinerarioResource {
      * @throws TripulatorLogicException 
      */
     @GET
-    public List<ItinerarioDTO> getItinerarios(@PathParam("idViajero") Long idViajero) throws TripulatorLogicException{
+    public List<ItinerarioDTO> getItinerarios(@PathParam("idViajero") Long idViajero) throws TripulatorLogicException, BusinessLogicException{
         return ItinerarioConverter.listEntity2DTO(itinerarioLogic.getItinerarios(idViajero));
     }
     
@@ -71,7 +76,8 @@ public class ItinerarioResource {
      */
     @POST
     public ItinerarioDTO createItinerario(@PathParam("idViajero") Long idViajero,
-            ItinerarioDTO itinerario) throws TripulatorLogicException {
+            ItinerarioDTO itinerario) throws TripulatorLogicException, BusinessLogicException {
+        logger.info("Llego al recurso: El id del viajero es " + idViajero);
         return ItinerarioConverter.fullEntity2DTO(itinerarioLogic.createItinerario(idViajero, ItinerarioConverter.fullDTO2Entity(itinerario)));
     }
     
@@ -85,7 +91,7 @@ public class ItinerarioResource {
     @PUT
     @Path("{id: \\d+}")
     public ItinerarioDTO updateItinerario(@PathParam("idViajero") Long idViajero,
-           ItinerarioDTO itinerario) throws TripulatorLogicException {
+           ItinerarioDTO itinerario) throws TripulatorLogicException, BusinessLogicException {
         ItinerarioEntity iConverted = ItinerarioConverter.fullDTO2Entity(itinerario);
         return ItinerarioConverter.fullEntity2DTO(itinerarioLogic.updateItinerario(idViajero, iConverted));
     }
@@ -99,7 +105,7 @@ public class ItinerarioResource {
     @DELETE
     @Path("{id: \\d+}")
     public void deleteItinerario(@PathParam("idViajero") Long idViajero,
-            @PathParam("id") Long id) throws TripulatorLogicException {
+            @PathParam("id") Long id) throws TripulatorLogicException, BusinessLogicException {
     	itinerarioLogic.deleteItinerario(idViajero,id);
     }
 }
