@@ -13,6 +13,7 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import javax.transaction.UserTransaction;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
@@ -41,9 +42,8 @@ public class DiaLogicTest {
 
     private ViajeroEntity viajero;
     private ItinerarioEntity itinerario;
-
-    private List<DiaEntity> data = new ArrayList<DiaEntity>();
-    private List<EventoEntity> eventoData = new ArrayList<EventoEntity>();
+    private List<DiaEntity> data = new ArrayList<>();
+    private List<EventoEntity> eventoData = new ArrayList<>();
 
     @Deployment
     public static JavaArchive createDeployment() {
@@ -76,26 +76,30 @@ public class DiaLogicTest {
     private void clearData() {
         em.createQuery("delete from EventoEntity").executeUpdate();
         em.createQuery("delete from DiaEntity").executeUpdate();
+        em.createQuery("delete from ItinerarioEntity").executeUpdate();
+        em.createQuery("delete from ViajeroEntity").executeUpdate();
     }
 
     private void insertData() {
         
         viajero = factory.manufacturePojo(ViajeroEntity.class);
+        em.persist(viajero);
         itinerario = factory.manufacturePojo(ItinerarioEntity.class);
-        
-        for (int i=0; i<3; i++){
-            EventoEntity evento = factory.manufacturePojo(EventoEntity.class);
-            em.persist(evento);
-            eventoData.add(evento);
-        }
-        
+        itinerario.setViajero(viajero);
+        em.persist(itinerario);
         for (int i = 0; i < 3; i++) {
             DiaEntity entity = factory.manufacturePojo(DiaEntity.class);
+            entity.setItinerario(itinerario);
             em.persist(entity);
             data.add(entity);
-            if (i == 0) {
-                eventoData.get(i).setDias(data);
+        }
+        for (int i=0; i<3; i++){
+            EventoEntity evento = factory.manufacturePojo(EventoEntity.class);
+            if (i==0){
+                evento.setDias(data);
             }
+            em.persist(evento);
+            eventoData.add(evento);
         }
     }
     
@@ -110,12 +114,17 @@ public class DiaLogicTest {
         Assert.assertEquals(expected.getId(), result.getId());
         Assert.assertEquals(expected.getDate(), result.getDate());
         Assert.assertEquals(expected.getCiudad(), result.getCiudad());
+        Assert.assertEquals(expected.getPais(), result.getPais());
     }
 
     @Test
     public void getDiasTest() throws BusinessLogicException {
         List<DiaEntity> resultList = diaLogic.getDias(viajero.getId(), itinerario.getId());
-        List<DiaEntity> expectedList = em.createQuery("SELECT u from DiaEntity u").getResultList();
+        TypedQuery<DiaEntity> q = em.createQuery("select u from "
+                    + "DiaEntity u where (u.itinerario.id = :idItinerario)",
+                    DiaEntity.class);
+        q.setParameter("idItinerario", itinerario.getId());
+        List<DiaEntity> expectedList = q.getResultList();
         Assert.assertEquals(expectedList.size(), resultList.size());
         for (DiaEntity expected : expectedList) {
             boolean found = false;
@@ -139,6 +148,7 @@ public class DiaLogicTest {
         Assert.assertEquals(expected.getId(), result.getId());
         Assert.assertEquals(expected.getDate(), result.getDate());
         Assert.assertEquals(expected.getCiudad(), result.getCiudad());
+        Assert.assertEquals(expected.getPais(), result.getPais());
     }
     
     @Test
