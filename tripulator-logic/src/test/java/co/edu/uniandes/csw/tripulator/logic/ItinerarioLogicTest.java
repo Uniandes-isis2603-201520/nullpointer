@@ -15,6 +15,7 @@ import co.edu.uniandes.csw.tripulator.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.tripulator.persistence.ItinerarioPersistence;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -37,6 +38,7 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
  */
 @RunWith(Arquillian.class)
 public class ItinerarioLogicTest {
+    private static final Logger logger = Logger.getLogger(ItinerarioLogicTest.class.getName());
 
     private final PodamFactory factory = new PodamFactoryImpl();
 
@@ -274,12 +276,19 @@ public class ItinerarioLogicTest {
         try {
             ItinerarioEntity entity = data.get(0);
             List<DiaEntity> list = diaData.subList(1, 3);
+            for(DiaEntity dia : list){
+                logger.info("parte 1: " + dia.getDate() + " " + dia.getName() + " " + dia.getCiudad() + dia.getPais() + dia.getId());
+            }
             itinerarioLogic.replaceDays(list, viajero.getId(), entity.getId());
-
+            
             entity = itinerarioLogic.getItinerario(viajero.getId(), entity.getId());
+            for(DiaEntity dia : entity.getDias()){
+                logger.info("parte 2: " + dia.getDate() + " " + dia.getName() + " " + dia.getCiudad() + dia.getPais() + dia.getId());
+            }
+            
             Assert.assertFalse(entity.getDias().contains(diaData.get(0)));
-            Assert.assertTrue(entity.getDias().contains(diaData.get(1)));
-            Assert.assertTrue(entity.getDias().contains(diaData.get(2)));
+            Assert.assertTrue(entity.getDias().contains(list.get(0)));
+            Assert.assertTrue(entity.getDias().contains(list.get(1)));
         } catch (BusinessLogicException ex) {
             Assert.fail(ex.getLocalizedMessage());
         }
