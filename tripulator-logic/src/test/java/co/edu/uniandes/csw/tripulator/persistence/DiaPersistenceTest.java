@@ -6,6 +6,8 @@
 package co.edu.uniandes.csw.tripulator.persistence;
 
 import co.edu.uniandes.csw.tripulator.entities.DiaEntity;
+import co.edu.uniandes.csw.tripulator.entities.ItinerarioEntity;
+import co.edu.uniandes.csw.tripulator.entities.ViajeroEntity;
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
@@ -23,6 +25,7 @@ import org.junit.Before;
 import uk.co.jemos.podam.api.PodamFactory;
 import uk.co.jemos.podam.api.PodamFactoryImpl;
 
+
 /**
  *
  * @author Nicolás
@@ -33,17 +36,20 @@ public class DiaPersistenceTest {
     @Inject
     private DiaPersistence diaPersistence;
 
+    @Inject
+    UserTransaction utx;
+
     @PersistenceContext
     private EntityManager em;
 
     private final PodamFactory factory = new PodamFactoryImpl();
-
-    @Inject
-    UserTransaction utx;
-
-    public DiaPersistenceTest() {
-    }
-
+    
+    private final List<DiaEntity> data = new ArrayList<>();
+    
+    private ViajeroEntity viajero;
+    
+    private ItinerarioEntity itinerario;
+    
     @Deployment
     public static JavaArchive createDeployement() {
         return ShrinkWrap.create(JavaArchive.class)
@@ -52,27 +58,15 @@ public class DiaPersistenceTest {
                 .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
                 .addAsManifestResource("META-INF/beans.xml", "beans.xml");
     }
-
-    private void clearData() {
-        em.createQuery("delete from DiaEntity").executeUpdate();
-    }
-
-    List<DiaEntity> data = new ArrayList<>();
-
-    private void insertData() {
-        for (int i = 0; i < 3; i++) {
-            DiaEntity entity = factory.manufacturePojo(DiaEntity.class);
-            em.persist(entity);
-            data.add(entity);
-        }
-    }
-
+    
     @Before
     public void configTest() {
         try {
             utx.begin();
+            em.joinTransaction();
             clearData();
             insertData();
+            utx.commit();
         } catch (Exception e) {
             e.printStackTrace();
             try {
@@ -80,6 +74,26 @@ public class DiaPersistenceTest {
             } catch (Exception e1) {
                 e1.printStackTrace();
             }
+        }
+    }
+
+    private void clearData() {
+        em.createQuery("delete from DiaEntity").executeUpdate();
+        em.createQuery("delete from ItinerarioEntity").executeUpdate();
+        em.createQuery("delete from ViajeroEntity").executeUpdate();
+    }
+
+    private void insertData() {
+        viajero = factory.manufacturePojo(ViajeroEntity.class);
+        em.persist(viajero);
+        itinerario = factory.manufacturePojo(ItinerarioEntity.class);
+        itinerario.setViajero(viajero);
+        em.persist(itinerario);
+        for (int i = 0; i < 3; i++) {
+            DiaEntity entity = factory.manufacturePojo(DiaEntity.class);
+            entity.setItinerario(itinerario);
+            em.persist(entity);
+            data.add(entity);
         }
     }
 
@@ -92,11 +106,12 @@ public class DiaPersistenceTest {
         DiaEntity entity = em.find(DiaEntity.class, newEntity.getId());
         Assert.assertEquals(newEntity.getDate(), entity.getDate());
         Assert.assertEquals(newEntity.getCiudad(), entity.getCiudad());
+        Assert.assertEquals(newEntity.getPais(), entity.getPais());
     }
     
     @Test
     public void getDiasTest() {
-        List<DiaEntity> list = diaPersistence.findAll(new Long(1));
+        List<DiaEntity> list = diaPersistence.findAll(itinerario.getId());
         Assert.assertEquals(data.size(), list.size());
         for (DiaEntity d : list) {
             boolean found = false;
@@ -111,10 +126,11 @@ public class DiaPersistenceTest {
     @Test
     public void getDiaTest() {
         DiaEntity entity = data.get(0);
-        DiaEntity newEntity = diaPersistence.find(new Long(2), entity.getId());
+        DiaEntity newEntity = diaPersistence.find(itinerario.getId(), entity.getId());
         Assert.assertNotNull(newEntity);
         Assert.assertEquals(newEntity.getDate(), entity.getDate());
         Assert.assertEquals(newEntity.getCiudad(), entity.getCiudad());
+        Assert.assertEquals(newEntity.getPais(), entity.getPais());
     }
     
     @Test
@@ -126,7 +142,7 @@ public class DiaPersistenceTest {
     }
     
     @Test
-    public void updateBookTest() {
+    public void updateDiaTest() {
         DiaEntity entity = data.get(0);
         DiaEntity newEntity = factory.manufacturePojo(DiaEntity.class);
         newEntity.setId(entity.getId());
@@ -137,6 +153,6 @@ public class DiaPersistenceTest {
 
         Assert.assertEquals(resp.getDate(), newEntity.getDate());
         Assert.assertEquals(resp.getCiudad(), newEntity.getCiudad());
+        Assert.assertEquals(resp.getPais(), newEntity.getPais());
     }
-    
 }

@@ -6,9 +6,15 @@
 package co.edu.uniandes.csw.tripulator.ejbs;
 
 import co.edu.uniandes.csw.tripulator.api.IFotoLogic;
+import co.edu.uniandes.csw.tripulator.api.IItinerarioLogic;
+import co.edu.uniandes.csw.tripulator.entities.DiaEntity;
 import co.edu.uniandes.csw.tripulator.entities.FotoEntity;
+import co.edu.uniandes.csw.tripulator.entities.ItinerarioEntity;
+import co.edu.uniandes.csw.tripulator.entities.ViajeroEntity;
 import co.edu.uniandes.csw.tripulator.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.tripulator.persistence.FotoPersistence;
+import co.edu.uniandes.csw.tripulator.persistence.ItinerarioPersistence;
+import co.edu.uniandes.csw.tripulator.persistence.ViajeroPersistence;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -27,6 +33,9 @@ public class FotoLogic implements IFotoLogic{
     @Inject
     private FotoPersistence persistence;
     
+    @Inject
+    private IItinerarioLogic itiLogic;
+    
 
     @Override
     public List<FotoEntity> getFotos(Long idViajero, Long idItinerario) {
@@ -35,19 +44,34 @@ public class FotoLogic implements IFotoLogic{
         logger.info("Termina proceso de consultar todas las fotos");
         return fotos;
     }
+    
+    @Override
+    public FotoEntity getFoto(Long idItinerario, Long idFoto)throws BusinessLogicException{
+        logger.log(Level.INFO, "Inicia proceso de consultar foto con id={0}", idFoto);
+        FotoEntity foto = persistence.find(idItinerario, idFoto);
+        if (foto == null) {
+            logger.log(Level.SEVERE, "La foto con el id {0} no existe", idFoto);
+            throw new BusinessLogicException("La foto solicitada no existe");
+        }
+        logger.log(Level.INFO, "Termina proceso de consultar foto con id={0}", idFoto);
+        return foto;
+    }
 
 
     @Override
-    public FotoEntity createFoto(FotoEntity entity) {
+    public FotoEntity createFoto(Long idViajero, Long idItinerario, FotoEntity entity) throws BusinessLogicException {
         logger.info("Inicia proceso de creación de foto");
-        persistence.create(entity);
+        
+        ItinerarioEntity e=itiLogic.getItinerario(idViajero, idItinerario);
+        entity.setItinerario(e);
+        entity=persistence.create(entity);
         logger.info("Termina proceso de creación de foto");
         return entity;
     }
 
 
     @Override
-    public void deleteFoto(Long id) {
+    public void deleteFoto(Long idViajero, Long idItinerario, Long id) throws BusinessLogicException  {
         logger.log(Level.INFO, "Inicia proceso de borrar foto con id={0}", id);
         persistence.delete(id);
         logger.log(Level.INFO, "Termina proceso de borrar foto con id={0}", id);

@@ -10,6 +10,7 @@ import co.edu.uniandes.csw.tripulator.ejbs.FotoLogic;
 import co.edu.uniandes.csw.tripulator.entities.ComentarioEntity;
 import co.edu.uniandes.csw.tripulator.entities.FotoEntity;
 import co.edu.uniandes.csw.tripulator.entities.FotoEntity;
+import co.edu.uniandes.csw.tripulator.entities.ItinerarioEntity;
 import co.edu.uniandes.csw.tripulator.entities.ViajeroEntity;
 import co.edu.uniandes.csw.tripulator.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.tripulator.persistence.FotoPersistence;
@@ -18,6 +19,7 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import javax.transaction.UserTransaction;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
@@ -52,7 +54,7 @@ public class FotoLogicTest {
     
     private ViajeroEntity viajero;
     
-    private FotoEntity itinerario;
+    private ItinerarioEntity itinerario;
 
     @Deployment
     public static JavaArchive createDeployment() {
@@ -84,16 +86,30 @@ public class FotoLogicTest {
 
     private void clearData() {
         em.createQuery("delete from FotoEntity").executeUpdate();
+        em.createQuery("delete from ItinerarioEntity").executeUpdate();
+        em.createQuery("delete from ViajeroEntity").executeUpdate();
+
+
+        
+        
     }
 
     private void insertData() {
         
         viajero = factory.manufacturePojo(ViajeroEntity.class);
         
-        itinerario = factory.manufacturePojo(FotoEntity.class);
+        itinerario = factory.manufacturePojo(ItinerarioEntity.class);
+     
+        
+        em.persist(viajero);
+        
+        itinerario.setViajero(viajero);
+        
+        em.persist(itinerario);
 
         for (int i = 0; i < 3; i++) {
             FotoEntity entity = factory.manufacturePojo(FotoEntity.class);
+            entity.setItinerario(itinerario);
             em.persist(entity);
             data.add(entity);
             
@@ -101,9 +117,9 @@ public class FotoLogicTest {
     }
    
     @Test
-    public void createFotoTest() {
+    public void createFotoTest() throws BusinessLogicException {
         FotoEntity expected = factory.manufacturePojo(FotoEntity.class);
-        FotoEntity created = fotoLogic.createFoto(expected);
+        FotoEntity created = fotoLogic.createFoto(viajero.getId(), itinerario.getId(), expected);
 
         FotoEntity result = em.find(FotoEntity.class, created.getId());
 
@@ -116,8 +132,10 @@ public class FotoLogicTest {
 
     @Test
     public void getFotosTest() {
-        List<FotoEntity> resultList = fotoLogic.getFotos(viajero.getId(), itinerario.getId());
-        List<FotoEntity> expectedList = em.createQuery("SELECT u from FotoEntity u").getResultList();
+      List<FotoEntity> resultList = fotoLogic.getFotos(viajero.getId(), itinerario.getId());
+         TypedQuery<FotoEntity> q = em.createQuery("select u from FotoEntity u where (u.itinerario.id = :idItinerario) ", FotoEntity.class);
+        q.setParameter("idItinerario", itinerario.getId());
+        List<FotoEntity> expectedList = q.getResultList();
         Assert.assertEquals(expectedList.size(), resultList.size());
         for (FotoEntity expected : expectedList) {
             boolean found = false;
@@ -131,9 +149,9 @@ public class FotoLogicTest {
     }
     
         @Test
-    public void deleteFotoTest() {
+    public void deleteFotoTest() throws BusinessLogicException {
         FotoEntity entity = data.get(1);
-        fotoLogic.deleteFoto(entity.getId());
+        fotoLogic.deleteFoto(viajero.getId(), itinerario.getId(), entity.getId());
         FotoEntity expected = em.find(FotoEntity.class, entity.getId());
         Assert.assertNull(expected);
     }

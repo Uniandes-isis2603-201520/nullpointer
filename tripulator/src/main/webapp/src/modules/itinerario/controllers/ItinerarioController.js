@@ -24,10 +24,39 @@
              * @param {type} days
              * @returns {undefined}
              */
-            function generateDays(days) {
+            function modifyDays(days) {
                 for (var i = 0; i < days.length; i++) {
                     days[i].valid = true;
                     days[i].fecha = new Date(days[i].fecha);
+                }
+            }
+
+            /**
+             * There could be gaps between the days you are on a trip.
+             * These gaps must be filled with non valid days for the calendar
+             * to display correctly.
+             * @param {type} days
+             * @returns {undefined}
+             */
+            function fixGaps(days) {
+                for (var i = 0; i < days.length - 1; i++) {
+                    var startDate = days[i].fecha;
+                    var endDate = days[i + 1].fecha;
+                    var tempDate = new Date(startDate);
+                    tempDate.setDate(tempDate.getDate() + 1);
+                    if (tempDate < endDate) {
+                        var x = 1;
+                        while (tempDate < endDate) {
+                            days.splice(i + x, 0, {
+                                valid: false,
+                                fecha: new Date(tempDate)
+                            });
+                            var j = new Date(tempDate);
+                            j.setDate(j.getDate() + 1);
+                            tempDate = j;
+                            x++;
+                        }
+                    }
                 }
             }
             /**
@@ -76,13 +105,14 @@
             this.getDias = function () {
                 svc.getDias(dataSvc.userId, dataSvc.tripId).then(function (resolve) {
                     $scope.days = resolve.data;
-                    alert($scope.days[1].id);
 
-                    generateDays($scope.days);
+                    modifyDays($scope.days);
 
                     $scope.days.sort(function (x, y) {
                         return x.fecha - y.fecha;
                     });
+
+                    fixGaps($scope.days);
 
                     $scope.days = formatDays($scope.days);
 
