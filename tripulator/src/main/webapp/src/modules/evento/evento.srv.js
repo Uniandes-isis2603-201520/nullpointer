@@ -1,6 +1,6 @@
 (function (ng) {
     var mod = ng.module("eventoModule");
-    mod.service('EventosInfoService', [ "$http", "bookContext",  function ($http,context) {
+    mod.service('EventosInfoService', [ "$http", "eventoContext",  function ($http,context) {
 
             this.fetchEventos = function () {
                 var dir=context+"/eventos";

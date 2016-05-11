@@ -6,6 +6,7 @@
 package co.edu.uniandes.nullpointer.rest.tripulator.dtos;
 
 import co.edu.uniandes.csw.crud.api.podam.strategy.DateStrategy;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -196,9 +197,10 @@ public class EventoDTO {
      */
     @Override
     public String toString() {
+        SimpleDateFormat sdf = new SimpleDateFormat("YYYY-MM-DD HH:mm");
         return "{id:" + id + ",\n title:'" + title + "',\n image:'" + image
-                +"', \n type:'" + type + "',\n start:" + start + ",\n  end:"
-                + end + ",\n description:'" + description + "',\n ciudad:'"+ciudad+"' }";
+                +"', \n type:'" + type + "',\n start:" + sdf.format(start) + ",\n  end:"
+                + sdf.format(end) + ",\n description:'" + description + "',\n ciudad:'"+ciudad+"' }";
     }
 
 }

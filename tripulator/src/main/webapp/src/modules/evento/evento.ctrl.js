@@ -1,11 +1,11 @@
 (function (ng) {
     var mod = ng.module("eventoModule");
-    mod.controller('EventosController', ['$scope', 'EventosInfoService','DiaEventoSvc', function ($scope, svc, dataSvc) {
+    mod.controller('EventosController', ['$scope', 'EventosInfoService', 'dataSvc', function ($scope, svc, dataSvc) {
 
             $scope.events = [];
             $scope.eventoActual = {id:1};
             $scope.commentTemplate = {
-                user: "1",
+                user: dataSvc.userId,
                 stars: 0,
                 comment: ""
             };
@@ -90,16 +90,13 @@
             this.fetchEventos = function () {
                 return svc.fetchEventos().then(function (response) {
                     $scope.comentariosActuales=[];
-                    console.log("Comentarios vacio: ");
-                    console.log($scope.comentariosActuales);
                     $scope.events = response.data;
 
                     if($scope.events.length>=1){
                         $scope.eventoActual=$scope.events[$scope.eventoActual.id-1];
+                        console.log($scope.eventoActual);
                         self.getComments();
                     }
-                    console.log("Comentarios despues de get comments con id "+$scope.eventoActual.id);
-                    console.log($scope.comentariosActuales);
                     return response;
                 }, function (response){ console.log(response);});
             };
@@ -107,16 +104,12 @@
             this.fetchEventosCiudadDia = function (ciudad,dia) {
                 return svc.fetchEventosCiudadDia(ciudad,dia).then(function (response) {
                     $scope.comentariosActuales=[];
-                    console.log("Comentarios vacio: ");
-                    console.log($scope.comentariosActuales);
                     $scope.events = response.data;
 
                     if($scope.events.length>=1){
                         $scope.eventoActual=$scope.events[$scope.eventoActual.id-1];
                         self.getComments();
                     }
-                    console.log("Comentarios despues de get comments con id "+$scope.eventoActual.id);
-                    console.log($scope.comentariosActuales);
                     return response;
                 }, function (response){ console.log(response);});
             };
@@ -124,8 +117,6 @@
             this.getComments = function (){
               return svc.getComments($scope.eventoActual.id).then(function (response) {
                     $scope.comentariosActuales = response.data;
-                    console.log($scope.comentariosActuales);
-                    console.log(response.data);
                     return response;
                 }, function (response){
                     $scope.comentariosActuales=[];
@@ -133,11 +124,8 @@
                 });
             };
             this.update = function(cmt,idEvento){
-                console.log(idEvento);
                 cmt.id_evento=idEvento;
                 cmt.id=$scope.comentariosActuales.length+1;
-
-                console.log(cmt.id);
                 return svc.saveRecord(cmt,idEvento).then(function () {
                         self.fetchEventos();
                     }, function (response){ console.log(response);});
@@ -157,5 +145,13 @@
             }
 
             $scope.$on("getEventos", fetchECD);
+            this.fetchEventos();
+            if($scope.events.length==0){
+                $scope.eventoActual.title="No encontramos ningun evento :(";
+                $scope.eventoActual.description="Lamentablemente no hay eventos para esta ciudad en este día. ¡Prueba con otro!";
+            }
         }]);
 })(window.angular);
+//TODO: 1)Poblar con eventos
+//      2)Hacer fetch de eventos
+//      3)Lograr mandarle evento al dia

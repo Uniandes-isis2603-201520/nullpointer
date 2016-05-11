@@ -27,10 +27,10 @@ public class EventoEntity extends BaseEntity implements Serializable {
     private String image;
     private String type;
     @PodamStrategyValue(DateStrategy.class)
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date fechaInicio;
     @PodamStrategyValue(DateStrategy.class)
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date fechaFin;
     private String description;
     private String ciudad;
