@@ -6,13 +6,11 @@
 package co.edu.uniandes.nullpointer.rest.tripulator.resources;
 
 import co.edu.uniandes.csw.tripulator.api.IEventoLogic;
-import co.edu.uniandes.csw.tripulator.ejbs.EventoLogic;
 import co.edu.uniandes.csw.tripulator.entities.EventoEntity;
 import co.edu.uniandes.csw.tripulator.exceptions.BusinessLogicException;
 import co.edu.uniandes.nullpointer.rest.tripulator.converters.EventoConverter;
 import co.edu.uniandes.nullpointer.rest.tripulator.dtos.EventoDTO;
 import co.edu.uniandes.nullpointer.rest.tripulator.exceptions.TripulatorLogicException;
-import co.edu.uniandes.nullpointer.rest.tripulator.mocks.EventoLogicMock;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -72,6 +70,7 @@ public class EventoResource {
     /**
      * Obtiene un evento segun fecha y ciudad
      * @param ciudad
+     * @param d
      * @return evento encontrado
      * @throws TripulatorLogicException cuando el evento no existe
      * @throws co.edu.uniandes.csw.tripulator.exceptions.BusinessLogicException
@@ -79,7 +78,7 @@ public class EventoResource {
     @GET
     @Path("/buscar")
     public List<EventoDTO> getEventoCiudadFecha(
-            @QueryParam("city")String ciudad,
+            @QueryParam("ciudad")String ciudad,
             @QueryParam("fecha")String d) throws TripulatorLogicException, BusinessLogicException {
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
         try{

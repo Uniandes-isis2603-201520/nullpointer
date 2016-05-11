@@ -105,56 +105,6 @@ public class EventoLogic implements IEventoLogic {
         return getEvento(eventoId).getDias();
     }
 
-    @Override
-    public DiaEntity getDia(Long eventoId, Long diaId) throws Exception {
-        List<DiaEntity> dias = getEvento(eventoId).getDias();
-        DiaEntity diaEntity =  new DiaEntity(); //diaPersistence.find(diaId);
-        if (diaEntity == null) {
-            throw new IllegalArgumentException("El dia no existe");
-        }
-        int index = dias.indexOf(diaEntity);
-        if (index >= 0) {
-            return dias.get(index);
-        }
-        throw new IllegalArgumentException("El dia no está asociado al evento");
-    }
-
-    @Override
-    public DiaEntity addDia(Long diaId, Long eventoId) throws BusinessLogicException {
-        EventoEntity eventoEntity = getEvento(eventoId);
-        DiaEntity diaEntity =  new DiaEntity(); //diaPersistence.find(diaId);
-        if (diaEntity == null) {
-            throw new IllegalArgumentException("El dia no existe");
-        }
-        if (0 != compareDay(diaEntity.getDate(), eventoEntity.getFechaInicio())) {
-            throw new BusinessLogicException("La fecha(solo el dia) del dia debe ser el mismo al del inicio del evento");
-        }
-        eventoEntity.getDias().add(diaEntity);
-        return diaEntity;
-    }
-
-    @Override
-    public void removeDia(Long diaId, Long eventoId) throws Exception {
-        EventoEntity eventoEntity = getEvento(eventoId);
-        DiaEntity diaEntity = new DiaEntity(); // diaPersistence.find(diaId);
-        if (diaEntity == null) {
-            throw new IllegalArgumentException("El dia no existe");
-        }
-        eventoEntity.getDias().remove(diaEntity);
-    }
-
-    @Override
-    public List<DiaEntity> replaceDias(List<DiaEntity> dias, Long eventoId) throws BusinessLogicException {
-        EventoEntity eventoEntity = getEvento(eventoId);
-        eventoEntity.setDias(dias);
-        for (DiaEntity dia : dias) {
-            if (0 != compareDay(dia.getDate(), eventoEntity.getFechaInicio())) {
-                throw new BusinessLogicException("La fecha(solo el dia) del dia debe ser el mismo al del inicio del evento");
-            }
-        }
-        return eventoEntity.getDias();
-    }
-
     /**
      * Metodo que compara solo que el dia de dos Dates sea igual (con año y mes)
      *

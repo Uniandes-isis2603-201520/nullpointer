@@ -241,27 +241,6 @@ public class EventoLogicTest {
     }
 
     @Test
-    public void getDateTest() {
-        try {
-            EventoEntity entity = data.get(0);
-            DiaEntity authorEntity = diasData.get(0);
-            DiaEntity response = eventoLogic.getDia(entity.getId(), authorEntity.getId());
-
-            DiaEntity expected = getEventoDia(entity.getId(), authorEntity.getId());
-
-            Assert.assertNotNull(expected);
-            Assert.assertNotNull(response);
-            Assert.assertEquals(expected.getId(), response.getId());
-            Assert.assertEquals(expected.getName(), response.getName());
-            Assert.assertEquals(expected.getDate(), response.getDate());
-            Assert.assertEquals(expected.getCiudad(), response.getCiudad());
-
-        } catch (Exception e) {
-            Assert.fail(e.getLocalizedMessage());
-        }
-    }
-
-    @Test
     public void listDatesTest() {
         try {
             List<DiaEntity> list = eventoLogic.getDias(data.get(0).getId());

@@ -1,17 +1,28 @@
 (function (ng) {
     var mod = ng.module("eventoModule");
-    mod.service('EventosInfoService', ["$q", "$http", function ($q,$http) {
-            
+    mod.service('EventosInfoService', [ "$http", "bookContext",  function ($http,context) {
+
             this.fetchEventos = function () {
-                return $http.get("http://localhost:8080/tripulator/api/eventos");
-                
+                var dir=context+"/eventos";
+                console.log(dir);
+                return $http.get(dir);
+
+            };
+            this.fetchEventosCiudadDia = function (ciudad,dia) {
+                var dir=context+"/eventos?ciudad="+ciudad+"&fecha="+dia;
+                console.log(dir);
+                return $http.get(dir);
             };
             this.getComments = function (id) {
-                return $http.get("http://localhost:8080/tripulator/api/eventos/"+id+"/comentarios");
-                
+                var dir=context+"/eventos/"+id+"/comentarios";
+                console.log(dir);
+                return $http.get(dir);
+
             };
             this.saveRecord = function (newComment, id) {
-                return $http.post("http://localhost:8080/tripulator/api/eventos/"+id+"/comentarios",newComment);
+                var dir=context+"/eventos/"+id+"/comentarios";
+                console.log(dir);
+                return $http.post(dir,newComment);
             };
         }]);
 })(window.angular);
