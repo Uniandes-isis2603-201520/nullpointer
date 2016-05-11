@@ -6,7 +6,6 @@ import co.edu.uniandes.csw.tripulator.entities.DiaEntity;
 import co.edu.uniandes.csw.tripulator.entities.EventoEntity;
 import co.edu.uniandes.csw.tripulator.persistence.DiaPersistence;
 import co.edu.uniandes.csw.tripulator.persistence.EventoPersistence;
-import java.text.DateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -44,7 +43,9 @@ public class EventoLogic implements IEventoLogic {
     @Override
     public List<EventoEntity> getEventosCiudadFecha(String ciudad, Date fecha) throws BusinessLogicException {
         logger.log(Level.INFO, "Inicia proceso de consultar eventos de " + ciudad + " en el dia " + fecha);
-        List<EventoEntity> eventos = persistence.find(ciudad, fecha, getEndOfDay(fecha));
+        Date fin = getEndOfDay(fecha);
+        logger.log(Level.INFO, fecha+" "+fin+" "+ciudad);
+        List<EventoEntity> eventos = persistence.find(ciudad, fecha, fin);
         if (eventos == null) {
             logger.log(Level.SEVERE, "No hay eventos para " + ciudad + " en el dia " + fecha);
             throw new BusinessLogicException("Los eventos solicitados no existen");
@@ -105,56 +106,6 @@ public class EventoLogic implements IEventoLogic {
         return getEvento(eventoId).getDias();
     }
 
-    @Override
-    public DiaEntity getDia(Long eventoId, Long diaId) throws Exception {
-        List<DiaEntity> dias = getEvento(eventoId).getDias();
-        DiaEntity diaEntity =  new DiaEntity(); //diaPersistence.find(diaId);
-        if (diaEntity == null) {
-            throw new IllegalArgumentException("El dia no existe");
-        }
-        int index = dias.indexOf(diaEntity);
-        if (index >= 0) {
-            return dias.get(index);
-        }
-        throw new IllegalArgumentException("El dia no está asociado al evento");
-    }
-
-    @Override
-    public DiaEntity addDia(Long diaId, Long eventoId) throws BusinessLogicException {
-        EventoEntity eventoEntity = getEvento(eventoId);
-        DiaEntity diaEntity =  new DiaEntity(); //diaPersistence.find(diaId);
-        if (diaEntity == null) {
-            throw new IllegalArgumentException("El dia no existe");
-        }
-        if (0 != compareDay(diaEntity.getDate(), eventoEntity.getFechaInicio())) {
-            throw new BusinessLogicException("La fecha(solo el dia) del dia debe ser el mismo al del inicio del evento");
-        }
-        eventoEntity.getDias().add(diaEntity);
-        return diaEntity;
-    }
-
-    @Override
-    public void removeDia(Long diaId, Long eventoId) throws Exception {
-        EventoEntity eventoEntity = getEvento(eventoId);
-        DiaEntity diaEntity = new DiaEntity(); // diaPersistence.find(diaId);
-        if (diaEntity == null) {
-            throw new IllegalArgumentException("El dia no existe");
-        }
-        eventoEntity.getDias().remove(diaEntity);
-    }
-
-    @Override
-    public List<DiaEntity> replaceDias(List<DiaEntity> dias, Long eventoId) throws BusinessLogicException {
-        EventoEntity eventoEntity = getEvento(eventoId);
-        eventoEntity.setDias(dias);
-        for (DiaEntity dia : dias) {
-            if (0 != compareDay(dia.getDate(), eventoEntity.getFechaInicio())) {
-                throw new BusinessLogicException("La fecha(solo el dia) del dia debe ser el mismo al del inicio del evento");
-            }
-        }
-        return eventoEntity.getDias();
-    }
-
     /**
      * Metodo que compara solo que el dia de dos Dates sea igual (con año y mes)
      *
@@ -184,6 +135,7 @@ public class EventoLogic implements IEventoLogic {
 
 // next day
         date.add(Calendar.DAY_OF_MONTH, 1);
+        date.add(Calendar.SECOND, -1);
         return date.getTime();
     }
 }

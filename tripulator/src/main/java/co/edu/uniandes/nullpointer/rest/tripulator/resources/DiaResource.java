@@ -36,19 +36,19 @@ import javax.ws.rs.core.Response;
 @Produces("application/json")
 @RequestScoped
 public class DiaResource {
-    
-    @Inject 
+
+    @Inject
     IDiaLogic diaLogic;
-    
+
     private final static Logger logger = Logger.getLogger(DiaResource.class.getName());
-    
+
     /**
      * Obtiene todos los dias asociados a un itinerario de un viajero.
      * @param idViajero
      * @param idItinerario
      * @return
-     * @throws TripulatorLogicException 
-     * @throws co.edu.uniandes.csw.tripulator.exceptions.BusinessLogicException 
+     * @throws TripulatorLogicException
+     * @throws co.edu.uniandes.csw.tripulator.exceptions.BusinessLogicException
      */
     @GET
     public List<DiaDTO> getDias(@PathParam("idViajero") Long idViajero,
@@ -58,7 +58,7 @@ public class DiaResource {
         for(DiaDTO dia : dias) logger.info(dia.toString());
         return dias;
     }
-    
+
     /**
      * Obtiene un día específico
      * @param id id del día que se quiere.
@@ -75,7 +75,7 @@ public class DiaResource {
             @PathParam("id") Long id) throws TripulatorLogicException, BusinessLogicException{
         return DiaConverter.fullEntity2DTO(diaLogic.getDia(idViajero, idItinerario, id));
     }
-    
+
       /**
      * Agrega un día
      * @param idViajero id del viajero que tiene el itinerario al que se le quiere agregar un día.
@@ -90,7 +90,7 @@ public class DiaResource {
             DiaDTO dia) throws TripulatorLogicException, BusinessLogicException {
         return DiaConverter.fullEntity2DTO(diaLogic.createDia(idViajero, idItinerario, DiaConverter.fullDTO2Entity(dia)));
     }
-    
+
     /**
      * Actualiza los datos de un día.
      * @param idViajero id del viajero que tiene el itinerario que contiene el día que se quiere modificar.
@@ -108,7 +108,7 @@ public class DiaResource {
         DiaEntity converted = DiaConverter.fullDTO2Entity(dia);
         return DiaConverter.fullEntity2DTO(diaLogic.updateDia(idViajero, idItinerario, converted));
     }
-    
+
     /**
      * Elimina los datos de un día
      * @param idViajero id del viajero que tiene el itinerario que contiene el día a eliminar.
@@ -123,14 +123,14 @@ public class DiaResource {
             @PathParam("id") Long id) throws TripulatorLogicException, BusinessLogicException {
         diaLogic.deleteDia(idViajero, idItinerario, id);
     }
-    
+
     /**
      * Obtiene todos los eventos de un dia de un itinerario de un viajero.
      * @param idViajero
      * @param idItinerario
      * @param id
      * @return
-     * @throws TripulatorLogicException 
+     * @throws TripulatorLogicException
      */
     @GET
     @Path("{id: \\d+}/eventos")
@@ -139,14 +139,14 @@ public class DiaResource {
             @PathParam("id") Long id) throws TripulatorLogicException {
         return EventoConverter.listEntity2DTO(diaLogic.getEventos(idViajero, idItinerario, id));
     }
-    
+
     /**
      * Obtiene un día de un itinerario de un viajero.
      * @param idViajero
      * @param idItinerario
      * @param id
      * @param idEvento
-     * @return 
+     * @return
      */
     @GET
     @Path("{id: \\d+}/eventos/{idEvento: \\d+}")
@@ -156,14 +156,14 @@ public class DiaResource {
             @PathParam("idEvento") Long idEvento){
         return EventoConverter.fullEntity2DTO(diaLogic.getEvento(idViajero, idItinerario, id, idEvento));
     }
-    
+
     /**
      * Agrega un evento a un día
      * @param idViajero
      * @param idItinerario
      * @param id
      * @param idEvento
-     * @return 
+     * @return
      */
     @POST
     @Path("{id: \\d+}/eventos/{idEvento: \\d+}")
@@ -173,19 +173,20 @@ public class DiaResource {
             @PathParam("idEvento") Long idEvento) {
         try {
             EventoEntity evento = diaLogic.addEvento(idViajero, idItinerario, id, idEvento);
+            System.out.println("Agrega el evento");
             return EventoConverter.fullEntity2DTO(evento);
         } catch (Exception ex) {
             throw new WebApplicationException(ex.getLocalizedMessage(), ex, Response.Status.BAD_REQUEST);
         }
     }
-    
+
     /**
      * Actualiza los eventos de un día.
      * @param idViajero
      * @param idItinerario
      * @param id
      * @param eventos
-     * @return 
+     * @return
      */
     @PUT
     @Path("{id: \\d+}/eventos")
@@ -202,13 +203,13 @@ public class DiaResource {
             throw new WebApplicationException(ex.getLocalizedMessage(), ex, Response.Status.BAD_REQUEST);
         }
     }
-    
+
     /**
      * Elimina un evento de un día.
      * @param idViajero
      * @param idItinerario
      * @param id
-     * @param idEvento 
+     * @param idEvento
      */
     @DELETE
     @Path("{id: \\d+}/eventos/{idEvento: \\d+}")

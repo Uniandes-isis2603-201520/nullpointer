@@ -22,14 +22,6 @@ public interface IEventoLogic {
 
     public List<DiaEntity> getDias(Long eventoId) throws Exception;
 
-    public DiaEntity getDia(Long eventoId, Long diaId) throws Exception;
-
-    public DiaEntity addDia(Long diaId, Long eventoId) throws BusinessLogicException;
-
-    public void removeDia(Long diaId, Long eventoId) throws Exception;
-
-    public List<DiaEntity> replaceDias(List<DiaEntity> dias, Long eventoId) throws BusinessLogicException;
-
     public Date getEndOfDay(Date fechaInicio);
 
 }

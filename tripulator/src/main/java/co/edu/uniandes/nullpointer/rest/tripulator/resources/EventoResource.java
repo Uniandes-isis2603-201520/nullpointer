@@ -5,14 +5,15 @@
  */
 package co.edu.uniandes.nullpointer.rest.tripulator.resources;
 
+import co.edu.uniandes.csw.tripulator.api.IDiaLogic;
 import co.edu.uniandes.csw.tripulator.api.IEventoLogic;
-import co.edu.uniandes.csw.tripulator.ejbs.EventoLogic;
+import co.edu.uniandes.csw.tripulator.ejbs.DiaLogic;
+import co.edu.uniandes.csw.tripulator.entities.DiaEntity;
 import co.edu.uniandes.csw.tripulator.entities.EventoEntity;
 import co.edu.uniandes.csw.tripulator.exceptions.BusinessLogicException;
 import co.edu.uniandes.nullpointer.rest.tripulator.converters.EventoConverter;
 import co.edu.uniandes.nullpointer.rest.tripulator.dtos.EventoDTO;
 import co.edu.uniandes.nullpointer.rest.tripulator.exceptions.TripulatorLogicException;
-import co.edu.uniandes.nullpointer.rest.tripulator.mocks.EventoLogicMock;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -36,7 +37,7 @@ import javax.ws.rs.core.Response;
  * @author jd.fandino10
  */
 
-@Path("/eventos")
+@Path("/viajeros/{idViajero}/itinerarios/{idItinerario}/dias/{idDia}/eventos")
 @Produces("application/json")
 @RequestScoped
 public class EventoResource {
@@ -47,12 +48,15 @@ public class EventoResource {
 	@Inject
 	IEventoLogic eventoLogic;
 
+        @Inject
+        IDiaLogic diaLogic;
 	/**
 	 * Obtiene el listado de eventos.
 	 * @return lista de eventos
 	 * @throws TripulatorLogicException excepción retornada por la lógica
 	 */
     @GET
+    @Path("all")
     public List<EventoDTO> getEventos() throws TripulatorLogicException {
         return EventoConverter.listEntity2DTO(eventoLogic.getEventos());
     }
@@ -64,26 +68,28 @@ public class EventoResource {
      * @throws TripulatorLogicException cuando el evento no existe
      */
     @GET
-    @Path("{id}")
+    @Path("{id}/get")
     public EventoDTO getEvento(@PathParam("id") Long id) throws TripulatorLogicException, BusinessLogicException {
         return EventoConverter.fullEntity2DTO(eventoLogic.getEvento(id));
     }
 
     /**
      * Obtiene un evento segun fecha y ciudad
-     * @param ciudad
+     * @param idV id del viajero
+     * @param idI id del itinerario
+     * @param idD id del dia
      * @return evento encontrado
      * @throws TripulatorLogicException cuando el evento no existe
      * @throws co.edu.uniandes.csw.tripulator.exceptions.BusinessLogicException
      */
     @GET
-    @Path("/buscar")
-    public List<EventoDTO> getEventoCiudadFecha(
-            @QueryParam("city")String ciudad,
-            @QueryParam("fecha")String d) throws TripulatorLogicException, BusinessLogicException {
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+    public List<EventoDTO> getEventoCiudadFecha(@PathParam("idViajero") Long idV,
+                                                @PathParam("idItinerario") Long idI,
+                                                @PathParam("idDia") Long idD) throws TripulatorLogicException, BusinessLogicException {
+        DiaEntity d = diaLogic.getDia(idV, idI, idD);
         try{
-        Date dia = sdf.parse(d);
+        Date dia = d.getDate();
+        String ciudad = d.getCiudad();
         List<EventoEntity> dtos = eventoLogic.getEventosCiudadFecha(ciudad, dia);
         return EventoConverter.listEntity2DTO(dtos);
         }catch(Exception e){
@@ -119,7 +125,7 @@ public class EventoResource {
      * @throws TripulatorLogicException cuando no existe un evento con el id suministrado
      */
     @PUT
-    @Path("{id}")
+    @Path("{id}/update")
     public EventoDTO updateEvento(@PathParam("id") Long id, EventoDTO dto) throws TripulatorLogicException, Exception {
         logger.log(Level.INFO, "Se ejecuta método updateEvento con id={0}", id);
         EventoEntity entity = EventoConverter.fullDTO2Entity(dto);
@@ -140,7 +146,7 @@ public class EventoResource {
      * @throws TripulatorLogicException cuando no existe un evento con el id suministrado
      */
     @DELETE
-    @Path("{id}")
+    @Path("{id}/delete")
     public void deleteEvento(@PathParam("id") Long id) throws TripulatorLogicException {
     	eventoLogic.deleteEvento(id);
     }
