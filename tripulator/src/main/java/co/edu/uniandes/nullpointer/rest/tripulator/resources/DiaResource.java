@@ -12,6 +12,7 @@ import co.edu.uniandes.nullpointer.rest.tripulator.converters.DiaConverter;
 import co.edu.uniandes.nullpointer.rest.tripulator.dtos.DiaDTO;
 import co.edu.uniandes.nullpointer.rest.tripulator.exceptions.TripulatorLogicException;
 import java.util.List;
+import java.util.logging.Logger;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.ws.rs.DELETE;
@@ -34,6 +35,8 @@ public class DiaResource {
     @Inject 
     IDiaLogic diaLogic;
     
+    private final static Logger logger = Logger.getLogger(DiaResource.class.getName());
+    
     /**
      * 
      * @param idViajero
@@ -44,7 +47,10 @@ public class DiaResource {
     @GET
     public List<DiaDTO> getDias(@PathParam("idViajero") Long idViajero,
             @PathParam("idItinerario") Long idItinerario) throws TripulatorLogicException, BusinessLogicException {
-        return DiaConverter.listEntity2DTO(diaLogic.getDias(idViajero,idItinerario));
+        List<DiaDTO> dias = DiaConverter.listEntity2DTO(diaLogic.getDias(idViajero,idItinerario));
+        logger.info("Viendo las ids:");
+        for(DiaDTO dia : dias) logger.info(dia.toString());
+        return dias;
     }
     
     /**

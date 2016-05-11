@@ -5,34 +5,34 @@
  */
 package co.edu.uniandes.nullpointer.rest.tripulator.dtos;
 
-import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
  * @author Nicolás
  */
+@XmlRootElement
 public class DiaDTO {
-    
-    Long id;
-    Date fecha;
-    ArrayList eventos;
-    String ciudad;
+
+    private Long id;
+    private Date fecha;
+    private List<EventoDTO> eventos;
+    private String ciudad;
     private String pais;
-    
-    public DiaDTO(){
+
+    public DiaDTO() {
     }
 
-    public DiaDTO(Long id, Date fecha, ArrayList eventos, String idCiudad, String pais) {
+    public DiaDTO(Long id, Date fecha, List<EventoDTO> eventos, String ciudad, String pais) {
         super();
         this.id = id;
         this.fecha = fecha;
         this.eventos = eventos;
-        this.ciudad = idCiudad;
+        this.ciudad = ciudad;
         this.pais = pais;
     }
-    
-    
 
     public Long getId() {
         return id;
@@ -50,38 +50,23 @@ public class DiaDTO {
         this.fecha = fecha;
     }
 
-    public ArrayList getEventos() {
+    public List<EventoDTO> getEventos() {
         return eventos;
     }
-    
-    public Object getEvento(int pos) {
-        return eventos.get(pos);
-    }
 
-    public void setEventos(ArrayList eventos) {
+    public void setEventos(List<EventoDTO> eventos) {
         this.eventos = eventos;
     }
 
     public String getCiudad() {
         return ciudad;
     }
-    
-    public void setCiudad(String idCiudad) {
-        this.ciudad = idCiudad;
-    }   
-    
-    /**
-     * Convierte el objeto a una cadena
-     * @return 
-     */
-    @Override
-    public String toString() {
-        return "{ id : " + id + ", fecha : \"" + fecha + "\" "
-                + ", eventos : \"" + eventos + "\" "
-                + ", idCiudad : \"" +  ciudad + "\" " + "}";
 
+    public void setCiudad(String ciudad) {
+        this.ciudad = ciudad;
     }
-
+    
+    
     /**
      * @return the pais
      */
@@ -94,5 +79,17 @@ public class DiaDTO {
      */
     public void setPais(String pais) {
         this.pais = pais;
+    }
+    
+    /**
+     * Convierte el objeto a una cadena
+     */
+    @Override
+    public String toString() {
+        return "{ \n id : " + id + ",\n fecha : \"" + fecha + "\" "
+                + ",\n eventos : \"" + eventos + "\" "
+                + ",\n pais : \"" + pais + "\" "
+                + ",\n ciudad : \"" + ciudad + "\" ,\n" + "}";
+
     }
 }

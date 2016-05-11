@@ -8,7 +8,6 @@
             $scope.showDayInfo = false;
             $scope.daynames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
             $scope.selectedDay = {};
-            $scope.trip;
             $scope.itinerario = {
                 id: Number, //número de identificación de un itinerario,  
                 nombre: String, // Nombre dado al itinerario.  
@@ -20,7 +19,6 @@
             };
             var self = this;
             var scrollY = 0;
-            var userId = dataSvc.userId;
             /**
              * Le agrega propiedades a los días del backend.
              * @param {type} days
@@ -71,36 +69,22 @@
             }
 
             /**
-             * Guarda el estado de todos los días del viaje.
-             * @returns {undefined}
-             */
-            this.updateTrip = function () {
-                $scope.trip["planDias"] = $scope.days;
-                svc.updateItinerario(userId, $scope.trip.id, $scope.trip).then(function (response) {
-                    return response.data;
-                }, responseError);
-            };
-            /**
              * Le pide todos los datos de un viaje al servicio.
              * @param id
              * @returns {undefined}
              */
-            this.getItinerario = function (id) {
-                svc.getItinerario(userId, id).then(function (resolve) {
-                    $scope.trip = resolve.data;
+            this.getDias = function () {
+                svc.getDias(dataSvc.userId, dataSvc.tripId).then(function (resolve) {
+                    $scope.days = resolve.data;
+                    alert($scope.days[1].id);
 
-                    svc.getDias(userId, id).then(function (resolve) {
-                        $scope.days = resolve.data;
+                    generateDays($scope.days);
 
-                        generateDays($scope.days);
-                        
-                        $scope.days.sort(function (x, y) {
-                            return x.fecha - y.fecha;
-                        });
-
-                        $scope.days = formatDays($scope.days);
-                        
+                    $scope.days.sort(function (x, y) {
+                        return x.fecha - y.fecha;
                     });
+
+                    $scope.days = formatDays($scope.days);
 
                 }, responseError);
             };
@@ -145,6 +129,8 @@
              * @returns {undefined}
              */
             $scope.toggleDayInfo = function (day) {
+                dataSvc.dayId = day.id;
+
                 if (!$scope.showDayInfo)
                     scrollY = $window.scrollY;
 
@@ -157,6 +143,6 @@
                     $window.scrollTo($window.scrollX, scrollY);
             };
 
-            this.getItinerario(dataSvc.tripId);
+            this.getDias();
         }]);
 })(window.angular);

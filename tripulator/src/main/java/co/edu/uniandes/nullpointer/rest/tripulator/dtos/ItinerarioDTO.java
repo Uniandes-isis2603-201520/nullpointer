@@ -14,6 +14,7 @@ import java.util.List;
  * @author Antonio de la Vega
  */
 public class ItinerarioDTO {
+
     private Long id;
     private String nombre;
     private Date fechaInicio;
@@ -22,9 +23,10 @@ public class ItinerarioDTO {
     private List<FotoDTO> multimedia;
     private ArrayList mapa;
 
-    public ItinerarioDTO(){
-        
+    public ItinerarioDTO() {
+
     }
+
     public ItinerarioDTO(Long id, String nombre, Date fechaInicio, Date fechaFin, List<DiaDTO> planDias, List<FotoDTO> multimedia, ArrayList mapa) {
         super();
         this.id = id;
@@ -134,14 +136,14 @@ public class ItinerarioDTO {
         this.mapa = mapa;
     }
 
-        /**
+    /**
      * Convierte el objeto a una cadena
      */
     @Override
     public String toString() {
         return "{id:" + id + ",\n nombre:'" + nombre + "',\n fechaInicio:'" + fechaInicio
-                +"', \n fechaFin:'" + fechaFin + "',\n planDias:" + planDias + ",\n  multimedia:"
+                + "', \n fechaFin:'" + fechaFin + "',\n planDias:" + planDias + ",\n  multimedia:"
                 + multimedia + ",\n mapa:'" + mapa + "', }";
     }
-    
+
 }
