@@ -48,6 +48,7 @@ public class DiaResource {
      * @param idItinerario
      * @return
      * @throws TripulatorLogicException 
+     * @throws co.edu.uniandes.csw.tripulator.exceptions.BusinessLogicException 
      */
     @GET
     public List<DiaDTO> getDias(@PathParam("idViajero") Long idViajero,
@@ -65,6 +66,7 @@ public class DiaResource {
      * @param idViajero id del viajero que tiene el itinerario que contiene el día que se quiere.
      * @return día con el id dado.
      * @throws co.edu.uniandes.nullpointer.rest.tripulator.exceptions.TripulatorLogicException cuando el día no existe
+     * @throws co.edu.uniandes.csw.tripulator.exceptions.BusinessLogicException
      */
     @GET
     @Path("{id: \\d+}")
