@@ -68,7 +68,7 @@ public class EventoResource {
      * @throws TripulatorLogicException cuando el evento no existe
      */
     @GET
-    @Path("{id}")
+    @Path("{id}/get")
     public EventoDTO getEvento(@PathParam("id") Long id) throws TripulatorLogicException, BusinessLogicException {
         return EventoConverter.fullEntity2DTO(eventoLogic.getEvento(id));
     }
@@ -125,7 +125,7 @@ public class EventoResource {
      * @throws TripulatorLogicException cuando no existe un evento con el id suministrado
      */
     @PUT
-    @Path("{id}")
+    @Path("{id}/update")
     public EventoDTO updateEvento(@PathParam("id") Long id, EventoDTO dto) throws TripulatorLogicException, Exception {
         logger.log(Level.INFO, "Se ejecuta método updateEvento con id={0}", id);
         EventoEntity entity = EventoConverter.fullDTO2Entity(dto);
@@ -146,7 +146,7 @@ public class EventoResource {
      * @throws TripulatorLogicException cuando no existe un evento con el id suministrado
      */
     @DELETE
-    @Path("{id}")
+    @Path("{id}/delete")
     public void deleteEvento(@PathParam("id") Long id) throws TripulatorLogicException {
     	eventoLogic.deleteEvento(id);
     }
