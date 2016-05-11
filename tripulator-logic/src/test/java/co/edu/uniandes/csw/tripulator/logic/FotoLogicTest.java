@@ -87,6 +87,8 @@ public class FotoLogicTest {
     private void clearData() {
         em.createQuery("delete from FotoEntity").executeUpdate();
         em.createQuery("delete from ItinerarioEntity").executeUpdate();
+        em.createQuery("delete from ViajeroEntity").executeUpdate();
+
 
         
         
@@ -97,6 +99,11 @@ public class FotoLogicTest {
         viajero = factory.manufacturePojo(ViajeroEntity.class);
         
         itinerario = factory.manufacturePojo(ItinerarioEntity.class);
+     
+        
+        em.persist(viajero);
+        
+        itinerario.setViajero(viajero);
         
         em.persist(itinerario);
 
