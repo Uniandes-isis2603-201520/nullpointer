@@ -187,7 +187,8 @@ public class DiaResource {
      */
     @PUT
     @Path("{id: \\d+}/eventos")
-    public List<EventoDTO> replaceEventos(Long idViajero,
+    public List<EventoDTO> replaceEventos(
+            @PathParam("idViajer") Long idViajero,
             @PathParam("idItinerario") Long idItinerario,
             @PathParam("id") Long id,
             List<EventoDTO>eventos){
