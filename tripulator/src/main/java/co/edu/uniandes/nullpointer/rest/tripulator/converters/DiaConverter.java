@@ -38,6 +38,7 @@ public class DiaConverter {
             dto.setId(entity.getId());
             dto.setFecha(entity.getDate());
             dto.setCiudad(entity.getCiudad());
+            dto.setPais(entity.getPais());
             return dto;
         } 
         else {
@@ -80,6 +81,7 @@ public class DiaConverter {
             dto.setId(entity.getId());
             dto.setFecha(entity.getDate());
             dto.setCiudad(entity.getCiudad());
+            dto.setPais(entity.getPais());
 
             return dto;
         } else {
@@ -102,6 +104,7 @@ public class DiaConverter {
             entity.setId(dto.getId());
             entity.setDate(dto.getFecha());
             entity.setCiudad(dto.getCiudad());
+            entity.setPais(dto.getPais());
             return entity;
         } else {
             return null;

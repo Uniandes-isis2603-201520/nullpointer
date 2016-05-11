@@ -22,28 +22,14 @@
             var scrollY = 0;
             var userId = dataSvc.userId;
             /**
-             * Simula lo que trae el backend.
+             * Le agrega propiedades a los días del backend.
              * @param {type} days
-             * @param {type} startDate
-             * @param {type} endDate
              * @returns {undefined}
              */
-            function generateDays(days, startDate, endDate) {
-                endDate.setDate(endDate.getDate() + 2);
-                var i = new Date(startDate);
-                i.setDate(i.getDate() + 1);
-                while (i.getTime() !== endDate.getTime()) {
-                    days.push(
-                            {
-                                date: i,
-                                city: "none",
-                                events: [],
-                                valid: true
-                            }
-                    );
-                    var j = new Date(i);
-                    j.setDate(j.getDate() + 1);
-                    i = j;
+            function generateDays(days) {
+                for (var i = 0; i < days.length; i++) {
+                    days[i].valid = true;
+                    days[i].fecha = new Date(days[i].fecha);
                 }
             }
             /**
@@ -57,9 +43,9 @@
                 var formattedDays = [];
                 for (var i = 0; i < days.length; ) {
                     var daysInMonth = [];
-                    var monthStart = days[i].date;
+                    var monthStart = days[i].fecha;
                     setCalendarOffset(daysInMonth, monthStart);
-                    while (i < days.length && days[i].date.getMonth() === monthStart.getMonth()) {
+                    while (i < days.length && days[i].fecha.getMonth() === monthStart.getMonth()) {
                         daysInMonth.push(days[i]);
                         i++;
                     }
@@ -78,7 +64,7 @@
                     var newDate = new Date(monthStart);
                     newDate.setDate(monthStart.getDate() - (monthStart.getDay() - i));
                     array.push({
-                        date: newDate,
+                        fecha: newDate,
                         valid: false
                     });
                 }
@@ -102,9 +88,20 @@
             this.getItinerario = function (id) {
                 svc.getItinerario(userId, id).then(function (resolve) {
                     $scope.trip = resolve.data;
-                    generateDays($scope.days, new Date($scope.trip["fechaInicio"])
-                            , new Date($scope.trip["fechaFin"]));
-                    $scope.days = formatDays($scope.days);
+
+                    svc.getDias(userId, id).then(function (resolve) {
+                        $scope.days = resolve.data;
+
+                        generateDays($scope.days);
+                        
+                        $scope.days.sort(function (x, y) {
+                            return x.fecha - y.fecha;
+                        });
+
+                        $scope.days = formatDays($scope.days);
+                        
+                    });
+
                 }, responseError);
             };
 

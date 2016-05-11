@@ -43,7 +43,7 @@ public class DiaResource {
      */
     @GET
     public List<DiaDTO> getDias(@PathParam("idViajero") Long idViajero,
-            @PathParam("idItinerario") Long idItinerario) throws TripulatorLogicException {
+            @PathParam("idItinerario") Long idItinerario) throws TripulatorLogicException, BusinessLogicException {
         return DiaConverter.listEntity2DTO(diaLogic.getDias(idViajero,idItinerario));
     }
     
@@ -74,7 +74,7 @@ public class DiaResource {
     @POST
     public DiaDTO createDia(@PathParam("idViajero") Long idViajero,
             @PathParam("idItinerario") Long idItinerario,
-            DiaDTO dia) throws TripulatorLogicException {
+            DiaDTO dia) throws TripulatorLogicException, BusinessLogicException {
         return DiaConverter.fullEntity2DTO(diaLogic.createDia(idViajero, idItinerario, DiaConverter.fullDTO2Entity(dia)));
     }
     
@@ -91,7 +91,7 @@ public class DiaResource {
     @Path("{id: \\d+}")
     public DiaDTO updateDia(@PathParam("idViajero") Long idViajero,
             @PathParam("idItinerario") Long idItinerario,
-            @PathParam("id") Long id, DiaDTO dia) throws TripulatorLogicException {
+            @PathParam("id") Long id, DiaDTO dia) throws TripulatorLogicException, BusinessLogicException {
         DiaEntity converted = DiaConverter.fullDTO2Entity(dia);
         return DiaConverter.fullEntity2DTO(diaLogic.updateDia(idViajero, idItinerario, converted));
     }
@@ -107,7 +107,7 @@ public class DiaResource {
     @Path("{id: \\d+}")
     public void deleteDia(@PathParam("idViajero") Long idViajero,
             @PathParam("idItinerario") Long idItinerario,
-            @PathParam("id") Long id) throws TripulatorLogicException {
+            @PathParam("id") Long id) throws TripulatorLogicException, BusinessLogicException {
         diaLogic.deleteDia(idViajero, idItinerario, id);
     }
 }

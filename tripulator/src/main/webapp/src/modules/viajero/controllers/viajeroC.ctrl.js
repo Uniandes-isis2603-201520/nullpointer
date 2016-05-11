@@ -2,12 +2,14 @@
     var mod = ng.module("viajeroModule");
     mod.controller('ViajeroC', ['$scope', '$element', '$window', '$mdDialog', '$mdMedia', 'viajeroS', 'dataSvc',
         function ($scope, $element, $window, $mdDialog, $mdMedia, svc, dataSvc) {
-            var numTrips = 1;
             var self = this;
             var userData = dataSvc;
             $scope.trips = [];
             $scope.currentTrip;
             $scope.today = new Date();
+            /**
+             * Array with all of the possible menu options.
+             */
             $scope.menuOptions = [
                 {
                     name: "Create",
@@ -22,6 +24,9 @@
                     active: false
                 }
             ];
+            /**
+             * Array with all of the possible menu actions.
+             */
             $scope.menuActions = [
                 {
                     name: "Overview",
@@ -41,10 +46,20 @@
                 }
             ];
 
+            /**
+             * Displays an error.
+             * @param {type} response
+             * @returns {undefined}
+             */
             function responseError(response) {
                 self.showError(response.data);
             }
-
+            /**
+             * Activates the menu option/action that was selected.
+             * Deactivates all of the other options/actions.
+             * @param {type} element
+             * @returns {undefined}
+             */
             function selectFromMenu(element) {
 
                 for (var i = 0; i < $scope.menuActions.length; i++) {
@@ -61,21 +76,40 @@
                 }
             }
 
+            /**
+             * If a menu option is selected, this method adds a css style to the menu item.
+             * @param {type} element
+             * @returns different background style if the menu option is selected. Otherwise, nothing happens.
+             */
             function isMenuOptionSelected(element) {
                 if (element.active) {
                     return {"background": "rgba(180, 209, 255, 0.5)"};
                 }
                 return {};
             }
-
+            
+            /**
+             * Script that hides/shows the menu.
+             * @returns {undefined}
+             */
             function toggleMenu() {
                 angular.element("#wrapper").toggleClass("toggled");
             }
-
+            
+            /**
+             * Displays an error message on the screen.
+             * @param {type} data
+             * @returns {undefined}
+             */
             this.showError = function (data) {
                 $scope.showAlert("Error", data);
             };
-
+            
+            /**
+             * Prototype method that adds 4 photos to the carrousel.
+             * In production, this method should take photos of the countries the user is visiting.
+             * @returns {undefined}
+             */
             this.generateImage = function () {
                 $scope.currentTrip.multimedia = [];
                 for (var i = 0; i < 4; i++) {
@@ -86,25 +120,50 @@
                     });
                 }
             };
-
+            
+            
+            /**
+             * Deletes a trip from the users trip.
+             * @returns {undefined}
+             */
             this.deleteItinerario = function () {
                 svc.deleteItinerario(userData.userId, userData.tripId).then(function (response) {
                     $scope.showAlert("Deleted", "The trip has been deleted.");
                     self.getItinerarios();
                 }, responseError);
             };
+            
+            /**
+             * Adds a trip to the user.
+             * @param {type} trip
+             * @returns {undefined}
+             */
             this.addItinerario = function (trip) {
                 svc.addItinerario(userData.userId, trip).then(function (response) {
+                    self.addDays(response.data.id, planDias);
                     self.getItinerarios();
                     finishCreation();
                 }, responseError);
             };
-
+            
+            this.addDays = function(tripId, planDias){
+                for(var i = 0; i<planDias.length; i++){
+                    svc.addDia(userData.userId, tripId, planDias[i]).then(function(response){
+                        
+                    }, responseError);
+                }
+            };
+            
+            
+            /**
+             * Fetches all the trips of the user.
+             * @returns {undefined}
+             */
             this.getItinerarios = function () {
                 svc.getItinerarios(userData.userId).then(function (response) {
                     $scope.trips = response.data;
                     if ($scope.trips.length === 0) {
-                        $scope.menuOptions[0].active = true;
+                        selectFromMenu($scope.menuOptions[0]);
                         initGeoChart();
                         toggleMenu();
                         $scope.showAlert("Create Trip", "It appears you have no trips created!");
@@ -114,14 +173,25 @@
                     return response;
                 }, responseError);
             };
-
+            
+            /**
+             * Once the trips have been retrieved from the db. They are cached.
+             * This method returns the cached trips.
+             * @param {type} trip
+             * @returns {undefined}
+             */
             this.getCachedItinerario = function (trip) {
                 $scope.currentTrip = trip;
                 self.generateImage();
                 selectFromMenu($scope.menuActions[0]);
                 userData.tripId = trip.id;
             };
-
+            
+            /**
+             * Gets a specific trip from the database.
+             * @param {type} tripId
+             * @returns {undefined}
+             */
             this.getItinerario = function (tripId) {
                 svc.getItinerario(userData.userId, tripId).then(function (response) {
                     $scope.currentTrip = response.data;
@@ -130,18 +200,33 @@
                     userData.tripId = tripId;
                 }, responseError);
             };
-
+            
+            /**
+             * If a trip is selected, the background must be changed.
+             * @param {type} trip
+             * @returns css style.
+             */
             $scope.isTripSelected = function (trip) {
                 if (trip === $scope.currentTrip) {
                     return {"background": "rgba(180, 209, 255, 0.5)"};
                 }
                 return {};
             };
-
+            
+            /**
+             * Selects an action from the menu. Sets its .active object property to true.
+             * @param {type} action
+             * @returns {undefined}
+             */
             $scope.selectAction = function (action) {
                 selectFromMenu(action);
             };
-
+            
+            /**
+             * Activates a behaviour depending on the menu option that was selected.
+             * @param {type} option
+             * @returns {undefined}
+             */
             $scope.selectOption = function (option) {
                 switch (option.name) {
                     case "Create":
@@ -159,15 +244,29 @@
 
                 }
             };
-
+            
+            /**
+             * 
+             * @param {type} action
+             * @returns true if the action is selected. Otherwise, false.
+             */
             $scope.isActionSelected = function (action) {
                 return isMenuOptionSelected(action);
             };
 
+            /**
+             * @param {type} option
+             * @returns true if the option in selected. False otherwise.
+             */
             $scope.isOptionSelected = function (option) {
                 return isMenuOptionSelected(option);
             };
 
+            /**
+             * ui-sref routing for menu actions.
+             * @param {type} action
+             * @returns {String}
+             */
             $scope.selectView = function (action) {
                 switch (action.name) {
                     case "Calendar":
@@ -191,6 +290,12 @@
              * @type Boolean
              */
             var firstClick;
+            
+            /**
+             * Tiene todos los dias que se deben crear luego de haber creado el itinerario.
+             * @type Array
+             */
+            var planDias = [];
 
             /**
              * Holds all chart elements.
@@ -260,9 +365,9 @@
                     if ($scope.tripDetails.hasOwnProperty(property)) {
                         var tripSegment = $scope.tripDetails[property].slice(1, $scope.tripDetails[property].length);
                         for (var i = 0; i < tripSegment.length; i++) {
-                            if (arrivalDate < tripSegment[i].departureDate &&
-                                    departureDate > tripSegment[i].arrivalDate) {
-                                return "The range of dates you entered is in conflit with another range of dates";
+                            if (arrivalDate <= tripSegment[i].departureDate &&
+                                    departureDate >= tripSegment[i].arrivalDate) {
+                                return "The range of dates you entered are in conflict with another range of dates";
                             }
                         }
                     }
@@ -354,7 +459,11 @@
             $scope.showNextArrow = function () {
                 return $scope.optionScreen < 3;
             };
-
+            
+            /**
+             * Checks whether there is at least 1 country selected
+             * @returns {String}
+             */
             function areCountriesSelected() {
                 if ($scope.chart.data.length === 1)
                     return "Please select a country";
@@ -434,10 +543,29 @@
                 }
                 $scope.$apply();
             };
-
+            /**
+             * When the user has finished creating a trip, this toggles the menu.
+             * And changes the view to overview.
+             * @returns {undefined}
+             */
             function finishCreation() {
                 toggleMenu();
                 $scope.menuOptions[0].active = false;
+            }
+            
+            function generateDays(days, tripObject){
+                var i = new Date(tripObject.arrivalDate);
+                while(i.getTime() <= tripObject.departureDate.getTime()){
+                    days.push({
+                        pais : tripObject.country,
+                        fecha : i,
+                        ciudad : tripObject.city,
+                        eventos : []
+                    });
+                    var j = new Date(i);
+                    j.setDate(j.getDate() + 1);
+                    i = j;
+                }
             }
             /**
              * Given all the input, it will organize the data and generate a
@@ -446,10 +574,16 @@
              * @returns {undefined}
              */
             function getRelevantData(tripName) {
+                planDias = [];
                 var completeTrip = [];
                 for (var property in $scope.tripDetails) {
                     if ($scope.tripDetails.hasOwnProperty(property)) {
-                        completeTrip = completeTrip.concat($scope.tripDetails[property].slice(1, $scope.tripDetails[property].length));
+                        var countryDetails =  $scope.tripDetails[property];
+                        countryDetails = countryDetails.slice(1,countryDetails.length);
+                        completeTrip = completeTrip.concat(countryDetails);
+                        for(var i = 0; i<countryDetails.length; i++){
+                            generateDays(planDias, countryDetails[i]);
+                        }
                     }
                 }
 
@@ -466,13 +600,15 @@
 
                 var mapa = [];
                 var multimedia = [];
-                var planDias = []; // TO DO: Crear cada día de los rangos de fecha.
+                
+                //generateDays(planDias, new Date(fechaInicio), new Date(fechaFin));
+                //formatDays(planDias);
 
                 var itinerario = {
                     nombre: tripName,
                     fechaInicio: fechaInicio,
                     fechaFin: fechaFin,
-                    planDias: planDias,
+                    planDias: [],
                     multimedia: multimedia,
                     mapa: mapa
                 };
@@ -534,7 +670,10 @@
             this.getItinerarios();
 
             // MOVE THIS OUT OF THIS FILE EVENTUALLY
-
+            /**
+             * Contains a map between Country Codes and their complete name.
+             * @type type
+             */
             var isoCountries = {
                 'AF': 'Afghanistan',
                 'AX': 'Aland Islands',
@@ -782,7 +921,12 @@
                 'ZM': 'Zambia',
                 'ZW': 'Zimbabwe'
             };
-
+            
+            /**
+             * Maps country code to country name using the array.
+             * @param {type} countryCode
+             * @returns {viajeroC_ctrl_L1.viajeroC_ctrl_L4.isoCountries|isoCountries}
+             */
             function getCountryName(countryCode) {
                 if (isoCountries.hasOwnProperty(countryCode)) {
                     return isoCountries[countryCode];

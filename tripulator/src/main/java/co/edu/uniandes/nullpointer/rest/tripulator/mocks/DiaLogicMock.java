@@ -42,10 +42,10 @@ public class DiaLogicMock {
             mapItinerarioDia.put(3L, new ArrayList<DiaDTO>());
 
             // Se agregan 4 dias al itinerario con id 1 del viajero con id 1.
-            mapItinerarioDia.get(1L).add(new DiaDTO(0L, new Date(), new ArrayList(), "A"));
-            mapItinerarioDia.get(1L).add(new DiaDTO(1L, new Date(), new ArrayList(), "A"));
-            mapItinerarioDia.get(1L).add(new DiaDTO(2L, new Date(), new ArrayList(), "A"));
-            mapItinerarioDia.get(1L).add(new DiaDTO(3L, new Date(), new ArrayList(), "A"));
+            mapItinerarioDia.get(1L).add(new DiaDTO(0L, new Date(), new ArrayList(), "A", "b"));
+            mapItinerarioDia.get(1L).add(new DiaDTO(1L, new Date(), new ArrayList(), "A", "b"));
+            mapItinerarioDia.get(1L).add(new DiaDTO(2L, new Date(), new ArrayList(), "A", "b"));
+            mapItinerarioDia.get(1L).add(new DiaDTO(3L, new Date(), new ArrayList(), "A", "b"));
         }
 
         // indica que se muestren todos los mensajes

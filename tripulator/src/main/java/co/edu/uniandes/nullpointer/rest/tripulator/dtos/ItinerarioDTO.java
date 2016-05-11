@@ -7,6 +7,7 @@ package co.edu.uniandes.nullpointer.rest.tripulator.dtos;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  *
@@ -17,14 +18,14 @@ public class ItinerarioDTO {
     private String nombre;
     private Date fechaInicio;
     private Date fechaFin;
-    private ArrayList planDias;
-    private ArrayList multimedia;
+    private List<DiaDTO> planDias;
+    private List<FotoDTO> multimedia;
     private ArrayList mapa;
 
     public ItinerarioDTO(){
         
     }
-    public ItinerarioDTO(Long id, String nombre, Date fechaInicio, Date fechaFin, ArrayList planDias, ArrayList multimedia, ArrayList mapa) {
+    public ItinerarioDTO(Long id, String nombre, Date fechaInicio, Date fechaFin, List<DiaDTO> planDias, List<FotoDTO> multimedia, ArrayList mapa) {
         super();
         this.id = id;
         this.nombre = nombre;
@@ -94,28 +95,28 @@ public class ItinerarioDTO {
     /**
      * @return the planDias
      */
-    public ArrayList getPlanDias() {
+    public List<DiaDTO> getPlanDias() {
         return planDias;
     }
 
     /**
      * @param planDias the planDias to set
      */
-    public void setPlanDias(ArrayList planDias) {
+    public void setPlanDias(List<DiaDTO> planDias) {
         this.planDias = planDias;
     }
 
     /**
      * @return the multimedia
      */
-    public ArrayList getMultimedia() {
+    public List<FotoDTO> getMultimedia() {
         return multimedia;
     }
 
     /**
      * @param multimedia the multimedia to set
      */
-    public void setMultimedia(ArrayList multimedia) {
+    public void setMultimedia(List<FotoDTO> multimedia) {
         this.multimedia = multimedia;
     }
 
