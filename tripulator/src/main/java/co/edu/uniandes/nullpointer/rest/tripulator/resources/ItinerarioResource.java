@@ -11,7 +11,6 @@ import co.edu.uniandes.csw.tripulator.exceptions.BusinessLogicException;
 import co.edu.uniandes.nullpointer.rest.tripulator.converters.ItinerarioConverter;
 import co.edu.uniandes.nullpointer.rest.tripulator.dtos.ItinerarioDTO;
 import co.edu.uniandes.nullpointer.rest.tripulator.exceptions.TripulatorLogicException;
-import co.edu.uniandes.nullpointer.rest.tripulator.mocks.ItinerarioLogicMock;
 import java.util.List;
 import java.util.logging.Logger;
 import javax.enterprise.context.RequestScoped;

@@ -91,23 +91,12 @@
                     <uib-slide ng-repeat="image in currentTrip.multimedia">
                         <img ng-src="{{image.src}}">
                         <div class="carousel-caption">
-                            <h4>{{currentTrip.nombre}}</h4>
-                            <p>{{image.name}}</p>
+                            <h1>{{currentTrip.nombre}}</h1>
+                            <h3>{{currentTrip.fechaInicio | date}} - {{currentTrip.fechaFin | date}}</h3>
                         </div>
                     </uib-slide>
                 </uib-carousel>
             </div>  
-            <div class="trip-information">
-                <h2 id="trip-name">{{currentTrip.nombre}}</h2>
-                <div id="date-information">
-                    <h3 class="col-xs-4 ">Start date: {{currentTrip.fechaInicio| date}}</h3>
-                    <h3 class="col-xs-4 text-center ">End date: {{currentTrip.fechaFin| date}}</h3>
-                    <h3 class="col-xs-4 text-right">Current date: {{today| date}}</h3>
-                    <h3 class="col-xs-4 ">Photos: {{currentTrip.multimedia.length}}</h3>
-                    <h3 class="col-xs-4 text-center">Events: {{currentTrip.multimedia.length}}</h3>
-                    <h3 class="col-xs-4 text-right" ng-click="selectAction(menuActions[1])" ui-sref="viajero.itinerario()">visit trip <span class="glyphicon glyphicon-plane"></span></h3>
-                </div>
-            </div>
         </div>
         <div ui-view="itinerario" ng-show="menuActions[1].active"></div>
         <div ui-view="multimedia" ng-show="menuActions[3].active"></div>

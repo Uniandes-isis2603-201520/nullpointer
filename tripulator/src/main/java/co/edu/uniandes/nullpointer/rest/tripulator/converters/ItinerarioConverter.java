@@ -41,10 +41,6 @@ public class ItinerarioConverter {
             dto.setNombre(entity.getName());
             dto.setFechaInicio(entity.getFechaInicio());
             dto.setFechaFin(entity.getFechaFin());
-            //dto.setPlanDias(entity.getPlanDias());
-            //dto.setMultimedia(entity.getMultimedia());
-            //dto.setMapa(entity.getMapa());
-
             return dto;
         } else {
             return null;

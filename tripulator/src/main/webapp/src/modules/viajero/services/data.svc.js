@@ -3,7 +3,8 @@
     mod.service('dataSvc', function () {
         return {
             userId: "",
-            tripId: ""
+            tripId: "",
+            dayId: ""
         };
     });
 })(window.angular);

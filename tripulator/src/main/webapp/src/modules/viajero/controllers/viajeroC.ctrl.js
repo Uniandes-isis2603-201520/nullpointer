@@ -16,10 +16,6 @@
                     active: false
                 },
                 {
-                    name: "Edit",
-                    active: false
-                },
-                {
                     name: "Delete",
                     active: false
                 }
@@ -87,7 +83,7 @@
                 }
                 return {};
             }
-            
+
             /**
              * Script that hides/shows the menu.
              * @returns {undefined}
@@ -95,7 +91,7 @@
             function toggleMenu() {
                 angular.element("#wrapper").toggleClass("toggled");
             }
-            
+
             /**
              * Displays an error message on the screen.
              * @param {type} data
@@ -104,7 +100,7 @@
             this.showError = function (data) {
                 $scope.showAlert("Error", data);
             };
-            
+
             /**
              * Prototype method that adds 4 photos to the carrousel.
              * In production, this method should take photos of the countries the user is visiting.
@@ -115,13 +111,13 @@
                 for (var i = 0; i < 4; i++) {
                     $scope.currentTrip.multimedia.push({
                         id: i,
-                        src: 'http://lorempixel.com/' + ($element.width() + i) + '/500',
+                        src: 'http://lorempixel.com/' + ($element.width() + i) + '/' + (screen.height - i),
                         name: "image title"
                     });
                 }
             };
-            
-            
+
+
             /**
              * Deletes a trip from the users trip.
              * @returns {undefined}
@@ -132,7 +128,7 @@
                     self.getItinerarios();
                 }, responseError);
             };
-            
+
             /**
              * Adds a trip to the user.
              * @param {type} trip
@@ -145,16 +141,18 @@
                     finishCreation();
                 }, responseError);
             };
-            
-            this.addDays = function(tripId, planDias){
-                for(var i = 0; i<planDias.length; i++){
-                    svc.addDia(userData.userId, tripId, planDias[i]).then(function(response){
-                        
+
+            this.addDays = function (tripId, planDias) {
+                for (var i = 0; i < planDias.length; i++) {
+                    svc.addDia(userData.userId, tripId, planDias[i]).then(function (response) {
+                        for (var property in response.data) {
+                            alert(property);
+                        }
                     }, responseError);
                 }
             };
-            
-            
+
+
             /**
              * Fetches all the trips of the user.
              * @returns {undefined}
@@ -173,7 +171,7 @@
                     return response;
                 }, responseError);
             };
-            
+
             /**
              * Once the trips have been retrieved from the db. They are cached.
              * This method returns the cached trips.
@@ -186,7 +184,7 @@
                 selectFromMenu($scope.menuActions[0]);
                 userData.tripId = trip.id;
             };
-            
+
             /**
              * Gets a specific trip from the database.
              * @param {type} tripId
@@ -200,7 +198,7 @@
                     userData.tripId = tripId;
                 }, responseError);
             };
-            
+
             /**
              * If a trip is selected, the background must be changed.
              * @param {type} trip
@@ -212,7 +210,7 @@
                 }
                 return {};
             };
-            
+
             /**
              * Selects an action from the menu. Sets its .active object property to true.
              * @param {type} action
@@ -221,7 +219,7 @@
             $scope.selectAction = function (action) {
                 selectFromMenu(action);
             };
-            
+
             /**
              * Activates a behaviour depending on the menu option that was selected.
              * @param {type} option
@@ -244,7 +242,7 @@
 
                 }
             };
-            
+
             /**
              * 
              * @param {type} action
@@ -290,7 +288,7 @@
              * @type Boolean
              */
             var firstClick;
-            
+
             /**
              * Tiene todos los dias que se deben crear luego de haber creado el itinerario.
              * @type Array
@@ -459,7 +457,7 @@
             $scope.showNextArrow = function () {
                 return $scope.optionScreen < 3;
             };
-            
+
             /**
              * Checks whether there is at least 1 country selected
              * @returns {String}
@@ -552,15 +550,15 @@
                 toggleMenu();
                 $scope.menuOptions[0].active = false;
             }
-            
-            function generateDays(days, tripObject){
+
+            function generateDays(days, tripObject) {
                 var i = new Date(tripObject.arrivalDate);
-                while(i.getTime() <= tripObject.departureDate.getTime()){
+                while (i.getTime() <= tripObject.departureDate.getTime()) {
                     days.push({
-                        pais : tripObject.country,
-                        fecha : i,
-                        ciudad : tripObject.city,
-                        eventos : []
+                        pais: tripObject.country,
+                        fecha: i,
+                        ciudad: tripObject.city,
+                        eventos: []
                     });
                     var j = new Date(i);
                     j.setDate(j.getDate() + 1);
@@ -578,10 +576,10 @@
                 var completeTrip = [];
                 for (var property in $scope.tripDetails) {
                     if ($scope.tripDetails.hasOwnProperty(property)) {
-                        var countryDetails =  $scope.tripDetails[property];
-                        countryDetails = countryDetails.slice(1,countryDetails.length);
+                        var countryDetails = $scope.tripDetails[property];
+                        countryDetails = countryDetails.slice(1, countryDetails.length);
                         completeTrip = completeTrip.concat(countryDetails);
-                        for(var i = 0; i<countryDetails.length; i++){
+                        for (var i = 0; i < countryDetails.length; i++) {
                             generateDays(planDias, countryDetails[i]);
                         }
                     }
@@ -600,9 +598,6 @@
 
                 var mapa = [];
                 var multimedia = [];
-                
-                //generateDays(planDias, new Date(fechaInicio), new Date(fechaFin));
-                //formatDays(planDias);
 
                 var itinerario = {
                     nombre: tripName,
@@ -921,7 +916,7 @@
                 'ZM': 'Zambia',
                 'ZW': 'Zimbabwe'
             };
-            
+
             /**
              * Maps country code to country name using the array.
              * @param {type} countryCode

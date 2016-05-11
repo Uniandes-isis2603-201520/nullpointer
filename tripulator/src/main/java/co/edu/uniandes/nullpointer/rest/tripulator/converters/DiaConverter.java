@@ -155,7 +155,7 @@ public class DiaConverter {
      * @generated
      */
     public static List<DiaDTO> listEntity2DTO(List<DiaEntity> entities) {
-        List<DiaDTO> dtos = new ArrayList<DiaDTO>();
+        List<DiaDTO> dtos = new ArrayList<>();
         if (entities != null) {
             for (DiaEntity entity : entities) {
                 dtos.add(basicEntity2DTO(entity));
@@ -173,7 +173,7 @@ public class DiaConverter {
      * @generated
      */
     public static List<DiaEntity> listDTO2Entity(List<DiaDTO> dtos) {
-        List<DiaEntity> entities = new ArrayList<DiaEntity>();
+        List<DiaEntity> entities = new ArrayList<>();
         if (dtos != null) {
             for (DiaDTO dto : dtos) {
                 entities.add(basicDTO2Entity(dto));
