@@ -1,14 +1,9 @@
 
-
-
-a {
-    text-decoration: none;
-  }
 #map{
     margin: 0px;
     height:91%; 
     width:80%; 
     position: absolute;
     padding: 0px;
-    }
+}
 

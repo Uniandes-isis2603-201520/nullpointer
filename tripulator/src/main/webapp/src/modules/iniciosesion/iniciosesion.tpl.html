@@ -18,7 +18,7 @@
                 </div>
             </form>
             <div class="row">
-                <div class="btn col-xs-offset-2 col-xs-1 minimalistic-btn"data-toggle="modal" data-target="#myModal">register</div>
+                <div class="btn col-xs-offset-2 col-xs-1 minimalistic-btn" data-toggle="modal" data-target="#myModal"><h4>register</h4></div>
                 <div  class="btn col-xs-offset-5 col-xs-1 minimalistic-btn"  >
                     <h4 ng-click="iniciarSesion()" style="color: #e5e5e5; ">log in</h4>
                 </div>
@@ -103,56 +103,23 @@
             <p class="text-justify">
                 Tripulator es una aplicacion para que puedas planificar tus viajes de la mejor manera
             </p>
-            <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
         </div>
         <div class="col-md-4">
             <h2 class="text-center">Crea tus itinerarios</h2>
             <p class="text-justify">
-                Escoge la fecha de tu viaje y empieza a agregar eventos, para palnear unas vacaciones perfectas
+                Escoge la fecha de tu viaje y empieza a agregar eventos, para planear unas vacaciones perfectas
             </p>
-            <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
         </div>
         <div class="col-md-4">
             <h2 class="text-center">Guarda tus recuerdos</h2>
             <p class="text-justify"> Escoge la opcion subir fotos y asi podras tener un album personilazado de tus vacaciones  </p>
-            <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
         </div>
     </div>
 
 
 
     <footer>
-        <p>&copy; 2016 Company, Inc.</p>
+        <p>&copy; 2016 Tripulator</p>
     </footer>
 </div> <!-- /container -->
-
-<div >
-    <div >
-
-        <table style="border-collapse:collapse;">
-            <thead>
-                <tr>
-                    <th colspan="2" style="color:red">USERS</th>
-                </tr>
-                <tr style="border-bottom:1px solid black;">
-                    <th style="padding:5px;"><em>ID</em></th>
-                    <th style="padding:5px;border-left:1px solid black;"><em>Username</em></th>
-                    <th style="padding:5px;border-left:1px solid black;"><em>Email</em></th>
-                    <th style="padding:5px;border-left:1px solid black;"><em>Password</em></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr ng-repeat="record in records">
-                    <td style="padding:5px;">{{record.id}}</td>
-                    <td style="padding:5px;border-left:1px solid black;">{{record.usuario}}</td>
-                    <td style="padding:5px;border-left:1px solid black;">{{record.email}}</td>
-                    <td style="padding:5px;border-left:1px solid black;">{{record.password}}</td>
-                    <td style="padding:5px;border-left:1px solid black;"><button  class="btn-default" ng-click="ctrl.deleteRecord(record.id)">Borrar</button></td>
-                </tr>
-
-
-            </tbody>
-        </table>
-    </div>
-</div>
 

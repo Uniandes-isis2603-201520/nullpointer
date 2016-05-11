@@ -124,7 +124,6 @@
              */
             this.deleteItinerario = function () {
                 svc.deleteItinerario(userData.userId, userData.tripId).then(function (response) {
-                    $scope.showAlert("Deleted", "The trip has been deleted.");
                     self.getItinerarios();
                 }, responseError);
             };
@@ -145,9 +144,7 @@
             this.addDays = function (tripId, planDias) {
                 for (var i = 0; i < planDias.length; i++) {
                     svc.addDia(userData.userId, tripId, planDias[i]).then(function (response) {
-                        for (var property in response.data) {
-                            alert(property);
-                        }
+
                     }, responseError);
                 }
             };
@@ -162,13 +159,16 @@
                     $scope.trips = response.data;
                     if ($scope.trips.length === 0) {
                         selectFromMenu($scope.menuOptions[0]);
-                        initGeoChart();
-                        toggleMenu();
                         $scope.showAlert("Create Trip", "It appears you have no trips created!");
+                        toggleMenu();
+                        setTimeout(function(){
+                            initGeoChart();
+                        },300);
+                    } else {
+                        self.getCachedItinerario($scope.trips[$scope.trips.length - 1]);
+                        $scope.$apply();
+                        return response;
                     }
-                    self.getCachedItinerario($scope.trips[$scope.trips.length - 1]);
-                    $scope.$apply();
-                    return response;
                 }, responseError);
             };
 
@@ -229,7 +229,9 @@
                 switch (option.name) {
                     case "Create":
                         toggleMenu();
-                        initGeoChart();
+                        setTimeout(function(){
+                            initGeoChart();
+                        },300);
                         $scope.showAlert("Create trip", "Lets start!");
                         selectFromMenu(option);
                         break;
