@@ -1,24 +1,17 @@
 (function (ng) {
-
     var mod = ng.module("planDiaModule");
-//'planDiaService', , svc
-    mod.controller('PlanDiaController', ['$scope', function ($scope) {
-
+    
+    mod.controller('PlanDiaController', ['$scope', 'planDiaService', function ($scope, svc) {
+            
             var self = this;
-
-            $scope.halfHours = ['00:00', '00:30', '01:00', '01:30', '02:00', '02:30', '03:00', '03:30', '04:00',
-                '04:30', '05:00', '05:30', '06:00', '06:30', '07:00', '07:30', '08:00', '08:30', '09:00',
-                '09:30', '10:00', '10:30', '11:00', '11:30', '12:00', '12:30', '13:00', '13:30', '14:00',
-                '14:30', '15:00', '15:30', '16:00', '16:30', '17:00', '17:30', '18:00', '18:30', '19:00',
-                '19:30', '20:00', '20:30', '21:00', '21:30', '22:00', '22:30', '23:00', '23:30'];
             
-            
-            $scope.diaActual = {id:1};
-
             $scope.events = [];
-
-            $scope.emptyEvent = {
-                "title": "Nuevo evento",
+            
+            $scope.editMode = false;
+            
+            $scope.currentEvent = {
+                "id": undefined,
+                "title": "",
                 "image": "",
                 "type": "",
                 "start": "",
@@ -26,120 +19,85 @@
                 "description": "",
                 "comments": []
             };
-
-            $scope.daySections = [];
-
-            /**
-             * Le pide todos los datos del día actual al servicio.
-             * @param id
-             * @returns {undefined}
-             *
-            this.getPlanDia = function (id) {
-                svc.getDia(1,1,id).then(function (resolve) {
-                    $scope.diaActual = resolve.data;
-                    $scope.events = $scope.diaActual.eventos;
-                }, responseError);
+            
+            $scope.style = function(b){
+              if (b){
+                  return "timeline-inverted";
+              }
+              else {
+                  return "timeline-not-inverted";
+              }
+            };
+            
+            $scope.fetchRecords = function () {
+                $scope.editMode = false;  
+            };
+            
+            $scope.createRecord = function (){
+                $scope.editMode = true;  
+            };
+            
+            $scope.editRecord = function () {
+                $scope.editMode = true;
+            };
+            
+            $scope.deleteRecord = function() {
+                
             };
             
             /**
-             * Actualiza un plan día con las modificaciones que se le han hecho.
-             * @param dia
-             * @returns {undefined}
-             *
-            this.updatePlanDia = function (dia) {
-                svc.updatePlanDia(1,1,dia).then(function (resolve) {
-                    markOccupiedSections();
-                }, responseError);
-            };
-            
-            
-            this.showError = function (data) {
-                alert(data);
-            };
-
-            function responseError(response) {
-                self.showError(response);
-            }*/
-
-            createSections();
-            markOccupiedSections();
-
-            $scope.hourClicked = function (index) {
-                $scope.emptyEvent.start = $scope.halfHours[index];
-                $scope.emptyEvent.end = $scope.halfHours[index + 2];
-            };
-
-            $scope.addNewEvent = function () {
-                $scope.newEvent = angular.copy($scope.emptyEvent);
-                var startHour = document.getElementById("newEventStartHour").value;
-                var endHour = document.getElementById("newEventEndHour").value;
-                var available = true;
-                for (var i = getSectionIndex(startHour); i < getSectionIndex(endHour); i++) {
-                    if (!$scope.daySections[i].available)
-                        available = false;
+                $scope.events = [                
+                {
+                    "id": "2",
+                    "title": "Ev2",
+                    "image": "",
+                    "type": "",
+                    "start": "11:00",
+                    "end": "13:00",
+                    "description": "mhm mhm mmmmmhm mhm",
+                    "comments": []                    
+                },
+                {
+                    "id": "1",
+                    "title": "Ev1",
+                    "image": "",
+                    "type": "",
+                    "start": "07:00",
+                    "end": "10:00",
+                    "description": "blabla blablabla blabla",
+                    "comments": []
+                },
+                {
+                    "id": "3",
+                    "title": "Ev3",
+                    "image": "",
+                    "type": "",
+                    "start": "15:00",
+                    "end": "19:00",
+                    "description": "sisi sisisisi sisi",
+                    "comments": []                   
+                },
+                                {
+                    "id": "4",
+                    "title": "Ev4",
+                    "image": "",
+                    "type": "",
+                    "start": "12:00",
+                    "end": "12:30",
+                    "description": "adsfasdfasdfasdfasdf",
+                    "comments": []                   
+                },
+                                {
+                    "id": "5",
+                    "title": "Ev5",
+                    "image": "",
+                    "type": "",
+                    "start": "05:00",
+                    "end": "06:00",
+                    "description": "el madrugón",
+                    "comments": []                   
                 }
-                if (available) {
-                    $scope.newEvent.title = document.getElementById("newEventName").value;
-                    $scope.newEvent.start = startHour;
-                    $scope.newEvent.end = endHour;
-                    $scope.events.push($scope.newEvent);
-
-                    markOccupiedSections();
-                } else {
-
-                }
-            };
-
-            /*
-             * COLORES:
-             * Default (Gris): #777777
-             * Primary (Azul): #337AB7
-             * Success (Verde): #5CB85C
-             * Info (Azul clarito): #5BC0DE
-             * Warning (Naranja): #F0AD4E
-             * Danger (Rojo): #D9534F
+            ];
              */
-            $scope.style = function (index) {
-                if (!$scope.daySections[index].available) {
-                    return {
-                        "background-color": "#5CB85C",
-                        "color": "#FFFFFF"
-                    };
-                }
-            };
-
-            function createSections() {
-                var i = 0;
-                while (i < $scope.halfHours.length) {
-                    $scope.daySections[i] = {
-                        hour: $scope.halfHours[i],
-                        available: true,
-                        event: null,
-                        innerText: "",
-                        conflict: false
-                    };
-                    i++;
-                }
-            }
-
-            function markOccupiedSections() {
-                for (var j = 0; j < $scope.events.length; j++) {
-                    for (var i = getSectionIndex($scope.events[j].start); i < getSectionIndex($scope.events[j].end); i++) {
-                        $scope.daySections[i].available = false;
-                        $scope.daySections[i].event = $scope.events[j];
-                    }
-                    //TODO
-                    var middleSection = Math.floor((getSectionIndex($scope.events[j].start) + getSectionIndex($scope.events[j].end)) / 2);
-                    $scope.daySections[middleSection].text = $scope.events[j].title;
-                }
-            }
-
-            function getSectionIndex(time) {
-                var components = time.split(":");
-                var hour = Number(components[0]);
-                var minutes = Number(components[1]);
-                return minutes >= 30 ? ((hour) * 2) + 1 : (hour) * 2;
-            }
-
         }]);
 })(window.angular);
