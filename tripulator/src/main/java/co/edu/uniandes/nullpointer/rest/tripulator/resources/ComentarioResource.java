@@ -27,19 +27,19 @@ import javax.ws.rs.Produces;
  *
  * @author da.delgado11
  */
-@Path("/eventos/{idEvento}/comentarios")
+@Path("/viajeros/{idViajero}/itinerarios/{idItinerario}/dias/{idDia}/eventos/{idEvento}/comentarios")
 @Produces("application/json")
 @RequestScoped
 public class ComentarioResource {
 
-    
+
 	@Inject
 	IComentarioLogic comentarioLogic;
 
 	/**
-	 * Obtiene el listado de comentarios. 
+	 * Obtiene el listado de comentarios.
 	 * @return lista de comentarios
-	 * @throws TripulatorLogicException excepción retornada por la lógica  
+	 * @throws TripulatorLogicException excepción retornada por la lógica
 	 */
     @GET
     public List<ComentarioDTO> getComentarios(@PathParam("idEvento")Long idEvento) throws TripulatorLogicException {
@@ -75,7 +75,7 @@ public class ComentarioResource {
      * Actualiza los datos de un comentario
      * @param id identificador de el comentario a modificar
      * @param comentario comentario a modificar
-     * @return datos de el comentario modificada 
+     * @return datos de el comentario modificada
      * @throws TripulatorLogicException cuando no existe un comentario con el id suministrado
      */
     @PUT

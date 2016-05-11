@@ -3,7 +3,7 @@
     <div class="scrollBox col-xs-6"><!--Caja con eventos-->
         <div class="panel panel-default itemBox" ng-repeat="e in events"><!--Div para cada evento-->
 
-            <div class="panel-heading">{{e.name}}</div>
+            <div class="panel-heading">{{e.title}}</div>
             <div class="panel-body">
                 <div class="imgContainer">
                     <img ng-src="{{e.image}}" ng-click="actualizarInfo(e)"/>
@@ -17,7 +17,7 @@
 
                     </p>
                 </div>
-                <button class="btn-primary botonItem" ng-click="anadirEvento(e)">Añadir</button>
+                <button class="btn-primary botonItem" ng-click="anadirEvento(e)" ng-confirm-click="¿Seguro quieres agregar el evento {{e.title}}?">Añadir</button>
             </div>
         </div>
     </div><!--cerrar caja con eventos-->

@@ -5,7 +5,10 @@
  */
 package co.edu.uniandes.nullpointer.rest.tripulator.resources;
 
+import co.edu.uniandes.csw.tripulator.api.IDiaLogic;
 import co.edu.uniandes.csw.tripulator.api.IEventoLogic;
+import co.edu.uniandes.csw.tripulator.ejbs.DiaLogic;
+import co.edu.uniandes.csw.tripulator.entities.DiaEntity;
 import co.edu.uniandes.csw.tripulator.entities.EventoEntity;
 import co.edu.uniandes.csw.tripulator.exceptions.BusinessLogicException;
 import co.edu.uniandes.nullpointer.rest.tripulator.converters.EventoConverter;
@@ -34,7 +37,7 @@ import javax.ws.rs.core.Response;
  * @author jd.fandino10
  */
 
-@Path("/eventos")
+@Path("/viajeros/{idViajero}/itinerarios/{idItinerario}/dias/{idDia}/eventos")
 @Produces("application/json")
 @RequestScoped
 public class EventoResource {
@@ -45,12 +48,15 @@ public class EventoResource {
 	@Inject
 	IEventoLogic eventoLogic;
 
+        @Inject
+        IDiaLogic diaLogic;
 	/**
 	 * Obtiene el listado de eventos.
 	 * @return lista de eventos
 	 * @throws TripulatorLogicException excepción retornada por la lógica
 	 */
     @GET
+    @Path("all")
     public List<EventoDTO> getEventos() throws TripulatorLogicException {
         return EventoConverter.listEntity2DTO(eventoLogic.getEventos());
     }
@@ -69,20 +75,21 @@ public class EventoResource {
 
     /**
      * Obtiene un evento segun fecha y ciudad
-     * @param ciudad
-     * @param d
+     * @param idV id del viajero
+     * @param idI id del itinerario
+     * @param idD id del dia
      * @return evento encontrado
      * @throws TripulatorLogicException cuando el evento no existe
      * @throws co.edu.uniandes.csw.tripulator.exceptions.BusinessLogicException
      */
     @GET
-    @Path("/buscar")
-    public List<EventoDTO> getEventoCiudadFecha(
-            @QueryParam("ciudad")String ciudad,
-            @QueryParam("fecha")String d) throws TripulatorLogicException, BusinessLogicException {
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+    public List<EventoDTO> getEventoCiudadFecha(@PathParam("idViajero") Long idV,
+                                                @PathParam("idItinerario") Long idI,
+                                                @PathParam("idDia") Long idD) throws TripulatorLogicException, BusinessLogicException {
+        DiaEntity d = diaLogic.getDia(idV, idI, idD);
         try{
-        Date dia = sdf.parse(d);
+        Date dia = d.getDate();
+        String ciudad = d.getCiudad();
         List<EventoEntity> dtos = eventoLogic.getEventosCiudadFecha(ciudad, dia);
         return EventoConverter.listEntity2DTO(dtos);
         }catch(Exception e){

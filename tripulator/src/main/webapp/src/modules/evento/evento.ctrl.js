@@ -88,7 +88,7 @@
             };
             var self=this;
             this.fetchEventos = function () {
-                return svc.fetchEventos().then(function (response) {
+                return svc.fetchEventos(dataSvc).then(function (response) {
                     $scope.comentariosActuales=[];
                     $scope.events = response.data;
 
@@ -101,8 +101,8 @@
                 }, function (response){ console.log(response);});
             };
 
-            this.fetchEventosCiudadDia = function (ciudad,dia) {
-                return svc.fetchEventosCiudadDia(ciudad,dia).then(function (response) {
+            this.fetchEventosCiudadDia = function () {
+                return svc.fetchEventosCiudadDia(dataSvc).then(function (response) {
                     $scope.comentariosActuales=[];
                     $scope.events = response.data;
 
@@ -115,7 +115,7 @@
             };
 
             this.getComments = function (){
-              return svc.getComments($scope.eventoActual.id).then(function (response) {
+              return svc.getComments(dataSvc, $scope.eventoActual.id).then(function (response) {
                     $scope.comentariosActuales = response.data;
                     return response;
                 }, function (response){
@@ -126,7 +126,7 @@
             this.update = function(cmt,idEvento){
                 cmt.id_evento=idEvento;
                 cmt.id=$scope.comentariosActuales.length+1;
-                return svc.saveRecord(cmt,idEvento).then(function () {
+                return svc.saveRecord(cmt,idEvento, dataSvc).then(function () {
                         self.fetchEventos();
                     }, function (response){ console.log(response);});
             };
@@ -136,16 +136,13 @@
             };
 
             this.anadirEvento = function (record) {
-
-                $scope.$emit("anadir_e", record);
+                return svc.addEventoDia(record.id, dataSvc).then(function () {
+                        self.fetchEventos();
+                    }, function (response){ console.log(response);});
             };
 
-            function fetchECD(event, args) {
-                this.fetchEventosCiudadDia(args.ciudad,args.dia);
-            }
+            this.fetchEventosCiudadDia();
 
-            $scope.$on("getEventos", fetchECD);
-            this.fetchEventos();
             if($scope.events.length==0){
                 $scope.eventoActual.title="No encontramos ningun evento :(";
                 $scope.eventoActual.description="Lamentablemente no hay eventos para esta ciudad en este día. ¡Prueba con otro!";
