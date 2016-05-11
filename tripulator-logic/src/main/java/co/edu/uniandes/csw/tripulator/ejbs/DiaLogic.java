@@ -40,7 +40,11 @@ public class DiaLogic implements IDiaLogic {
     public List<DiaEntity> getDias(Long idViajero, Long idItinerario) throws BusinessLogicException{
         logger.info("Inicia proceso de consultar todos los días del itinerario "+ idItinerario);
         ItinerarioEntity itinerario = itinerarioLogic.getItinerario(idViajero, idItinerario);
-        logger.info("Termina proceso de consulta");
+        logger.info("Termina proceso de consulta de todos los días del itinerario " + idItinerario);
+        logger.info("comienza el loop");
+        for(int i = 0; i<itinerario.getDias().size(); i++){
+            logger.info("id " + itinerario.getDias().get(i).toString());
+        }
         return itinerario.getDias();
     }
 
@@ -59,10 +63,10 @@ public class DiaLogic implements IDiaLogic {
     @Override
     public DiaEntity createDia(Long idViajero, Long idItinerario, DiaEntity entity) throws BusinessLogicException {
         ItinerarioEntity itinerario = itinerarioLogic.getItinerario(idViajero, idItinerario);
-        logger.info("Inicia proceso de creación de día");
+        logger.info("Inicia proceso de creación de día con id " + entity.getId());
         entity.setItinerario(itinerario);
         persistence.create(entity);
-        logger.info("Termina proceso de creación de día");
+        logger.info("Termina proceso de creación de día id: " + entity.getId());
         return entity;
     }
 

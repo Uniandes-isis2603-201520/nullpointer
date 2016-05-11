@@ -44,13 +44,13 @@ public class DiaPersistence {
         em.remove(entity);
     }
 
-    public DiaEntity find(Long idItinerario, Long id) {
-        logger.log(Level.INFO, "Consultando día con id={0}", id);
+    public DiaEntity find(Long idItinerario, Long idDia) {
+        logger.log(Level.INFO, "Consultando día con id={0}", idDia);
         TypedQuery<DiaEntity> q = em.createQuery("select u from "
-                + "DiaEntity u where (u.itinerario.id = :idItinerario) and (u.id = :id)",
+                + "DiaEntity u where (u.itinerario.id = :idItinerario) and (u.id = :idDia)",
                 DiaEntity.class);
         q.setParameter("idItinerario", idItinerario);
-        q.setParameter("id", id);
+        q.setParameter("idDia", idDia);
         return q.getSingleResult();
     }
 
