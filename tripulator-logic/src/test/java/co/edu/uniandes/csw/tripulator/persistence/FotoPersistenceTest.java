@@ -31,7 +31,6 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
 @RunWith(Arquillian.class)
 public class FotoPersistenceTest {
     
-    private ItinerarioEntity itinerario;
     
      @Deployment
     public static JavaArchive createDeployment() {
@@ -52,6 +51,11 @@ public class FotoPersistenceTest {
     UserTransaction utx;
 
     private final PodamFactory factory = new PodamFactoryImpl();
+    
+    private List<FotoEntity> data = new ArrayList<>();
+
+    private ItinerarioEntity itinerario;
+
 
     @Before
     public void configTest() {
@@ -73,12 +77,14 @@ public class FotoPersistenceTest {
 
     private void clearData() {
         em.createQuery("delete from FotoEntity").executeUpdate();
+        em.createQuery("delete from ItinerarioEntity").executeUpdate();
+
     }
 
-    private List<FotoEntity> data = new ArrayList<>();
 
     private void insertData() {
         itinerario=factory.manufacturePojo(ItinerarioEntity.class);
+        em.persist(itinerario);
         for (int i = 0; i < 3; i++) {
             FotoEntity entity = factory.manufacturePojo(FotoEntity.class);
             entity.setItinerario(itinerario);
