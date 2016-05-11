@@ -171,7 +171,6 @@ public class DiaResource {
             @PathParam("idItinerario") Long idItinerario,
             @PathParam("id") Long id,
             @PathParam("idEvento") Long idEvento) {
-        System.out.println("Llega al metodo");
         try {
             EventoEntity evento = diaLogic.addEvento(idViajero, idItinerario, id, idEvento);
             System.out.println("Agrega el evento");
