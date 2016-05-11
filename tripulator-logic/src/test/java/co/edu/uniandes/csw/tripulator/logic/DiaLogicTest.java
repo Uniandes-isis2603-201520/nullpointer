@@ -174,6 +174,7 @@ public class DiaLogicTest {
         Assert.assertEquals(expected.getId(), resp.getId());
         Assert.assertEquals(expected.getDate(), resp.getDate());
         Assert.assertEquals(expected.getCiudad(), resp.getCiudad());
+        Assert.assertEquals(expected.getPais(), resp.getPais());
     }
     
     @Test
