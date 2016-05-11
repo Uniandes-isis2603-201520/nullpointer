@@ -52,8 +52,9 @@ public class FotoResource {
     @POST
     public FotoDTO createFoto(@PathParam("idViajero") Long idViajero,
             @PathParam("idItinerario") Long idItinerario,
-            FotoDTO foto) throws TripulatorLogicException {
-        return FotoConverter.fullEntity2DTO( fotoLogic.createFoto(FotoConverter.fullDTO2Entity(foto)));
+            FotoDTO foto) throws TripulatorLogicException, BusinessLogicException {
+        System.out.println("LLEGAMOS AQUI con url"+foto.getSrc());
+        return FotoConverter.fullEntity2DTO( fotoLogic.createFoto(idViajero, idItinerario, FotoConverter.fullDTO2Entity(foto)));
     }
 
 
@@ -68,8 +69,8 @@ public class FotoResource {
     @Path("{id: \\d+}")
     public void deleteFoto(@PathParam("idViajero") Long idViajero,
             @PathParam("idItinerario") Long idItinerario,
-            @PathParam("id") Long id) throws TripulatorLogicException {
-        fotoLogic.deleteFoto(id);
+            @PathParam("id") Long id) throws TripulatorLogicException, BusinessLogicException {
+        fotoLogic.deleteFoto(idViajero, idItinerario, id);
 
     }
 }

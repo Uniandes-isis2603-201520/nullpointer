@@ -14,6 +14,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -29,7 +30,8 @@ public class FotoPersistence {
 
     public List<FotoEntity> findAll(Long idViajero, Long idItinerario) {
         logger.info("Consultando todos las fotos");
-        Query q = em.createQuery("select u from FotoEntity u");
+        TypedQuery<FotoEntity> q = em.createQuery("select u from FotoEntity u where (u.itinerario.id = :idItinerario) ", FotoEntity.class);
+        q.setParameter("idItinerario", idItinerario);
         return q.getResultList();
     }
     

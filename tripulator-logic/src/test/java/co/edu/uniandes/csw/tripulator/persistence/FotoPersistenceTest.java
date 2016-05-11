@@ -6,6 +6,7 @@
 package co.edu.uniandes.csw.tripulator.persistence;
 
 import co.edu.uniandes.csw.tripulator.entities.FotoEntity;
+import co.edu.uniandes.csw.tripulator.entities.ItinerarioEntity;
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
@@ -29,6 +30,8 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
  */
 @RunWith(Arquillian.class)
 public class FotoPersistenceTest {
+    
+    private ItinerarioEntity itinerario;
     
      @Deployment
     public static JavaArchive createDeployment() {
@@ -75,8 +78,10 @@ public class FotoPersistenceTest {
     private List<FotoEntity> data = new ArrayList<>();
 
     private void insertData() {
+        itinerario=factory.manufacturePojo(ItinerarioEntity.class);
         for (int i = 0; i < 3; i++) {
             FotoEntity entity = factory.manufacturePojo(FotoEntity.class);
+            entity.setItinerario(itinerario);
             em.persist(entity);
             data.add(entity);
         }
@@ -96,7 +101,7 @@ public class FotoPersistenceTest {
 
     @Test
     public void getFotosTest() {
-        List<FotoEntity> list = fotoPersistence.findAll(1L,1L);
+        List<FotoEntity> list = fotoPersistence.findAll(1L,itinerario.getId());
         Assert.assertEquals(data.size(), list.size());
         for (FotoEntity ent : list) {
             boolean found = false;
