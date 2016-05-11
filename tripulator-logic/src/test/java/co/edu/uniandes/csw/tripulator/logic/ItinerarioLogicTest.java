@@ -86,6 +86,9 @@ public class ItinerarioLogicTest {
     }
 
     private void clearData() {
+        diaData.clear();
+        fotoData.clear();
+        data.clear();
         em.createQuery("delete from FotoEntity").executeUpdate();
         em.createQuery("delete from DiaEntity").executeUpdate();
         em.createQuery("delete from ItinerarioEntity").executeUpdate();
@@ -108,15 +111,13 @@ public class ItinerarioLogicTest {
             FotoEntity fotos = factory.manufacturePojo(FotoEntity.class);
 
             DiaEntity dias = factory.manufacturePojo(DiaEntity.class);
-
-            if (i == 0) {
-                fotos.setItinerario(data.get(i));
-                dias.setItinerario(data.get(i));
-            }
+            
+            fotos.setItinerario(data.get(0));
+            
+            dias.setItinerario(data.get(0));
 
             em.persist(dias);
             diaData.add(dias);
-
             em.persist(fotos);
             fotoData.add(fotos);
         }
@@ -223,30 +224,30 @@ public class ItinerarioLogicTest {
     @Test
     public void listPhotosTest() {
         List<FotoEntity> list = itinerarioLogic.getPhotos(viajero.getId(), data.get(0).getId());
-        Assert.assertEquals(1, list.size());
+        Assert.assertEquals(3, list.size());
     }
 
     @Test
     public void listDaysTest() {
         List<DiaEntity> list = itinerarioLogic.getDays(viajero.getId(), data.get(0).getId());
-        Assert.assertEquals(1, list.size());
+        Assert.assertEquals(3, list.size());
     }
 
     @Test
-    public void addPhotosTest() {
+    public void addPhotosTest() throws BusinessLogicException {
         ItinerarioEntity entity = data.get(0);
-        FotoEntity fotoEntity = fotoData.get(1);
-        FotoEntity response = itinerarioLogic.addPhoto(viajero.getId(), entity.getId(), fotoEntity.getId());
+        FotoEntity fotoEntity = factory.manufacturePojo(FotoEntity.class);
+        FotoEntity response = itinerarioLogic.addPhoto(viajero.getId(), entity.getId(), fotoEntity);
 
         Assert.assertNotNull(response);
         Assert.assertEquals(fotoEntity.getId(), response.getId());
     }
 
     @Test
-    public void addDaysTest() {
+    public void addDaysTest() throws BusinessLogicException {
         ItinerarioEntity entity = data.get(0);
-        DiaEntity diaEntity = diaData.get(1);
-        DiaEntity response = itinerarioLogic.addDay(viajero.getId(), entity.getId(), diaEntity.getId());
+        DiaEntity diaEntity = factory.manufacturePojo(DiaEntity.class);
+        DiaEntity response = itinerarioLogic.addDay(viajero.getId(), entity.getId(), diaEntity);
 
         Assert.assertNotNull(response);
         Assert.assertEquals(diaEntity.getId(), response.getId());
@@ -285,9 +286,16 @@ public class ItinerarioLogicTest {
     }
 
     @Test
-    public void removePhotosTest() {
+    public void removePhotosTest() throws BusinessLogicException {
         itinerarioLogic.removePhoto(viajero.getId(), data.get(0).getId(), fotoData.get(0).getId());
         FotoEntity response = itinerarioLogic.getPhoto(viajero.getId(), data.get(0).getId(), fotoData.get(0).getId());
+        Assert.assertNull(response);
+    }
+    
+    @Test
+    public void removeDaysTest() throws BusinessLogicException {
+        itinerarioLogic.removeDay(viajero.getId(), data.get(0).getId(), diaData.get(0).getId());
+        DiaEntity response = itinerarioLogic.getDay(viajero.getId(), data.get(0).getId(), diaData.get(0).getId());
         Assert.assertNull(response);
     }
 }

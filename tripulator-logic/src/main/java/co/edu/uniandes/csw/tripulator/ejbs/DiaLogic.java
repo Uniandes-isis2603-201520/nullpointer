@@ -41,10 +41,6 @@ public class DiaLogic implements IDiaLogic {
         logger.info("Inicia proceso de consultar todos los días del itinerario "+ idItinerario);
         ItinerarioEntity itinerario = itinerarioLogic.getItinerario(idViajero, idItinerario);
         logger.info("Termina proceso de consulta de todos los días del itinerario " + idItinerario);
-        logger.info("comienza el loop");
-        for(int i = 0; i<itinerario.getDias().size(); i++){
-            logger.info("id " + itinerario.getDias().get(i).toString());
-        }
         return itinerario.getDias();
     }
 

@@ -21,5 +21,7 @@ public interface IFotoLogic {
 
     public void deleteFoto(Long idViajero, Long idItinerario, Long id) throws BusinessLogicException ;
     
+    public FotoEntity getFoto(Long idItinerario, Long idFoto)throws BusinessLogicException;
+    
 }
   

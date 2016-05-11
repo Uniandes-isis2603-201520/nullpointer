@@ -7,6 +7,7 @@ package co.edu.uniandes.csw.tripulator.ejbs;
 
 import co.edu.uniandes.csw.tripulator.api.IFotoLogic;
 import co.edu.uniandes.csw.tripulator.api.IItinerarioLogic;
+import co.edu.uniandes.csw.tripulator.entities.DiaEntity;
 import co.edu.uniandes.csw.tripulator.entities.FotoEntity;
 import co.edu.uniandes.csw.tripulator.entities.ItinerarioEntity;
 import co.edu.uniandes.csw.tripulator.entities.ViajeroEntity;
@@ -42,6 +43,18 @@ public class FotoLogic implements IFotoLogic{
         List<FotoEntity> fotos = persistence.findAll(idViajero, idItinerario);
         logger.info("Termina proceso de consultar todas las fotos");
         return fotos;
+    }
+    
+    @Override
+    public FotoEntity getFoto(Long idItinerario, Long idFoto)throws BusinessLogicException{
+        logger.log(Level.INFO, "Inicia proceso de consultar foto con id={0}", idFoto);
+        FotoEntity foto = persistence.find(idItinerario, idFoto);
+        if (foto == null) {
+            logger.log(Level.SEVERE, "La foto con el id {0} no existe", idFoto);
+            throw new BusinessLogicException("La foto solicitada no existe");
+        }
+        logger.log(Level.INFO, "Termina proceso de consultar foto con id={0}", idFoto);
+        return foto;
     }
 
 

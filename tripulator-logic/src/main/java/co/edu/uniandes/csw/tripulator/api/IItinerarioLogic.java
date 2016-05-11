@@ -27,9 +27,9 @@ public interface IItinerarioLogic {
     
     public void deleteItinerario(Long idViajero, Long idItinerario) throws BusinessLogicException;
     
-    public List<DiaEntity> replaceDays(List<DiaEntity> dias,Long idViajero, Long itinerarioId);
+    public List<DiaEntity> replaceDays(List<DiaEntity> dias,Long idViajero, Long itinerarioId) throws BusinessLogicException;
     
-    public List<FotoEntity> replacePhotos(List<FotoEntity> photos,Long idViajero, Long itinerarioId);
+    public List<FotoEntity> replacePhotos(List<FotoEntity> photos,Long idViajero, Long itinerarioId) throws BusinessLogicException;
     
     public DiaEntity getDay(Long idViajero, Long itinerarioId, Long dayId);
     
@@ -39,11 +39,11 @@ public interface IItinerarioLogic {
     
     public List<FotoEntity> getPhotos(Long idViajero, Long itinerarioId);
     
-    public void removePhoto(Long viajeroId, Long itinerarioId, Long photoId);
+    public void removePhoto(Long viajeroId, Long itinerarioId, Long photoId)throws BusinessLogicException;
     
-    public void removeDay(Long viajeroId, Long itinerarioId, Long diaId);
+    public void removeDay(Long viajeroId, Long itinerarioId, Long diaId) throws BusinessLogicException;
     
-    public DiaEntity addDay(Long viajeroId, Long itinerarioId, Long dayId);
+    public DiaEntity addDay(Long viajeroId, Long itinerarioId, DiaEntity dia) throws BusinessLogicException;
     
-    public FotoEntity addPhoto(Long viajeroId, Long itinerarioId, Long photoId);
+    public FotoEntity addPhoto(Long viajeroId, Long itinerarioId, FotoEntity foto) throws BusinessLogicException;
 }

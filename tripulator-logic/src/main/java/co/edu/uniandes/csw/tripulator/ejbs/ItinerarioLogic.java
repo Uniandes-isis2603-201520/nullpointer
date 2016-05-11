@@ -5,6 +5,8 @@
  */
 package co.edu.uniandes.csw.tripulator.ejbs;
 
+import co.edu.uniandes.csw.tripulator.api.IDiaLogic;
+import co.edu.uniandes.csw.tripulator.api.IFotoLogic;
 import co.edu.uniandes.csw.tripulator.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.tripulator.api.IItinerarioLogic;
 import co.edu.uniandes.csw.tripulator.api.IViajeroLogic;
@@ -37,10 +39,10 @@ public class ItinerarioLogic implements IItinerarioLogic {
     private ItinerarioPersistence itinerarioPersistence;
     
     @Inject
-    private FotoPersistence fotoPersistence;
+    private IFotoLogic fotoLogic;
     
     @Inject
-    private DiaPersistence diaPersistence;
+    private IDiaLogic diaLogic;
         
     @Override
     public List<ItinerarioEntity> getItinerarios(Long idViajero) throws BusinessLogicException{
@@ -129,62 +131,50 @@ public class ItinerarioLogic implements IItinerarioLogic {
     }
     
     @Override
-    public List<FotoEntity> replacePhotos(List<FotoEntity> photos,Long idViajero, Long itinerarioId) {
-        ItinerarioEntity itinerario = itinerarioPersistence.find(idViajero, itinerarioId);
-        List<FotoEntity> photoList = fotoPersistence.findAll(idViajero, itinerarioId);
-        for (FotoEntity photo : photoList) {
-            if (photos.contains(photo)) {
-                photo.setItinerario(itinerario);
-            } else if (photo.getItinerario() != null && photo.getItinerario().equals(itinerario)) {
-                photo.setItinerario(null);
-            }
+    public List<FotoEntity> replacePhotos(List<FotoEntity> photos,Long idViajero, Long itinerarioId) throws BusinessLogicException{
+        List<FotoEntity> fotosViejas = fotoLogic.getFotos(idViajero, itinerarioId);
+        for(FotoEntity foto : fotosViejas){
+            fotoLogic.deleteFoto(idViajero, itinerarioId, foto.getId());
+        }
+        
+        for(FotoEntity fotosNuevas : photos){
+            fotoLogic.createFoto(idViajero, itinerarioId, fotosNuevas);
         }
         return photos;
     }
     
     @Override
-    public List<DiaEntity> replaceDays(List<DiaEntity> dias,Long idViajero, Long itinerarioId) {
-        ItinerarioEntity itinerario = itinerarioPersistence.find(idViajero, itinerarioId);
-        List<DiaEntity> diaList = diaPersistence.findAll(itinerarioId);
-        for (DiaEntity dia : diaList) {
-            if (dias.contains(dia)) {
-                dia.setItinerario(itinerario);
-            } else if (dia.getItinerario() != null && dia.getItinerario().equals(itinerario)) {
-                dia.setItinerario(null);
-            }
+    public List<DiaEntity> replaceDays(List<DiaEntity> dias,Long idViajero, Long itinerarioId) throws BusinessLogicException {
+        List<DiaEntity> diasViejos = diaLogic.getDias(idViajero, itinerarioId);
+        for(DiaEntity dia : diasViejos){
+            diaLogic.deleteDia(idViajero, itinerarioId, dia.getId());
+        }
+        
+        for(DiaEntity diaNuevo : dias){
+            diaLogic.createDia(idViajero, itinerarioId, diaNuevo);
         }
         return dias;
     }
     
     @Override
-    public void removePhoto(Long viajeroId, Long itinerarioId, Long photoId) {
-        ItinerarioEntity itinerarioEntity = itinerarioPersistence.find(viajeroId, itinerarioId);
-        FotoEntity photo = fotoPersistence.find(photoId);
-        photo.setItinerario(null);
-        itinerarioEntity.getFotos().remove(photo);
+    public void removePhoto(Long viajeroId, Long itinerarioId, Long photoId) throws BusinessLogicException {
+        fotoLogic.deleteFoto(viajeroId, itinerarioId, photoId);
     }
     
     @Override
-    public void removeDay(Long viajeroId, Long itinerarioId, Long diaId) {
-        ItinerarioEntity itinerarioEntity = itinerarioPersistence.find(viajeroId, itinerarioId);
-        DiaEntity dia = diaPersistence.find(itinerarioId, diaId);
-        dia.setItinerario(null);
-        itinerarioEntity.getDias().remove(dia);
+    public void removeDay(Long viajeroId, Long itinerarioId, Long diaId) throws BusinessLogicException {
+        diaLogic.deleteDia(viajeroId, itinerarioId, diaId);
     }
     
     @Override
-    public FotoEntity addPhoto(Long viajeroId, Long itinerarioId, Long photoId) {
-        ItinerarioEntity itinerarioEntity = itinerarioPersistence.find(viajeroId, itinerarioId);
-        FotoEntity fotoEntity = fotoPersistence.find(photoId);
-        fotoEntity.setItinerario(itinerarioEntity);
-        return fotoEntity;
+    public FotoEntity addPhoto(Long viajeroId, Long itinerarioId, FotoEntity foto) throws BusinessLogicException {
+        fotoLogic.createFoto(viajeroId, itinerarioId, foto);
+        return foto;
     }
     
     @Override
-    public DiaEntity addDay(Long viajeroId, Long itinerarioId, Long dayId) {
-        ItinerarioEntity itinerarioEntity = itinerarioPersistence.find(viajeroId, itinerarioId);
-        DiaEntity diaEntity = diaPersistence.find(itinerarioId, dayId);
-        diaEntity.setItinerario(itinerarioEntity);
-        return diaEntity;
+    public DiaEntity addDay(Long viajeroId, Long itinerarioId, DiaEntity dia) throws BusinessLogicException {
+        diaLogic.createDia(viajeroId, itinerarioId, dia);
+        return dia;
     }
 }
