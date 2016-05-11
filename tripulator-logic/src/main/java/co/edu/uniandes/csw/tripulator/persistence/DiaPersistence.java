@@ -12,7 +12,7 @@ import java.util.logging.Logger;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -20,7 +20,7 @@ import javax.persistence.Query;
  */
 @Stateless
 public class DiaPersistence {
-    
+
     private static final Logger logger = Logger.getLogger(DiaPersistence.class.getName());
 
     @PersistenceContext(unitName = "TripulatorPU")
@@ -44,14 +44,22 @@ public class DiaPersistence {
         em.remove(entity);
     }
 
-    public DiaEntity find(Long id) {
+    public DiaEntity find(Long idItinerario, Long id) {
         logger.log(Level.INFO, "Consultando día con id={0}", id);
-        return em.find(DiaEntity.class, id);
+        TypedQuery<DiaEntity> q = em.createQuery("select u from "
+                + "DiaEntity u where (u.itinerario.id = :idItinerario) and (u.id = :id)",
+                DiaEntity.class);
+        q.setParameter("idItinerario", idItinerario);
+        q.setParameter("id", id);
+        return q.getSingleResult();
     }
 
-    public List<DiaEntity> findAll() {
-        logger.info("Consultando todos los días");
-        Query q = em.createQuery("select u from DiaEntity u");
+    public List<DiaEntity> findAll(Long idItinerario) {
+        logger.info("Consultando todos los dias.");
+        TypedQuery<DiaEntity> q = em.createQuery("select u from "
+                + "DiaEntity u where (u.itinerario.id = :idItinerario)",
+                DiaEntity.class);
+        q.setParameter("idItinerario", idItinerario);
         return q.getResultList();
     }
 }

@@ -145,7 +145,7 @@ public class ItinerarioLogic implements IItinerarioLogic {
     @Override
     public List<DiaEntity> replaceDays(List<DiaEntity> dias,Long idViajero, Long itinerarioId) {
         ItinerarioEntity itinerario = itinerarioPersistence.find(idViajero, itinerarioId);
-        List<DiaEntity> diaList = diaPersistence.findAll();
+        List<DiaEntity> diaList = diaPersistence.findAll(itinerarioId);
         for (DiaEntity dia : diaList) {
             if (dias.contains(dia)) {
                 dia.setItinerario(itinerario);
@@ -167,7 +167,7 @@ public class ItinerarioLogic implements IItinerarioLogic {
     @Override
     public void removeDay(Long viajeroId, Long itinerarioId, Long diaId) {
         ItinerarioEntity itinerarioEntity = itinerarioPersistence.find(viajeroId, itinerarioId);
-        DiaEntity dia = diaPersistence.find(diaId);
+        DiaEntity dia = diaPersistence.find(itinerarioId, diaId);
         dia.setItinerario(null);
         itinerarioEntity.getDias().remove(dia);
     }
@@ -183,7 +183,7 @@ public class ItinerarioLogic implements IItinerarioLogic {
     @Override
     public DiaEntity addDay(Long viajeroId, Long itinerarioId, Long dayId) {
         ItinerarioEntity itinerarioEntity = itinerarioPersistence.find(viajeroId, itinerarioId);
-        DiaEntity diaEntity = diaPersistence.find(dayId);
+        DiaEntity diaEntity = diaPersistence.find(itinerarioId, dayId);
         diaEntity.setItinerario(itinerarioEntity);
         return diaEntity;
     }

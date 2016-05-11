@@ -100,7 +100,7 @@ public class DiaLogicTest {
     }
     
     @Test
-    public void createDiaTest() {
+    public void createDiaTest() throws BusinessLogicException {
         DiaEntity expected = factory.manufacturePojo(DiaEntity.class);
         DiaEntity created = diaLogic.createDia(viajero.getId(), itinerario.getId(), expected);
         
@@ -113,7 +113,7 @@ public class DiaLogicTest {
     }
 
     @Test
-    public void getDiasTest() {
+    public void getDiasTest() throws BusinessLogicException {
         List<DiaEntity> resultList = diaLogic.getDias(viajero.getId(), itinerario.getId());
         List<DiaEntity> expectedList = em.createQuery("SELECT u from DiaEntity u").getResultList();
         Assert.assertEquals(expectedList.size(), resultList.size());
@@ -142,7 +142,7 @@ public class DiaLogicTest {
     }
     
     @Test
-    public void deleteDiaTest() {
+    public void deleteDiaTest() throws BusinessLogicException {
         DiaEntity entity = data.get(1);
         diaLogic.deleteDia(viajero.getId(), itinerario.getId(), entity.getId());
         DiaEntity expected = em.find(DiaEntity.class, entity.getId());
@@ -150,7 +150,7 @@ public class DiaLogicTest {
     }
 
     @Test
-    public void updateDiaTest() {
+    public void updateDiaTest() throws BusinessLogicException {
         DiaEntity entity = data.get(0);
         DiaEntity expected = factory.manufacturePojo(DiaEntity.class);
 

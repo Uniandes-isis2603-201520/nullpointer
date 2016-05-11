@@ -6,15 +6,15 @@ import java.util.List;
 
 public interface IDiaLogic {
 
-    public List<DiaEntity> getDias(Long idViajero, Long idItinerario);
+    public List<DiaEntity> getDias(Long idViajero, Long idItinerario) throws BusinessLogicException;
 
     public DiaEntity getDia(Long idViajero, Long idItinerario, Long idDia) throws BusinessLogicException;
 
-    public DiaEntity createDia(Long idViajero, Long idItinerario, DiaEntity dia);
+    public DiaEntity createDia(Long idViajero, Long idItinerario, DiaEntity dia) throws BusinessLogicException;
 
-    public DiaEntity updateDia(Long idViajero, Long idItinerario, DiaEntity dia);
+    public DiaEntity updateDia(Long idViajero, Long idItinerario, DiaEntity dia) throws BusinessLogicException;
 
-    public void deleteDia(Long idViajero, Long idItinerario, Long idDia);
+    public void deleteDia(Long idViajero, Long idItinerario, Long idDia) throws BusinessLogicException;
     
     public List<EventoEntity> getEventos(Long idViajero, Long idItinerario, Long idDia);
     

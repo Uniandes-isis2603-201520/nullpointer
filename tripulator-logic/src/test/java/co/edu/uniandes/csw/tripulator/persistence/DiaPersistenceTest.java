@@ -96,7 +96,7 @@ public class DiaPersistenceTest {
     
     @Test
     public void getDiasTest() {
-        List<DiaEntity> list = diaPersistence.findAll();
+        List<DiaEntity> list = diaPersistence.findAll(new Long(1));
         Assert.assertEquals(data.size(), list.size());
         for (DiaEntity d : list) {
             boolean found = false;
@@ -111,7 +111,7 @@ public class DiaPersistenceTest {
     @Test
     public void getDiaTest() {
         DiaEntity entity = data.get(0);
-        DiaEntity newEntity = diaPersistence.find(entity.getId());
+        DiaEntity newEntity = diaPersistence.find(new Long(2), entity.getId());
         Assert.assertNotNull(newEntity);
         Assert.assertEquals(newEntity.getDate(), entity.getDate());
         Assert.assertEquals(newEntity.getCiudad(), entity.getCiudad());

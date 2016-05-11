@@ -32,6 +32,8 @@ public class DiaEntity extends BaseEntity implements Serializable {
     private Date fecha;
     
     private String ciudad;
+    
+    private String pais;
 
     /**
      * @return the fecha
@@ -70,5 +72,19 @@ public class DiaEntity extends BaseEntity implements Serializable {
 
     public void setItinerario(ItinerarioEntity itinerario) {
         this.itinerario = itinerario;
+    }
+
+    /**
+     * @return the pais
+     */
+    public String getPais() {
+        return pais;
+    }
+
+    /**
+     * @param pais the pais to set
+     */
+    public void setPais(String pais) {
+        this.pais = pais;
     }
 }
