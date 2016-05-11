@@ -108,7 +108,7 @@ public class EventoLogic implements IEventoLogic {
     @Override
     public DiaEntity getDia(Long eventoId, Long diaId) throws Exception {
         List<DiaEntity> dias = getEvento(eventoId).getDias();
-        DiaEntity diaEntity = diaPersistence.find(diaId);
+        DiaEntity diaEntity =  new DiaEntity(); //diaPersistence.find(diaId);
         if (diaEntity == null) {
             throw new IllegalArgumentException("El dia no existe");
         }
@@ -122,7 +122,7 @@ public class EventoLogic implements IEventoLogic {
     @Override
     public DiaEntity addDia(Long diaId, Long eventoId) throws BusinessLogicException {
         EventoEntity eventoEntity = getEvento(eventoId);
-        DiaEntity diaEntity = diaPersistence.find(diaId);
+        DiaEntity diaEntity =  new DiaEntity(); //diaPersistence.find(diaId);
         if (diaEntity == null) {
             throw new IllegalArgumentException("El dia no existe");
         }
@@ -136,7 +136,7 @@ public class EventoLogic implements IEventoLogic {
     @Override
     public void removeDia(Long diaId, Long eventoId) throws Exception {
         EventoEntity eventoEntity = getEvento(eventoId);
-        DiaEntity diaEntity = diaPersistence.find(diaId);
+        DiaEntity diaEntity = new DiaEntity(); // diaPersistence.find(diaId);
         if (diaEntity == null) {
             throw new IllegalArgumentException("El dia no existe");
         }
