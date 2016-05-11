@@ -7,9 +7,12 @@ package co.edu.uniandes.nullpointer.rest.tripulator.resources;
 
 import co.edu.uniandes.csw.tripulator.api.IDiaLogic;
 import co.edu.uniandes.csw.tripulator.entities.DiaEntity;
+import co.edu.uniandes.csw.tripulator.entities.EventoEntity;
 import co.edu.uniandes.csw.tripulator.exceptions.BusinessLogicException;
 import co.edu.uniandes.nullpointer.rest.tripulator.converters.DiaConverter;
+import co.edu.uniandes.nullpointer.rest.tripulator.converters.EventoConverter;
 import co.edu.uniandes.nullpointer.rest.tripulator.dtos.DiaDTO;
+import co.edu.uniandes.nullpointer.rest.tripulator.dtos.EventoDTO;
 import co.edu.uniandes.nullpointer.rest.tripulator.exceptions.TripulatorLogicException;
 import java.util.List;
 import java.util.logging.Logger;
@@ -22,6 +25,8 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.WebApplicationException;
+import javax.ws.rs.core.Response;
 
 /**
  *
@@ -38,7 +43,7 @@ public class DiaResource {
     private final static Logger logger = Logger.getLogger(DiaResource.class.getName());
     
     /**
-     * 
+     * Obtiene todos los dias asociados a un itinerario de un viajero.
      * @param idViajero
      * @param idItinerario
      * @return
@@ -115,5 +120,99 @@ public class DiaResource {
             @PathParam("idItinerario") Long idItinerario,
             @PathParam("id") Long id) throws TripulatorLogicException, BusinessLogicException {
         diaLogic.deleteDia(idViajero, idItinerario, id);
+    }
+    
+    /**
+     * Obtiene todos los eventos de un dia de un itinerario de un viajero.
+     * @param idViajero
+     * @param idItinerario
+     * @param id
+     * @return
+     * @throws TripulatorLogicException 
+     */
+    @GET
+    @Path("{id: \\d+}/eventos")
+    public List<EventoDTO> getEventos(@PathParam("idViajero") Long idViajero,
+            @PathParam("idItinerario") Long idItinerario,
+            @PathParam("id") Long id) throws TripulatorLogicException {
+        return EventoConverter.listEntity2DTO(diaLogic.getEventos(idViajero, idItinerario, id));
+    }
+    
+    /**
+     * Obtiene un día de un itinerario de un viajero.
+     * @param idViajero
+     * @param idItinerario
+     * @param id
+     * @param idEvento
+     * @return 
+     */
+    @GET
+    @Path("{id: \\d+}/eventos/{idEvento: \\d+}")
+    public EventoDTO getEvento(@PathParam("idViajero") Long idViajero,
+            @PathParam("idItinerario") Long idItinerario,
+            @PathParam("id") Long id,
+            @PathParam("idEvento") Long idEvento){
+        return EventoConverter.fullEntity2DTO(diaLogic.getEvento(idViajero, idItinerario, id, idEvento));
+    }
+    
+    /**
+     * Agrega un evento a un día
+     * @param idViajero
+     * @param idItinerario
+     * @param id
+     * @param idEvento
+     * @return 
+     */
+    @POST
+    @Path("{id: \\d+}/eventos/{idEvento: \\d+}")
+    public EventoDTO addEvento(@PathParam("idViajero") Long idViajero,
+            @PathParam("idItinerario") Long idItinerario,
+            @PathParam("id") Long id,
+            @PathParam("idEvento") Long idEvento) {
+        try {
+            EventoEntity evento = diaLogic.addEvento(idViajero, idItinerario, id, idEvento);
+            return EventoConverter.fullEntity2DTO(evento);
+        } catch (Exception ex) {
+            throw new WebApplicationException(ex.getLocalizedMessage(), ex, Response.Status.BAD_REQUEST);
+        }
+    }
+    
+    /**
+     * Actualiza los eventos de un día.
+     * @param idViajero
+     * @param idItinerario
+     * @param id
+     * @param eventos
+     * @return 
+     */
+    @PUT
+    @Path("{id: \\d+}/eventos")
+    public List<EventoDTO> replaceEventos(Long idViajero,
+            @PathParam("idItinerario") Long idItinerario,
+            @PathParam("id") Long id,
+            List<EventoDTO>eventos){
+        try {
+            List<EventoEntity> eventList = EventoConverter.listDTO2Entity(eventos);
+            List<EventoEntity> newEvents = diaLogic.replaceEventos(idViajero, idItinerario, id, eventList);
+            return EventoConverter.listEntity2DTO(newEvents);
+        } catch (Exception ex) {
+            throw new WebApplicationException(ex.getLocalizedMessage(), ex, Response.Status.BAD_REQUEST);
+        }
+    }
+    
+    /**
+     * Elimina un evento de un día.
+     * @param idViajero
+     * @param idItinerario
+     * @param id
+     * @param idEvento 
+     */
+    @DELETE
+    @Path("{id: \\d+}/eventos/{idEvento: \\d+}")
+    public void removeEvent(@PathParam("idViajero") Long idViajero,
+            @PathParam("idItinerario") Long idItinerario,
+            @PathParam("id") Long id,
+            @PathParam("idEvento") Long idEvento) {
+        diaLogic.removeEvento(idViajero, idItinerario, id, idEvento);
     }
 }
