@@ -6,7 +6,6 @@ import co.edu.uniandes.csw.tripulator.entities.DiaEntity;
 import co.edu.uniandes.csw.tripulator.entities.EventoEntity;
 import co.edu.uniandes.csw.tripulator.persistence.DiaPersistence;
 import co.edu.uniandes.csw.tripulator.persistence.EventoPersistence;
-import java.text.DateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -44,7 +43,9 @@ public class EventoLogic implements IEventoLogic {
     @Override
     public List<EventoEntity> getEventosCiudadFecha(String ciudad, Date fecha) throws BusinessLogicException {
         logger.log(Level.INFO, "Inicia proceso de consultar eventos de " + ciudad + " en el dia " + fecha);
-        List<EventoEntity> eventos = persistence.find(ciudad, fecha, getEndOfDay(fecha));
+        Date fin = getEndOfDay(fecha);
+        logger.log(Level.INFO, fecha+" "+fin+" "+ciudad);
+        List<EventoEntity> eventos = persistence.find(ciudad, fecha, fin);
         if (eventos == null) {
             logger.log(Level.SEVERE, "No hay eventos para " + ciudad + " en el dia " + fecha);
             throw new BusinessLogicException("Los eventos solicitados no existen");
@@ -134,6 +135,7 @@ public class EventoLogic implements IEventoLogic {
 
 // next day
         date.add(Calendar.DAY_OF_MONTH, 1);
+        date.add(Calendar.SECOND, -1);
         return date.getTime();
     }
 }

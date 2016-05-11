@@ -11,13 +11,14 @@
                 <div class="descMiniatura">
                     <p>
                         <strong>Tipo: </strong>{{e.type}}<br>
-                        <strong>Fecha: </strong>{{e.start|date:'mediumDate'}}<br>
+                        <strong>Fecha inicio: </strong>{{e.start|date:'mediumDate'}}<br>
                         <strong>Hora inicio: </strong>{{e.start|date:'shortTime'}}<br>
+                        <strong>Fecha fin </strong>{{e.end|date:'mediumDate'}}<br>
                         <strong>Hora fin: </strong>{{e.end|date:'shortTime'}}<br>
 
                     </p>
                 </div>
-                <button class="btn-primary botonItem" ng-click="anadirEvento(e)" ng-confirm-click="¿Seguro quieres agregar el evento {{e.title}}?">Añadir</button>
+                <button class="btn-primary botonItem" ng-click="anadirEvento(e)" confirmation-needed="¿Seguro quieres agregar el evento {{e.title}}?">Añadir</button>
             </div>
         </div>
     </div><!--cerrar caja con eventos-->

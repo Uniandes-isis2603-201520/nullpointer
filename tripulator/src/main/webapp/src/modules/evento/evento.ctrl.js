@@ -135,10 +135,15 @@
                 self.getComments();
             };
 
-            this.anadirEvento = function (record) {
+            $scope.anadirEvento = function (record) {
+                console.log("va a añadir evento");
+                if(window.confirm("¿Seguro quieres agregar el evento "+$scope.eventoActual.title+"?")){
                 return svc.addEventoDia(record.id, dataSvc).then(function () {
                         self.fetchEventos();
-                    }, function (response){ console.log(response);});
+                        window.confirm("¡Se ha agregado con éxito!")
+                    }, function (response){ console.log(response);
+                        window.confirm("Error: "+response)});
+                }
             };
 
             this.fetchEventosCiudadDia();
