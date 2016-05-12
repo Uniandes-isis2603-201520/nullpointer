@@ -45,7 +45,7 @@
              * @returns {unresolved}
              */
             this.deleteRecord = function (idViajero, idItinerario, idDia) {
-                return $http.delete(context + "/viajeros/" + idViajero + "/itinerarios/" + idItinerario + "/dias/" + idDia);
+                return $http.delete(context + "/" + idViajero + "/itinerarios/" + idItinerario + "/dias/" + idDia);
             };
             
             /**
@@ -56,7 +56,7 @@
              * @returns {unresolved}
              */
             this.getEvents = function(idViajero, idItinerario, idDia) {
-                return $http.get(context + "/viajeros/" + idViajero + "/itinerarios/" + idItinerario + "/dias/" + idDia + "/eventos");
+                return $http.get(context + "/" + idViajero + "/itinerarios/" + idItinerario + "/dias/" + idDia + "/eventos");
             };
             
             /**
@@ -68,7 +68,7 @@
              * @returns {unresolved}
              */
             this.getEvent = function(idViajero, idItinerario, idDia, idEvento){
-               return $http.get(context + "/viajeros/" + idViajero + "/itinerarios/" + idItinerario + "/dias/" + idDia + "/eventos/" + idEvento);
+               return $http.get(context + "/" + idViajero + "/itinerarios/" + idItinerario + "/dias/" + idDia + "/eventos/" + idEvento);
             };
             
             /**
@@ -80,7 +80,7 @@
              * @returns {unresolved}
              */
             this.replaceEvents = function(idViajero, idItinerario, idDia, eventos){
-                return $http.put(context + "/viajeros/" + idViajero + "/itinerarios/" + idItinerario + "/dias/" + idDia + "/eventos", eventos);
+                return $http.put(context + "/" + idViajero + "/itinerarios/" + idItinerario + "/dias/" + idDia + "/eventos", eventos);
             };
             
             /**
@@ -92,7 +92,29 @@
              * @returns {unresolved}
              */
             this.removeEvent = function(idViajero, idItinerario, idDia, idEvento){
-                return $http.delete(context + "/viajeros/" + idViajero + "/itinerarios/" + idItinerario + "/dias/" + idDia + "/eventos" + idEvento);
+                return $http.delete(context + "/" + idViajero + "/itinerarios/" + idItinerario + "/dias/" + idDia + "/eventos/" + idEvento);
+            };
+            
+            /**
+             * Crea el nuevo evento en la base de datos mediante un POST y luego lo agrega
+             * @param {type} idViajero
+             * @param {type} idItinerario
+             * @param {type} idDia
+             * @param {type} event
+             * @returns {unresolved}
+             */
+            this.createEvent = function(idViajero, idItinerario, idDia, event){
+                $http.post("/eventos", event);
+                return $http.post(context + "/" + idViajero + "/itinerarios/" + idItinerario + "/dias/" + idDia + "/eventos/" + event.id);
+            };
+            
+            /**
+             * Actualiza un evento ya existente mediante un PUT.
+             * @param {type} event
+             * @returns {unresolved}
+             */
+            this.updateEvent = function(event){
+                return $http.put("/eventos/" + event.id, event);
             };
     }]);
 

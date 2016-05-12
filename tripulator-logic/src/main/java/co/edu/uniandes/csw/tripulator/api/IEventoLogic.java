@@ -19,7 +19,7 @@ public interface IEventoLogic {
 
     public void deleteEvento(Long id);
 
-    public List<DiaEntity> getDias(Long eventoId) throws Exception;
+    public List<DiaEntity> getDias(Long eventoId) throws BusinessLogicException;
 
     public Date getEndOfDay(Date fechaInicio);
 

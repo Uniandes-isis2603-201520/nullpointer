@@ -1,7 +1,7 @@
 (function (ng) {
     var mod = ng.module("planDiaModule");
     
-    mod.controller('PlanDiaController', ['$scope', 'planDiaService', function ($scope, svc) {
+    mod.controller('PlanDiaController', ['$scope', 'planDiaService', 'dataSvc', function ($scope, svc, dataSvc) {
             
             var self = this;
             
@@ -12,8 +12,8 @@
             $scope.currentEvent = {
                 "id": undefined,
                 "title": "",
-                "image": "",
                 "type": "",
+                "image": "",
                 "start": "",
                 "end": "",
                 "description": "",
@@ -29,21 +29,61 @@
               }
             };
             
-            $scope.fetchRecords = function () {
-                $scope.editMode = false;  
+            this.showError = function (data) {
+                alert(data);
+            };
+
+            function responseError(response) {
+                self.showError(response);
+            }
+            
+            $scope.fetchEvents = function () {
+                console.log(dataSvc.userId+', '+dataSvc.tripId+', '+dataSvc.dayId);
+                return svc.getEvents(dataSvc.userId, dataSvc.tripId, dataSvc.dayId).then(function (response) {
+                    $scope.events = response.data;
+                    console.log(response.data);
+                    $scope.currentEvent = {};
+                    $scope.editMode = false;
+                    return response;
+                }, responseError); 
             };
             
-            $scope.createRecord = function (){
-                $scope.editMode = true;  
-            };
-            
-            $scope.editRecord = function () {
+            $scope.createEvent = function (){
                 $scope.editMode = true;
+                $scope.currentEvent = {};
+                $scope.$broadcast("post-create", $scope.currentRecord);
             };
             
-            $scope.deleteRecord = function() {
-                
+            $scope.saveEvent = function () {
+                console.log(dataSvc.userId+', '+dataSvc.tripId+', '+dataSvc.dayId);
+                var newEvent = $scope.currentEvent;
+                if (newEvent.id){
+                    
+                }
+                else {
+                    
+                }
+                $scope.fetchEvents();
             };
+            
+            $scope.editEvent = function (event) {
+                console.log(dataSvc.userId+', '+dataSvc.tripId+', '+dataSvc.dayId+', '+event.id);
+                return svc.getEvent(dataSvc.userId, dataSvc.tripId, dataSvc.dayId, event.id).then(function (response) {
+                    $scope.currentRecord = response.data;
+                    $scope.editMode = true;
+                    $scope.$broadcast("post-edit", $scope.currentRecord);
+                    return response;
+                }, responseError);
+            };
+            
+            $scope.deleteEvent = function(event) {
+                console.log(dataSvc.userId+', '+dataSvc.tripId+', '+dataSvc.dayId+', '+event.id);
+                return svc.removeEvent(dataSvc.userId, dataSvc.tripId, dataSvc.dayId, event.id).then(function () {
+                    $scope.fetchEvents();
+                }, responseError);
+            };
+            
+            $scope.fetchEvents();
             
             /**
                 $scope.events = [                
