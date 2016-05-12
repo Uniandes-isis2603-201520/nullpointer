@@ -30,7 +30,7 @@
             };
             this.addEventoDia = function (idEvento,dataSvc){
                 var sub = context+"/"+dataSvc.userId+"/itinerarios/"+dataSvc.tripId+"/dias/"+dataSvc.dayId;
-                var dir=sub+"/eventos/"+idEvento;
+                var dir=sub+"/addEvento/"+idEvento;
                 console.log(dir);
                 return $http.post(dir);
             };
