@@ -27,7 +27,7 @@ public class ViajeroLogicMock {
     private final static Logger logger = Logger.getLogger(ViajeroLogicMock.class.getName());
 
     // listado de viajeroes
-    public static ArrayList<ViajeroDTO> viajeros;
+    private static  ArrayList<ViajeroDTO> viajeros;
 
     /**
      * Constructor. Crea los datos de ejemplo.
