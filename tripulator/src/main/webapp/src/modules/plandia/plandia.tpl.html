@@ -2,9 +2,9 @@
 
 <!-- Detalles de los eventos del día -->
 <div class="row content container" ng-hide="editMode">
-    <button type="button" class="btn btn-success btn-lg" ng-click="createRecord()">Create new event</button>
+    <button type="button" class="btn btn-success btn-lg" ng-click="createEvent()">Create new event</button>
     <div class="divider"></div>
-    <button type="button" class="btn btn-primary btn-lg" ng-click="fetchRecords()">Refresh</button>
+    <button type="button" class="btn btn-primary btn-lg" ng-click="fetchEvents()">Refresh</button>
     <br><br>
     <ul class="timeline">
         <li ng-repeat="event in events | orderBy: '+start'"
@@ -23,8 +23,8 @@
                             <i class="glyphicon glyphicon-cog"></i> <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu" role="menu">
-                            <li ng-click="editRecord()"><a>Edit</a></li>
-                            <li><a>Delete</a></li>
+                            <li ng-click="editEvent(event)"><a>Edit</a></li>
+                            <li ng-click="deleteEvent(event)"><a>Delete</a></li>
                         </ul>
                     </div>
                 </div>
@@ -35,7 +35,7 @@
 
 <!-- Creación de un evento -->
 <div ng-show="editMode" class="col-xs-offset-1 col-md-9 well">
-    <form novalidate name="form" role="form" ng-submit="ctrl.saveRecord()">
+    <form novalidate name="form" role="form" ng-submit="saveEvent()">
         <alert ng-messages="form.$error" type="danger" close="" ng-hide="!form.$error.required">
             <div ng-message="required">
                 Please fill out all the fields.
@@ -65,13 +65,13 @@
             <div class="form-group col-md-12">
                 <label for="description" class="col-md-2 control-label">Description</label>
                 <div class="col-md-10">
-                    <textarea rows="5" cols="10" id="description" name="description" class="form-control" ng-model="currentEvent.description" required />
+                    <textarea rows="5" cols="10" id="description" name="description" class="form-control" ng-model="currentEvent.description" required></textarea>
                 </div>
             </div>
             <div class="col-xs-offset-5">
                 <button type="submit" class="btn btn-success btn-lg">Save</button>
                 <div class="divider"></div>
-                <button type="button" class="btn btn-danger btn-lg" ng-click="form.$setPristine(); fetchRecords();">Cancel</button>
+                <button type="button" class="btn btn-danger btn-lg" ng-click="fetchEvents()">Cancel</button>
             </div>
         </fieldset>
     </form>
