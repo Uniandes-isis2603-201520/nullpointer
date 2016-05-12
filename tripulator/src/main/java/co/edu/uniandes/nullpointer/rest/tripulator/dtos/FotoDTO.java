@@ -9,6 +9,11 @@ package co.edu.uniandes.nullpointer.rest.tripulator.dtos;
  *
  * @author JOSE QUIROGA
  */
+
+
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
 public class FotoDTO {
     
     /**

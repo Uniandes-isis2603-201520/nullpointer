@@ -18,7 +18,7 @@ import javax.inject.Inject;
 @Stateless
 public class EventoLogic implements IEventoLogic {
 
-    private static final Logger logger = Logger.getLogger(EventoLogic.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(EventoLogic.class.getName());
 
     @Inject
     private EventoPersistence persistence;
@@ -28,29 +28,28 @@ public class EventoLogic implements IEventoLogic {
 
     @Override
     public List<EventoEntity> getEventos() {
-        logger.info("Inicia proceso de consultar todos los eventos");
+        LOGGER.info("Inicia proceso de consultar todos los eventos");
         List<EventoEntity> eventos = persistence.findAll();
-        logger.info("Termina proceso de consultar todos los eventos");
+        LOGGER.info("Termina proceso de consultar todos los eventos");
         return eventos;
     }
 
     /**
-     *
-     * @param id
-     * @return
+     * @param ciudad la ciudad de los eventos a buscar
+     * @param fecha la fecha de los eventos a buscar
+     * @return lista de eventos
      * @throws BusinessLogicException
      */
     @Override
     public List<EventoEntity> getEventosCiudadFecha(String ciudad, Date fecha) throws BusinessLogicException {
-        logger.log(Level.INFO, "Inicia proceso de consultar eventos de " + ciudad + " en el dia " + fecha);
+        LOGGER.log(Level.INFO, "Inicia proceso de consultar eventos de {0} en el dia {1}", new Object[]{ciudad, fecha});
         Date fin = getEndOfDay(fecha);
-        logger.log(Level.INFO, fecha+" "+fin+" "+ciudad);
         List<EventoEntity> eventos = persistence.find(ciudad, fecha, fin);
         if (eventos == null) {
-            logger.log(Level.SEVERE, "No hay eventos para " + ciudad + " en el dia " + fecha);
+            LOGGER.log(Level.SEVERE, "No hay eventos para {0} en el dia {1}", new Object[]{ciudad, fecha});
             throw new BusinessLogicException("Los eventos solicitados no existen");
         }
-        logger.log(Level.INFO, "Termina proceso de consultar eventos de " + ciudad + " antes de " + fecha);
+        LOGGER.log(Level.INFO, "Termina proceso de consultar eventos de {0} antes de {1}", new Object[]{ciudad, fecha});
         return eventos;
     }
 
@@ -62,47 +61,53 @@ public class EventoLogic implements IEventoLogic {
      */
     @Override
     public EventoEntity getEvento(Long id) throws BusinessLogicException {
-        logger.log(Level.INFO, "Inicia proceso de consultar evento con id={0}", id);
+        LOGGER.log(Level.INFO, "Inicia proceso de consultar evento con id={0}", id);
         EventoEntity evento = persistence.find(id);
         if (evento == null) {
-            logger.log(Level.SEVERE, "El evento con el id {0} no existe", id);
+            LOGGER.log(Level.SEVERE, "El evento con el id {0} no existe", id);
             throw new BusinessLogicException("El evento solicitado no existe");
         }
-        logger.log(Level.INFO, "Termina proceso de consultar evento con id={0}", id);
+        LOGGER.log(Level.INFO, "Termina proceso de consultar evento con id={0}", id);
         return evento;
     }
 
     @Override
     public EventoEntity createEvento(EventoEntity entity) throws BusinessLogicException {
-        logger.info("Inicia proceso de creación de evento");
+        LOGGER.info("Inicia proceso de creación de evento");
         if (entity.getFechaInicio().after(entity.getFechaFin())) {
             throw new BusinessLogicException("La fecha de inicio no puede ser después de la fecha final");
         }
         persistence.create(entity);
-        logger.info("Termina proceso de creación de evento");
+        LOGGER.info("Termina proceso de creación de evento");
         return entity;
     }
 
     @Override
     public EventoEntity updateEvento(EventoEntity entity) throws BusinessLogicException {
-        logger.log(Level.INFO, "Inicia proceso de actualizar evento con id={0}", entity.getId());
+        LOGGER.log(Level.INFO, "Inicia proceso de actualizar evento con id={0}", entity.getId());
         if (entity.getFechaInicio().after(entity.getFechaFin())) {
             throw new BusinessLogicException("La fecha de inicio debe ser anterior a la fecha final");
         }
         EventoEntity newEntity = persistence.update(entity);
-        logger.log(Level.INFO, "Termina proceso de actualizar evento con id={0}", entity.getId());
+        LOGGER.log(Level.INFO, "Termina proceso de actualizar evento con id={0}", entity.getId());
         return newEntity;
     }
 
     @Override
     public void deleteEvento(Long id) {
-        logger.log(Level.INFO, "Inicia proceso de borrar evento con id={0}", id);
+        LOGGER.log(Level.INFO, "Inicia proceso de borrar evento con id={0}", id);
         persistence.delete(id);
-        logger.log(Level.INFO, "Termina proceso de borrar evento con id={0}", id);
+        LOGGER.log(Level.INFO, "Termina proceso de borrar evento con id={0}", id);
     }
 
+    /**
+     * Metodo para obtener los dias
+     * @param eventoId el id del evento
+     * @return dias del evento
+     * @throws BusinessLogicException 
+     */
     @Override
-    public List<DiaEntity> getDias(Long eventoId) throws Exception {
+    public List<DiaEntity> getDias(Long eventoId) throws BusinessLogicException {
         return getEvento(eventoId).getDias();
     }
 
@@ -124,6 +129,7 @@ public class EventoLogic implements IEventoLogic {
         return d1.getDate() - d2.getDate();
     }
 
+    @Override
     public Date getEndOfDay(Date fecha) {
         Calendar date = new GregorianCalendar();
         date.setTime(fecha);

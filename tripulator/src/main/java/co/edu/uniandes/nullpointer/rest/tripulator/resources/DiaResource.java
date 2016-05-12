@@ -166,14 +166,14 @@ public class DiaResource {
      * @return
      */
     @POST
-    @Path("{id: \\d+}/eventos/{idEvento: \\d+}")
+    @Path("{id}/addEvento/{idEvento}")
     public EventoDTO addEvento(@PathParam("idViajero") Long idViajero,
             @PathParam("idItinerario") Long idItinerario,
             @PathParam("id") Long id,
             @PathParam("idEvento") Long idEvento) {
+        logger.info("Llega a add evento");
         try {
             EventoEntity evento = diaLogic.addEvento(idViajero, idItinerario, id, idEvento);
-            System.out.println("Agrega el evento");
             return EventoConverter.fullEntity2DTO(evento);
         } catch (Exception ex) {
             throw new WebApplicationException(ex.getLocalizedMessage(), ex, Response.Status.BAD_REQUEST);

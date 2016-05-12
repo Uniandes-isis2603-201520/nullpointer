@@ -1,6 +1,5 @@
 package co.edu.uniandes.csw.tripulator.api;
 import co.edu.uniandes.csw.tripulator.exceptions.BusinessLogicException;
-import co.edu.uniandes.csw.tripulator.entities.ComentarioEntity;
 import co.edu.uniandes.csw.tripulator.entities.DiaEntity;
 import co.edu.uniandes.csw.tripulator.entities.EventoEntity;
 import java.util.Date;
@@ -20,7 +19,7 @@ public interface IEventoLogic {
 
     public void deleteEvento(Long id);
 
-    public List<DiaEntity> getDias(Long eventoId) throws Exception;
+    public List<DiaEntity> getDias(Long eventoId) throws BusinessLogicException;
 
     public Date getEndOfDay(Date fechaInicio);
 

@@ -73,34 +73,29 @@ public class ViajeroLogicTest {
     }
 
     private void clearData() {
+        
+        em.createQuery("delete from ItinerarioEntity").executeUpdate();
         em.createQuery("delete from ViajeroEntity").executeUpdate();
     }
 
-    private void insertData(){
+    private void insertData() {
         for (int i = 0; i < 3; i++) {
             ViajeroEntity entity = factory.manufacturePojo(ViajeroEntity.class);
             em.persist(entity);
-            data.add(entity);  
-            
-            for(int j = 0; j<3;j++)
-            {
+            data.add(entity);
+
+            for (int j = 0; j < 5; j++) {
                 ItinerarioEntity itinerarioentity = factory.manufacturePojo(ItinerarioEntity.class);
-                em.persist(itinerarioentity);
-                data.get(i).addItinerario(itinerarioentity);
-                
-            }
-            
-        }
-        for(int j = 0; j<3;j++)
-            {
-                ItinerarioEntity itinerarioentity = factory.manufacturePojo(ItinerarioEntity.class);
+                itinerarioentity.setViajero(entity);
                 em.persist(itinerarioentity);
                 itinerariosData.add(itinerarioentity);
-                
+
             }
-        System.out.println(data.get(0).getId());
+
+        }
+
     }
-   
+
     @Test
     public void createViajeroTest() {
         ViajeroEntity expected = factory.manufacturePojo(ViajeroEntity.class);
@@ -140,8 +135,6 @@ public class ViajeroLogicTest {
         ViajeroEntity expected = em.find(ViajeroEntity.class, data.get(0).getId());
         ViajeroEntity result = viajeroLogic.getViajero(data.get(0).getId());
 
-        
-
         Assert.assertNotNull(expected);
         Assert.assertNotNull(result);
         Assert.assertEquals(expected.getId(), result.getId());
@@ -179,7 +172,7 @@ public class ViajeroLogicTest {
         Assert.assertEquals(expected.getEmail(), resp.getEmail());
         Assert.assertEquals(expected.getUsuario(), resp.getUsuario());
     }
-    
+
     @Test
     public void listItinerariosTest() {
         List<ItinerarioEntity> list = viajeroLogic.getItinerarios(data.get(0).getId());
@@ -189,25 +182,20 @@ public class ViajeroLogicTest {
         Assert.assertEquals(expected.getItinerarios().size(), list.size());
     }
 
-    
     @Test
     public void getItinerarioTest() {
         ViajeroEntity entity = data.get(0);
-        ItinerarioEntity itinerarioEntity = data.get(0).getItinerarios().get(0);
+        ItinerarioEntity itinerarioEntity = itinerariosData.get(0);
         ItinerarioEntity response = viajeroLogic.getItinerario(entity.getId(), itinerarioEntity.getId());
 
-        ItinerarioEntity expected = getViajeroItinerario(entity.getId(), itinerarioEntity.getId());
-
-        Assert.assertNotNull(expected);
-        Assert.assertNotNull(response);
-        Assert.assertEquals(expected.getId(), response.getId());
-        Assert.assertEquals(expected.getName(), response.getName());
-        Assert.assertEquals(expected.getFechaInicio(), response.getFechaInicio());
-        Assert.assertEquals(expected.getFechaFin(), response.getFechaFin());
         
-    }
+        Assert.assertNotNull(response);
+        Assert.assertEquals(itinerarioEntity.getId(), response.getId());
+        Assert.assertEquals(itinerarioEntity.getName(), response.getName());
+        Assert.assertEquals(itinerarioEntity.getFechaInicio(), response.getFechaInicio());
+        Assert.assertEquals(itinerarioEntity.getFechaFin(), response.getFechaFin());
 
-    
+    }
 
     @Test
     public void addItinerariosTest() {
@@ -225,18 +213,16 @@ public class ViajeroLogicTest {
             Assert.fail(ex.getLocalizedMessage());
         }
     }
-    
+
     @Test
     public void removeItinerariosTest() throws BusinessLogicException {
         ViajeroEntity entity = data.get(0);
-        ItinerarioEntity itinerarioEntity = entity.getItinerarios().get(0);
+        ItinerarioEntity itinerarioEntity = itinerariosData.get(0);
         viajeroLogic.removeItinerario(itinerarioEntity.getId(), entity.getId());
-        ItinerarioEntity expected = em.find(ItinerarioEntity.class,itinerarioEntity.getId());
+        ItinerarioEntity expected = em.find(ItinerarioEntity.class, itinerarioEntity.getId());
         Assert.assertNull(expected);
     }
 
-
-    
     @Test
     public void replaceItinerariosTest() {
         try {
@@ -244,8 +230,7 @@ public class ViajeroLogicTest {
             List<ItinerarioEntity> list = itinerariosData.subList(1, 3);
             viajeroLogic.replaceItinerarios(list, entity.getId());
 
-            ViajeroEntity expected = em.find(ViajeroEntity.class, entity.getId());
-
+            ViajeroEntity expected = viajeroLogic.getViajero(entity.getId());
             Assert.assertNotNull(expected);
             Assert.assertFalse(expected.getItinerarios().contains(itinerariosData.get(0)));
             Assert.assertTrue(expected.getItinerarios().contains(itinerariosData.get(1)));
@@ -254,8 +239,8 @@ public class ViajeroLogicTest {
             Assert.fail(ex.getLocalizedMessage());
         }
     }
-    
-      private ItinerarioEntity getViajeroItinerario(Long viajeroId, Long itinerarioId) {
+
+    private ItinerarioEntity getViajeroItinerario(Long viajeroId, Long itinerarioId) {
         Query q = em.createQuery("Select DISTINCT b from ViajeroEntity a join a.itinerarios b where a.id=:viajeroId and b.id = :itinerarioId");
         q.setParameter("itinerarioId", itinerarioId);
         q.setParameter("viajeroId", viajeroId);

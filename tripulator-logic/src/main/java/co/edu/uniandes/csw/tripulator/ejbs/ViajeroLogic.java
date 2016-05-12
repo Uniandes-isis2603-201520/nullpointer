@@ -13,6 +13,7 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 import co.edu.uniandes.csw.tripulator.api.IViajeroLogic;
 
+
 @Stateless
 public class ViajeroLogic implements IViajeroLogic {
 
@@ -74,43 +75,49 @@ public class ViajeroLogic implements IViajeroLogic {
     
      @Override
     public ItinerarioEntity getItinerario(Long viajeroId, Long itinerarioId) {
-        List<ItinerarioEntity> itinerarios = persistence.find(viajeroId).getItinerarios();
-        ItinerarioEntity itinerario = new ItinerarioEntity();
-        itinerario.setId(itinerarioId);
-        for(ItinerarioEntity iti : itinerarios)
-        {
-            if(iti.getId() == itinerario.getId())
-            {
-                return iti;
-            }
+         List<ItinerarioEntity> itinerarios = persistence.find(viajeroId).getItinerarios();
+        ItinerarioEntity itinerarioEntity = new ItinerarioEntity();
+        itinerarioEntity.setId(itinerarioId);
+        int index = itinerarios.indexOf(itinerarioEntity);
+        if (index >= 0) {
+            return itinerarios.get(index);
         }
         return null;
     }
 
     @Override
     public ItinerarioEntity addItinerario(ItinerarioEntity itinerario, Long viajeroId) throws BusinessLogicException {
-        ViajeroEntity viajero = getViajero(viajeroId);
-        viajero.addItinerario(itinerario);
-        return itinerarioPersistence.find(viajeroId, itinerario.getId());
+        ViajeroEntity e = getViajero(viajeroId);
+        itinerario.setViajero(e);
+        e.addItinerario(itinerario);
+        itinerario = itinerarioPersistence.create(itinerario);
+        return itinerario;
     }
 
     @Override
     public void removeItinerario(Long itinerarioId, Long viajeroId)  {
-        try {
-            ItinerarioEntity itinerario = getItinerario(viajeroId, itinerarioId);
-            ViajeroEntity viajero = getViajero(viajeroId);
-            viajero.removeItinerario(itinerario);
-            itinerarioPersistence.delete(itinerario.getId());
-        } catch (BusinessLogicException ex) {
-            Logger.getLogger(ViajeroLogic.class.getName()).log(Level.SEVERE, null, ex);
-        }
+      
+            itinerarioPersistence.delete(itinerarioId);
+       
    }
 
     @Override
     public List<ItinerarioEntity> replaceItinerarios(List<ItinerarioEntity> itinerarios, Long viajeroId) throws BusinessLogicException {
-        ViajeroEntity viajero = persistence.find(viajeroId);
-        viajero.setItinerarios(itinerarios);
-        return viajero.getItinerarios();
+        ViajeroEntity viajero = getViajero(viajeroId);
+        List<ItinerarioEntity> itinerariosViejos = itinerarioPersistence.findAll(viajeroId);
+        for (ItinerarioEntity itinerario : itinerariosViejos) {
+            itinerarioPersistence.delete(itinerario.getId());
+            viajero.removeItinerario(itinerario);
+            
+        }
+
+       
+        for (ItinerarioEntity itinerarioNuevo : itinerarios) {
+            viajero.addItinerario(itinerarioNuevo);
+            itinerarioNuevo.setViajero(viajero);
+            itinerarioNuevo = itinerarioPersistence.create(itinerarioNuevo);
+        }
+        return itinerarios;
     }
 
     

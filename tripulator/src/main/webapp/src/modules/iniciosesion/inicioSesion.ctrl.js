@@ -4,9 +4,30 @@
     var mod = ng.module("inicioSesionModule");
 
     // crea el controlador con dependencias a $scope y a personService
-    mod.controller("inicioSesionCtrl", ["$scope", "dataSvc", "InicioSesionService", "$state",
-        "$stateParams", '$mdDialog','$mdMedia', function ($scope, dataSvc, svc, $state, $stateParams,
-        $mdDialog, $mdMedia) {
+    mod.controller("inicioSesionCtrl", ["$scope","dataSvc", "InicioSesionService", '$mdDialog', "$state", "$stateParams",
+        function ($scope,dataSvc ,svc, $mdDialog,$state) {
+
+
+
+
+   $scope.showAlert = function (title, info) {
+                // Appending dialog to document.body to cover sidenav in docs app
+                // Modal dialogs should fully cover application
+                // to prevent interaction outside of dialog
+                $mdDialog.show(
+                        $mdDialog.alert()
+                        .parent(angular.element(document.querySelector('#popupContainer')))
+                        .clickOutsideToClose(true)
+                        .title(title)
+                        .textContent(info)
+                        .ariaLabel('Alert Dialog Demo')
+                        .ok('Got it!')
+                        .targetEvent(info)
+                        );
+            };
+
+
+
             var encontro = false;
             $scope.buscar = -1;
             var self = this;
@@ -54,8 +75,7 @@
                 }
 
                 encontro = false;
-                $scope.showAlert("Error","Usuario o contraseña incorrecto");
-
+                $scope.showAlert("Error","Usuario o contraseña incorrecta")
             };
 
             $scope.validar = function () {
