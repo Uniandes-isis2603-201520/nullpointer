@@ -100,8 +100,14 @@ public class EventoLogic implements IEventoLogic {
         LOGGER.log(Level.INFO, "Termina proceso de borrar evento con id={0}", id);
     }
 
+    /**
+     * Metodo para obtener los dias
+     * @param eventoId el id del evento
+     * @return dias del evento
+     * @throws BusinessLogicException 
+     */
     @Override
-    public List<DiaEntity> getDias(Long eventoId) throws Exception {
+    public List<DiaEntity> getDias(Long eventoId) throws BusinessLogicException {
         return getEvento(eventoId).getDias();
     }
 
