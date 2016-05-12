@@ -67,7 +67,7 @@ public class EventoResource {
      */
     @GET
     @Path("{id}/get")
-    public EventoDTO getEvento(@PathParam("id") Long id) throws TripulatorLogicException, BusinessLogicException {
+    public EventoDTO getEvento(@PathParam("id") Long id) throws BusinessLogicException {
         return EventoConverter.fullEntity2DTO(eventoLogic.getEvento(id));
     }
 
@@ -83,16 +83,14 @@ public class EventoResource {
     @GET
     public List<EventoDTO> getEventoCiudadFecha(@PathParam("idViajero") Long idV,
                                                 @PathParam("idItinerario") Long idI,
-                                                @PathParam("idDia") Long idD) throws TripulatorLogicException, BusinessLogicException {
+                                                @PathParam("idDia") Long idD) throws BusinessLogicException {
         DiaEntity d = diaLogic.getDia(idV, idI, idD);
-        try{
+
         Date dia = d.getDate();
         String ciudad = d.getCiudad();
         List<EventoEntity> dtos = eventoLogic.getEventosCiudadFecha(ciudad, dia);
         return EventoConverter.listEntity2DTO(dtos);
-        }catch(Exception e){
-            throw new TripulatorLogicException(e.getMessage());
-        }
+
     }
 
     /**
@@ -124,11 +122,10 @@ public class EventoResource {
      */
     @PUT
     @Path("{id}/update")
-    public EventoDTO updateEvento(@PathParam("id") Long id, EventoDTO dto) throws TripulatorLogicException, BusinessLogicException {
+    public EventoDTO updateEvento(@PathParam("id") Long id, EventoDTO dto) throws TripulatorLogicException {
         LOGGER.log(Level.INFO, "Se ejecuta método updateEvento con id={0}", id);
         EventoEntity entity = EventoConverter.fullDTO2Entity(dto);
         entity.setId(id);
-        EventoEntity oldEntity = eventoLogic.getEvento(id);
         try {
             EventoEntity savedEvento = eventoLogic.updateEvento(entity);
             return EventoConverter.fullEntity2DTO(savedEvento);
