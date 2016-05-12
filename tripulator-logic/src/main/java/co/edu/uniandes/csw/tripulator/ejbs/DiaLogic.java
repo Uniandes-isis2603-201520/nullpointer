@@ -124,12 +124,15 @@ public class DiaLogic implements IDiaLogic {
     @Override
     public List<EventoEntity> replaceEventos(Long idViajero, Long idItinerario, Long idDia, List<EventoEntity>eventos) {
         DiaEntity dia = persistence.find(idItinerario, idDia);
+        dia.setEventos(eventos);
+        persistence.update(dia);
         List<EventoEntity> listaEventos = eventoPersistence.findAll();
         for (EventoEntity evento : listaEventos) {
             if (eventos.contains(evento)) {
                     List<DiaEntity> dias = evento.getDias();
                     dias.add(dia);
                     evento.setDias(dias);
+                    eventoPersistence.update(evento);
             } else if (!evento.getDias().isEmpty() && evento.getDias().contains(dia)) {
                 evento.setDias(null);
             }
