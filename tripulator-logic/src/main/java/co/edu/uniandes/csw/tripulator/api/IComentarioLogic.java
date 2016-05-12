@@ -19,7 +19,7 @@ public interface IComentarioLogic {
 
     public ComentarioEntity getComentario(Long id) throws BusinessLogicException;
 
-    public ComentarioEntity createComentario(Long idEvento, ComentarioEntity entity) throws BusinessLogicException;
+    public ComentarioEntity createComentario(ComentarioEntity entity) throws BusinessLogicException;
     
     public ComentarioEntity updateComentario(ComentarioEntity entity) throws BusinessLogicException;
     

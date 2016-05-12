@@ -132,7 +132,7 @@ public class ComentarioLogicTest {
     public void createComentarioTest() {
         try {
             ComentarioEntity entity = factory.manufacturePojo(ComentarioEntity.class);
-            ComentarioEntity result = comentarioLogic.createComentario(evento.getId(), entity);
+            ComentarioEntity result = comentarioLogic.createComentario(entity);
 
             ComentarioEntity resp = em.find(ComentarioEntity.class, result.getId());
 
@@ -141,7 +141,7 @@ public class ComentarioLogicTest {
             Assert.assertEquals(entity.getStars(), resp.getStars());
             Assert.assertEquals(entity.getComment(), resp.getComment());
             Assert.assertEquals(entity.getDate(), resp.getDate());
-            //Assert.assertEquals(entity.getUserPhoto(), resp.getUserPhoto());
+            Assert.assertEquals(entity.getUserPhoto(), resp.getUserPhoto());
             //Assert.assertEquals(entity.getUser(), resp.getUser());
             Assert.assertEquals(entity.getEvento(), resp.getEvento());
         } catch (BusinessLogicException ex) {

@@ -104,27 +104,9 @@ public class ComentarioPersistenceTest {
         Assert.assertEquals(entity.getEvento(), newEntity.getEvento());
         Assert.assertEquals(entity.getComment(), newEntity.getComment());
         Assert.assertEquals(entity.getStars(), newEntity.getStars());
-        //Assert.assertEquals(entity.getUserPhoto(), newEntity.getUserPhoto());
+        Assert.assertEquals(entity.getUserPhoto(), newEntity.getUserPhoto());
         //Assert.assertEquals(entity.getUser(), newEntity.getUser());
         Assert.assertEquals(entity.getDate(), newEntity.getDate());
-    }
-    
-    @Test
-    public void deleteComentarioTest() {
-        ComentarioEntity entity = data.get(0);
-        comentarioPersistence.delete(entity.getId());
-        ComentarioEntity deleted = em.find(ComentarioEntity.class, entity.getId());
-        Assert.assertNull(deleted);
-    }
-
-    @Test
-    public void updateComentarioTest() {
-        ComentarioEntity entity = data.get(0);
-        ComentarioEntity newEntity = factory.manufacturePojo(ComentarioEntity.class);
-        newEntity.setId(entity.getId());
-        comentarioPersistence.update(newEntity);
-        ComentarioEntity resp = em.find(ComentarioEntity.class, entity.getId());
-        Assert.assertEquals(newEntity.getName(), resp.getName());
     }
 
 }

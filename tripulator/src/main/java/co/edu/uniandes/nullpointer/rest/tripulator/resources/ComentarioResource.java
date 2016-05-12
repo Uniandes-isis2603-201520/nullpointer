@@ -68,7 +68,7 @@ public class ComentarioResource {
     @POST
     public ComentarioDTO createComentario(@PathParam("idEvento")Long idEvento
             ,ComentarioDTO comentario) throws TripulatorLogicException, BusinessLogicException {
-        return ComentarioConverter.fullEntity2DTO(comentarioLogic.createComentario(idEvento, ComentarioConverter.fullDTO2Entity(comentario)));
+        return ComentarioConverter.fullEntity2DTO(comentarioLogic.createComentario(ComentarioConverter.fullDTO2Entity(comentario)));
     }
 
     /**
