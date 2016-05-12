@@ -7,6 +7,7 @@ package co.edu.uniandes.csw.tripulator.ejbs;
 
 import co.edu.uniandes.csw.tripulator.api.IComentarioLogic;
 import co.edu.uniandes.csw.tripulator.entities.ComentarioEntity;
+import co.edu.uniandes.csw.tripulator.entities.EventoEntity;
 import co.edu.uniandes.csw.tripulator.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.tripulator.persistence.ComentarioPersistence;
 
@@ -28,6 +29,9 @@ public class ComentarioLogic implements IComentarioLogic {
 
     @Inject
     private ComentarioPersistence persistence;
+    
+    @Inject
+    private EventoLogic eventoLogic;
 
     @Override
     public List<ComentarioEntity> getComentarios() {
@@ -50,12 +54,18 @@ public class ComentarioLogic implements IComentarioLogic {
     }
 
     @Override
-    public ComentarioEntity createComentario(ComentarioEntity entity) throws BusinessLogicException {
+    public ComentarioEntity createComentario(Long idEvento, ComentarioEntity entity) throws BusinessLogicException {
+        EventoEntity evento = eventoLogic.getEvento(idEvento);
+        if(evento == null)
+        {
+            throw new IllegalArgumentException ("No existe un eveto con el id indicado");
+        }
         logger.info("Inicia proceso de creación de comentario");
+        entity.setEvento(evento);
         if (!validateComentario(entity.getComment())) {
             throw new BusinessLogicException("El comentario es inválido");
         }
-        persistence.create(entity);
+        entity = persistence.create(entity);
         logger.info("Termina proceso de creación de comentario");
         return entity;
     }
