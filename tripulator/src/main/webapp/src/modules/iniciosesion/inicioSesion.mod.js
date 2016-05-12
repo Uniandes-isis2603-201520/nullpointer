@@ -1,4 +1,4 @@
 (function (ng){
-    var mod = ng.module("inicioSesionModule",['ngMaterial', "ui.bootstrap"]);
+    var mod = ng.module("inicioSesionModule",["ui.bootstrap", "ngMaterial"]);
       mod.constant("inicioContext", "api/viajeros");
-})(window.angular); 
+})(window.angular);
