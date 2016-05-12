@@ -4,14 +4,9 @@
     var mod = ng.module("inicioSesionModule");
 
     // crea el controlador con dependencias a $scope y a personService
-    mod.controller("inicioSesionCtrl", ["$scope","dataSvc", "InicioSesionService", "$state", "$stateParams", function ($scope,dataSvc ,svc, $state) {
-
-
-
-
-
-
-
+    mod.controller("inicioSesionCtrl", ["$scope", "dataSvc", "InicioSesionService", "$state",
+        "$stateParams", '$mdDialog','$mdMedia', function ($scope, dataSvc, svc, $state, $stateParams,
+        $mdDialog, $mdMedia) {
             var encontro = false;
             $scope.buscar = -1;
             var self = this;
@@ -52,14 +47,15 @@
                     if (($scope.currentRecord.email === $scope.loginRecord.email)
                             && ($scope.currentRecord.password === $scope.loginRecord.password))
                     {
-                        dataSvc.userId = $scope.currentRecord.id ;
+                        dataSvc.userId = $scope.currentRecord.id;
                         $state.go("viajero");
                         return;
                     }
                 }
 
                 encontro = false;
-                alert("Usuario o contraseña incorrectos");
+                $scope.showAlert("Error","Usuario o contraseña incorrecto");
+
             };
 
             $scope.validar = function () {
@@ -110,8 +106,40 @@
                     self.fetchRecords();
                 });
             };
+            
+                        // DIALOG WINDOWS CONSTRUCTION
+            $scope.showAlert = function (title, info) {
+                // Appending dialog to document.body to cover sidenav in docs app
+                // Modal dialogs should fully cover application
+                // to prevent interaction outside of dialog
+                $mdDialog.show(
+                        $mdDialog.alert()
+                        .parent(angular.element(document.querySelector('#popupContainer')))
+                        .clickOutsideToClose(true)
+                        .title(title)
+                        .textContent(info)
+                        .ariaLabel('Alert Dialog Demo')
+                        .ok('Got it!')
+                        .targetEvent(info)
+                        );
+            };
 
-           
+            $scope.showPrompt = function (ev) {
+                // Appending dialog to document.body to cover sidenav in docs app
+                var confirm = $mdDialog.prompt()
+                        .title('What would you name your trip?')
+                        .textContent('Please be a little creative.')
+                        .placeholder('trip name')
+                        .ariaLabel('Dog name')
+                        .targetEvent(ev)
+                        .ok('Okay!')
+                        .cancel('I\'m not ready yet');
+                $mdDialog.show(confirm).then(function (result) {
+                    var itinerario = getRelevantData(result);
+                    self.addItinerario(itinerario);
+                }, function () {
+                });
+            };
 
             this.fetchRecords();
 
