@@ -78,6 +78,13 @@
                     $scope.events.push(event);
                 }
                 $scope.editMode = false;
+                var newEvents = $scope.events;
+                return svc.replaceEvents(dataSvc.userId, dataSvc.tripId, dataSvc.dayId, newEvents).then(function (response) {
+                    $scope.events = response.data;
+                    console.log(response.data);
+                    $scope.currentEvent = {"id": undefined};
+                    return response;
+                }, responseError); 
             };
             
             $scope.editEvent = function (event) {
