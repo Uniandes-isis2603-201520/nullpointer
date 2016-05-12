@@ -13,7 +13,7 @@
             <div class="timeline-panel">
                 <div class="timeline-heading">
                     <h4 class="timeline-title">{{event.title}}</h4>
-                    <h5>{{event.start}} - {{event.end}}</h5>
+                    <h5>{{event.start | date: 'mediumTime'}} - {{event.end | date: 'mediumTime'}}</h5>
                 </div>
                 <div class="timeline-body">
                     <p>{{event.description}}</p>
@@ -23,8 +23,8 @@
                             <i class="glyphicon glyphicon-cog"></i> <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu" role="menu">
-                            <li ng-click="editEvent(event)"><a>Edit</a></li>
-                            <li ng-click="deleteEvent(event)"><a>Delete</a></li>
+                            <li id="{{$index}}-edit" ng-click="editEvent(event)"><a>Edit</a></li>
+                            <li id="{{$index}}-delete" ng-click="deleteEvent(event)"><a>Delete</a></li>
                         </ul>
                     </div>
                 </div>
@@ -36,12 +36,6 @@
 <!-- Creación de un evento -->
 <div ng-show="editMode" class="col-xs-offset-1 col-md-9 well">
     <form novalidate name="form" role="form" ng-submit="saveEvent()">
-        <alert ng-messages="form.$error" type="danger" close="" ng-hide="!form.$error.required">
-            <div ng-message="required">
-                Please fill out all the fields.
-            </div>
-            <br />
-        </alert>
         <fieldset>
             <input id="id" class="form-control" type="hidden" ng-model="currentEvent.id"/>
             <div class="form-group col-md-12" >

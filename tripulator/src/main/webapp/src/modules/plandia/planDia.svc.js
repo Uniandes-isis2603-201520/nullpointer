@@ -26,20 +26,6 @@
             };
             
             /**
-             * Si se está creando un día sin id, se hace un POST para crear la nueva instancia
-             * Si el evento que se está creando ya tiene id, se hace PUT para actualizar ese evento.
-             * @param {type} currentRecord
-             * @returns {unresolved}
-             */
-            this.saveRecord = function (idViajero, idItinerario, currentRecord) {
-                if (currentRecord.id) {
-                    return $http.put(context + "/" + idViajero + "/itinerarios" + idItinerario + "/dias/" + currentRecord.id, currentRecord);
-                } else {
-                    return $http.post(context + "/" + idViajero + "/itinerarios" + idItinerario + "/dias", currentRecord);
-                }
-            };
-            
-            /**
              * Se hace un una petición DELETE para eliminar el día indicado.
              * @param {type} id
              * @returns {unresolved}
@@ -68,7 +54,7 @@
              * @returns {unresolved}
              */
             this.getEvent = function(idViajero, idItinerario, idDia, idEvento){
-               return $http.get(context + "/" + idViajero + "/itinerarios/" + idItinerario + "/dias/" + idDia + "/eventos/" + idEvento);
+                return $http.get(context + "/" + idViajero + "/itinerarios/" + idItinerario + "/dias/" + idDia + "/eventos/" + idEvento);
             };
             
             /**
@@ -92,7 +78,7 @@
              * @returns {unresolved}
              */
             this.removeEvent = function(idViajero, idItinerario, idDia, idEvento){
-                return $http.delete(context + "/" + idViajero + "/itinerarios/" + idItinerario + "/dias/" + idDia + "/eventos/" + idEvento);
+                return $http.delete(context + "/" + idViajero + "/itinerarios/" + idItinerario + "/dias/" + idDia + "/eventos/" + idEvento + "/delete");
             };
             
             /**
@@ -104,17 +90,7 @@
              * @returns {unresolved}
              */
             this.createEvent = function(idViajero, idItinerario, idDia, event){
-                $http.post("/eventos", event);
-                return $http.post(context + "/" + idViajero + "/itinerarios/" + idItinerario + "/dias/" + idDia + "/eventos/" + event.id);
-            };
-            
-            /**
-             * Actualiza un evento ya existente mediante un PUT.
-             * @param {type} event
-             * @returns {unresolved}
-             */
-            this.updateEvent = function(event){
-                return $http.put("/eventos/" + event.id, event);
+                return $http.post(context + "/" + idViajero + "/itinerarios/" + idItinerario + "/dias/" + idDia + "/eventos", event);
             };
     }]);
 
